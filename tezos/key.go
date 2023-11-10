@@ -14,7 +14,7 @@ import (
 	"crypto/elliptic"
 	"crypto/rand"
 
-	"mavrykdynamics/tzgo/base58"
+	"github.com/mavryk-network/tzgo/base58"
 
 	"github.com/decred/dcrd/dcrec/secp256k1/v4"
 	"golang.org/x/crypto/blake2b"

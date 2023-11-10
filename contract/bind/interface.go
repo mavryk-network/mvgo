@@ -2,10 +2,11 @@ package bind
 
 import (
 	"context"
-	"mavrykdynamics/tzgo/contract"
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/rpc"
-	"mavrykdynamics/tzgo/tezos"
+
+	"github.com/mavryk-network/tzgo/contract"
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/rpc"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 type Contract interface {

@@ -8,8 +8,9 @@ package base58_test
 import (
 	"bytes"
 	"encoding/hex"
-	"mavrykdynamics/tzgo/base58"
 	"testing"
+
+	"github.com/mavryk-network/tzgo/base58"
 )
 
 var stringTests = []struct {

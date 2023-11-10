@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 type PrimUnmarshaler interface {

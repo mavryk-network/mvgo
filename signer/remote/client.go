@@ -7,10 +7,10 @@ import (
 	"context"
 	"net/http"
 
-	"mavrykdynamics/tzgo/codec"
-	"mavrykdynamics/tzgo/rpc"
-	"mavrykdynamics/tzgo/signer"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/codec"
+	"github.com/mavryk-network/tzgo/rpc"
+	"github.com/mavryk-network/tzgo/signer"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 var _ signer.Signer = (*RemoteSigner)(nil)

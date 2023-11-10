@@ -7,8 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // Ensure SmartRollup types implement the TypedOperation interface.

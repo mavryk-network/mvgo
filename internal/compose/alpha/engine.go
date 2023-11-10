@@ -4,7 +4,7 @@
 package alpha
 
 import (
-	"mavrykdynamics/tzgo/internal/compose"
+	"github.com/mavryk-network/tzgo/internal/compose"
 )
 
 var (

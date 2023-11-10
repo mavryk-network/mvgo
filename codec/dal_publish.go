@@ -8,7 +8,7 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // DalPublishSlotHeader represents "Dal_publish_slot_header" operation

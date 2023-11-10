@@ -4,7 +4,7 @@
 package rpc
 
 import (
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // Ensure Ballot implements the TypedOperation interface.

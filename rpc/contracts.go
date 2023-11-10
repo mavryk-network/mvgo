@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // UnparsingMode defines the way types and values are represented in Micheline script

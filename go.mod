@@ -1,4 +1,4 @@
-module mavrykdynamics/tzgo
+module github.com/mavryk-network/tzgo
 
 go 1.18
 

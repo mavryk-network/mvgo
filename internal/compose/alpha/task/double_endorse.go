@@ -7,12 +7,12 @@ import (
 	"crypto/rand"
 	"fmt"
 
-	"mavrykdynamics/tzgo/codec"
-	"mavrykdynamics/tzgo/internal/compose"
-	"mavrykdynamics/tzgo/internal/compose/alpha"
-	"mavrykdynamics/tzgo/rpc"
-	"mavrykdynamics/tzgo/signer"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/codec"
+	"github.com/mavryk-network/tzgo/internal/compose"
+	"github.com/mavryk-network/tzgo/internal/compose/alpha"
+	"github.com/mavryk-network/tzgo/rpc"
+	"github.com/mavryk-network/tzgo/signer"
+	"github.com/mavryk-network/tzgo/tezos"
 
 	"github.com/pkg/errors"
 )

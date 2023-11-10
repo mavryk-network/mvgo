@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"mavrykdynamics/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/micheline"
 )
 
 type Entrypoint struct {

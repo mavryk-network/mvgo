@@ -11,7 +11,7 @@ import (
 	"io"
 	"strconv"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 type Script struct {

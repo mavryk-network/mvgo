@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // Delegate holds information about an active delegate

@@ -12,10 +12,10 @@ import (
 	"strconv"
 	"strings"
 
-	"mavrykdynamics/tzgo/contract/bind"
-	"mavrykdynamics/tzgo/internal/compose"
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/contract/bind"
+	"github.com/mavryk-network/tzgo/internal/compose"
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/tezos"
 
 	"github.com/pkg/errors"
 )

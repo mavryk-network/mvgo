@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // Voter holds information about a vote listing

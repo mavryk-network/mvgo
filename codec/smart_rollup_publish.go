@@ -8,7 +8,7 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // SmartRollupPublish represents "smart_rollup_publish" operation

@@ -13,11 +13,11 @@ import (
 	"strings"
 	"time"
 
-	"mavrykdynamics/tzgo/internal/compose"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/internal/compose"
+	"github.com/mavryk-network/tzgo/tezos"
 
-	_ "mavrykdynamics/tzgo/internal/compose/alpha"
-	_ "mavrykdynamics/tzgo/internal/compose/alpha/task"
+	_ "github.com/mavryk-network/tzgo/internal/compose/alpha"
+	_ "github.com/mavryk-network/tzgo/internal/compose/alpha/task"
 )
 
 var (

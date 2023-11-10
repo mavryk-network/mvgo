@@ -19,11 +19,11 @@ import (
 	"strconv"
 	"strings"
 
-	"mavrykdynamics/tzgo/codec"
-	"mavrykdynamics/tzgo/rpc"
-	"mavrykdynamics/tzgo/signer"
-	"mavrykdynamics/tzgo/signer/remote"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/codec"
+	"github.com/mavryk-network/tzgo/rpc"
+	"github.com/mavryk-network/tzgo/signer"
+	"github.com/mavryk-network/tzgo/signer/remote"
+	"github.com/mavryk-network/tzgo/tezos"
 
 	"github.com/echa/log"
 )

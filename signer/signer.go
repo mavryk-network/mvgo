@@ -6,8 +6,8 @@ package signer
 import (
 	"context"
 
-	"mavrykdynamics/tzgo/codec"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/codec"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 type Signer interface {

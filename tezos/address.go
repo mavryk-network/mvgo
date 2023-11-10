@@ -9,7 +9,7 @@ import (
 	"io"
 	"strings"
 
-	"mavrykdynamics/tzgo/base58"
+	"github.com/mavryk-network/tzgo/base58"
 )
 
 var (

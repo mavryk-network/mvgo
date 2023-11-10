@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // SmartRollupTimeout represents "smart_rollup_timeout" operation

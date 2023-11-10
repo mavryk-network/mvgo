@@ -4,7 +4,7 @@
 package micheline
 
 import (
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // Wraps ticket value type into type structure that is compatible

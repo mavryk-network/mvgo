@@ -4,7 +4,7 @@
 package micheline
 
 import (
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 type ConstantDict map[string]Prim

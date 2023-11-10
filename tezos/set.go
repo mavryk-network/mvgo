@@ -4,7 +4,7 @@
 package tezos
 
 import (
-	"mavrykdynamics/tzgo/hash"
+	"github.com/mavryk-network/tzgo/hash"
 )
 
 type AddressSet struct {

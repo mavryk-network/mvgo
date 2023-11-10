@@ -7,7 +7,7 @@ import (
 	"math/big"
 	"sort"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 var (

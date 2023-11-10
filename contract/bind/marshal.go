@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"time"
 
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/tezos"
 
 	"github.com/pkg/errors"
 )

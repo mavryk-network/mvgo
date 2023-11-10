@@ -8,7 +8,7 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // DoubleEndorsementEvidence represents "double_endorsement_evidence" operation

@@ -7,8 +7,8 @@ import (
 	"bytes"
 	"strconv"
 
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // Transaction represents "transaction" operation

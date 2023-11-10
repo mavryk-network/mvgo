@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"time"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // BlockHeader represents a Tenderbake compatible block header

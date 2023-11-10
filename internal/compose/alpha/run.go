@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"mavrykdynamics/tzgo/internal/compose"
+	"github.com/mavryk-network/tzgo/internal/compose"
 )
 
 // 1 load yaml file

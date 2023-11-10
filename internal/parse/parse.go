@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"mavrykdynamics/tzgo/contract/ast"
-	"mavrykdynamics/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/contract/ast"
+	"github.com/mavryk-network/tzgo/micheline"
 
 	"github.com/pkg/errors"
 )

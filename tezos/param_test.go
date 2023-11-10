@@ -3,8 +3,8 @@ package tezos_test
 import (
 	"testing"
 
-	"mavrykdynamics/tzgo/rpc"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/rpc"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 type (

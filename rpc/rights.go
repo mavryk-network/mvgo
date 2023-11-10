@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"time"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // BakingRight holds information about the right to bake a specific Tezos block.

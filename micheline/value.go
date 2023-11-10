@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"time"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 const (

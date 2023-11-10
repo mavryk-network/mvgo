@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // SmartRollupExecuteOutboxMessage represents "smart_rollup_execute_outbox_message" operation

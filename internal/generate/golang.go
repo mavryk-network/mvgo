@@ -5,7 +5,7 @@ import (
 	"strings"
 	"text/template"
 
-	"mavrykdynamics/tzgo/contract/ast"
+	"github.com/mavryk-network/tzgo/contract/ast"
 
 	"github.com/iancoleman/strcase"
 )

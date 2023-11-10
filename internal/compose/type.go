@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"time"
 
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 func ParseValue(typ micheline.OpCode, value string) (any, error) {

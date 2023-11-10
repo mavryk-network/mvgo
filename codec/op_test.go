@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 func asTime(s string) time.Time {

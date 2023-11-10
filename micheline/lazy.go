@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 type LazyKind string

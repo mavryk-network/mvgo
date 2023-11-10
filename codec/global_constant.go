@@ -8,8 +8,8 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // RegisterGlobalConstant represents "register_global_constant" operation

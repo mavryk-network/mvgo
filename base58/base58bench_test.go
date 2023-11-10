@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"testing"
 
-	"mavrykdynamics/tzgo/base58"
+	"github.com/mavryk-network/tzgo/base58"
 )
 
 var (

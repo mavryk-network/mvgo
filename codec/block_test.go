@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"testing"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 func TestBlock(t *testing.T) {

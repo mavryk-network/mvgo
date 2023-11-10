@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"time"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // Constants represents only a limited subset of Tezos chain configuration params

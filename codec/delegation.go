@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // Delegation represents "delegation" operation

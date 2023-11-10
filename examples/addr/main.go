@@ -15,7 +15,7 @@ import (
 	"log"
 	"os"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 var (

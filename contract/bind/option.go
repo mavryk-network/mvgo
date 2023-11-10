@@ -2,7 +2,8 @@ package bind
 
 import (
 	"fmt"
-	"mavrykdynamics/tzgo/micheline"
+
+	"github.com/mavryk-network/tzgo/micheline"
 
 	"github.com/pkg/errors"
 )

@@ -8,10 +8,10 @@ import (
 	"strconv"
 	"time"
 
-	"mavrykdynamics/tzgo/codec"
-	"mavrykdynamics/tzgo/internal/compose"
-	"mavrykdynamics/tzgo/internal/compose/alpha"
-	"mavrykdynamics/tzgo/rpc"
+	"github.com/mavryk-network/tzgo/codec"
+	"github.com/mavryk-network/tzgo/internal/compose"
+	"github.com/mavryk-network/tzgo/internal/compose/alpha"
+	"github.com/mavryk-network/tzgo/rpc"
 
 	"github.com/pkg/errors"
 )

@@ -4,7 +4,7 @@
 package main
 
 import (
-	"mavrykdynamics/tzgo/rpc"
+	"github.com/mavryk-network/tzgo/rpc"
 
 	logpkg "github.com/echa/log"
 )

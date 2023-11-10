@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // SmartRollupOriginate represents "smart_rollup_originate" operation

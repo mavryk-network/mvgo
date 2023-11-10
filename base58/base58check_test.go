@@ -8,7 +8,7 @@ package base58_test
 import (
 	"testing"
 
-	"mavrykdynamics/tzgo/base58"
+	"github.com/mavryk-network/tzgo/base58"
 )
 
 var checkEncodingStringTests = []struct {

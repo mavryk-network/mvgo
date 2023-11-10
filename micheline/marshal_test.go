@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 type marshalTest struct {

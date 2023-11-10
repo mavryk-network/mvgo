@@ -2,10 +2,11 @@ package bind
 
 import (
 	"math/big"
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/tezos"
 	"reflect"
 	"testing"
+
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/tezos"
 
 	"github.com/stretchr/testify/require"
 )

@@ -8,10 +8,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"mavrykdynamics/tzgo/codec"
-	"mavrykdynamics/tzgo/micheline"
-	"mavrykdynamics/tzgo/rpc"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/codec"
+	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/tzgo/rpc"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // Represents a generic FA1 (tzip5) or FA1.2 (tzip7) token

@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 // ActivateAccount represents "activate_account" operation

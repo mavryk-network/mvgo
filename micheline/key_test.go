@@ -10,7 +10,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 type keyTest struct {

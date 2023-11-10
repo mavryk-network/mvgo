@@ -29,7 +29,7 @@ import (
 	"strings"
 	"syscall"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 
 	"golang.org/x/term"
 )

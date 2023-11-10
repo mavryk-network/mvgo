@@ -15,8 +15,8 @@ import (
 	"os"
 	"strings"
 
-	"mavrykdynamics/tzgo/signer"
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/signer"
+	"github.com/mavryk-network/tzgo/tezos"
 
 	"github.com/echa/log"
 )

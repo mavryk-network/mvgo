@@ -10,7 +10,7 @@ import (
 	"io"
 	"time"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 var ErrMonitorClosed = errors.New("monitor closed")

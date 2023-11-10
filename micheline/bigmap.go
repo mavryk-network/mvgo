@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"mavrykdynamics/tzgo/tezos"
+	"github.com/mavryk-network/tzgo/tezos"
 )
 
 var BigmapRefType = Prim{

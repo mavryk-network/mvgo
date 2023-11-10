@@ -1,6 +1,6 @@
 package parse
 
-import "mavrykdynamics/tzgo/contract/ast"
+import "github.com/mavryk-network/tzgo/contract/ast"
 
 type FixupConfig map[string]FixupStruct
 
