@@ -150,9 +150,9 @@ var entryInfo = []entryTest{
 		}`,
 		Calls: []entryCallTest{
 			{
-				Params:     `{"entrypoint":"use","value":{"args":[{"args":[{"args":[{"args":[{"int":"3310026693359"},{"string":"tz1UqpNLoPRpAPKCTsgXyBRitTdpKJWEjVKT"}],"prim":"Pair"}],"prim":"Right"}],"prim":"Right"}],"prim":"Left"}}`,
+				Params:     `{"entrypoint":"use","value":{"args":[{"args":[{"args":[{"args":[{"int":"3310026693359"},{"string":"mv1VfJQdEF5VW4FmJZdQn4e5geSUfo5MzAoE"}],"prim":"Pair"}],"prim":"Right"}],"prim":"Right"}],"prim":"Left"}}`,
 				WantName:   `tezToTokenPayment`,
-				WantParams: `{"args":[{"int":"3310026693359"},{"string":"tz1UqpNLoPRpAPKCTsgXyBRitTdpKJWEjVKT"}],"prim":"Pair"}`,
+				WantParams: `{"args":[{"int":"3310026693359"},{"string":"mv1VfJQdEF5VW4FmJZdQn4e5geSUfo5MzAoE"}],"prim":"Pair"}`,
 			},
 		},
 	},

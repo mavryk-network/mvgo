@@ -14,11 +14,11 @@ const (
 	ID_HASH_PREFIX = "id"
 
 	// base58 prefixes for 20 byte hash magics
-	ED25519_PUBLIC_KEY_HASH_PREFIX   = "tz1"
-	SECP256K1_PUBLIC_KEY_HASH_PREFIX = "tz2"
-	P256_PUBLIC_KEY_HASH_PREFIX      = "tz3"
+	ED25519_PUBLIC_KEY_HASH_PREFIX   = "mv1"
+	SECP256K1_PUBLIC_KEY_HASH_PREFIX = "mv2"
+	P256_PUBLIC_KEY_HASH_PREFIX      = "mv3"
 	NOCURVE_PUBLIC_KEY_HASH_PREFIX   = "KT1"  // originated contract identifier
-	BLINDED_PUBLIC_KEY_HASH_PREFIX   = "btz1" // blinded tz1
+	BLINDED_PUBLIC_KEY_HASH_PREFIX   = "bmv1" // blinded mv1
 
 	// base58 prefixes for 32 byte hash magics
 	BLOCK_HASH_PREFIX               = "B"
@@ -68,7 +68,7 @@ const (
 	SAPLING_ADDRESS_PREFIX      = "zet1" // "\018\071\040\223" (* zet1(69) *) // 43 bytes
 
 	// base58 prefixes for rollup hash magics
-	BLS12_381_PUBLIC_KEY_HASH_PREFIX          = "tz4"
+	BLS12_381_PUBLIC_KEY_HASH_PREFIX          = "mv4"
 	GENERIC_AGGREGATE_SIGNATURE_PREFIX        = "asig"
 	BLS12_381_SIGNATURE_PREFIX                = "BLsig"
 	BLS12_381_PUBLIC_KEY_PREFIX               = "BLpk"
@@ -95,11 +95,11 @@ var (
 	ID_HASH_ID = []byte{0x99, 0x67} // "\153\103" (* id(30) *) cryptobox_public_key_hash
 
 	// 20 byte hash magics
-	ED25519_PUBLIC_KEY_HASH_ID   = []byte{0x06, 0xA1, 0x9F}       // "\006\161\159" (* tz1(36) *)
-	SECP256K1_PUBLIC_KEY_HASH_ID = []byte{0x06, 0xA1, 0xA1}       // "\006\161\161" (* tz2(36) *)
-	P256_PUBLIC_KEY_HASH_ID      = []byte{0x06, 0xA1, 0xA4}       // "\006\161\164" (* tz3(36) *)
+	ED25519_PUBLIC_KEY_HASH_ID   = []byte{0x05, 0xBA, 0xC4}       // "\005\186\196" (* mv1(36) *)
+	SECP256K1_PUBLIC_KEY_HASH_ID = []byte{0x05, 0xBA, 0xC7}       // "\005\186\199" (* mv2(36) *)
+	P256_PUBLIC_KEY_HASH_ID      = []byte{0x05, 0xBA, 0xC9}       // "\005\186\201" (* mv3(36) *)
 	NOCURVE_PUBLIC_KEY_HASH_ID   = []byte{0x02, 0x5A, 0x79}       // "\002\090\121" (* KT1(36) *)
-	BLINDED_PUBLIC_KEY_HASH_ID   = []byte{0x01, 0x02, 0x31, 0xDF} // "\002\090\121" (* btz1(37) *)
+	BLINDED_PUBLIC_KEY_HASH_ID   = []byte{0x01, 0x01, 0x4B, 0x04} // "\001\001\075\004" (* bmv1(37) *)
 
 	// 32 byte hash magics
 	BLOCK_HASH_ID               = []byte{0x01, 0x34}       // "\001\052" (* B(51) *)
@@ -150,7 +150,7 @@ var (
 	SAPLING_ADDRESS_ID      = []byte{0x12, 0x47, 0x28, 0xDF} // "\018\071\040\223" (* zet1(69) *)
 
 	// Rollup hash magics
-	BLS12_381_PUBLIC_KEY_HASH_ID          = []byte{6, 161, 166}             // "\006\161\166" tz4(36) 20
+	BLS12_381_PUBLIC_KEY_HASH_ID          = []byte{5, 186, 204}             // "\005\186\204" mv4(36) 20
 	GENERIC_AGGREGATE_SIGNATURE_ID        = []byte{2, 075, 234, 101}        // "\002\075\234\101" asig(96) 141
 	BLS12_381_SIGNATURE_ID                = []byte{40, 171, 64, 207}        // "\040\171\064\207" (* BLsig(96) *) 142
 	BLS12_381_PUBLIC_KEY_ID               = []byte{6, 149, 135, 204}        // "\006\149\135\204" (* BLpk(48) *) 76

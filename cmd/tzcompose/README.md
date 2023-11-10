@@ -80,7 +80,7 @@ TzCompose YAML files contain different sections to define accounts, variables an
 # Available engines: alpha
 version: <engine-version>
 
-# Specify alias names for tz1 user accounts and optional key id
+# Specify alias names for mv1 user accounts and optional key id
 accounts:
   - name: alias
     id: 1
@@ -118,7 +118,7 @@ On Flextes sandbox extract the private key with
 export TZCOMPOSE_BASE_KEY=`docker exec tezos_sandbox flextesa key-of-name alice | cut -f4 -d, | cut -f2 -d:`
 ```
 
-All other wallet keys are deterministically derived from this `base` key using BIP32. Child keys are identified by their numeric id. You can assign alias names to them in the `accounts` section of a compose file. All child accounts use Ed25519 keys (tz1 addresses).
+All other wallet keys are deterministically derived from this `base` key using BIP32. Child keys are identified by their numeric id. You can assign alias names to them in the `accounts` section of a compose file. All child accounts use Ed25519 keys (mv1 addresses).
 
 > TzCompose does not allow you to specify wallet keys in configuration files. This is a deliberate design choice to prevent accidental leakage of key material into code repositories.
 
@@ -130,8 +130,8 @@ TzCompose lets you define variables for common strings and addresses. You can us
 
 * `$base` - base account address
 * `$now` - current wall clock time in UTC (you can also add durations like `$now+5m`)
-* `$zero` - tz1 zero address (binary all zeros)
-* `$burn` - tz1 burn address
+* `$zero` - mv1 zero address (binary all zeros)
+* `$burn` - mv1 burn address
 
 ### Cloning Contracts
 
@@ -220,7 +220,7 @@ args:
   my_map:
     key_1: val_1 # map keys must be unique
     key_2: val_2
-    "tz1...,1": val # write Micheline pair keys as comma separated strings
+    "mv1...,1": val # write Micheline pair keys as comma separated strings
 
   # Null (or Unit) as well as empty optionals (None) are written as null
   option: null

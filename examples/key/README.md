@@ -9,7 +9,7 @@ Usage: key <cmd> [args]
 
 Commands
   gen <type>                           generate a new key of type
-                                         normal: edsk [tz1], spsk [tz2], p2sk [tz3]
+                                         normal: edsk [mv1], spsk [mv2], p2sk [mv3]
                                          encrypted: edesk, spesk, p2esk
   info <key>                           prints info about `key`
   encrypt <key>                        encrypt private `key`

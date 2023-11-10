@@ -227,7 +227,7 @@ func TestOp(t *testing.T) {
 				Branch: tezos.MustParseBlockHash("BL3e1ZpSS6s65BMZDkGnP7kVFuCAA5qfVeSnUmQiDn9NFKGDgNd"),
 				Contents: []Operation{
 					&Proposals{
-						Source: tezos.MustParseAddress("tz1PirbogVqfmBT9XCuYJ1KnDx4bnMSYfGru"),
+						Source: tezos.MustParseAddress("mv1QTAhUrM1iADHbMSNNpRJfo8PcpCBnxHoG"),
 						Period: 15,
 						Proposals: []tezos.ProtocolHash{
 							tezos.MustParseProtocolHash("PtHangz2aRngywmSRGGvrcTyMbbdpWdpFKuS4uMWxg2RaH9i1qx"),
@@ -245,7 +245,7 @@ func TestOp(t *testing.T) {
 				Branch: tezos.MustParseBlockHash("BL3e1ZpSS6s65BMZDkGnP7kVFuCAA5qfVeSnUmQiDn9NFKGDgNd"),
 				Contents: []Operation{
 					&Ballot{
-						Source:   tezos.MustParseAddress("tz1PirbogVqfmBT9XCuYJ1KnDx4bnMSYfGru"),
+						Source:   tezos.MustParseAddress("mv1QTAhUrM1iADHbMSNNpRJfo8PcpCBnxHoG"),
 						Period:   15,
 						Proposal: tezos.MustParseProtocolHash("PtHangz2aRngywmSRGGvrcTyMbbdpWdpFKuS4uMWxg2RaH9i1qx"),
 						Ballot:   tezos.BallotVoteYay,
@@ -262,7 +262,7 @@ func TestOp(t *testing.T) {
 				Branch: tezos.MustParseBlockHash("BL3e1ZpSS6s65BMZDkGnP7kVFuCAA5qfVeSnUmQiDn9NFKGDgNd"),
 				Contents: []Operation{
 					&ActivateAccount{
-						PublicKeyHash: tezos.MustParseAddress("tz1dF1xxjjb5FGuogUBb9ti8xqF3n3Jzd9uv"),
+						PublicKeyHash: tezos.MustParseAddress("mv1B5WF3QM738nYyq7MLzT3RQHc8YV9FTQwj"),
 						Secret:        asHex("2cd088062ac8665178c8379fac2d4ac52b9357a3"),
 					},
 				},
@@ -277,7 +277,7 @@ func TestOp(t *testing.T) {
 				Contents: []Operation{
 					&Reveal{
 						Manager: Manager{
-							Source:       tezos.MustParseAddress("tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S"),
+							Source:       tezos.MustParseAddress("mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt"),
 							Fee:          1000,
 							Counter:      2886593,
 							GasLimit:     1000,
@@ -298,13 +298,13 @@ func TestOp(t *testing.T) {
 				Contents: []Operation{
 					&Transaction{
 						Manager: Manager{
-							Source:       tezos.MustParseAddress("tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S"),
+							Source:       tezos.MustParseAddress("mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt"),
 							Fee:          1000,
 							Counter:      2886594,
 							GasLimit:     1420,
 							StorageLimit: 0,
 						},
-						Destination: tezos.MustParseAddress("tz1PirbogVqfmBT9XCuYJ1KnDx4bnMSYfGru"),
+						Destination: tezos.MustParseAddress("mv1QTAhUrM1iADHbMSNNpRJfo8PcpCBnxHoG"),
 						Amount:      1000000,
 					},
 				},
@@ -320,7 +320,7 @@ func TestOp(t *testing.T) {
 				Contents: []Operation{
 					&Origination{
 						Manager: Manager{
-							Source:       tezos.MustParseAddress("tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S"),
+							Source:       tezos.MustParseAddress("mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt"),
 							Fee:          1391,
 							Counter:      2886594,
 							GasLimit:     11137,
@@ -342,13 +342,13 @@ func TestOp(t *testing.T) {
 				Contents: []Operation{
 					&Delegation{
 						Manager: Manager{
-							Source:       tezos.MustParseAddress("tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S"),
+							Source:       tezos.MustParseAddress("mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt"),
 							Fee:          1000,
 							Counter:      2886594,
 							GasLimit:     1000,
 							StorageLimit: 0,
 						},
-						Delegate: tezos.MustParseAddress("tz1PirbogVqfmBT9XCuYJ1KnDx4bnMSYfGru"),
+						Delegate: tezos.MustParseAddress("mv1QTAhUrM1iADHbMSNNpRJfo8PcpCBnxHoG"),
 					},
 				},
 			},
@@ -363,7 +363,7 @@ func TestOp(t *testing.T) {
 				Contents: []Operation{
 					&Delegation{
 						Manager: Manager{
-							Source:       tezos.MustParseAddress("tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S"),
+							Source:       tezos.MustParseAddress("mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt"),
 							Fee:          1000,
 							Counter:      2886594,
 							GasLimit:     1000,
@@ -383,13 +383,13 @@ func TestOp(t *testing.T) {
 				Contents: []Operation{
 					&Delegation{
 						Manager: Manager{
-							Source:       tezos.MustParseAddress("tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S"),
+							Source:       tezos.MustParseAddress("mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt"),
 							Fee:          1000,
 							Counter:      2886594,
 							GasLimit:     1000,
 							StorageLimit: 0,
 						},
-						Delegate: tezos.MustParseAddress("tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S"),
+						Delegate: tezos.MustParseAddress("mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt"),
 					},
 				},
 			},
@@ -404,7 +404,7 @@ func TestOp(t *testing.T) {
 				Contents: []Operation{
 					&RegisterGlobalConstant{
 						Manager: Manager{
-							Source:       tezos.MustParseAddress("tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S"),
+							Source:       tezos.MustParseAddress("mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt"),
 							Fee:          1000,
 							Counter:      2886594,
 							GasLimit:     100000,
@@ -425,7 +425,7 @@ func TestOp(t *testing.T) {
 				Contents: []Operation{
 					&SetDepositsLimit{
 						Manager: Manager{
-							Source:       tezos.MustParseAddress("tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S"),
+							Source:       tezos.MustParseAddress("mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt"),
 							Fee:          1000,
 							Counter:      2886594,
 							GasLimit:     100000,
@@ -446,7 +446,7 @@ func TestOp(t *testing.T) {
 				Contents: []Operation{
 					&SetDepositsLimit{
 						Manager: Manager{
-							Source:       tezos.MustParseAddress("tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S"),
+							Source:       tezos.MustParseAddress("mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt"),
 							Fee:          1000,
 							Counter:      2886594,
 							GasLimit:     100000,
@@ -480,7 +480,7 @@ func TestOp(t *testing.T) {
 				Contents: []Operation{
 					&TransferTicket{
 						Manager: Manager{
-							Source:       tezos.MustParseAddress("tz1inuxjXxKhd9e4b97N1Wgz7DwmZSxFcDpM"),
+							Source:       tezos.MustParseAddress("mv1M6tdHBxHE5H5esPdgArKE4B3ixNNYaNmV"),
 							Fee:          835,
 							Counter:      252405,
 							GasLimit:     4354,
