@@ -219,7 +219,7 @@ There are multiple options to access decoded data:
 // - `map[string]interface{}` for records and maps
 // - `[]interface{}` for lists and sets
 // - `time.Time` for time values
-// - `string` stringified numbers for Nat, Int, Mutez
+// - `string` stringified numbers for Nat, Int, Mumav
 // - `bool` for Booleans
 // - `tezos.Address` for any string or bytes sequence that contains an address
 // - `tezos.Key` for keys

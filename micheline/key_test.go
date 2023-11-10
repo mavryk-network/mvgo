@@ -45,10 +45,10 @@ var keyInfo = []keyTest{
 		String: "200206",
 		Prim:   NewInt64(200206),
 	},
-	//   mutez
+	//   mumav
 	{
-		Name:   "mutez",
-		Type:   "mutez",
+		Name:   "mumav",
+		Type:   "mumav",
 		Hash:   tezos.MustParseExprHash("expruE5MGe6oKRLTiog6iBZzpztj5kCGzMEYBfWzsVebPnhn43ndYa"),
 		Hex:    "008eb818",
 		Value:  []byte(`"200206"`),

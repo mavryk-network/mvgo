@@ -454,7 +454,7 @@ func (p Prim) IsScalarType() bool {
 		T_SIGNATURE,
 		T_STRING,
 		T_BYTES,
-		T_MUTEZ,
+		T_MUMAV,
 		T_TIMESTAMP,
 		T_UNIT,
 		T_OPERATION,
@@ -561,7 +561,7 @@ func (p Prim) LooksLikeContainer() bool {
 // records.
 //
 // Works for simple and nested primitives but may mis-detect ambiguous
-// simple types like PrimInt (used for int, nat, timestamp, mutez), or PrimString
+// simple types like PrimInt (used for int, nat, timestamp, mumav), or PrimString
 // resp. PrimBytes. May also misdetect when optional types like T_OR, T_OPTION are
 // used and their values are nil since we cannot detect embedded type here.
 func (p Prim) HasSimilarChildTypes() bool {

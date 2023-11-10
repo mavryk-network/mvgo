@@ -318,7 +318,7 @@
                           { "prim": "NIL", "args": [ { "prim": "operation" } ] },
                           { "prim": "DIG", "args": [ { "int": "2" } ] },
                           { "prim": "CDR" },
-                          { "prim": "PUSH", "args": [ { "prim": "mutez" }, { "int": "0" } ] },
+                          { "prim": "PUSH", "args": [ { "prim": "mumav" }, { "int": "0" } ] },
                           { "prim": "DIG", "args": [ { "int": "3" } ] },
                           { "prim": "TRANSFER_TOKENS" },
                           { "prim": "CONS" }
@@ -360,7 +360,7 @@
                                 { "prim": "NIL", "args": [ { "prim": "operation" } ] },
                                 { "prim": "DIG", "args": [ { "int": "2" } ] },
                                 { "prim": "CDR" },
-                                { "prim": "PUSH", "args": [ { "prim": "mutez" }, { "int": "0" } ] },
+                                { "prim": "PUSH", "args": [ { "prim": "mumav" }, { "int": "0" } ] },
                                 { "prim": "DIG", "args": [ { "int": "3" } ] },
                                 { "prim": "TRANSFER_TOKENS" },
                                 { "prim": "CONS" }
@@ -391,7 +391,7 @@
                                 { "prim": "NIL", "args": [ { "prim": "operation" } ] },
                                 { "prim": "DIG", "args": [ { "int": "2" } ] },
                                 { "prim": "CDR" },
-                                { "prim": "PUSH", "args": [ { "prim": "mutez" }, { "int": "0" } ] },
+                                { "prim": "PUSH", "args": [ { "prim": "mumav" }, { "int": "0" } ] },
                                 { "prim": "DIG", "args": [ { "int": "3" } ] },
                                 { "prim": "TRANSFER_TOKENS" },
                                 { "prim": "CONS" }
@@ -419,7 +419,7 @@
                           { "prim": "NIL", "args": [ { "prim": "operation" } ] },
                           { "prim": "DIG", "args": [ { "int": "2" } ] },
                           { "prim": "CDR" },
-                          { "prim": "PUSH", "args": [ { "prim": "mutez" }, { "int": "0" } ] },
+                          { "prim": "PUSH", "args": [ { "prim": "mumav" }, { "int": "0" } ] },
                           { "prim": "DIG", "args": [ { "int": "3" } ] },
                           { "prim": "TRANSFER_TOKENS" },
                           { "prim": "CONS" }

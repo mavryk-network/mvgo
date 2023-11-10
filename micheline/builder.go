@@ -50,7 +50,7 @@ func NewZ(z tezos.Z) Prim {
 	return NewBig(new(big.Int).Set(z.Big()))
 }
 
-func NewMutez(n tezos.N) Prim {
+func NewMumav(n tezos.N) Prim {
 	return NewBig(big.NewInt(int64(n)))
 }
 

@@ -27,13 +27,13 @@
                     "annots": [
                       "%balance"
                     ],
-                    "prim": "mutez"
+                    "prim": "mumav"
                   },
                   {
                     "annots": [
                       "%to_sell"
                     ],
-                    "prim": "mutez"
+                    "prim": "mumav"
                   }
                 ],
                 "prim": "pair"
@@ -47,7 +47,7 @@
                 "annots": [
                   "%held_supply"
                 ],
-                "prim": "mutez"
+                "prim": "mumav"
               },
               {
                 "args": [
@@ -55,7 +55,7 @@
                     "annots": [
                       "%target_supply"
                     ],
-                    "prim": "mutez"
+                    "prim": "mumav"
                   },
                   {
                     "args": [
@@ -76,7 +76,7 @@
                             "annots": [
                               "%min_tx"
                             ],
-                            "prim": "mutez"
+                            "prim": "mumav"
                           },
                           {
                             "args": [

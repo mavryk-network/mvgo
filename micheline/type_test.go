@@ -41,11 +41,11 @@ var typedefTests = []typedefTest{
 		Spec: `{"annots": ["%bakerName"],"prim": "bytes"}`,
 		Want: `{"name":"bakerName","path":[],"type":"bytes"}`,
 	},
-	//   mutez
+	//   mumav
 	{
-		Name: "mutez",
-		Spec: `{"annots": ["%signup_fee"],"prim": "mutez"}`,
-		Want: `{"name":"signup_fee","path":[],"type":"mutez"}`,
+		Name: "mumav",
+		Spec: `{"annots": ["%signup_fee"],"prim": "mumav"}`,
+		Want: `{"name":"signup_fee","path":[],"type":"mumav"}`,
 	},
 	//   bool
 	{
@@ -187,8 +187,8 @@ var typedefTests = []typedefTest{
 	// right-hand pair tree
 	{
 		Name: "right_hand_pair_tree",
-		Spec: `{"args":[{"annots":["%tokenPool"],"prim":"nat"},{"args":[{"annots":["%xtzPool"],"prim":"mutez"},{"args":[{"annots":["%lqtTotal"],"prim":"nat"},{"args":[{"annots":["%tokenAddress"],"prim":"address"},{"annots":["%lqtAddress"],"prim":"address"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}`,
-		Want: `{"name":"","path":[],"type":"struct","args":[{"name":"tokenPool","path":[0],"type":"nat"},{"name":"xtzPool","path":[1,0],"type":"mutez"},{"name":"lqtTotal","path":[1,1,0],"type":"nat"},{"name":"tokenAddress","path":[1,1,1,0],"type":"address"},{"name":"lqtAddress","path":[1,1,1,1],"type":"address"}]}`,
+		Spec: `{"args":[{"annots":["%tokenPool"],"prim":"nat"},{"args":[{"annots":["%xtzPool"],"prim":"mumav"},{"args":[{"annots":["%lqtTotal"],"prim":"nat"},{"args":[{"annots":["%tokenAddress"],"prim":"address"},{"annots":["%lqtAddress"],"prim":"address"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}`,
+		Want: `{"name":"","path":[],"type":"struct","args":[{"name":"tokenPool","path":[0],"type":"nat"},{"name":"xtzPool","path":[1,0],"type":"mumav"},{"name":"lqtTotal","path":[1,1,0],"type":"nat"},{"name":"tokenAddress","path":[1,1,1,0],"type":"address"},{"name":"lqtAddress","path":[1,1,1,1],"type":"address"}]}`,
 	},
 }
 
@@ -305,7 +305,7 @@ var bigmapDetectTests = []bigmapDetectTest{
 	},
 	{
 		Name:   "TzTacos",
-		Type:   `{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"timestamp","annots":["%base_timestamp"]},{"prim":"nat","annots":["%curr_id"]}]},{"prim":"pair","args":[{"prim":"big_map","annots":["%ledger"],"args":[{"prim":"nat"},{"prim":"address"}]},{"prim":"big_map","annots":["%metadata"],"args":[{"prim":"string"},{"prim":"bytes"}]}]}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"big_map","annots":["%operators"],"args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]}]},{"prim":"unit"}]},{"prim":"mutez","annots":["%price"]}]},{"prim":"big_map","annots":["%token_metadata"],"args":[{"prim":"nat"},{"prim":"pair","args":[{"prim":"nat","annots":["%token_id"]},{"prim":"map","annots":["%token_info"],"args":[{"prim":"string"},{"prim":"bytes"}]}]}]}]}]}`,
+		Type:   `{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"timestamp","annots":["%base_timestamp"]},{"prim":"nat","annots":["%curr_id"]}]},{"prim":"pair","args":[{"prim":"big_map","annots":["%ledger"],"args":[{"prim":"nat"},{"prim":"address"}]},{"prim":"big_map","annots":["%metadata"],"args":[{"prim":"string"},{"prim":"bytes"}]}]}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"big_map","annots":["%operators"],"args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]}]},{"prim":"unit"}]},{"prim":"mumav","annots":["%price"]}]},{"prim":"big_map","annots":["%token_metadata"],"args":[{"prim":"nat"},{"prim":"pair","args":[{"prim":"nat","annots":["%token_id"]},{"prim":"map","annots":["%token_info"],"args":[{"prim":"string"},{"prim":"bytes"}]}]}]}]}]}`,
 		Value:  `{"prim":"Pair","args":[{"prim":"Pair","args":[{"prim":"Pair","args":[{"string":"2020-06-09T00:00:01Z"},{"int":"21224"}]},{"int":"808"},{"int":"809"}]},{"prim":"Pair","args":[{"int":"810"},{"int":"2122400"}]},{"int":"811"}]}`,
 		Expect: map[string]int64{"ledger": 808, "metadata": 809, "operators": 810, "token_metadata": 811},
 	},
@@ -519,9 +519,9 @@ var bigmapCompareTests = []bigmapTypeCompareTest{
 	{
 		Name:         "KT1VPz82qKWshaAAxDURmZfYQRmUY9WQRjLu_203763",
 		SrcKeyType:   `{"prim":"nat"}`,
-		SrcValueType: `{"prim":"pair","args":[{"prim":"bool"},{"prim":"pair","args":[{"prim":"address"},{"prim":"mutez"},{"prim":"mutez"},{"prim":"list","args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"},{"prim":"nat"}]}]},{"prim":"list","args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"},{"prim":"nat"}]}]}]},{"prim":"bool"}]}`,
+		SrcValueType: `{"prim":"pair","args":[{"prim":"bool"},{"prim":"pair","args":[{"prim":"address"},{"prim":"mumav"},{"prim":"mumav"},{"prim":"list","args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"},{"prim":"nat"}]}]},{"prim":"list","args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"},{"prim":"nat"}]}]}]},{"prim":"bool"}]}`,
 		DstKeyType:   `{"prim":"nat"}`,
-		DstValueType: `{"prim":"pair","args":[{"prim":"bool","annots":["%executed"]},{"prim":"pair","args":[{"prim":"pair","annots":["%proposal"],"args":[{"prim":"address","annots":["%user1"]},{"prim":"pair","args":[{"prim":"mutez","annots":["%mutez_amount1"]},{"prim":"pair","args":[{"prim":"mutez","annots":["%mutez_amount2"]},{"prim":"pair","args":[{"prim":"list","annots":["%tokens1"],"args":[{"prim":"pair","args":[{"prim":"address","annots":["%fa2"]},{"prim":"pair","args":[{"prim":"nat","annots":["%id"]},{"prim":"nat","annots":["%amount"]}]}]}]},{"prim":"list","annots":["%tokens2"],"args":[{"prim":"pair","args":[{"prim":"address","annots":["%fa2"]},{"prim":"pair","args":[{"prim":"nat","annots":["%id"]},{"prim":"nat","annots":["%amount"]}]}]}]}]}]}]}]},{"prim":"bool","annots":["%user1_accepted"]}]}]}`,
+		DstValueType: `{"prim":"pair","args":[{"prim":"bool","annots":["%executed"]},{"prim":"pair","args":[{"prim":"pair","annots":["%proposal"],"args":[{"prim":"address","annots":["%user1"]},{"prim":"pair","args":[{"prim":"mumav","annots":["%mumav_amount1"]},{"prim":"pair","args":[{"prim":"mumav","annots":["%mumav_amount2"]},{"prim":"pair","args":[{"prim":"list","annots":["%tokens1"],"args":[{"prim":"pair","args":[{"prim":"address","annots":["%fa2"]},{"prim":"pair","args":[{"prim":"nat","annots":["%id"]},{"prim":"nat","annots":["%amount"]}]}]}]},{"prim":"list","annots":["%tokens2"],"args":[{"prim":"pair","args":[{"prim":"address","annots":["%fa2"]},{"prim":"pair","args":[{"prim":"nat","annots":["%id"]},{"prim":"nat","annots":["%amount"]}]}]}]}]}]}]}]},{"prim":"bool","annots":["%user1_accepted"]}]}]}`,
 		Expect:       true,
 	},
 	{
@@ -535,9 +535,9 @@ var bigmapCompareTests = []bigmapTypeCompareTest{
 	{
 		Name:         "KT1LDM81PK3gg5QZ4wt6m5tHUC3PrdrXmYPf_238400 ",
 		SrcKeyType:   `{"prim":"nat"}`,
-		SrcValueType: `{"prim":"pair","args":[{"prim":"address"},{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"mutez"},{"prim":"nat"}]}`,
+		SrcValueType: `{"prim":"pair","args":[{"prim":"address"},{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"mumav"},{"prim":"nat"}]}`,
 		DstKeyType:   `{"prim":"nat"}`,
-		DstValueType: `{"prim":"pair","args":[{"prim":"address","annots":["%seller"]},{"prim":"pair","annots":["%sale_data"],"args":[{"prim":"pair","annots":["%sale_token"],"args":[{"prim":"address","annots":["%fa2_address"]},{"prim":"nat","annots":["%token_id"]}]},{"prim":"pair","args":[{"prim":"mutez","annots":["%price"]},{"prim":"nat","annots":["%amount"]}]}]}]}`,
+		DstValueType: `{"prim":"pair","args":[{"prim":"address","annots":["%seller"]},{"prim":"pair","annots":["%sale_data"],"args":[{"prim":"pair","annots":["%sale_token"],"args":[{"prim":"address","annots":["%fa2_address"]},{"prim":"nat","annots":["%token_id"]}]},{"prim":"pair","args":[{"prim":"mumav","annots":["%price"]},{"prim":"nat","annots":["%amount"]}]}]}]}`,
 		Expect:       true,
 	},
 	{
@@ -583,9 +583,9 @@ var bigmapCompareTests = []bigmapTypeCompareTest{
 	{
 		Name:         "KT1Nr4CLi7hY7QrZe8D4ar6uihpnr7nRtGJH_256939",
 		SrcKeyType:   `{"prim":"string"}`,
-		SrcValueType: `{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"string"},{"prim":"timestamp"}]},{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"nat"}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"nat"}]},{"prim":"nat"},{"prim":"option","args":[{"prim":"timestamp"}]},{"prim":"bool"}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"option","args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]}]},{"prim":"mutez"}]},{"prim":"string"},{"prim":"bool"}]},{"prim":"pair","args":[{"prim":"option","args":[{"prim":"timestamp"}]},{"prim":"bool"}]},{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"pair","args":[{"prim":"option","args":[{"prim":"timestamp"}]},{"prim":"list","args":[{"prim":"pair","args":[{"prim":"nat"},{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"timestamp"}]}]}]},{"prim":"option","args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]}]}]}`,
+		SrcValueType: `{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"string"},{"prim":"timestamp"}]},{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"nat"}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"nat"}]},{"prim":"nat"},{"prim":"option","args":[{"prim":"timestamp"}]},{"prim":"bool"}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"option","args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]}]},{"prim":"mumav"}]},{"prim":"string"},{"prim":"bool"}]},{"prim":"pair","args":[{"prim":"option","args":[{"prim":"timestamp"}]},{"prim":"bool"}]},{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"pair","args":[{"prim":"option","args":[{"prim":"timestamp"}]},{"prim":"list","args":[{"prim":"pair","args":[{"prim":"nat"},{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"timestamp"}]}]}]},{"prim":"option","args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]}]}]}`,
 		DstKeyType:   `{"prim":"string"}`,
-		DstValueType: `{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"string","annots":["%bid"]},{"prim":"timestamp","annots":["%challenge_time"]}]},{"prim":"pair","args":[{"prim":"pair","annots":["%challenged"],"args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"nat","annots":["%challenged_damage"]}]}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","annots":["%challenger"],"args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"nat","annots":["%challenger_damage"]}]},{"prim":"pair","args":[{"prim":"nat","annots":["%experience_gained"]},{"prim":"pair","args":[{"prim":"option","annots":["%finish_time"],"args":[{"prim":"timestamp"}]},{"prim":"bool","annots":["%finished"]}]}]}]}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"option","annots":["%looser"],"args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]}]},{"prim":"mutez","annots":["%loot"]}]},{"prim":"pair","args":[{"prim":"string","annots":["%mode"]},{"prim":"bool","annots":["%resolved"]}]}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"option","annots":["%start_time"],"args":[{"prim":"timestamp"}]},{"prim":"bool","annots":["%started"]}]},{"prim":"pair","args":[{"prim":"pair","annots":["%turn"],"args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"pair","args":[{"prim":"pair","annots":["%turns"],"args":[{"prim":"option","annots":["%latest"],"args":[{"prim":"timestamp"}]},{"prim":"list","annots":["%turns"],"args":[{"prim":"pair","args":[{"prim":"nat","annots":["%damage"]},{"prim":"pair","args":[{"prim":"pair","annots":["%hero"],"args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"timestamp","annots":["%timestamp"]}]}]}]}]},{"prim":"option","annots":["%victor"],"args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]}]}]}]}]}]}]}`,
+		DstValueType: `{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"string","annots":["%bid"]},{"prim":"timestamp","annots":["%challenge_time"]}]},{"prim":"pair","args":[{"prim":"pair","annots":["%challenged"],"args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"nat","annots":["%challenged_damage"]}]}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","annots":["%challenger"],"args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"nat","annots":["%challenger_damage"]}]},{"prim":"pair","args":[{"prim":"nat","annots":["%experience_gained"]},{"prim":"pair","args":[{"prim":"option","annots":["%finish_time"],"args":[{"prim":"timestamp"}]},{"prim":"bool","annots":["%finished"]}]}]}]}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"option","annots":["%looser"],"args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]}]},{"prim":"mumav","annots":["%loot"]}]},{"prim":"pair","args":[{"prim":"string","annots":["%mode"]},{"prim":"bool","annots":["%resolved"]}]}]},{"prim":"pair","args":[{"prim":"pair","args":[{"prim":"option","annots":["%start_time"],"args":[{"prim":"timestamp"}]},{"prim":"bool","annots":["%started"]}]},{"prim":"pair","args":[{"prim":"pair","annots":["%turn"],"args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"pair","args":[{"prim":"pair","annots":["%turns"],"args":[{"prim":"option","annots":["%latest"],"args":[{"prim":"timestamp"}]},{"prim":"list","annots":["%turns"],"args":[{"prim":"pair","args":[{"prim":"nat","annots":["%damage"]},{"prim":"pair","args":[{"prim":"pair","annots":["%hero"],"args":[{"prim":"address"},{"prim":"nat"}]},{"prim":"timestamp","annots":["%timestamp"]}]}]}]}]},{"prim":"option","annots":["%victor"],"args":[{"prim":"pair","args":[{"prim":"address"},{"prim":"nat"}]}]}]}]}]}]}]}`,
 		Expect:       true,
 	},
 	{

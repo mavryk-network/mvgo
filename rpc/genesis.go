@@ -267,7 +267,7 @@ func (b *bootstrap) DecodeCommitments() ([]*X2, error) {
 	c := make([]*X2, len(b.Commitments))
 	for i, v := range b.Commitments {
 		c[i] = &X2{}
-		// [ $Blinded public key hash, $mutez ]
+		// [ $Blinded public key hash, $mumav ]
 		pk := v[0]
 		addr, err := tezos.ParseAddress(pk)
 		if err != nil {

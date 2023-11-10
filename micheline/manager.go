@@ -157,7 +157,7 @@ func (s *Script) MigrateToBabylonSetDelegate(managerHash []byte) {
 func DO_ENTRY() Prim {
 	return NewSeq(
 		// # Assert no token was sent:
-		NewCode(I_PUSH, NewCode(T_MUTEZ), NewInt64(0)), // PUSH mutez 0 ;
+		NewCode(I_PUSH, NewCode(T_MUMAV), NewInt64(0)), // PUSH mumav 0 ;
 		NewCode(I_AMOUNT), // AMOUNT ;
 		ASSERT_CMPEQ(),    // ASSERT_CMPEQ ;
 		// # Assert that the sender is the manager
@@ -188,7 +188,7 @@ func DO_ENTRY() Prim {
 func DELEGATE_ENTRY() Prim {
 	return NewSeq(
 		// # Assert no token was sent:
-		NewCode(I_PUSH, NewCode(T_MUTEZ), NewInt64(0)), // PUSH mutez 0 ;
+		NewCode(I_PUSH, NewCode(T_MUMAV), NewInt64(0)), // PUSH mumav 0 ;
 		NewCode(I_AMOUNT), // AMOUNT ;
 		ASSERT_CMPEQ(),    // ASSERT_CMPEQ ;
 		// # Assert that the sender is the manager

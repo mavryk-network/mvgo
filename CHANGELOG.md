@@ -229,7 +229,7 @@ Other changes
 * Add noview token type
 * Add fa2 balance helper
 * Make call args chainable
-* Add mutez prim helper
+* Add mumav prim helper
 * Support address add/list for remote signer
 * Fix merging params
 * Fix min fee, add min-fee helper

@@ -175,7 +175,7 @@ func (p Prim) matchOpCode(oc OpCode) bool {
 
 	case PrimInt:
 		switch oc {
-		case T_INT, T_NAT, T_MUTEZ, T_TIMESTAMP, T_BIG_MAP, T_OR, T_OPTION, T_SAPLING_STATE,
+		case T_INT, T_NAT, T_MUMAV, T_TIMESTAMP, T_BIG_MAP, T_OR, T_OPTION, T_SAPLING_STATE,
 			T_BLS12_381_G1, T_BLS12_381_G2, T_BLS12_381_FR, // maybe stored as bytes
 			T_TICKET:
 			// accept references to bigmap and sapling states

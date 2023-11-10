@@ -74,13 +74,13 @@
                       "annots": [
                         "%vested_balance"
                       ],
-                      "prim": "mutez"
+                      "prim": "mumav"
                     },
                     {
                       "annots": [
                         "%vesting_increment"
                       ],
-                      "prim": "mutez"
+                      "prim": "mumav"
                     }
                   ],
                   "prim": "pair"

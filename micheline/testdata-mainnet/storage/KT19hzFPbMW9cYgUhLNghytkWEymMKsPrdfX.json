@@ -65,7 +65,7 @@
                                           "annots": [
                                             "%claim_pack_price"
                                           ],
-                                          "prim": "mutez"
+                                          "prim": "mumav"
                                         },
                                         {
                                           "annots": [
@@ -115,7 +115,7 @@
                                           "annots": [
                                             "%claiming_price"
                                           ],
-                                          "prim": "mutez"
+                                          "prim": "mumav"
                                         }
                                       ],
                                       "prim": "pair"
@@ -338,7 +338,7 @@
                                       "annots": [
                                         "%payout"
                                       ],
-                                      "prim": "mutez"
+                                      "prim": "mumav"
                                     },
                                     {
                                       "annots": [
@@ -415,7 +415,7 @@
                                                   "annots": [
                                                     "%high"
                                                   ],
-                                                  "prim": "mutez"
+                                                  "prim": "mumav"
                                                 }
                                               ],
                                               "prim": "pair"
@@ -426,13 +426,13 @@
                                                   "annots": [
                                                     "%last"
                                                   ],
-                                                  "prim": "mutez"
+                                                  "prim": "mumav"
                                                 },
                                                 {
                                                   "annots": [
                                                     "%low"
                                                   ],
-                                                  "prim": "mutez"
+                                                  "prim": "mumav"
                                                 }
                                               ],
                                               "prim": "pair"
@@ -552,7 +552,7 @@
                                   "annots": [
                                     "%upgrade_cost"
                                   ],
-                                  "prim": "mutez"
+                                  "prim": "mumav"
                                 },
                                 {
                                   "annots": [
@@ -596,7 +596,7 @@
                                   "annots": [
                                     "%sales"
                                   ],
-                                  "prim": "mutez"
+                                  "prim": "mumav"
                                 }
                               ],
                               "prim": "pair"
@@ -607,7 +607,7 @@
                                   "annots": [
                                     "%spent"
                                   ],
-                                  "prim": "mutez"
+                                  "prim": "mumav"
                                 },
                                 {
                                   "annots": [
@@ -689,7 +689,7 @@
                                           "annots": [
                                             "%price"
                                           ],
-                                          "prim": "mutez"
+                                          "prim": "mumav"
                                         }
                                       ],
                                       "prim": "pair"
@@ -792,7 +792,7 @@
                       "annots": [
                         "%treasure"
                       ],
-                      "prim": "mutez"
+                      "prim": "mumav"
                     }
                   ],
                   "prim": "pair"

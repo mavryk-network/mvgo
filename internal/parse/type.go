@@ -26,7 +26,7 @@ func (p *parser) buildTypeStructs(t *m.Typedef) (*ast.Struct, error) {
 			m.T_UNIT,
 			m.T_TIMESTAMP,
 			m.T_ADDRESS,
-			m.T_MUTEZ,
+			m.T_MUMAV,
 			m.T_KEY,
 			m.T_KEY_HASH,
 			m.T_SIGNATURE,

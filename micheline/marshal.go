@@ -296,7 +296,7 @@ func (t Typedef) marshal(v any, optimized bool, depth int) (Prim, error) {
 					return NewInt64(int64(val)), nil
 				}
 				return NewString(time.Unix(int64(val), 0).UTC().Format(time.RFC3339)), nil
-			case T_INT, T_NAT, T_MUTEZ:
+			case T_INT, T_NAT, T_MUMAV:
 				return NewInt64(int64(val)), nil
 			default:
 				return InvalidPrim, fmt.Errorf("unsupported type conversion %T to opcode %s for on field %s", v, t.Type, t.Name)
@@ -312,7 +312,7 @@ func (t Typedef) marshal(v any, optimized bool, depth int) (Prim, error) {
 					return NewInt64(val), nil
 				}
 				return NewString(time.Unix(val, 0).UTC().Format(time.RFC3339)), nil
-			case T_INT, T_NAT, T_MUTEZ:
+			case T_INT, T_NAT, T_MUMAV:
 				return NewInt64(val), nil
 			default:
 				return InvalidPrim, fmt.Errorf("unsupported type conversion %T to opcode %s on field %s", v, t.Type, t.Name)
@@ -361,7 +361,7 @@ func ParsePrim(typ Typedef, val string, optimized bool) (p Prim, err error) {
 		return
 	}
 	switch typ.OpCode() {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		i := big.NewInt(0)
 		err = i.UnmarshalText([]byte(val))
 		p = NewBig(i)

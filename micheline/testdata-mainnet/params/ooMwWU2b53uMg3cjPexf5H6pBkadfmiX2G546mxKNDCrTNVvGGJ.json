@@ -34,7 +34,7 @@
                       ]
                     },
                     {
-                      "prim": "mutez",
+                      "prim": "mumav",
                       "annots": [
                         "%transfer_amount"
                       ]

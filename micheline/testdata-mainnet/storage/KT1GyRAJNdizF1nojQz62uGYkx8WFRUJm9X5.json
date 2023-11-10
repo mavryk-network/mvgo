@@ -231,7 +231,7 @@
                               "annots": [
                                 "%collected_xtz_fees"
                               ],
-                              "prim": "mutez"
+                              "prim": "mumav"
                             }
                           ],
                           "prim": "pair"
@@ -857,7 +857,7 @@
                                 {
                                   "args": [
                                     {
-                                      "prim": "mutez"
+                                      "prim": "mumav"
                                     },
                                     {
                                       "prim": "address"
@@ -1237,7 +1237,7 @@
                                           "prim": "big_map"
                                         },
                                         {
-                                          "prim": "mutez"
+                                          "prim": "mumav"
                                         }
                                       ],
                                       "prim": "pair"
@@ -1814,7 +1814,7 @@
                                           "prim": "big_map"
                                         },
                                         {
-                                          "prim": "mutez"
+                                          "prim": "mumav"
                                         }
                                       ],
                                       "prim": "pair"

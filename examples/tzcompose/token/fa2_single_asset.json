@@ -288,7 +288,7 @@
                           { "prim": "DIG", "args": [ { "int": "3" } ] },
                           { "prim": "DROP" }, { "prim": "SWAP" },
                           { "prim": "PUSH",
-                            "args": [ { "prim": "mutez" }, { "int": "0" } ] },
+                            "args": [ { "prim": "mumav" }, { "int": "0" } ] },
                           { "prim": "DIG", "args": [ { "int": "2" } ] },
                           { "prim": "TRANSFER_TOKENS" }, { "prim": "SWAP" },
                           { "prim": "NIL",

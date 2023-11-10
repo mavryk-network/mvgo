@@ -37,10 +37,10 @@ var marshalTests = []marshalTest{
 		Optimized: false,
 		Want:      `{"int":"1"}`,
 	},
-	//   mutez
+	//   mumav
 	{
-		Name:      "mutez",
-		Spec:      `{"annots": ["%money"],"prim": "mutez"}`,
+		Name:      "mumav",
+		Spec:      `{"annots": ["%money"],"prim": "mumav"}`,
 		Value:     map[string]any{"money": 1},
 		Optimized: false,
 		Want:      `{"int":"1"}`,
@@ -321,7 +321,7 @@ var marshalTests = []marshalTest{
 	// // right-hand pair tree
 	// {
 	// 	Name: "right_hand_pair_tree",
-	// 	Spec: `{"args":[{"annots":["%tokenPool"],"prim":"nat"},{"args":[{"annots":["%xtzPool"],"prim":"mutez"},{"args":[{"annots":["%lqtTotal"],"prim":"nat"},{"args":[{"annots":["%tokenAddress"],"prim":"address"},{"annots":["%lqtAddress"],"prim":"address"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}`,
+	// 	Spec: `{"args":[{"annots":["%tokenPool"],"prim":"nat"},{"args":[{"annots":["%xtzPool"],"prim":"mumav"},{"args":[{"annots":["%lqtTotal"],"prim":"nat"},{"args":[{"annots":["%tokenAddress"],"prim":"address"},{"annots":["%lqtAddress"],"prim":"address"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}`,
 	// },
 
 	// unsupported

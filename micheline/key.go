@@ -37,7 +37,7 @@ func NewKey(typ Type, key Prim) (Key, error) {
 		Type: typ,
 	}
 	switch typ.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		k.IntKey = key.Int
 	case T_STRING:
 		if isASCII(key.String) {
@@ -179,7 +179,7 @@ func ParseKeyType(typ string) (OpCode, error) {
 		return t, fmt.Errorf("micheline: invalid big_map key type '%s'", typ)
 	}
 	switch t {
-	case T_INT, T_NAT, T_MUTEZ, T_STRING, T_BYTES, T_BOOL,
+	case T_INT, T_NAT, T_MUMAV, T_STRING, T_BYTES, T_BOOL,
 		T_KEY_HASH, T_TIMESTAMP, T_ADDRESS, T_PAIR, T_KEY, T_SIGNATURE,
 		T_OPTION, T_OR, T_CHAIN_ID, T_UNIT:
 		return t, nil
@@ -198,7 +198,7 @@ func ParseKey(typ OpCode, val string) (Key, error) {
 	}
 	var err error
 	switch key.Type.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		key.Type.Type = PrimInt
 		key.IntKey = big.NewInt(0)
 		err = key.IntKey.UnmarshalText([]byte(val))
@@ -285,7 +285,7 @@ func InferKeyType(val string) OpCode {
 	}
 	i := big.NewInt(0)
 	if err := i.UnmarshalText([]byte(val)); err == nil {
-		// can also be T_MUTEZ, T_NAT
+		// can also be T_MUMAV, T_NAT
 		return T_INT
 	}
 	if _, err := hex.DecodeString(val); err == nil {
@@ -311,7 +311,7 @@ func DecodeKey(typ Type, b []byte) (Key, error) {
 func (k Key) Bytes() []byte {
 	p := Prim{}
 	switch k.Type.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		p.Type = PrimInt
 		p.Int = k.IntKey
 	case T_STRING:
@@ -378,7 +378,7 @@ func KeyHash(buf []byte) tezos.ExprHash {
 
 func (k Key) String() string {
 	switch k.Type.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		return k.IntKey.Text(10)
 	case T_STRING:
 		return k.StringKey
@@ -450,7 +450,7 @@ func (k Key) String() string {
 func (k Key) Prim() Prim {
 	p := Prim{}
 	switch k.Type.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		p.Int = k.IntKey
 		p.Type = PrimInt
 	case T_TIMESTAMP:
@@ -506,7 +506,7 @@ func (k Key) PrimPtr() *Prim {
 
 func (k Key) MarshalJSON() ([]byte, error) {
 	switch k.Type.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		return []byte(strconv.Quote(k.IntKey.Text(10))), nil
 	case T_STRING:
 		return []byte(strconv.Quote(k.StringKey)), nil

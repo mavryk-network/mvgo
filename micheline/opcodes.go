@@ -128,7 +128,7 @@ const (
 	T_SIGNATURE // 67
 	T_STRING    // 68
 	T_BYTES     // 69
-	T_MUTEZ     // 6A
+	T_MUMAV     // 6A
 	T_TIMESTAMP // 6B
 	T_UNIT      // 6C
 	T_OPERATION // 6D
@@ -180,7 +180,7 @@ const (
 	H_CONSTANT   // 92
 
 	// v012 additions
-	I_SUB_MUTEZ // 93
+	I_SUB_MUMAV // 93
 
 	// v013 additions
 	T_TX_ROLLUP_L2_ADDRESS // 94
@@ -312,7 +312,7 @@ var (
 		T_SIGNATURE:             "signature",
 		T_STRING:                "string",
 		T_BYTES:                 "bytes",
-		T_MUTEZ:                 "mutez",
+		T_MUMAV:                 "mumav",
 		T_TIMESTAMP:             "timestamp",
 		T_UNIT:                  "unit",
 		T_OPERATION:             "operation",
@@ -353,7 +353,7 @@ var (
 		I_VIEW:                  "VIEW",
 		K_VIEW:                  "view",
 		H_CONSTANT:              "constant",
-		I_SUB_MUTEZ:             "SUB_MUTEZ",
+		I_SUB_MUMAV:             "SUB_MUMAV",
 		T_TX_ROLLUP_L2_ADDRESS:  "tx_rollup_l2_address",
 		I_MIN_BLOCK_TIME:        "MIN_BLOCK_TIME",
 		T_SAPLING_TRANSACTION:   "sapling_transaction",
@@ -413,7 +413,7 @@ func (op OpCode) IsTypeCode() bool {
 		T_SIGNATURE,
 		T_STRING,
 		T_BYTES,
-		T_MUTEZ,
+		T_MUMAV,
 		T_TIMESTAMP,
 		T_UNIT,
 		T_OPERATION,
@@ -470,7 +470,7 @@ func (op OpCode) TypeCode() OpCode {
 
 func (op OpCode) PrimType() PrimType {
 	switch op {
-	case T_INT, T_NAT, T_MUTEZ, T_TIMESTAMP:
+	case T_INT, T_NAT, T_MUMAV, T_TIMESTAMP:
 		return PrimInt
 	case T_STRING:
 		return PrimString

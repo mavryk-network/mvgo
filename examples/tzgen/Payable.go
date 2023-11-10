@@ -146,7 +146,7 @@ const (
 	PayableSendTzEntry = "send_tz"
 )
 
-const PayableMicheline = `{"code":[{"prim":"parameter","args":[{"prim":"unit","annots":["%send_tz"]}]},{"prim":"storage","args":[{"prim":"mutez"}]},{"prim":"code","args":[[{"prim":"UNPAIR"},{"prim":"DROP"},{"prim":"PUSH","args":[{"prim":"mutez"},{"int":"0"}]},{"prim":"AMOUNT"},{"prim":"COMPARE"},{"prim":"GT"},{"prim":"NOT"},{"prim":"IF","args":[[{"prim":"PUSH","args":[{"prim":"string"},{"string":"r1"}]},{"prim":"PUSH","args":[{"prim":"string"},{"string":"INVALID_CONDITION"}]},{"prim":"PAIR"},{"prim":"FAILWITH"}],[]]},{"prim":"AMOUNT"},{"prim":"SWAP"},{"prim":"DROP"},{"prim":"NIL","args":[{"prim":"operation"}]},{"prim":"PAIR"}]]}],"storage":{}}`
+const PayableMicheline = `{"code":[{"prim":"parameter","args":[{"prim":"unit","annots":["%send_tz"]}]},{"prim":"storage","args":[{"prim":"mumav"}]},{"prim":"code","args":[[{"prim":"UNPAIR"},{"prim":"DROP"},{"prim":"PUSH","args":[{"prim":"mumav"},{"int":"0"}]},{"prim":"AMOUNT"},{"prim":"COMPARE"},{"prim":"GT"},{"prim":"NOT"},{"prim":"IF","args":[[{"prim":"PUSH","args":[{"prim":"string"},{"string":"r1"}]},{"prim":"PUSH","args":[{"prim":"string"},{"string":"INVALID_CONDITION"}]},{"prim":"PAIR"},{"prim":"FAILWITH"}],[]]},{"prim":"AMOUNT"},{"prim":"SWAP"},{"prim":"DROP"},{"prim":"NIL","args":[{"prim":"operation"}]},{"prim":"PAIR"}]]}],"storage":{}}`
 
 var (
 	_ = big.NewInt

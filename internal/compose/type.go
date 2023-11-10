@@ -17,7 +17,7 @@ func ParseValue(typ micheline.OpCode, value string) (any, error) {
 		return value, nil
 	case micheline.T_ADDRESS:
 		return tezos.ParseAddress(value)
-	case micheline.T_NAT, micheline.T_MUTEZ, micheline.T_INT:
+	case micheline.T_NAT, micheline.T_MUMAV, micheline.T_INT:
 		return tezos.ParseZ(value)
 	case micheline.T_TIMESTAMP:
 		return time.Parse(time.RFC3339, value)

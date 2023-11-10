@@ -39,7 +39,7 @@
                       "annots": [
                         "%amount"
                       ],
-                      "prim": "mutez"
+                      "prim": "mumav"
                     },
                     {
                       "annots": [
@@ -54,7 +54,7 @@
                   "annots": [
                     "%payoff"
                   ],
-                  "prim": "mutez"
+                  "prim": "mumav"
                 }
               ],
               "prim": "pair"

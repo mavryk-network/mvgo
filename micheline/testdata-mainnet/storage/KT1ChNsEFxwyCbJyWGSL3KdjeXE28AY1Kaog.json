@@ -213,13 +213,13 @@
                 "annots": [
                   "%signup_fee"
                 ],
-                "prim": "mutez"
+                "prim": "mumav"
               },
               {
                 "annots": [
                   "%update_fee"
                 ],
-                "prim": "mutez"
+                "prim": "mumav"
               }
             ],
             "prim": "pair"

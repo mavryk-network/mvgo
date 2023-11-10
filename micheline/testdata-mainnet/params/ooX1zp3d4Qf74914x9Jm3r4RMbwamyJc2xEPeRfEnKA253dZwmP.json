@@ -391,7 +391,7 @@
               "prim": "pair",
               "args": [
                 {
-                  "prim": "mutez",
+                  "prim": "mumav",
                   "annots": [
                     "%direct_price"
                   ]
@@ -419,7 +419,7 @@
                   ]
                 },
                 {
-                  "prim": "mutez",
+                  "prim": "mumav",
                   "annots": [
                     "%start_price"
                   ]

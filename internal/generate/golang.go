@@ -28,7 +28,7 @@ func receiver(typeName string) string {
 
 func goType(typ *ast.Struct) string {
 	switch typ.MichelineType {
-	case "nat", "mutez", "int":
+	case "nat", "mumav", "int":
 		return "*big.Int"
 	case "string":
 		return "string"
@@ -72,7 +72,7 @@ func goType(typ *ast.Struct) string {
 
 func marshalPrimMethod(typ *ast.Struct) string {
 	switch typ.MichelineType {
-	case "nat", "int", "mutez":
+	case "nat", "int", "mumav":
 		return "micheline.NewBig(%s)"
 	case "string":
 		return "micheline.NewString(%s)"

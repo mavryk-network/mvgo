@@ -461,7 +461,7 @@ func (p Prim) ImplementsType(t Typedef) bool {
 
 			case PrimInt:
 				switch oc {
-				case T_INT, T_NAT, T_MUTEZ, T_TIMESTAMP, T_BIG_MAP:
+				case T_INT, T_NAT, T_MUMAV, T_TIMESTAMP, T_BIG_MAP:
 					// fmt.Println("> OK int")
 					return PrimSkip
 				}
@@ -586,7 +586,7 @@ func buildTypedef(name string, typ Prim, path []int) Typedef {
 		// nat
 		// string
 		// bytes
-		// mutez
+		// mumav
 		// bool
 		// key_hash
 		// timestamp
