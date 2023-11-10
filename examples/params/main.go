@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"os"
 
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 var (

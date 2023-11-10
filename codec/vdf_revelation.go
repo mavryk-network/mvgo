@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 // VdfRevelation represents "vdf_revelation" operation

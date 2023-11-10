@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 // Block holds information about a Tezos block

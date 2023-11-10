@@ -5,7 +5,7 @@ TzGen is a code generator that enables creating Golang struct types and smart co
 ## Installation
 
 ```bash
-go install blockwatch.cc/tzgo/cmd/tzgen
+go install mavrykdynamics/tzgo/cmd/tzgen
 ```
 
 ## Using TzGen
@@ -34,7 +34,7 @@ You can also use tzgen in combination with the go generate tool if you want to c
 
 1. Add a go generate comment into a Go source code file:
 ```
-//go:generate go run -mod=mod blockwatch.cc/tzgo/cmd/tzgen -name <name> -pkg <pkg> -address <addr> -out <file.go>
+//go:generate go run -mod=mod mavrykdynamics/tzgo/cmd/tzgen -name <name> -pkg <pkg> -address <addr> -out <file.go>
 ```
 
 2. Call go generate `./path-to-your-pkg-or-cmd` to make Go call whatever script you have defined in 1:

@@ -4,7 +4,7 @@
 package rpc
 
 import (
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 // Ensure SeedNonce implements the TypedOperation interface.

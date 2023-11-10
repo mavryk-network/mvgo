@@ -1,4 +1,4 @@
-module blockwatch.cc/tzgo
+module mavrykdynamics/tzgo
 
 go 1.18
 

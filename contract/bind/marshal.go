@@ -5,8 +5,9 @@ import (
 	"reflect"
 	"time"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/tezos"
+
 	"github.com/pkg/errors"
 )
 

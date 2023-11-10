@@ -4,7 +4,7 @@
 package rpc
 
 import (
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 // Ensure Proposals implements the TypedOperation interface.

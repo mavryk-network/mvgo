@@ -5,7 +5,8 @@ import (
 	"strings"
 	"text/template"
 
-	"blockwatch.cc/tzgo/contract/ast"
+	"mavrykdynamics/tzgo/contract/ast"
+
 	"github.com/iancoleman/strcase"
 )
 

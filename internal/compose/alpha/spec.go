@@ -13,9 +13,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"blockwatch.cc/tzgo/internal/compose"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/internal/compose"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/tezos"
+
 	"gopkg.in/yaml.v3"
 )
 

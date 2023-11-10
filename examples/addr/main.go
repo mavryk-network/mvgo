@@ -15,7 +15,7 @@ import (
 	"log"
 	"os"
 
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 var (

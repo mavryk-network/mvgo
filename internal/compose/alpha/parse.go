@@ -12,10 +12,11 @@ import (
 	"strconv"
 	"strings"
 
-	"blockwatch.cc/tzgo/contract/bind"
-	"blockwatch.cc/tzgo/internal/compose"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/contract/bind"
+	"mavrykdynamics/tzgo/internal/compose"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/tezos"
+
 	"github.com/pkg/errors"
 )
 

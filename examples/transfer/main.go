@@ -11,10 +11,11 @@ import (
 	"os"
 	"strconv"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/codec"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/signer"
+	"mavrykdynamics/tzgo/tezos"
+
 	"github.com/echa/log"
 )
 

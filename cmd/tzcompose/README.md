@@ -14,7 +14,7 @@ Developers can use TzCompose for
 ## Using TzCompose
 
 ```sh
-go run blockwatch.cc/tzgo/cmd/tzcompose [cmd] [flags]
+go run mavrykdynamics/tzgo/cmd/tzcompose [cmd] [flags]
 
 Env
   TZCOMPOSE_BASE_KEY  private key for base account

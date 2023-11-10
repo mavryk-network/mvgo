@@ -7,8 +7,8 @@ import (
 	"context"
 	"errors"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/codec"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 var ErrAddressMismatch = errors.New("signer: address mismatch")

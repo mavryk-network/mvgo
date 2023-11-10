@@ -8,7 +8,7 @@ import (
 	"errors"
 	"sync"
 
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 var (

@@ -15,8 +15,9 @@ import (
 	"os"
 	"strings"
 
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/signer"
+	"mavrykdynamics/tzgo/tezos"
+
 	"github.com/echa/log"
 )
 

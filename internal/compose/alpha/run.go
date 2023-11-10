@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"blockwatch.cc/tzgo/internal/compose"
+	"mavrykdynamics/tzgo/internal/compose"
 )
 
 // 1 load yaml file

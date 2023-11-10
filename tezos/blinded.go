@@ -7,7 +7,8 @@ import (
 	"bytes"
 	"fmt"
 
-	"blockwatch.cc/tzgo/base58"
+	"mavrykdynamics/tzgo/base58"
+
 	"golang.org/x/crypto/blake2b"
 )
 

@@ -12,9 +12,10 @@ import (
 	"os"
 	"strconv"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/tezos"
+
 	"github.com/echa/log"
 )
 

@@ -7,10 +7,10 @@ import (
 	"context"
 	"fmt"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/codec"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 type CallArguments interface {

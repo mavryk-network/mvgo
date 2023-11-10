@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"blockwatch.cc/tzgo/micheline"
+	"mavrykdynamics/tzgo/micheline"
 )
 
 type Entrypoint struct {

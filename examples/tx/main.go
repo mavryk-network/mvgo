@@ -19,11 +19,12 @@ import (
 	"strconv"
 	"strings"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/signer/remote"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/codec"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/signer"
+	"mavrykdynamics/tzgo/signer/remote"
+	"mavrykdynamics/tzgo/tezos"
+
 	"github.com/echa/log"
 )
 

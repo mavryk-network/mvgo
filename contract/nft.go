@@ -6,8 +6,8 @@ package contract
 import (
 	"fmt"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 type NftLedgerSchema byte

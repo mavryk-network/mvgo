@@ -9,7 +9,7 @@ import (
 	// "io"
 	// "strconv"
 
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 // Smart_rollup_refute (tag 204)

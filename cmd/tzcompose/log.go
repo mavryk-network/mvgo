@@ -4,7 +4,8 @@
 package main
 
 import (
-	"blockwatch.cc/tzgo/rpc"
+	"mavrykdynamics/tzgo/rpc"
+
 	logpkg "github.com/echa/log"
 )
 

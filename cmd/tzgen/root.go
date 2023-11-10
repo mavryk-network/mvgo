@@ -14,8 +14,9 @@ import (
 	"net/url"
 	"os"
 
-	"blockwatch.cc/tzgo/internal/generate"
-	"blockwatch.cc/tzgo/internal/parse"
+	"mavrykdynamics/tzgo/internal/generate"
+	"mavrykdynamics/tzgo/internal/parse"
+
 	"github.com/iancoleman/strcase"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"

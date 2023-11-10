@@ -46,18 +46,18 @@ We attempt to upgrade TzGo whenever new protocols are proposed and will add new 
 ### Usage
 
 ```sh
-go get -u blockwatch.cc/tzgo
+go get -u mavrykdynamics/tzgo
 ```
 
 Then import, using
 
 ```go
 import (
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/tezos"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/wallet"
+	"mavrykdynamics/tzgo/codec"
+	"mavrykdynamics/tzgo/tezos"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/wallet"
 )
 ```
 
@@ -100,7 +100,7 @@ Below are a few examples showing how to use TzGo to easily access Tezos data in 
 To parse/decode an address and output its components you can do the following:
 
 ```go
-import "blockwatch.cc/tzgo/tezos"
+import "mavrykdynamics/tzgo/tezos"
 
 // parse and panic if invalid
 addr := tezos.MustParseAddress("tz3RDC3Jdn4j15J7bBHZd29EUee9gVB1CxD9")
@@ -124,7 +124,7 @@ See [examples/addr.go](https://github.com/blockwatch-cc/tzgo/blob/master/example
 A Tezos node can notify applications when new blocks are attached to the chain. The Tezos RPC calls this monitor and technically it's a long-poll implementation. Here's how to use this feature in TzGo:
 
 ```go
-import "blockwatch.cc/tzgo/rpc"
+import "mavrykdynamics/tzgo/rpc"
 
 // init SDK client
 c, _ := rpc.NewClient("https://rpc.tzstats.com", nil)
@@ -158,9 +158,9 @@ for {
 
 ```go
 import (
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 // we use the Baker Registry on mainnet as example
@@ -183,9 +183,9 @@ fmt.Println(string(buf))
 
 ```go
 import (
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 // init RPC client
@@ -270,9 +270,9 @@ err := val.Unmarshal(&transfer)
 
 ```go
 import (
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 // we use the hic et nunc NFT market on mainnet as example
@@ -328,7 +328,7 @@ import (
 	"net"
 	"net/http"
 
-	"blockwatch.cc/tzgo/rpc"
+	"mavrykdynamics/tzgo/rpc"
 )
 
 

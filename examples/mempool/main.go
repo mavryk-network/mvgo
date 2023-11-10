@@ -13,8 +13,9 @@ import (
 	"io"
 	"os"
 
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/tezos"
+
 	"github.com/echa/log"
 )
 

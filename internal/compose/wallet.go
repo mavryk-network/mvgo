@@ -6,7 +6,8 @@ package compose
 import (
 	"crypto/ed25519"
 
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/tezos"
+
 	"github.com/tyler-smith/go-bip32"
 )
 

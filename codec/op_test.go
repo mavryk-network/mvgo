@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 func asTime(s string) time.Time {

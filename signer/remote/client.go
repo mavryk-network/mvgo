@@ -7,10 +7,10 @@ import (
 	"context"
 	"net/http"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/codec"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/signer"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 var _ signer.Signer = (*RemoteSigner)(nil)

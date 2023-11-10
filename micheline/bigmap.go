@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 var BigmapRefType = Prim{

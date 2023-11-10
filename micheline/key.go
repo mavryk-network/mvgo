@@ -13,7 +13,8 @@ import (
 	"strings"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/tezos"
+
 	"golang.org/x/crypto/blake2b"
 )
 

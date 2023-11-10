@@ -4,11 +4,11 @@
 package task
 
 import (
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/internal/compose"
-	"blockwatch.cc/tzgo/internal/compose/alpha"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
+	"mavrykdynamics/tzgo/codec"
+	"mavrykdynamics/tzgo/internal/compose"
+	"mavrykdynamics/tzgo/internal/compose/alpha"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/signer"
 
 	"github.com/pkg/errors"
 )

@@ -1,7 +1,8 @@
 package bind
 
 import (
-	"blockwatch.cc/tzgo/micheline"
+	"mavrykdynamics/tzgo/micheline"
+
 	"github.com/pkg/errors"
 )
 

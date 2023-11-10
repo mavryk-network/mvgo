@@ -1,11 +1,11 @@
 package bind
 
 import (
-	"blockwatch.cc/tzgo/contract"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
 	"context"
+	"mavrykdynamics/tzgo/contract"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 type Contract interface {

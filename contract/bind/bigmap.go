@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/rpc"
+
 	"github.com/pkg/errors"
 )
 

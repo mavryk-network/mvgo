@@ -22,11 +22,12 @@ import (
 	"strconv"
 	"strings"
 
-	"blockwatch.cc/tzgo/contract"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/contract"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/signer"
+	"mavrykdynamics/tzgo/tezos"
+
 	"github.com/echa/log"
 )
 

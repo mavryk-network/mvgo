@@ -1,12 +1,13 @@
 package bind
 
 import (
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
-	"github.com/stretchr/testify/require"
 	"math/big"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/tezos"
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 var testAddress = tezos.MustParseAddress("tz1KqTpEZ7Yob7QbPE4Hy4Wo8fHG8LhKxZSx")

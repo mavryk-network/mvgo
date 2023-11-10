@@ -8,10 +8,10 @@ import (
 	"strconv"
 	"time"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/internal/compose"
-	"blockwatch.cc/tzgo/internal/compose/alpha"
-	"blockwatch.cc/tzgo/rpc"
+	"mavrykdynamics/tzgo/codec"
+	"mavrykdynamics/tzgo/internal/compose"
+	"mavrykdynamics/tzgo/internal/compose/alpha"
+	"mavrykdynamics/tzgo/rpc"
 
 	"github.com/pkg/errors"
 )

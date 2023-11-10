@@ -6,9 +6,9 @@
 package base58_test
 
 import (
-	"blockwatch.cc/tzgo/base58"
 	"bytes"
 	"encoding/hex"
+	"mavrykdynamics/tzgo/base58"
 	"testing"
 )
 

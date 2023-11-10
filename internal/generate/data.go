@@ -7,7 +7,8 @@ import (
 	"log"
 	"text/template"
 
-	"blockwatch.cc/tzgo/contract/ast"
+	"mavrykdynamics/tzgo/contract/ast"
+
 	"github.com/pkg/errors"
 )
 

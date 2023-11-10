@@ -10,7 +10,7 @@ import (
 	"io"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/tezos"
 )
 
 var ErrMonitorClosed = errors.New("monitor closed")

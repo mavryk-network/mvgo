@@ -10,11 +10,11 @@ import (
 	"math/big"
 	"time"
 
-	"blockwatch.cc/tzgo/contract"
-	"blockwatch.cc/tzgo/contract/bind"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"mavrykdynamics/tzgo/contract"
+	"mavrykdynamics/tzgo/contract/bind"
+	"mavrykdynamics/tzgo/micheline"
+	"mavrykdynamics/tzgo/rpc"
+	"mavrykdynamics/tzgo/tezos"
 	"github.com/pkg/errors"
 )
 
