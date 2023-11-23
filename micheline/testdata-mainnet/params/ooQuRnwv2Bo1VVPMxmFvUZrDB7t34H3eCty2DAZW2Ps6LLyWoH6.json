@@ -369,7 +369,7 @@
                         "int": "2"
                       },
                       {
-                        "string": "tz1burnburnburnburnburnburnburjAYjjX"
+                        "string": "mv2burnburnburnburnburnburnbur7hzNeg"
                       }
                     ]
                   },
@@ -441,7 +441,7 @@
           },
           {
             "dr": "2",
-            "k1": "tz1burnburnburnburnburnburnburjAYjjX",
+            "k1": "mv2burnburnburnburnburnburnbur7hzNeg",
             "k1fid": "0",
             "k1ftd": "0",
             "k2": "KT1K9gCRgaLRFKTErYt1wVxA3Frb9FjasjTV",
@@ -1727,7 +1727,7 @@
         "string": "KT1NcZnrUh3KsysGu32cTw1gnoqbvWXm7hCi"
       },
       {
-        "string": "tz1burnburnburnburnburnburnburjAYjjX"
+        "string": "mv2burnburnburnburnburnburnbur7hzNeg"
       }
     ],
     "type_hex": "0865065f07650864046c0000000425627579046c000000052573656c6c0000000a256f7065726174696f6e086507650765046e0000001025746f6b656e5f615f6164647265737304620000000b25746f6b656e5f615f696407650864046c000000052566613132046c00000004256661320000000d25746f6b656e5f615f74797065046e0000001025746f6b656e5f625f61646472657373076504620000000b25746f6b656e5f625f69640864046c000000052566613132046c00000004256661320000000d25746f6b656e5f625f7479706500000005257061697200000006257377617073076504620000000a25616d6f756e745f696e076504620000000f256d696e5f616d6f756e745f6f75740765046e00000009257265636569766572046e00000009257265666572726572000000052573776170",
@@ -1737,7 +1737,7 @@
         "amount_in": "71664808928486",
         "min_amount_out": "82862179135179973225",
         "receiver": "KT1NcZnrUh3KsysGu32cTw1gnoqbvWXm7hCi",
-        "referrer": "tz1burnburnburnburnburnburnburjAYjjX",
+        "referrer": "mv2burnburnburnburnburnburnbur7hzNeg",
         "swaps": [
           {
             "operation": {

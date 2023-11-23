@@ -73,7 +73,7 @@
             "prim": "Pair"
           },
           {
-            "string": "tz1gs78wrxS34XhGPECmN5fABKpEuhUGwAXS"
+            "string": "mv1VEaSYBKjPdoUVXYmcbuMBLLgDU62n4RhZ"
           }
         ],
         "prim": "Pair"
@@ -84,7 +84,7 @@
     "want_value": {
       "mint": [
         {
-          "owner": "tz1gs78wrxS34XhGPECmN5fABKpEuhUGwAXS",
+          "owner": "mv1VEaSYBKjPdoUVXYmcbuMBLLgDU62n4RhZ",
           "token_metadata": {
             "token_id": "0",
             "token_info": {

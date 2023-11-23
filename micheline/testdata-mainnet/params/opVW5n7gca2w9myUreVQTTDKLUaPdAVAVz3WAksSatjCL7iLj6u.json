@@ -134,7 +134,7 @@
     "want_value": {
       "transfer": [
         {
-          "from_": "tz1ZsNvZKUveN7FjRhMHTm9NiAUNAmrwdFKV",
+          "from_": "mv1NErE9drDzwP2xa1v8haqPsBLLjANdT5pr",
           "txs": [
             {
               "amount": "100",
@@ -203,7 +203,7 @@
     "want_value": {
       "curate": {
         "hDAO_amount": "100",
-        "issuer": "tz1ZsNvZKUveN7FjRhMHTm9NiAUNAmrwdFKV",
+        "issuer": "mv1NErE9drDzwP2xa1v8haqPsBLLjANdT5pr",
         "objkt_id": "15181"
       }
     }

@@ -248,7 +248,7 @@
   "value_hex": "020000002600110a000000160000176e8f231f39c20a1cbd1ce3cee7806abf52914e00a08db70100a0843d",
   "want_value": {
     "0": 17,
-    "owner": "tz1MmvgKBXw3NnUJF7jtZuv91U12CPFRabkp",
+    "owner": "mv1A9PyuVuEPx4FXPSJjojcAAUrzkmgbhbkY",
     "signup_fee": "1500000",
     "update_fee": "500000"
   }

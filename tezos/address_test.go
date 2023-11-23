@@ -61,7 +61,7 @@ func TestAddress(t *testing.T) {
 		},
 		// bmv1
 		{
-			Address: "btz1LKs15uHQ4PgCoY3ZDq55CKJ5wDq9jQwfk",
+			Address: "bmv18hLJgDehQxwz2gN854tmDUJwunDhpUnNm",
 			Hash:    "000b80d92ce17aa6070fde1a99288a4213a5b650",
 			Type:    AddressTypeBlinded,
 			Bytes:   "03000b80d92ce17aa6070fde1a99288a4213a5b650",
@@ -70,7 +70,7 @@ func TestAddress(t *testing.T) {
 		// TODO: AddressTypeSapling
 		// mv4
 		{
-			Address: "tz4HVR6aty9KwsQFHh81C1G7gBdhxT8kuytm",
+			Address: "mv4VCVPHWd9rz1zua6iGm9SG6z8BmnST9pSE",
 			Hash:    "5d1497f39b87599983fe8f29599b679564be822d",
 			Type:    AddressTypeBls12_381,
 			Bytes:   "045d1497f39b87599983fe8f29599b679564be822d",
@@ -181,7 +181,7 @@ func TestAddress(t *testing.T) {
 
 func TestInvalidAddress(t *testing.T) {
 	// invalid base58 string
-	if _, err := ParseAddress("tz1KzpjBnunNJVABHBnzfG4iuLmphitExW2"); err == nil {
+	if _, err := ParseAddress("mv1KzpjBnunNJVABHBnzfG4iuLmphitExW2"); err == nil {
 		t.Errorf("Expected error on invalid base58 string")
 	}
 

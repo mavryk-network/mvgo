@@ -27,7 +27,7 @@
           "int": "10000"
         },
         {
-          "string": "tz1XWzkazZRgmxPYcqcK3PodXLY8EBc8Wy75"
+          "string": "mv1KtU4BJvj3MEAmmABAHDVegMQ6na7dFksn"
         }
       ],
       "prim": "Pair"
@@ -37,7 +37,7 @@
     "want_value": {
       "mint": {
         "amount": "10000",
-        "tr_to": "tz1XWzkazZRgmxPYcqcK3PodXLY8EBc8Wy75"
+        "tr_to": "mv1KtU4BJvj3MEAmmABAHDVegMQ6na7dFksn"
       }
     }
   },
@@ -78,8 +78,8 @@
     "value_hex": "07070a000000160000824cfa627d442559c07f1898da4ad98a50867e550a000000160000824cfa627d442559c07f1898da4ad98a50867e55",
     "want_value": {
       "checkTransfer": {
-        "0": "tz1XWzkazZRgmxPYcqcK3PodXLY8EBc8Wy75",
-        "1": "tz1XWzkazZRgmxPYcqcK3PodXLY8EBc8Wy75"
+        "0": "mv1KtU4BJvj3MEAmmABAHDVegMQ6na7dFksn",
+        "1": "mv1KtU4BJvj3MEAmmABAHDVegMQ6na7dFksn"
       }
     }
   },
@@ -223,7 +223,7 @@
     "value_hex": "070707070a000000160000824cfa627d442559c07f1898da4ad98a50867e55020000001c070400ba03070707070080897a00010707020000000000a0eeff830c030a",
     "want_value": {
       "checkMember": {
-        "0": "tz1XWzkazZRgmxPYcqcK3PodXLY8EBc8Wy75",
+        "0": "mv1KtU4BJvj3MEAmmABAHDVegMQ6na7dFksn",
         "1": {
           "250": {
             "country_invest_limit": "1000000",

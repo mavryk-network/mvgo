@@ -42,7 +42,7 @@
     "key_hex": "07070a0000001600009c180e9afa7ea881e3f08777fea57bb1ed1f01a30000",
     "want_value": "36717660",
     "want_key": {
-      "0": "tz1ZsNvZKUveN7FjRhMHTm9NiAUNAmrwdFKV",
+      "0": "mv1NErE9drDzwP2xa1v8haqPsBLLjANdT5pr",
       "1": "0"
     }
   },
@@ -142,7 +142,7 @@
     "key_hex": "008ded01",
     "want_value": {
       "hDAO_balance": "3100",
-      "issuer": "tz1ZsNvZKUveN7FjRhMHTm9NiAUNAmrwdFKV"
+      "issuer": "mv1NErE9drDzwP2xa1v8haqPsBLLjANdT5pr"
     },
     "want_key": "15181"
   }

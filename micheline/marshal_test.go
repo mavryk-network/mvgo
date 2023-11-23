@@ -111,7 +111,7 @@ var marshalTests = []marshalTest{
 		Spec:      `{"annots": ["%baker"],"prim": "key_hash"}`,
 		Value:     map[string]any{"baker": "mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"},
 		Optimized: true,
-		Want:      `{"bytes":"00cf8dad6c9cd30672987242a8c2a94fc72816d8cf"}`,
+		Want:      `{"bytes":"009ec090ac91d1351dc4791bdb48a98f64421caa1c"}`,
 	},
 	{
 		Name:      "key_hash_addr_opt",
@@ -125,7 +125,7 @@ var marshalTests = []marshalTest{
 		Spec:      `{"annots": ["%baker"],"prim": "key_hash"}`,
 		Value:     map[string]any{"baker": tezos.MustParseAddress("mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4")},
 		Optimized: true,
-		Want:      `{"bytes":"00cf8dad6c9cd30672987242a8c2a94fc72816d8cf"}`,
+		Want:      `{"bytes":"009ec090ac91d1351dc4791bdb48a98f64421caa1c"}`,
 	},
 	//   address
 	{
@@ -140,7 +140,7 @@ var marshalTests = []marshalTest{
 		Spec:      `{"annots": ["%reporterAccount"],"prim": "address"}`,
 		Value:     map[string]any{"reporterAccount": "mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"},
 		Optimized: true,
-		Want:      `{"bytes":"0000cf8dad6c9cd30672987242a8c2a94fc72816d8cf"}`,
+		Want:      `{"bytes":"00009ec090ac91d1351dc4791bdb48a98f64421caa1c"}`,
 	},
 	{
 		Name:      "address_addr_opt",
@@ -154,7 +154,7 @@ var marshalTests = []marshalTest{
 		Spec:      `{"annots": ["%reporterAccount"],"prim": "address"}`,
 		Value:     map[string]any{"reporterAccount": tezos.MustParseAddress("mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4")},
 		Optimized: true,
-		Want:      `{"bytes":"0000cf8dad6c9cd30672987242a8c2a94fc72816d8cf"}`,
+		Want:      `{"bytes":"00009ec090ac91d1351dc4791bdb48a98f64421caa1c"}`,
 	},
 	//   key
 	{

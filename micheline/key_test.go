@@ -89,8 +89,8 @@ var keyInfo = []keyTest{
 	{
 		Name:   "mv1 key_hash",
 		Type:   "key_hash",
-		Hash:   tezos.MustParseExprHash("exprtc5kFMbFCzkSq1hZkDrLWqQBUdpPx3URB7KvEu72XBFBqv7k72"),
-		Hex:    "0a000000150046a2c00eb115343242347fa1cd672a2bc1dcc609",
+		Hash:   tezos.MustParseExprHash("exprtqoHg7oQtzkxaJGFMnGCZGTS1sYmzWGBiBq8678wgzzAAapd21"),
+		Hex:    "0a000000150026f32c59c5240691c60ce20ec52cc2afaa47cf62",
 		Value:  []byte(`"mv1BZSyyRgGX7QogeDCanY1Mr3VD9UwBJGFM"`),
 		String: "mv1BZSyyRgGX7QogeDCanY1Mr3VD9UwBJGFM",
 		Prim:   NewBytes(tezos.MustParseAddress("mv1BZSyyRgGX7QogeDCanY1Mr3VD9UwBJGFM").Encode()),
@@ -99,8 +99,8 @@ var keyInfo = []keyTest{
 	{
 		Name:   "mv1 address",
 		Type:   "address",
-		Hash:   tezos.MustParseExprHash("expruQacisQeiLaWSgSHFeLA4BdLfS6yswqYQ8gjYSmJABQ9Sf53Y4"),
-		Hex:    "0a000000160000b8c25930f179a13ffeefa8b0026318f7e508a8fc",
+		Hash:   tezos.MustParseExprHash("expruUXWZpQ8CbM2KQR3zZLcvfbs75J247Bac2yrQHNaTrcboWdptW"),
+		Hex:    "0a000000160000449cf979e666c4706a26c8176f930e35d5b42493",
 		Value:  []byte(`"mv1EGHzY37ttLfXHRxxZJNQ9aVWQJe95voSo"`),
 		String: "mv1EGHzY37ttLfXHRxxZJNQ9aVWQJe95voSo",
 		Prim:   NewBytes(tezos.MustParseAddress("mv1EGHzY37ttLfXHRxxZJNQ9aVWQJe95voSo").EncodePadded()),
@@ -136,8 +136,8 @@ var keyInfo = []keyTest{
 	{
 		Name:   "Pair(address,nat)",
 		Type:   "pair",
-		Hash:   tezos.MustParseExprHash("exprvD1v8DxXvrsCqbx7BA2ZqxYuUk9jXE1QrXuL46i3MWG6o1szUq"),
-		Hex:    "07070a0000001600005db799bf9b0dc319ba1cf21ab01461a9639043ca009902",
+		Hash:   tezos.MustParseExprHash("expruZXMDtKzuz1vxz9nAfpgU4KKJfUZFi4s8KJQm1Esv5eufpenV5"),
+		Hex:    "07070a000000160000166511aa4317b5c0493ee0dd3f65f2d1ce9ccba5009902",
 		Value:  []byte(`{"0":"mv1A3uwL1r8yPzkgi4UZLwCiKMZkDsNcCFjU","1":"153"}`),
 		String: "mv1A3uwL1r8yPzkgi4UZLwCiKMZkDsNcCFjU,153",
 		Prim: NewPair(
@@ -148,24 +148,24 @@ var keyInfo = []keyTest{
 	{
 		Name:   "Pair(address,string)",
 		Type:   "pair",
-		Hash:   tezos.MustParseExprHash("exprtdyqcWJgj564TtpwqXkkHQu728pP4hVM7vdc16RVXaSbWoJttS"),
-		Hex:    "07070a000000160000fe533bc9b5847c783653835de5889ba6a946a2b601000000094449435245524a3238",
-		Value:  []byte(`{"0":"tz1ipn31fhqk47Tr3f7KZAeCamyqMBXBAKBi","1":"DICRERJ28"}`),
-		String: "tz1ipn31fhqk47Tr3f7KZAeCamyqMBXBAKBi,DICRERJ28",
+		Hash:   tezos.MustParseExprHash("expruCp21FBR8PnYGy2QQnAA684LTQJhUVvM1GCVP8CyY3WeLJSzWh"),
+		Hex:    "07070a0000001600002ca7bca83fa8cfbb594c013d611d08eae48a9f3b01000000094449435245524a3238",
+		Value:  []byte(`{"0":"mv1C5cfidAuDUVZgZjjuGgAskjxPftLrShLx","1":"DICRERJ28"}`),
+		String: "mv1C5cfidAuDUVZgZjjuGgAskjxPftLrShLx,DICRERJ28",
 		Prim: NewPair(
-			NewBytes(tezos.MustParseAddress("tz1ipn31fhqk47Tr3f7KZAeCamyqMBXBAKBi").EncodePadded()),
+			NewBytes(tezos.MustParseAddress("mv1C5cfidAuDUVZgZjjuGgAskjxPftLrShLx").EncodePadded()),
 			NewString("DICRERJ28"),
 		),
 	},
 	{
 		Name:   "Pair(address,address,nat)",
 		Type:   "pair",
-		Hash:   tezos.MustParseExprHash("exprtXiCYp3hWQMDQNszcmsigcU13M32bzQYLDaQp35t2F1Nqj6tiW"),
-		Hex:    "07070a00000016000060d8a7d4dc6eee130387b916a79193e65e6ef65107070a0000001601c953466e6cf9295ecad052acc742247dd0e3c91900008f01",
-		Value:  []byte(`{"0":"tz1UU772ew1GALQ2Uh8fCCN4uhzWBzSQH4Az","1":"KT1SwH9P1Tx8a58Mm6qBExQFTcy2rwZyZiXS","2":"79"}`),
-		String: "tz1UU772ew1GALQ2Uh8fCCN4uhzWBzSQH4Az,KT1SwH9P1Tx8a58Mm6qBExQFTcy2rwZyZiXS,79",
+		Hash:   tezos.MustParseExprHash("expruV4TWZLF1QLgBT2sLehF5LLUTgrQZRjrJcBFiTcyHACyCfejLc"),
+		Hex:    "07070a0000001600009b671169734f0ba7c9853d03b5512cfbe404fe0f07070a0000001601c953466e6cf9295ecad052acc742247dd0e3c91900008f01",
+		Value:  []byte(`{"0":"mv1NBCCjdZe99TYysW3JCcEJzKrcVwf29bdX","1":"KT1SwH9P1Tx8a58Mm6qBExQFTcy2rwZyZiXS","2":"79"}`),
+		String: "mv1NBCCjdZe99TYysW3JCcEJzKrcVwf29bdX,KT1SwH9P1Tx8a58Mm6qBExQFTcy2rwZyZiXS,79",
 		Prim: NewPair(
-			NewBytes(tezos.MustParseAddress("tz1UU772ew1GALQ2Uh8fCCN4uhzWBzSQH4Az").EncodePadded()),
+			NewBytes(tezos.MustParseAddress("mv1NBCCjdZe99TYysW3JCcEJzKrcVwf29bdX").EncodePadded()),
 			NewPair(
 				NewBytes(tezos.MustParseAddress("KT1SwH9P1Tx8a58Mm6qBExQFTcy2rwZyZiXS").EncodePadded()),
 				NewInt64(79),

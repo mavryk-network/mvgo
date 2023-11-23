@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var testAddress = tezos.MustParseAddress("tz1KqTpEZ7Yob7QbPE4Hy4Wo8fHG8LhKxZSx")
+var testAddress = tezos.MustParseAddress("mv1CQJA6XDWcpVgVbxgSCTa69AW1y8iHbLx5")
 
 func TestUnmarshalPrim(t *testing.T) {
 	cases := map[string]struct {

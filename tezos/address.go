@@ -31,7 +31,7 @@ var (
 	ZeroContract = NewAddress(AddressTypeContract, make([]byte, HashTypePkhNocurve.Len))
 
 	// Burn Address
-	BurnAddress = MustParseAddress("tz1burnburnburnburnburnburnburjAYjjX")
+	BurnAddress = MustParseAddress("mv2burnburnburnburnburnburnbur7hzNeg")
 )
 
 const MAX_ADDRESS_LEN = 37 // tx rollup address

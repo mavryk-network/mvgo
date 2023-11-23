@@ -64,14 +64,14 @@
             "prim": "Pair",
             "args": [
               {
-                "string": "tz1Xug8k3AthQW5CbaW3N2t5iJcnttCPie2N"
+                "string": "mv1LH9SLMYC3ymrRju4tbra6sKUmTGjSh3fv"
               },
               [
                 {
                   "prim": "Elt",
                   "args": [
                     {
-                      "string": "tz1Xug8k3AthQW5CbaW3N2t5iJcnttCPie2N"
+                      "string": "mv1LH9SLMYC3ymrRju4tbra6sKUmTGjSh3fv"
                     },
                     {
                       "int": "150"
@@ -100,9 +100,9 @@
     "want_value": {
       "set_royalties": [
       {
-        "creator": "tz1Xug8k3AthQW5CbaW3N2t5iJcnttCPie2N",
+        "creator": "mv1LH9SLMYC3ymrRju4tbra6sKUmTGjSh3fv",
         "royalties": {
-          "tz1Xug8k3AthQW5CbaW3N2t5iJcnttCPie2N": "150"
+          "mv1LH9SLMYC3ymrRju4tbra6sKUmTGjSh3fv": "150"
         },
         "token_fa2": "KT1AFq5XorPduoYyWxs5gEyrFK6fVjJVbtCj",
         "token_id": "3875"
@@ -246,9 +246,9 @@
       "royalties_callback": {
         "akaOBJ_id": "3875",
         "royalties": {
-          "tz1Xug8k3AthQW5CbaW3N2t5iJcnttCPie2N": "150"
+          "mv1LH9SLMYC3ymrRju4tbra6sKUmTGjSh3fv": "150"
         },
-        "sender": "tz1Xug8k3AthQW5CbaW3N2t5iJcnttCPie2N",
+        "sender": "mv1LH9SLMYC3ymrRju4tbra6sKUmTGjSh3fv",
         "total_royalties": "150"
       }
     }
@@ -338,7 +338,7 @@
             "prim": "Pair",
             "args": [
               {
-                "string": "tz1Xug8k3AthQW5CbaW3N2t5iJcnttCPie2N"
+                "string": "mv1LH9SLMYC3ymrRju4tbra6sKUmTGjSh3fv"
               },
               {
                 "prim": "Pair",
@@ -363,7 +363,7 @@
         {
           "add_operator": {
             "operator": "KT1B2BN4qgmtsaoLRhhnFVDNoTyybwTfdrE4",
-            "owner": "tz1Xug8k3AthQW5CbaW3N2t5iJcnttCPie2N",
+            "owner": "mv1LH9SLMYC3ymrRju4tbra6sKUmTGjSh3fv",
             "token_id": "3875"
           }
         }
@@ -605,7 +605,7 @@
     "want_value": {
       "transfer": [
       {
-        "from_": "tz1Xug8k3AthQW5CbaW3N2t5iJcnttCPie2N",
+        "from_": "mv1LH9SLMYC3ymrRju4tbra6sKUmTGjSh3fv",
         "txs": [
           {
             "amount": "1",
@@ -701,7 +701,7 @@
             "prim": "Pair",
             "args": [
               {
-                "string": "tz1Xug8k3AthQW5CbaW3N2t5iJcnttCPie2N"
+                "string": "mv1LH9SLMYC3ymrRju4tbra6sKUmTGjSh3fv"
               },
               {
                 "prim": "Pair",
@@ -726,7 +726,7 @@
       {
         "remove_operator": {
           "operator": "KT1B2BN4qgmtsaoLRhhnFVDNoTyybwTfdrE4",
-          "owner": "tz1Xug8k3AthQW5CbaW3N2t5iJcnttCPie2N",
+          "owner": "mv1LH9SLMYC3ymrRju4tbra6sKUmTGjSh3fv",
           "token_id": "3875"
         }
       }
