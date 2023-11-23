@@ -136,12 +136,12 @@ var keyInfo = []keyTest{
 	{
 		Name:   "Pair(address,nat)",
 		Type:   "pair",
-		Hash:   tezos.MustParseExprHash("expruZXMDtKzuz1vxz9nAfpgU4KKJfUZFi4s8KJQm1Esv5eufpenV5"),
-		Hex:    "07070a000000160000166511aa4317b5c0493ee0dd3f65f2d1ce9ccba5009902",
-		Value:  []byte(`{"0":"mv1A3uwL1r8yPzkgi4UZLwCiKMZkDsNcCFjU","1":"153"}`),
-		String: "mv1A3uwL1r8yPzkgi4UZLwCiKMZkDsNcCFjU,153",
+		Hash:   tezos.MustParseExprHash("exprvD1v8DxXvrsCqbx7BA2ZqxYuUk9jXE1QrXuL46i3MWG6o1szUq"),
+		Hex:    "07070a0000001600005db799bf9b0dc319ba1cf21ab01461a9639043ca009902",
+		Value:  []byte(`{"0":"mv1GZ2nLrBcdGpecDeTqTCXMVdZuoTUecDks","1":"153"}`),
+		String: "mv1GZ2nLrBcdGpecDeTqTCXMVdZuoTUecDks,153",
 		Prim: NewPair(
-			NewBytes(tezos.MustParseAddress("mv1A3uwL1r8yPzkgi4UZLwCiKMZkDsNcCFjU").EncodePadded()),
+			NewBytes(tezos.MustParseAddress("mv1GZ2nLrBcdGpecDeTqTCXMVdZuoTUecDks").EncodePadded()),
 			NewInt64(153),
 		),
 	},

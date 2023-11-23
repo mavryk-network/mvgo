@@ -345,7 +345,7 @@
         "bakerName": "Baking Team",
         "bakerOffchainRegistryUrl": "https://baking.team/registry.json",
         "bakerPaysFromAccounts": [
-          "tz1PayLDWLg39fbkwKejnT3aijz4QEd5kgt3"
+          "mv1BxSdophyPiwNz5eDb2Gjbskr2xd8C5rdL"
         ],
         "minDelegation": "10000000",
         "minPayout": "0",
@@ -359,9 +359,9 @@
         "subtractRewardsFromUninvitedDelegation": false
       },
       "last_update": "2021-01-21T18:26:43Z",
-      "reporterAccount": "tz1PayLDWLg39fbkwKejnT3aijz4QEd5kgt3"
+      "reporterAccount": "mv1BxSdophyPiwNz5eDb2Gjbskr2xd8C5rdL"
     },
-    "want_key": "tz1fJHFn6sWEd3NnBPngACuw2dggTv6nQZ7g"
+    "want_key": "mv1TfkZNREobCKA1KiMXQ2bxBeYf2JcQe194"
   },
   {
     "name": "Mainnet/KT1ChNsEFxwyCbJyWGSL3KdjeXE28AY1Kaog-17-exprvPcQ6uQ9Ze1dyknkct3ZJVJY3m6QCYa9L4TqAmHfCnkASGMbPa",
@@ -704,7 +704,7 @@
         "bakerName": "Tessellated Geometry",
         "bakerOffchainRegistryUrl": "http://tessellatedgeometry.com/tezos-baker.json",
         "bakerPaysFromAccounts": [
-          "tz1abmz7jiCV2GH2u81LRrGgAFFgvQgiDiaf"
+          "mv1NyFHi45VqbY4G3SaBffxhKG7fUoBkNBJp"
         ],
         "minDelegation": "500000",
         "minPayout": "0",
@@ -720,7 +720,7 @@
       "last_update": "2021-02-05T20:19:07Z",
       "reporterAccount": null
     },
-    "want_key": "tz1abmz7jiCV2GH2u81LRrGgAFFgvQgiDiaf"
+    "want_key": "mv1NyFHi45VqbY4G3SaBffxhKG7fUoBkNBJp"
   },
   {
     "name": "Mainnet/KT1ChNsEFxwyCbJyWGSL3KdjeXE28AY1Kaog-17-exprua39DnmpJYXcQgNkzF158EEzGzRs5Ck6HtDmSr8VJ49UZtgbct",
@@ -1027,7 +1027,7 @@
         "bakerName": "Fresh Tezos",
         "bakerOffchainRegistryUrl": "",
         "bakerPaysFromAccounts": [
-          "tz1iXQ3rgNt3rNHt9iNTm2muQYg1Msw2faFq"
+          "mv1WtsMSzkBQRe57J2wJzrTvZZXyvGPjDsxN"
         ],
         "minDelegation": "5000000",
         "minPayout": "0",
@@ -1043,6 +1043,6 @@
       "last_update": "2021-02-22T05:04:22Z",
       "reporterAccount": null
     },
-    "want_key": "tz1QLXqnfN51dkjeghXvKHkJfhvGiM5gK4tc"
+    "want_key": "mv1Ci19NyjNND2Wsq26mZ7SKpinFGjYqXDyG"
   }
 ]
