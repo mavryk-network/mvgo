@@ -3,9 +3,7 @@
 
 package rpc
 
-import (
-	"github.com/mavryk-network/tzgo/tezos"
-)
+import tezos "github.com/mavryk-network/mvgo/mavryk"
 
 // Ensure Activation implements the TypedOperation interface.
 var _ TypedOperation = (*Activation)(nil)

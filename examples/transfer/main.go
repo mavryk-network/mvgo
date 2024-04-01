@@ -11,10 +11,10 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/mavryk-network/tzgo/codec"
-	"github.com/mavryk-network/tzgo/rpc"
-	"github.com/mavryk-network/tzgo/signer"
-	"github.com/mavryk-network/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/codec"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/signer"
 
 	"github.com/echa/log"
 )

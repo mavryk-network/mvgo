@@ -3,9 +3,7 @@
 
 package rpc
 
-import (
-	"github.com/mavryk-network/tzgo/tezos"
-)
+import "github.com/mavryk-network/mvgo/tezos"
 
 // Ensure Ballot implements the TypedOperation interface.
 var _ TypedOperation = (*Ballot)(nil)

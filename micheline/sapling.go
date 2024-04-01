@@ -9,7 +9,7 @@ package micheline
 // "encoding/json"
 // "fmt"
 // "math/big"
-// "github.com/mavryk-network/tzgo/tezos"
+// "github.com/mavryk-network/mvgo/mavryk"
 
 type SaplingDiffElem struct {
 	Action   DiffAction    `json:"action"`

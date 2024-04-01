@@ -4,9 +4,9 @@
 package task
 
 import (
-	"github.com/mavryk-network/tzgo/internal/compose"
-	"github.com/mavryk-network/tzgo/internal/compose/alpha"
-	"github.com/mavryk-network/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/internal/compose"
+	"github.com/mavryk-network/mvgo/internal/compose/alpha"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 
 	"github.com/pkg/errors"
 )

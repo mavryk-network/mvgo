@@ -3,9 +3,7 @@
 
 package rpc
 
-import (
-	"github.com/mavryk-network/tzgo/tezos"
-)
+import tezos "github.com/mavryk-network/mvgo/mavryk"
 
 // Ensure DAL types implement the TypedOperation interface.
 var (

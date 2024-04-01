@@ -22,11 +22,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/mavryk-network/tzgo/contract"
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/rpc"
-	"github.com/mavryk-network/tzgo/signer"
-	"github.com/mavryk-network/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/contract"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/signer"
 
 	"github.com/echa/log"
 )

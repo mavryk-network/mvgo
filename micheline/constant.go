@@ -3,9 +3,7 @@
 
 package micheline
 
-import (
-	"github.com/mavryk-network/tzgo/tezos"
-)
+import tezos "github.com/mavryk-network/mvgo/mavryk"
 
 type ConstantDict map[string]Prim
 

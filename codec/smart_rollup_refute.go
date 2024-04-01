@@ -9,7 +9,7 @@ import (
 	// "io"
 	// "strconv"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Smart_rollup_refute (tag 204)

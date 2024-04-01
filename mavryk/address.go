@@ -1,7 +1,7 @@
 // Copyright (c) 2020-2022 Blockwatch Data Inc.
 // Author: alex@blockwatch.cc
 
-package tezos
+package mavryk
 
 import (
 	"errors"
@@ -9,7 +9,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/mavryk-network/tzgo/base58"
+	"github.com/mavryk-network/mvgo/base58"
 )
 
 var (
@@ -287,13 +287,13 @@ func (a Address) EncodePadded() []byte {
 	return buf[:]
 }
 
-// MarshalBinary outputs the 21 byte TzGo version of an address containing
+// MarshalBinary outputs the 21 byte MvGo version of an address containing
 // a one byte type tag and the 20 byte address hash.
 func (a Address) MarshalBinary() ([]byte, error) {
 	return a[:], nil
 }
 
-// UnmarshalBinary reads the 21 byte TzGo version of an address containing
+// UnmarshalBinary reads the 21 byte MvGo version of an address containing
 // a one byte type tag and the 20 byte address hash.
 func (a *Address) UnmarshalBinary(b []byte) error {
 	if len(b) != 21 {

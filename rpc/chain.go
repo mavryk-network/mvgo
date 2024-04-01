@@ -6,7 +6,7 @@ package rpc
 import (
 	"context"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // GetChainId returns the chain id (i.e. network id).

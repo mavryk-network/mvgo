@@ -4,8 +4,8 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/mavryk-network/tzgo/contract/ast"
-	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/mvgo/contract/ast"
+	"github.com/mavryk-network/mvgo/micheline"
 
 	"github.com/pkg/errors"
 )

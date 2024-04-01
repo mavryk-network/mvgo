@@ -19,11 +19,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/mavryk-network/tzgo/codec"
-	"github.com/mavryk-network/tzgo/rpc"
-	"github.com/mavryk-network/tzgo/signer"
-	"github.com/mavryk-network/tzgo/signer/remote"
-	"github.com/mavryk-network/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/codec"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/signer"
+	"github.com/mavryk-network/mvgo/signer/remote"
 
 	"github.com/echa/log"
 )
@@ -36,7 +36,7 @@ var (
 )
 
 func init() {
-	if k := os.Getenv("TZGO_PRIVATE_KEY"); k != "" {
+	if k := os.Getenv("MVGO_PRIVATE_KEY"); k != "" {
 		sk = tezos.MustParsePrivateKey(k)
 	}
 }
@@ -369,7 +369,7 @@ func printTypeInfo(typ reflect.Type, prefix string) {
 
 func encode(ctx context.Context, c *rpc.Client, typ, data string) error {
 	if !sk.IsValid() {
-		return fmt.Errorf("Invalid private key. use -sk or TZGO_PRIVATE_KEY")
+		return fmt.Errorf("Invalid private key. use -sk or MVGO_PRIVATE_KEY")
 	}
 	op := codec.NewOp()
 	if data[0] == '[' {
@@ -455,7 +455,7 @@ func digest(ctx context.Context, c *rpc.Client, msg string) error {
 
 func sign(ctx context.Context, c *rpc.Client, msg string) error {
 	if !sk.IsValid() {
-		return fmt.Errorf("Invalid private key. use -sk or TZGO_PRIVATE_KEY")
+		return fmt.Errorf("Invalid private key. use -sk or MVGO_PRIVATE_KEY")
 	}
 	buf, err := hex.DecodeString(msg)
 	if err != nil {
@@ -592,7 +592,7 @@ func wait(ctx context.Context, c *rpc.Client, op, conf, ttl string) error {
 
 func send(ctx context.Context, c *rpc.Client, typ, data string) error {
 	if !sk.IsValid() {
-		return fmt.Errorf("Invalid private key. use -sk or TZGO_PRIVATE_KEY")
+		return fmt.Errorf("Invalid private key. use -sk or MVGO_PRIVATE_KEY")
 	}
 	c.Signer = signer.NewFromKey(sk)
 	op := codec.NewOp()

@@ -14,8 +14,8 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/mavryk-network/tzgo/internal/generate"
-	"github.com/mavryk-network/tzgo/internal/parse"
+	"github.com/mavryk-network/mvgo/internal/generate"
+	"github.com/mavryk-network/mvgo/internal/parse"
 
 	"github.com/iancoleman/strcase"
 	"github.com/pkg/errors"

@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // IncreasePaidStorage represents "increase_paid_storage" operation

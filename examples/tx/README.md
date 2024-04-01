@@ -1,6 +1,6 @@
 ## Build and sign Tezos operations
 
-Use TzGo to produce any type of Tezos operation. One by one, this example shows all the basic steps to make, encode, simulate, sign, broadacst and wait for operation to be confirmed .
+Use MvGo to produce any type of Tezos operation. One by one, this example shows all the basic steps to make, encode, simulate, sign, broadacst and wait for operation to be confirmed .
 
 ### Usage
 

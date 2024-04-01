@@ -9,10 +9,10 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/mavryk-network/tzgo/codec"
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/signer"
-	"github.com/mavryk-network/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/codec"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/signer"
 )
 
 const ExtraSafetyMargin int64 = 100 // used to adjust gas and storage estimations

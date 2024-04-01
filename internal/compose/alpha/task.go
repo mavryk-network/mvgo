@@ -6,9 +6,9 @@ package alpha
 import (
 	"fmt"
 
-	"github.com/mavryk-network/tzgo/codec"
-	"github.com/mavryk-network/tzgo/internal/compose"
-	"github.com/mavryk-network/tzgo/rpc"
+	"github.com/mavryk-network/mvgo/codec"
+	"github.com/mavryk-network/mvgo/internal/compose"
+	"github.com/mavryk-network/mvgo/rpc"
 )
 
 type TaskBuilder interface {

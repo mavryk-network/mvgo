@@ -6,7 +6,7 @@ package alpha
 import (
 	"bytes"
 
-	"github.com/mavryk-network/tzgo/internal/compose"
+	"github.com/mavryk-network/mvgo/internal/compose"
 
 	"gopkg.in/yaml.v3"
 )

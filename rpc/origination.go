@@ -4,8 +4,8 @@
 package rpc
 
 import (
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 // Ensure Origination implements the TypedOperation interface.

@@ -11,8 +11,8 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 const (

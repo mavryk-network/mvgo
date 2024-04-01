@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 var (

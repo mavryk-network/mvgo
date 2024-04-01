@@ -5,7 +5,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/mavryk-network/tzgo/contract/ast"
+	"github.com/mavryk-network/mvgo/contract/ast"
 
 	"github.com/iancoleman/strcase"
 )
@@ -78,17 +78,17 @@ func marshalPrimMethod(typ *ast.Struct) string {
 	case "string":
 		return "micheline.NewString(%s)"
 	case "bool":
-		return "tzgoext.MarshalPrimBool(%s)"
+		return "mvgoext.MarshalPrimBool(%s)"
 	case "bytes", "keyhash":
 		return "micheline.NewBytes(%s)"
 	case "timestamp":
-		return "tzgoext.MarshalPrimTimestamp(%s)"
+		return "mvgoext.MarshalPrimTimestamp(%s)"
 	case "address":
 		return "micheline.NewString(%s.String())"
 	case "signature", "key", "chain_id":
 		return "micheline.NewBytes(%s.Bytes())"
 	case "list":
-		return "tzgoext.MarshalPrimSeq[" + goType(typ) + "](%s, tzgoext.MarshalAny)"
+		return "mvgoext.MarshalPrimSeq[" + goType(typ) + "](%s, mvgoext.MarshalAny)"
 	case "lambda", "struct":
 		return "%s.Prim"
 	default:

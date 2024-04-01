@@ -1,7 +1,7 @@
 package bind
 
 import (
-	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/mvgo/micheline"
 
 	"github.com/pkg/errors"
 )

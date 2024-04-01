@@ -3,9 +3,7 @@
 
 package micheline
 
-import (
-	"github.com/mavryk-network/tzgo/tezos"
-)
+import tezos "github.com/mavryk-network/mvgo/mavryk"
 
 // Wraps ticket value type into type structure that is compatible
 // with ticket values. This is necessary because T_TICKET uses an

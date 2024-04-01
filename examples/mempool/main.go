@@ -13,8 +13,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/mavryk-network/tzgo/rpc"
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/rpc"
 
 	"github.com/echa/log"
 )

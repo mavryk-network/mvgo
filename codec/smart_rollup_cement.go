@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // SmartRollupCement represents "smart_rollup_cement" operation

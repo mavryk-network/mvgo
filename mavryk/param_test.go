@@ -1,10 +1,10 @@
-package tezos_test
+package mavryk_test
 
 import (
 	"testing"
 
-	"github.com/mavryk-network/tzgo/rpc"
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/rpc"
 )
 
 type (

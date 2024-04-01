@@ -1,7 +1,7 @@
 // Copyright (c) 2021 Blockwatch Data Inc.
 // Author: alex@blockwatch.cc
 
-package tezos
+package mavryk
 
 import (
 	"fmt"

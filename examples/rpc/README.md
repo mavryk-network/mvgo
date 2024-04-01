@@ -1,6 +1,6 @@
 ## Pull data from the Tezos RPC
 
-Use TzGo to flexibly fetch all kinds of data from the Tezos RPC. A few basic and advanced examples are shown here.
+Use MvGo to flexibly fetch all kinds of data from the Tezos RPC. A few basic and advanced examples are shown here.
 
 ### Usage
 

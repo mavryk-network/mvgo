@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // WIP: interface may change

@@ -10,11 +10,11 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/mavryk-network/tzgo/contract"
-	"github.com/mavryk-network/tzgo/contract/bind"
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/rpc"
-	"github.com/mavryk-network/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/contract"
+	"github.com/mavryk-network/mvgo/contract/bind"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/pkg/errors"
 )
 

@@ -9,11 +9,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Constants represents only a limited subset of Tezos chain configuration params
-// which are required by TzGo. Users must define custom structs to read other
+// which are required by MvGo. Users must define custom structs to read other
 // constants as needed.
 type Constants struct {
 	PreservedCycles              int64    `json:"preserved_cycles"`

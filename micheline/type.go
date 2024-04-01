@@ -10,8 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mavryk-network/tzgo/tezos"
-
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 	"golang.org/x/exp/slices"
 )
 

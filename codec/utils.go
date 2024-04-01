@@ -10,8 +10,8 @@ import (
 	"io"
 	"math"
 
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 // TODO: fetch dynamic from /chains/main/mempool/filter

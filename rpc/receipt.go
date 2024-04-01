@@ -8,7 +8,7 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 var (

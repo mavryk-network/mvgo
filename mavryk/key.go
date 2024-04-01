@@ -1,7 +1,7 @@
 // Copyright (c) 2020-2023 Blockwatch Data Inc.
 // Author: alex@blockwatch.cc
 
-package tezos
+package mavryk
 
 import (
 	"bytes"
@@ -14,7 +14,7 @@ import (
 	"crypto/elliptic"
 	"crypto/rand"
 
-	"github.com/mavryk-network/tzgo/base58"
+	"github.com/mavryk-network/mvgo/base58"
 
 	"github.com/decred/dcrd/dcrec/secp256k1/v4"
 	"golang.org/x/crypto/blake2b"

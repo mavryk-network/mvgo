@@ -15,15 +15,15 @@ import (
 	"os"
 	"strings"
 
-	"github.com/mavryk-network/tzgo/signer"
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/signer"
 
 	"github.com/echa/log"
 )
 
 const (
 	libraryVersion = "1.17.0"
-	userAgent      = "tzgo/v" + libraryVersion
+	userAgent      = "mvgo/v" + libraryVersion
 	mediaType      = "application/json"
 	ipfsUrl        = "https://ipfs.io"
 )
@@ -79,7 +79,7 @@ func NewClient(baseURL string, httpClient *http.Client) (*Client, error) {
 		q.Del("api_key")
 		u.RawQuery = q.Encode()
 	} else {
-		key = os.Getenv("TZGO_API_KEY")
+		key = os.Getenv("MVGO_API_KEY")
 	}
 	ipfs, _ := url.Parse(ipfsUrl)
 	c := &Client{

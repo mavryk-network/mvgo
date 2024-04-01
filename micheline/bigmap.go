@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 var BigmapRefType = Prim{

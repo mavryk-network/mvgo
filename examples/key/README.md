@@ -1,6 +1,6 @@
 ## Create and use private keys in Tezos
 
-Use TzGo to generate and use private keys for joy and pleasure.
+Use MvGo to generate and use private keys for joy and pleasure.
 
 ### Usage
 

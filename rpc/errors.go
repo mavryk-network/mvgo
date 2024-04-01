@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/mavryk-network/tzgo/micheline"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 const (

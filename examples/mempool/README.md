@@ -1,6 +1,6 @@
 ## Observe the Tezos Mempool
 
-Use TzGo to watch the mempool for new operations.
+Use MvGo to watch the mempool for new operations.
 
 ### Usage
 

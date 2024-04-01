@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // UpdateConsensusKey represents "update_consensus_key" operation

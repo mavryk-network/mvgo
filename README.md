@@ -1,10 +1,10 @@
-## Blockwatch TzGo - Tezos Go SDK
+## Blockwatch MvGo - Tezos Go SDK
 
-TzGo is [Blockwatch](https://blockwatch.cc)'s low-level Tezos Go SDK for reliable, high-performance applications. This SDK is free to use in commercial and non-commercial projects with a permissive license. Blockwatch is committed to keeping interfaces stable, providing long-term support, and updating TzGo on a regular basis to stay compliant with the most recent Tezos network protocol.
+MvGo is [Blockwatch](https://blockwatch.cc)'s low-level Tezos Go SDK for reliable, high-performance applications. This SDK is free to use in commercial and non-commercial projects with a permissive license. Blockwatch is committed to keeping interfaces stable, providing long-term support, and updating MvGo on a regular basis to stay compliant with the most recent Tezos network protocol.
 
-TzGo's main focus is on **correctness**, **stability**, and **compliance** with Tezos mainnet. It supports binary and JSON encodings for all Tezos types including Micheline smart contract data and all transaction formats. It's an ideal fit for high-performance applications that read from and write to the Tezos blockchain.
+MvGo's main focus is on **correctness**, **stability**, and **compliance** with Tezos mainnet. It supports binary and JSON encodings for all Tezos types including Micheline smart contract data and all transaction formats. It's an ideal fit for high-performance applications that read from and write to the Tezos blockchain.
 
-Current Tezos protocol support in TzGo
+Current Tezos protocol support in MvGo
 
 - Oxford v018
 - Nairobi v017
@@ -25,49 +25,49 @@ Current Tezos protocol support in TzGo
 
 ### SDK features
 
-TzGo contains a full set of features to read, monitor, decode, translate, analyze and debug data from the Tezos blockchain, in particular from Tezos smart contracts:
+MvGo contains a full set of features to read, monitor, decode, translate, analyze and debug data from the Tezos blockchain, in particular from Tezos smart contracts:
 
-- a low-level **Types library** `tzgo/tezos` to handle hashes, addresses, keys, signatures other types found on-chain
-- a powerful **Micheline library** `tzgo/micheline` to decode and translate data found in smart contract calls, storage, and bigmaps
-- an **RPC library** `tzgo/rpc` for accessing the Tezos Node RPC
-- a **Codec library** `tzgo/codec` to construct and serialize operations
-- a **Contract library** `tzgo/contract` for smart contract calls and tokens
-- a **Signer library** `tzgo/signer` to sign transactions local or remote
+- a low-level **Types library** `mvgo/mavryk` to handle hashes, addresses, keys, signatures other types found on-chain
+- a powerful **Micheline library** `mvgo/micheline` to decode and translate data found in smart contract calls, storage, and bigmaps
+- an **RPC library** `mvgo/rpc` for accessing the Tezos Node RPC
+- a **Codec library** `mvgo/codec` to construct and serialize operations
+- a **Contract library** `mvgo/contract` for smart contract calls and tokens
+- a **Signer library** `mvgo/signer` to sign transactions local or remote
 - helpers like an efficient base58 en/decoder, hash maps, etc
-- a **Code generator** [TzGen](https://github.com/blockwatch-cc/tzgo/tree/master/cmd/tzgen) to produce pure Go clients for smart contract interfaces
-- an **Automation Tool** [TzCompose](https://github.com/blockwatch-cc/tzgo/tree/master/cmd/tzcompose) to setup test cases and deploy complex contract ecosystems
+- a **Code generator** [TzGen](https://github.com/blockwatch-cc/mvgo/tree/master/cmd/tzgen) to produce pure Go clients for smart contract interfaces
+- an **Automation Tool** [TzCompose](https://github.com/blockwatch-cc/mvgo/tree/master/cmd/tzcompose) to setup test cases and deploy complex contract ecosystems
 
-### TzGo Compatibility
+### MvGo Compatibility
 
-TzGo's RPC package attempts to be compatible with all protocols so that reading historic block data is always supported. Binary transaction encoding and signing support is limited to the most recent protocol.
+MvGo's RPC package attempts to be compatible with all protocols so that reading historic block data is always supported. Binary transaction encoding and signing support is limited to the most recent protocol.
 
-We attempt to upgrade TzGo whenever new protocols are proposed and will add new protocol features as soon as practically feasible and as demand for such features exists. For example, we don't fully Sapling and BLS signatures yet, but may add support in the future.
+We attempt to upgrade MvGo whenever new protocols are proposed and will add new protocol features as soon as practically feasible and as demand for such features exists. For example, we don't fully Sapling and BLS signatures yet, but may add support in the future.
 
 ### Usage
 
 ```sh
-go get -u github.com/mavryk-network/tzgo
+go get -u github.com/mavryk-network/mvgo
 ```
 
 Then import, using
 
 ```go
 import (
-	"github.com/mavryk-network/tzgo/codec"
-	"github.com/mavryk-network/tzgo/tezos"
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/rpc"
-	"github.com/mavryk-network/tzgo/wallet"
+	"github.com/mavryk-network/mvgo/codec"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/wallet"
 )
 ```
 
 ### Micheline Support
 
-Tezos uses [Micheline](https://tezos.gitlab.io/shell/micheline.html) for encoding smart contract data and code. The positive is that Micheline is strongly typed, the downside is that it's complex and has a few ambiguities that make it hard to use. TzGo contains a library that lets you decode, analyze and construct compliant Micheline data structures from Go.
+Tezos uses [Micheline](https://tezos.gitlab.io/shell/micheline.html) for encoding smart contract data and code. The positive is that Micheline is strongly typed, the downside is that it's complex and has a few ambiguities that make it hard to use. MvGo contains a library that lets you decode, analyze and construct compliant Micheline data structures from Go.
 
-Micheline uses basic **primitives** for encoding types and values. These primitives can be expressed in JSON and binary format and TzGo can translate between them efficiently. Micheline also supports type **annotations** which are used by high-level languages to express complex data types like records and their field names.
+Micheline uses basic **primitives** for encoding types and values. These primitives can be expressed in JSON and binary format and MvGo can translate between them efficiently. Micheline also supports type **annotations** which are used by high-level languages to express complex data types like records and their field names.
 
-TzGo defines a basic `Prim` data type to work with Micheline primitives directly:
+MvGo defines a basic `Prim` data type to work with Micheline primitives directly:
 
 ```go
 type Prim struct {
@@ -82,25 +82,25 @@ type Prim struct {
 }
 ```
 
-Since Micheline value encoding is quite verbose and can be ambiguous, TzGo supports **unfolding** of raw Micheline using the following TzGo wrapper types and their helper functions like `Map()`, `GetInt64()`, `GetAddress()`:
+Since Micheline value encoding is quite verbose and can be ambiguous, MvGo supports **unfolding** of raw Micheline using the following MvGo wrapper types and their helper functions like `Map()`, `GetInt64()`, `GetAddress()`:
 
-- `Type` is a TzGo wrapper for simple or complex primitives which contain annotated type info
-- `Value` is a TzGo wrapper for simple or complex primitives representing Micheline values in combination with their Type
-- `Key` is a TzGo wrapper for special comparable values that are used as maps or bigmap keys
+- `Type` is a MvGo wrapper for simple or complex primitives which contain annotated type info
+- `Value` is a MvGo wrapper for simple or complex primitives representing Micheline values in combination with their Type
+- `Key` is a MvGo wrapper for special comparable values that are used as maps or bigmap keys
 
-Sometimes Micheline values have been packed into byte sequences with the Michelson PACK instruction and it is desirable to unpack them before processing (e.g. to retrieve UFT8 strings or nested records). TzGo supports `Unpack()` and `UnpackAll()` functions on primitives and values and also detects the internal type of packed data which is necessary for unfolding.
+Sometimes Micheline values have been packed into byte sequences with the Michelson PACK instruction and it is desirable to unpack them before processing (e.g. to retrieve UFT8 strings or nested records). MvGo supports `Unpack()` and `UnpackAll()` functions on primitives and values and also detects the internal type of packed data which is necessary for unfolding.
 
 
 ### Examples
 
-Below are a few examples showing how to use TzGo to easily access Tezos data in your application.
+Below are a few examples showing how to use MvGo to easily access Tezos data in your application.
 
 #### Parsing an address
 
 To parse/decode an address and output its components you can do the following:
 
 ```go
-import "github.com/mavryk-network/tzgo/tezos"
+import "github.com/mavryk-network/mvgo/mavryk"
 
 // parse and panic if invalid
 addr := tezos.MustParseAddress("tz3RDC3Jdn4j15J7bBHZd29EUee9gVB1CxD9")
@@ -117,14 +117,14 @@ fmt.Printf("Address bytes = %x\n", addr.Hash)
 
 ```
 
-See [examples/addr.go](https://github.com/blockwatch-cc/tzgo/blob/master/examples/addr/main.go) for more.
+See [examples/addr.go](https://github.com/blockwatch-cc/mvgo/blob/master/examples/addr/main.go) for more.
 
 #### Monitoring for new blocks
 
-A Tezos node can notify applications when new blocks are attached to the chain. The Tezos RPC calls this monitor and technically it's a long-poll implementation. Here's how to use this feature in TzGo:
+A Tezos node can notify applications when new blocks are attached to the chain. The Tezos RPC calls this monitor and technically it's a long-poll implementation. Here's how to use this feature in MvGo:
 
 ```go
-import "github.com/mavryk-network/tzgo/rpc"
+import "github.com/mavryk-network/mvgo/rpc"
 
 // init SDK client
 c, _ := rpc.NewClient("https://rpc.tzstats.com", nil)
@@ -158,9 +158,9 @@ for {
 
 ```go
 import (
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/rpc"
-	"github.com/mavryk-network/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // we use the Baker Registry on mainnet as example
@@ -183,9 +183,9 @@ fmt.Println(string(buf))
 
 ```go
 import (
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/rpc"
-	"github.com/mavryk-network/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // init RPC client
@@ -207,7 +207,7 @@ val := micheline.NewValue(ep.Type(), param)
 from, ok := val.GetAddress("transfer.from")
 ```
 
-#### Use TzGo's Value API
+#### Use MvGo's Value API
 
 Micheline type and value trees are verbose and can be ambiguous due to comb-pair optimizations. If you don't know or don't care about what that even means, you may want to use the `Value` API which helps you translate Micheline into human readable form.
 
@@ -270,9 +270,9 @@ err := val.Unmarshal(&transfer)
 
 ```go
 import (
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/rpc"
-	"github.com/mavryk-network/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // we use the hic et nunc NFT market on mainnet as example
@@ -318,7 +318,7 @@ for _, key := range bigkeys {
 
 #### Custom RPC client configuration
 
-TzGo's `rpc.NewClient()` function takes an optional Go `http.Client` as parameter which you can configure before or after passing it to the library. The example below shows how to set custom timeouts and disable TLS certificate checks (not recommended in production, but useful if you use self-signed certificates during testing).
+MvGo's `rpc.NewClient()` function takes an optional Go `http.Client` as parameter which you can configure before or after passing it to the library. The example below shows how to set custom timeouts and disable TLS certificate checks (not recommended in production, but useful if you use self-signed certificates during testing).
 
 
 ```go
@@ -328,7 +328,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/mavryk-network/tzgo/rpc"
+	"github.com/mavryk-network/mvgo/rpc"
 )
 
 

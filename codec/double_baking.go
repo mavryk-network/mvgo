@@ -8,7 +8,7 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // DoubleBakingEvidence represents "double_baking_evidence" operation

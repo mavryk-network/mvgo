@@ -14,7 +14,7 @@ Developers can use TzCompose for
 ## Using TzCompose
 
 ```sh
-go run github.com/mavryk-network/tzgo/cmd/tzcompose [cmd] [flags]
+go run github.com/mavryk-network/mvgo/cmd/tzcompose [cmd] [flags]
 
 Env
   TZCOMPOSE_BASE_KEY  private key for base account

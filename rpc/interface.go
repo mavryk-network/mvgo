@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/mavryk-network/tzgo/codec"
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/codec"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 // Ensure Client implements the RpcClient interface

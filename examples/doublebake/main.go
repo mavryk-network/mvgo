@@ -14,7 +14,7 @@
 // - wait one block
 // - send the 2 signed endorsements in as double_endorsement_evidence
 //
-// To specify the baker key set env var TZGO_PRIVATE_KEY
+// To specify the baker key set env var MVGO_PRIVATE_KEY
 
 package main
 
@@ -30,11 +30,11 @@ import (
 	"syscall"
 	"time"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
 	"github.com/echa/log"
+	"github.com/mavryk-network/mvgo/codec"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/signer"
 	"golang.org/x/crypto/blake2b"
 )
 
@@ -46,7 +46,7 @@ var (
 )
 
 func init() {
-	if k := os.Getenv("TZGO_PRIVATE_KEY"); k != "" {
+	if k := os.Getenv("MVGO_PRIVATE_KEY"); k != "" {
 		sk = tezos.MustParsePrivateKey(k)
 	}
 	flags.Usage = func() {}

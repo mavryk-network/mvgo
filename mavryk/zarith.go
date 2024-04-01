@@ -4,7 +4,7 @@
 // little-endian zarith encoding
 // https://github.com/ocaml/Zarith
 
-package tezos
+package mavryk
 
 import (
 	"bytes"

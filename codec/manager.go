@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Simple is an empty helper struct that's used to fulfil the Operation interface

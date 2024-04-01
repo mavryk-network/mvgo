@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Block holds information about a Tezos block

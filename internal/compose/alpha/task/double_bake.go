@@ -8,12 +8,12 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/internal/compose"
-	"blockwatch.cc/tzgo/internal/compose/alpha"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/codec"
+	"github.com/mavryk-network/mvgo/internal/compose"
+	"github.com/mavryk-network/mvgo/internal/compose/alpha"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/signer"
 
 	"github.com/pkg/errors"
 )

@@ -13,9 +13,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/mavryk-network/tzgo/internal/compose"
-	"github.com/mavryk-network/tzgo/micheline"
-	"github.com/mavryk-network/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/internal/compose"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 
 	"gopkg.in/yaml.v3"
 )

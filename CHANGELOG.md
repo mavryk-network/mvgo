@@ -77,7 +77,7 @@
 * add storage limit safety margin (100 byte)
 * fix some Micheline translation bugs for nested list/comb-pair ambiguities
 * fix decoding for some single-value entrypoints
-* support TZGO_API_KEY env variable
+* support MVGO_API_KEY env variable
 
 ## v1.16.6
 
@@ -111,7 +111,7 @@
 
 Refactoring and Mumbai support
 
-BREAKING: Note that due to a new internal address encoding data written by binary marshalers from earlier versions of TzGo is incompatible.
+BREAKING: Note that due to a new internal address encoding data written by binary marshalers from earlier versions of MvGo is incompatible.
 
 * Changed memory layout and interface for all hash types and `tezos.Address` to save 24 bytes per address/hash that was previously required for a byte slice header
   - hashes and addresses directly comparable now and can thus be used as Golang Map keys
@@ -324,7 +324,7 @@ Other changes
 
 ## v1.11-rc0
 
-This is the first release of TzGo that allows sending transactions. All types and interfaces are engineered to be easily composable. We start with essential low level types/functions for public and private key handling, operation encoding/signing/broadcast and mempool/block monitoring. This feature set is already fully sufficient to build end-user applications including the possibility to send smart contract calls, but may at times be less convenient. To simplify complex use cases we will introduce higher order functionality in the next release candidate.
+This is the first release of MvGo that allows sending transactions. All types and interfaces are engineered to be easily composable. We start with essential low level types/functions for public and private key handling, operation encoding/signing/broadcast and mempool/block monitoring. This feature set is already fully sufficient to build end-user applications including the possibility to send smart contract calls, but may at times be less convenient. To simplify complex use cases we will introduce higher order functionality in the next release candidate.
 
 **Package `tezos`**
 

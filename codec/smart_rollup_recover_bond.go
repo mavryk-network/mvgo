@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // SmartRollupRecoverBond represents "smart_rollup_recover_bond" operation

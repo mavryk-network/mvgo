@@ -6,7 +6,7 @@ package rpc
 import (
 	"encoding/json"
 
-	"github.com/mavryk-network/tzgo/tezos"
+	tezos "github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Ensure TxRollup implements the TypedOperation interface.
