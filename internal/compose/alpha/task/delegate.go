@@ -7,9 +7,9 @@ import (
 	"github.com/mavryk-network/mvgo/codec"
 	"github.com/mavryk-network/mvgo/internal/compose"
 	"github.com/mavryk-network/mvgo/internal/compose/alpha"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/rpc"
 	"github.com/mavryk-network/mvgo/signer"
-	"github.com/mavryk-network/mvgo/tezos"
 
 	"github.com/pkg/errors"
 )
@@ -42,7 +42,7 @@ func (t *DelegateTask) Build(ctx compose.Context, task alpha.Task) (*codec.Op, *
 	op := codec.NewOp().
 		WithSource(t.Source).
 		WithDelegation(t.Destination).
-		WithLimits([]tezos.Limits{rpc.DefaultDelegationLimitsEOA}, 0)
+		WithLimits([]mavryk.Limits{rpc.DefaultDelegationLimitsEOA}, 0)
 	return op, opts, nil
 }
 

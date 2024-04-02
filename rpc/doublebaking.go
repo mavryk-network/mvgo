@@ -3,7 +3,7 @@
 
 package rpc
 
-import tezos "github.com/mavryk-network/mvgo/mavryk"
+import "github.com/mavryk-network/mvgo/mavryk"
 
 // Ensure DoubleBaking implements the TypedOperation interface.
 var _ TypedOperation = (*DoubleBaking)(nil)
@@ -16,7 +16,7 @@ type DoubleBaking struct {
 }
 
 // Costs returns operation cost to implement TypedOperation interface.
-func (d DoubleBaking) Costs() tezos.Costs {
+func (d DoubleBaking) Costs() mavryk.Costs {
 	var burn int64
 	upd := d.Metadata.BalanceUpdates
 	// last item is accuser reward, rest is burned
@@ -27,7 +27,7 @@ func (d DoubleBaking) Costs() tezos.Costs {
 			burn += v.Amount()
 		}
 	}
-	return tezos.Costs{
+	return mavryk.Costs{
 		Burn: -burn,
 	}
 }

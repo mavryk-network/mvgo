@@ -41,7 +41,7 @@ type HelloBuilder struct{}
 // with the given rpc.
 //
 // Returns an error if the contract was not found at the given address.
-func NewHello(ctx context.Context, address tezos.Address, client *rpc.Client) (*Hello, error) {
+func NewHello(ctx context.Context, address mavryk.Address, client *rpc.Client) (*Hello, error) {
 	script, err := client.GetContractScript(ctx, address)
 	if err != nil {
 		return nil, err

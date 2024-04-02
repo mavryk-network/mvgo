@@ -3,7 +3,7 @@
 
 package rpc
 
-import tezos "github.com/mavryk-network/mvgo/mavryk"
+import "github.com/mavryk-network/mvgo/mavryk"
 
 // Ensure SetDepositsLimit implements the TypedOperation interface.
 var _ TypedOperation = (*SetDepositsLimit)(nil)
@@ -26,8 +26,8 @@ func (r SetDepositsLimit) Result() OperationResult {
 }
 
 // Costs returns operation cost to implement TypedOperation interface.
-func (r SetDepositsLimit) Costs() tezos.Costs {
-	return tezos.Costs{
+func (r SetDepositsLimit) Costs() mavryk.Costs {
+	return mavryk.Costs{
 		Fee:     r.Manager.Fee,
 		GasUsed: r.Metadata.Result.Gas(),
 	}

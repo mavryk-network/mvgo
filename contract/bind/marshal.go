@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"time"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 
 	"github.com/pkg/errors"
@@ -43,22 +43,22 @@ func MarshalPrim(v any, optimized bool) (micheline.Prim, error) {
 			return micheline.NewInt64(t.Unix()), nil
 		}
 		return micheline.NewString(t.Format(time.RFC3339)), nil
-	case tezos.Address:
+	case mavryk.Address:
 		if optimized {
 			return micheline.NewAddress(t), nil
 		}
 		return micheline.NewString(t.String()), nil
-	case tezos.Key:
+	case mavryk.Key:
 		if optimized {
 			return micheline.NewBytes(t.Bytes()), nil
 		}
 		return micheline.NewString(t.String()), nil
-	case tezos.Signature:
+	case mavryk.Signature:
 		if optimized {
 			return micheline.NewBytes(t.Bytes()), nil
 		}
 		return micheline.NewString(t.String()), nil
-	case tezos.ChainIdHash:
+	case mavryk.ChainIdHash:
 		return micheline.NewString(t.String()), nil
 	}
 

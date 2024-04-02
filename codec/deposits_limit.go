@@ -7,17 +7,17 @@ import (
 	"bytes"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // SetDepositsLimit represents "set_deposits_limit" operation
 type SetDepositsLimit struct {
 	Manager
-	Limit *tezos.N `json:"limit,omitempty"`
+	Limit *mavryk.N `json:"limit,omitempty"`
 }
 
-func (o SetDepositsLimit) Kind() tezos.OpType {
-	return tezos.OpTypeSetDepositsLimit
+func (o SetDepositsLimit) Kind() mavryk.OpType {
+	return mavryk.OpTypeSetDepositsLimit
 }
 
 func (o SetDepositsLimit) MarshalJSON() ([]byte, error) {
@@ -35,7 +35,7 @@ func (o SetDepositsLimit) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o SetDepositsLimit) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o SetDepositsLimit) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	if o.Limit == nil {
@@ -47,7 +47,7 @@ func (o SetDepositsLimit) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error
 	return nil
 }
 
-func (o *SetDepositsLimit) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *SetDepositsLimit) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -60,7 +60,7 @@ func (o *SetDepositsLimit) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err
 		return err
 	}
 	if ok {
-		var limit tezos.N
+		var limit mavryk.N
 		if err = limit.DecodeBuffer(buf); err != nil {
 			return err
 		}
@@ -71,10 +71,10 @@ func (o *SetDepositsLimit) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err
 
 func (o SetDepositsLimit) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *SetDepositsLimit) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

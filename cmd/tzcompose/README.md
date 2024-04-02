@@ -68,9 +68,9 @@ export TZCOMPOSE_API_KEY=<your-api-key>
 - [transfer](#transfer) - send tez transfer(s)
 - [undelegate](#undelegate) - remove delegation from baker
 - [wait](#wait) - wait for condition
-- [stake](#stake) - Oxford stake
-- [unstake](#unstake) - Oxford unstake
-- [finalize_unstake](#finalize_stake) - Oxford finalize unstake
+- [stake](#stake) - Atlas stake
+- [unstake](#unstake) - Atlas unstake
+- [finalize_unstake](#finalize_stake) - Atlas finalize unstake
 
 ### Configuration
 

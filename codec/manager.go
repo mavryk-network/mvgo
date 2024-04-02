@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Simple is an empty helper struct that's used to fulfil the Operation interface
@@ -15,8 +15,8 @@ import (
 // counter.
 type Simple struct{}
 
-func (o *Simple) Limits() tezos.Limits {
-	return tezos.Limits{}
+func (o *Simple) Limits() mavryk.Limits {
+	return mavryk.Limits{}
 }
 
 func (o Simple) GetCounter() int64 {
@@ -25,21 +25,21 @@ func (o Simple) GetCounter() int64 {
 
 func (o *Simple) WithCounter(int64) {}
 
-func (o *Simple) WithLimits(tezos.Limits) {}
+func (o *Simple) WithLimits(mavryk.Limits) {}
 
-func (o *Simple) WithSource(tezos.Address) {}
+func (o *Simple) WithSource(mavryk.Address) {}
 
 // Manager contains fields common for all manager operations
 type Manager struct {
-	Source       tezos.Address `json:"source"`
-	Fee          tezos.N       `json:"fee"`
-	Counter      tezos.N       `json:"counter"`
-	GasLimit     tezos.N       `json:"gas_limit"`
-	StorageLimit tezos.N       `json:"storage_limit"`
+	Source       mavryk.Address `json:"source"`
+	Fee          mavryk.N       `json:"fee"`
+	Counter      mavryk.N       `json:"counter"`
+	GasLimit     mavryk.N       `json:"gas_limit"`
+	StorageLimit mavryk.N       `json:"storage_limit"`
 }
 
-func (o Manager) Limits() tezos.Limits {
-	return tezos.Limits{
+func (o Manager) Limits() mavryk.Limits {
+	return mavryk.Limits{
 		Fee:          o.Fee.Int64(),
 		GasLimit:     o.GasLimit.Int64(),
 		StorageLimit: o.StorageLimit.Int64(),
@@ -60,7 +60,7 @@ func (o Manager) EncodeJSON(buf *bytes.Buffer) error {
 	return nil
 }
 
-func (o Manager) EncodeBuffer(buf *bytes.Buffer, _ *tezos.Params) error {
+func (o Manager) EncodeBuffer(buf *bytes.Buffer, _ *mavryk.Params) error {
 	buf.Write(o.Source.Encode())
 	o.Fee.EncodeBuffer(buf)
 	o.Counter.EncodeBuffer(buf)
@@ -69,7 +69,7 @@ func (o Manager) EncodeBuffer(buf *bytes.Buffer, _ *tezos.Params) error {
 	return nil
 }
 
-func (o *Manager) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *Manager) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = o.Source.Decode(buf.Next(21)); err != nil {
 		return
 	}
@@ -88,7 +88,7 @@ func (o *Manager) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
 	return nil
 }
 
-func (o *Manager) WithSource(addr tezos.Address) {
+func (o *Manager) WithSource(addr mavryk.Address) {
 	o.Source = addr
 }
 
@@ -100,7 +100,7 @@ func (o Manager) GetCounter() int64 {
 	return o.Counter.Int64()
 }
 
-func (o *Manager) WithLimits(limits tezos.Limits) {
+func (o *Manager) WithLimits(limits mavryk.Limits) {
 	o.Fee.SetInt64(limits.Fee)
 	o.GasLimit.SetInt64(limits.GasLimit)
 	o.StorageLimit.SetInt64(limits.StorageLimit)

@@ -60,7 +60,7 @@ type {{$contract}}Builder struct{}
 // with the given rpc.
 //
 // Returns an error if the contract was not found at the given address.
-func New{{$contract}}(ctx context.Context, address tezos.Address, client *rpc.Client) (*{{$contract}}, error) {
+func New{{$contract}}(ctx context.Context, address mavryk.Address, client *rpc.Client) (*{{$contract}}, error) {
 	script, err := client.GetContractScript(ctx, address)
 	if err != nil {
 		return nil, err

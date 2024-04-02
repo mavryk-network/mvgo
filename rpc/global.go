@@ -4,7 +4,7 @@
 package rpc
 
 import (
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 )
 
@@ -18,10 +18,10 @@ type ConstantRegistration struct {
 }
 
 // Costs returns operation cost to implement TypedOperation interface.
-func (c ConstantRegistration) Costs() tezos.Costs {
+func (c ConstantRegistration) Costs() mavryk.Costs {
 	res := c.Metadata.Result
 	burn := res.BalanceUpdates[0].Amount()
-	return tezos.Costs{
+	return mavryk.Costs{
 		Fee:         c.Manager.Fee,
 		GasUsed:     res.Gas(),
 		Burn:        -burn,

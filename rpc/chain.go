@@ -6,13 +6,13 @@ package rpc
 import (
 	"context"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // GetChainId returns the chain id (i.e. network id).
 // https://tezos.gitlab.io/shell/rpc.html#get-chains-chain-id-chain-id
-func (c *Client) GetChainId(ctx context.Context) (tezos.ChainIdHash, error) {
-	var id tezos.ChainIdHash
+func (c *Client) GetChainId(ctx context.Context) (mavryk.ChainIdHash, error) {
+	var id mavryk.ChainIdHash
 	err := c.Get(ctx, "chains/main/chain_id", &id)
 	return id, err
 }

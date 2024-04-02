@@ -3,18 +3,18 @@
 
 package micheline
 
-import tezos "github.com/mavryk-network/mvgo/mavryk"
+import "github.com/mavryk-network/mvgo/mavryk"
 
 type ConstantDict map[string]Prim
 
-func (d *ConstantDict) Add(address tezos.ExprHash, value Prim) {
+func (d *ConstantDict) Add(address mavryk.ExprHash, value Prim) {
 	if *d == nil {
 		*d = make(ConstantDict)
 	}
 	(*d)[address.String()] = value
 }
 
-func (d ConstantDict) Has(address tezos.ExprHash) bool {
+func (d ConstantDict) Has(address mavryk.ExprHash) bool {
 	if d == nil {
 		return false
 	}
@@ -22,7 +22,7 @@ func (d ConstantDict) Has(address tezos.ExprHash) bool {
 	return ok
 }
 
-func (d ConstantDict) Get(address tezos.ExprHash) (Prim, bool) {
+func (d ConstantDict) Get(address mavryk.ExprHash) (Prim, bool) {
 	if d == nil {
 		return InvalidPrim, false
 	}
@@ -38,11 +38,11 @@ func (d ConstantDict) GetString(address string) (Prim, bool) {
 	return p, ok
 }
 
-func (p Prim) Constants() []tezos.ExprHash {
-	c := make([]tezos.ExprHash, 0)
+func (p Prim) Constants() []mavryk.ExprHash {
+	c := make([]mavryk.ExprHash, 0)
 	p.Walk(func(p Prim) error {
 		if p.IsConstant() {
-			if h, err := tezos.ParseExprHash(p.Args[0].String); err == nil {
+			if h, err := mavryk.ParseExprHash(p.Args[0].String); err == nil {
 				c = append(c, h)
 			}
 		}

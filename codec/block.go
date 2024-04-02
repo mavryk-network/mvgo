@@ -9,27 +9,27 @@ import (
 	"strconv"
 	"time"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // BlockHeader represents a Tenderbake compatible block header
 type BlockHeader struct {
-	Level            int32                `json:"level"`
-	Proto            byte                 `json:"proto"`
-	Predecessor      tezos.BlockHash      `json:"predecessor"`
-	Timestamp        time.Time            `json:"timestamp"`
-	ValidationPass   byte                 `json:"validation_pass"`
-	OperationsHash   tezos.OpListListHash `json:"operations_hash"`
-	Fitness          []tezos.HexBytes     `json:"fitness"`
-	Context          tezos.ContextHash    `json:"context"`
-	PayloadHash      tezos.PayloadHash    `json:"payload_hash"`
-	PayloadRound     int                  `json:"payload_round"`
-	ProofOfWorkNonce tezos.HexBytes       `json:"proof_of_work_nonce"`
-	SeedNonceHash    tezos.NonceHash      `json:"seed_nonce_hash"`
-	LbVote           tezos.FeatureVote    `json:"liquidity_baking_toggle_vote"`
-	AiVote           tezos.FeatureVote    `json:"adaptive_issuance_vote"`
-	Signature        tezos.Signature      `json:"signature"`
-	ChainId          *tezos.ChainIdHash   `json:"-"` // remote signer use only
+	Level            int32                 `json:"level"`
+	Proto            byte                  `json:"proto"`
+	Predecessor      mavryk.BlockHash      `json:"predecessor"`
+	Timestamp        time.Time             `json:"timestamp"`
+	ValidationPass   byte                  `json:"validation_pass"`
+	OperationsHash   mavryk.OpListListHash `json:"operations_hash"`
+	Fitness          []mavryk.HexBytes     `json:"fitness"`
+	Context          mavryk.ContextHash    `json:"context"`
+	PayloadHash      mavryk.PayloadHash    `json:"payload_hash"`
+	PayloadRound     int                   `json:"payload_round"`
+	ProofOfWorkNonce mavryk.HexBytes       `json:"proof_of_work_nonce"`
+	SeedNonceHash    mavryk.NonceHash      `json:"seed_nonce_hash"`
+	LbVote           mavryk.FeatureVote    `json:"liquidity_baking_toggle_vote"`
+	AiVote           mavryk.FeatureVote    `json:"adaptive_issuance_vote"`
+	Signature        mavryk.Signature      `json:"signature"`
+	ChainId          *mavryk.ChainIdHash   `json:"-"` // remote signer use only
 }
 
 // Bytes serializes the block header into binary form. When no signature is set, the
@@ -54,26 +54,26 @@ func (h BlockHeader) WatermarkedBytes() []byte {
 // Digest returns a 32 byte blake2b hash for signing the block header. The pre-image
 // is binary serialized (without signature) and prefixed with a watermark byte.
 func (h BlockHeader) Digest() []byte {
-	d := tezos.Digest(h.WatermarkedBytes())
+	d := mavryk.Digest(h.WatermarkedBytes())
 	return d[:]
 }
 
 // Hash calculates the block hash. For the hash to be correct, the block
 // must contain a valid signature.
-func (h *BlockHeader) Hash() (s tezos.BlockHash) {
-	d := tezos.Digest(h.Bytes())
+func (h *BlockHeader) Hash() (s mavryk.BlockHash) {
+	d := mavryk.Digest(h.Bytes())
 	copy(s[:], d[:])
 	return
 }
 
 // Sign signs the block header using a private key and generates a generic signature.
 // If a valid signature already exists, this function is a noop.
-func (h *BlockHeader) Sign(key tezos.PrivateKey) error {
+func (h *BlockHeader) Sign(key mavryk.PrivateKey) error {
 	if h.Signature.IsValid() {
 		return nil
 	}
 	sig, err := key.Sign(h.Digest())
-	sig.Type = tezos.SignatureTypeGeneric
+	sig.Type = mavryk.SignatureTypeGeneric
 	if err != nil {
 		return err
 	}
@@ -83,7 +83,7 @@ func (h *BlockHeader) Sign(key tezos.PrivateKey) error {
 
 // WithChainId sets chain_id for this block to id. Use this only for remote signing
 // of blocks as it creates an invalid binary encoding otherwise.
-func (h *BlockHeader) WithChainId(id tezos.ChainIdHash) *BlockHeader {
+func (h *BlockHeader) WithChainId(id mavryk.ChainIdHash) *BlockHeader {
 	clone := id.Clone()
 	h.ChainId = &clone
 	return h
@@ -92,9 +92,9 @@ func (h *BlockHeader) WithChainId(id tezos.ChainIdHash) *BlockHeader {
 // WithSignature adds an externally created signature to the block header. Converts
 // any non-generic signature first. No signature validation is performed, it is
 // assumed the signature is correct.
-func (h *BlockHeader) WithSignature(sig tezos.Signature) *BlockHeader {
+func (h *BlockHeader) WithSignature(sig mavryk.Signature) *BlockHeader {
 	sig = sig.Clone()
-	sig.Type = tezos.SignatureTypeGeneric
+	sig.Type = mavryk.SignatureTypeGeneric
 	h.Signature = sig
 	return h
 }
@@ -209,7 +209,7 @@ func (h *BlockHeader) DecodeBuffer(buf *bytes.Buffer) (err error) {
 	if err != nil {
 		return
 	}
-	h.Fitness = make([]tezos.HexBytes, 0)
+	h.Fitness = make([]mavryk.HexBytes, 0)
 	for l > 0 {
 		var n int32
 		n, err = readInt32(buf.Next(4))

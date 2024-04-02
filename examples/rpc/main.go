@@ -15,7 +15,7 @@ import (
 	"strings"
 	"syscall"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 	"github.com/mavryk-network/mvgo/rpc"
 
@@ -99,7 +99,7 @@ func run() error {
 				return fetchBlockHeight(ctx, c, height)
 			}
 			// otherwise, parse as block hash
-			h, err := tezos.ParseBlockHash(flags.Arg(1))
+			h, err := mavryk.ParseBlockHash(flags.Arg(1))
 			if err != nil {
 				return err
 			}
@@ -154,11 +154,11 @@ func run() error {
 		if a == "" {
 			return fmt.Errorf("Missing contract address")
 		}
-		addr, err := tezos.ParseAddress(a)
+		addr, err := mavryk.ParseAddress(a)
 		if err != nil {
 			return err
 		}
-		if addr.Type() != tezos.AddressTypeContract {
+		if addr.Type() != mavryk.AddressTypeContract {
 			return fmt.Errorf("%s is not a smart contract address", a)
 		}
 		return showContractInfo(ctx, c, addr)
@@ -179,7 +179,7 @@ func fetchBlockHeight(ctx context.Context, c *rpc.Client, height int64) error {
 	return nil
 }
 
-func fetchBlock(ctx context.Context, c *rpc.Client, blockID tezos.BlockHash) error {
+func fetchBlock(ctx context.Context, c *rpc.Client, blockID mavryk.BlockHash) error {
 	b, err := c.GetBlock(ctx, blockID)
 	if err != nil {
 		return err
@@ -215,7 +215,7 @@ func printBlock(b *rpc.Block) {
 	fmt.Printf("Time     %s\n", b.Header.Timestamp)
 
 	// count operations and details
-	ops := make(map[tezos.OpType]int)
+	ops := make(map[mavryk.OpType]int)
 	var count int
 	for _, v := range b.Operations {
 		for _, vv := range v {
@@ -318,7 +318,7 @@ func searchOps(ctx context.Context, c *rpc.Client, ops string, start int64) erro
 	}
 
 	// find the current blockchain tip
-	tips, err := c.GetTips(ctx, 1, tezos.BlockHash{})
+	tips, err := c.GetTips(ctx, 1, mavryk.BlockHash{})
 	if err != nil {
 		return err
 	}
@@ -331,13 +331,13 @@ func searchOps(ctx context.Context, c *rpc.Client, ops string, start int64) erro
 	}
 
 	// parse ops
-	oplist := make([]tezos.OpType, 0)
+	oplist := make([]mavryk.OpType, 0)
 	eplist := make([]string, 0)
 	for _, op := range strings.Split(ops, ",") {
 		if strings.HasPrefix(op, "ep:") {
 			eplist = append(eplist, strings.TrimPrefix(op, "ep:"))
 		} else {
-			ot := tezos.ParseOpType(op)
+			ot := mavryk.ParseOpType(op)
 			if !ot.IsValid() {
 				return fmt.Errorf("invalid operation type '%s'", op)
 			}
@@ -345,14 +345,14 @@ func searchOps(ctx context.Context, c *rpc.Client, ops string, start int64) erro
 		}
 	}
 	if len(eplist) > 0 {
-		oplist = append(oplist, tezos.OpTypeTransaction)
+		oplist = append(oplist, mavryk.OpTypeTransaction)
 	}
 
 	// fetching blocks forward
 	height := start
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", "  ")
-	opcount := make(map[tezos.OpType]int)
+	opcount := make(map[mavryk.OpType]int)
 	epcount := make(map[string]int)
 	plog := log.NewProgressLogger(log.Log).SetEvent("block")
 	for {
@@ -381,7 +381,7 @@ func searchOps(ctx context.Context, c *rpc.Client, ops string, start int64) erro
 					} else {
 						opcount[kind] = 1
 					}
-					if kind == tezos.OpTypeTransaction {
+					if kind == mavryk.OpTypeTransaction {
 						tx := op.(*rpc.Transaction)
 						if tx.Parameters != nil {
 							epcount[tx.Parameters.Entrypoint]++
@@ -446,7 +446,7 @@ func searchOps(ctx context.Context, c *rpc.Client, ops string, start int64) erro
 
 func searchDeactivations(ctx context.Context, c *rpc.Client, start int64) error {
 	// find the current blockchain tip
-	tips, err := c.GetTips(ctx, 1, tezos.BlockHash{})
+	tips, err := c.GetTips(ctx, 1, mavryk.BlockHash{})
 	if err != nil {
 		return err
 	}
@@ -473,7 +473,7 @@ func searchDeactivations(ctx context.Context, c *rpc.Client, start int64) error 
 		}
 
 		if len(b.Metadata.Deactivated) > 0 {
-			res := map[int64][]tezos.Address{
+			res := map[int64][]mavryk.Address{
 				height: b.Metadata.Deactivated,
 			}
 			enc.Encode(res)
@@ -490,7 +490,7 @@ func searchDeactivations(ctx context.Context, c *rpc.Client, start int64) error 
 	return nil
 }
 
-func showContractInfo(ctx context.Context, c *rpc.Client, addr tezos.Address) error {
+func showContractInfo(ctx context.Context, c *rpc.Client, addr mavryk.Address) error {
 	fmt.Printf("Loading data for contract %s. This may take a while. Abort with Ctrl-C.\n", addr)
 	script, err := c.GetContractScript(ctx, addr)
 	if err != nil {
@@ -564,7 +564,7 @@ func showOpInfo(ctx context.Context, c *rpc.Client, bh rpc.BlockID, list, pos in
 		fmt.Printf("Part   %d\n", i+1)
 		fmt.Printf("  Type       %s\n", o.Kind())
 		switch o.Kind() {
-		case tezos.OpTypeTransaction:
+		case mavryk.OpTypeTransaction:
 			tx := o.(*rpc.Transaction)
 			fmt.Printf("  Dest       %s\n", tx.Destination)
 			fmt.Printf("  Fee        %d\n", tx.Fee)
@@ -642,7 +642,7 @@ func showOpCost(ctx context.Context, c *rpc.Client, bh rpc.BlockID, list, pos in
 		fmt.Printf("  AllocationBurn  %d\n", costs.AllocationBurn)
 
 		switch o.Kind() {
-		case tezos.OpTypeTransaction:
+		case mavryk.OpTypeTransaction:
 			tx := o.(*rpc.Transaction)
 			for j, ir := range tx.Metadata.InternalResults {
 				costs := ir.Costs()

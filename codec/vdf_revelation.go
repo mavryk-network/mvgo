@@ -7,17 +7,17 @@ import (
 	"bytes"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // VdfRevelation represents "vdf_revelation" operation
 type VdfRevelation struct {
 	Simple
-	Solution tezos.HexBytes `json:"solution"`
+	Solution mavryk.HexBytes `json:"solution"`
 }
 
-func (o VdfRevelation) Kind() tezos.OpType {
-	return tezos.OpTypeVdfRevelation
+func (o VdfRevelation) Kind() mavryk.OpType {
+	return mavryk.OpTypeVdfRevelation
 }
 
 func (o VdfRevelation) MarshalJSON() ([]byte, error) {
@@ -31,13 +31,13 @@ func (o VdfRevelation) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o VdfRevelation) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o VdfRevelation) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	buf.Write(o.Solution.Bytes())
 	return nil
 }
 
-func (o *VdfRevelation) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *VdfRevelation) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -46,10 +46,10 @@ func (o *VdfRevelation) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err er
 
 func (o VdfRevelation) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *VdfRevelation) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

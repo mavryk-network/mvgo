@@ -8,57 +8,57 @@ import (
 	"errors"
 
 	"github.com/mavryk-network/mvgo/codec"
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 var ErrAddressMismatch = errors.New("signer: address mismatch")
 
 type MemorySigner struct {
-	key tezos.PrivateKey
+	key mavryk.PrivateKey
 }
 
-func NewFromKey(k tezos.PrivateKey) *MemorySigner {
+func NewFromKey(k mavryk.PrivateKey) *MemorySigner {
 	return &MemorySigner{
 		key: k,
 	}
 }
 
-func (s MemorySigner) ListAddresses(_ context.Context) ([]tezos.Address, error) {
-	return []tezos.Address{s.key.Address()}, nil
+func (s MemorySigner) ListAddresses(_ context.Context) ([]mavryk.Address, error) {
+	return []mavryk.Address{s.key.Address()}, nil
 }
 
-func (s MemorySigner) GetKey(_ context.Context, addr tezos.Address) (tezos.Key, error) {
+func (s MemorySigner) GetKey(_ context.Context, addr mavryk.Address) (mavryk.Key, error) {
 	pk := s.key.Public()
 	if !pk.Address().Equal(addr) {
-		return tezos.InvalidKey, ErrAddressMismatch
+		return mavryk.InvalidKey, ErrAddressMismatch
 	}
 	return pk, nil
 }
 
-func (s MemorySigner) SignMessage(_ context.Context, addr tezos.Address, msg string) (tezos.Signature, error) {
+func (s MemorySigner) SignMessage(_ context.Context, addr mavryk.Address, msg string) (mavryk.Signature, error) {
 	if !s.key.Address().Equal(addr) {
-		return tezos.InvalidSignature, ErrAddressMismatch
+		return mavryk.InvalidSignature, ErrAddressMismatch
 	}
 	op := codec.NewOp().
-		WithBranch(tezos.ZeroBlockHash).
+		WithBranch(mavryk.ZeroBlockHash).
 		WithContents(&codec.FailingNoop{
 			Arbitrary: msg,
 		})
-	digest := tezos.Digest(op.Bytes())
+	digest := mavryk.Digest(op.Bytes())
 	return s.key.Sign(digest[:])
 }
 
-func (s MemorySigner) SignOperation(_ context.Context, addr tezos.Address, op *codec.Op) (tezos.Signature, error) {
+func (s MemorySigner) SignOperation(_ context.Context, addr mavryk.Address, op *codec.Op) (mavryk.Signature, error) {
 	if !s.key.Address().Equal(addr) {
-		return tezos.InvalidSignature, ErrAddressMismatch
+		return mavryk.InvalidSignature, ErrAddressMismatch
 	}
 	err := op.Sign(s.key)
 	return op.Signature, err
 }
 
-func (s MemorySigner) SignBlock(_ context.Context, addr tezos.Address, head *codec.BlockHeader) (tezos.Signature, error) {
+func (s MemorySigner) SignBlock(_ context.Context, addr mavryk.Address, head *codec.BlockHeader) (mavryk.Signature, error) {
 	if !s.key.Address().Equal(addr) {
-		return tezos.InvalidSignature, ErrAddressMismatch
+		return mavryk.InvalidSignature, ErrAddressMismatch
 	}
 	err := head.Sign(s.key)
 	return head.Signature, err

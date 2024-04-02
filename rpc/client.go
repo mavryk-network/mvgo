@@ -15,7 +15,7 @@ import (
 	"os"
 	"strings"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/signer"
 
 	"github.com/echa/log"
@@ -41,9 +41,9 @@ type Client struct {
 	// Optional API key for protected endpoints
 	ApiKey string
 	// The chain the client will query.
-	ChainId tezos.ChainIdHash
+	ChainId mavryk.ChainIdHash
 	// The current chain configuration.
-	Params *tezos.Params
+	Params *mavryk.Params
 	// An active event observer to watch for operation inclusion
 	BlockObserver *Observer
 	// An active event observer to watch for operation posting to the mempool

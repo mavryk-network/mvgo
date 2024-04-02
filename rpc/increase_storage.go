@@ -3,7 +3,7 @@
 
 package rpc
 
-import tezos "github.com/mavryk-network/mvgo/mavryk"
+import "github.com/mavryk-network/mvgo/mavryk"
 
 // Ensure IncreasePaidStorage implements the TypedOperation interface.
 var _ TypedOperation = (*IncreasePaidStorage)(nil)
@@ -11,14 +11,14 @@ var _ TypedOperation = (*IncreasePaidStorage)(nil)
 // IncreasePaidStorage represents a transaction operation
 type IncreasePaidStorage struct {
 	Manager
-	Destination tezos.Address `json:"destination"`
-	Amount      int64         `json:"amount,string"`
+	Destination mavryk.Address `json:"destination"`
+	Amount      int64          `json:"amount,string"`
 }
 
 // Costs returns operation cost to implement TypedOperation interface.
-func (t IncreasePaidStorage) Costs() tezos.Costs {
+func (t IncreasePaidStorage) Costs() mavryk.Costs {
 	res := t.Metadata.Result
-	cost := tezos.Costs{
+	cost := mavryk.Costs{
 		Fee:     t.Manager.Fee,
 		GasUsed: res.Gas(),
 	}

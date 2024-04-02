@@ -11,7 +11,7 @@ import (
 	"github.com/mavryk-network/mvgo/codec"
 	"github.com/mavryk-network/mvgo/internal/compose"
 	"github.com/mavryk-network/mvgo/internal/compose/alpha"
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/rpc"
 	"github.com/mavryk-network/mvgo/signer"
 
@@ -26,7 +26,7 @@ func init() {
 
 type DoubleBakeTask struct {
 	TargetTask
-	BakerKey tezos.PrivateKey
+	BakerKey mavryk.PrivateKey
 }
 
 func NewDoubleBakeTask() alpha.TaskBuilder {
@@ -132,8 +132,8 @@ func (t *DoubleBakeTask) randomBlock(ctx compose.Context, head *rpc.BlockHeaderL
 		PayloadRound:     round,
 		OperationsHash:   head.OperationsHash,
 		Context:          head.Context,
-		LbVote:           tezos.FeatureVotePass,
-		AiVote:           tezos.FeatureVotePass,
+		LbVote:           mavryk.FeatureVotePass,
+		AiVote:           mavryk.FeatureVotePass,
 	}
 	// adjust fitness
 	f2 := make([]byte, len(h.Fitness[1]))
@@ -151,7 +151,7 @@ func (t *DoubleBakeTask) randomBlock(ctx compose.Context, head *rpc.BlockHeaderL
 	return h
 }
 
-func (t *DoubleBakeTask) fetchBakingRights(ctx compose.Context, addr tezos.Address, id tezos.BlockHash) (int, bool, error) {
+func (t *DoubleBakeTask) fetchBakingRights(ctx compose.Context, addr mavryk.Address, id mavryk.BlockHash) (int, bool, error) {
 	u := fmt.Sprintf("/chains/main/blocks/%s/helpers/baking_rights?delegate=%s&max_round=64", id, addr)
 	var rights []struct {
 		Round int `json:"round"`

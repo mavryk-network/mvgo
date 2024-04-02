@@ -113,12 +113,12 @@ Refactoring and Mumbai support
 
 BREAKING: Note that due to a new internal address encoding data written by binary marshalers from earlier versions of MvGo is incompatible.
 
-* Changed memory layout and interface for all hash types and `tezos.Address` to save 24 bytes per address/hash that was previously required for a byte slice header
+* Changed memory layout and interface for all hash types and `mavryk.Address` to save 24 bytes per address/hash that was previously required for a byte slice header
   - hashes and addresses directly comparable now and can thus be used as Golang Map keys
   - renamed `Address.Bytes()` to `Encode()`
   - renamed `Address.Bytes22()` to `EncodePadded()`
   - use `Address.Decode(buf []byte)` instead of `UnmarshalBinary()` for reading binary encoded addresses
-* Simplified `tezos.Params` removing unused fields and protocol deployment handling
+* Simplified `mavryk.Params` removing unused fields and protocol deployment handling
 * Added smart rollup support to rpc and codec packages
 * Added binary encoders for new operations since Lima
   - `drain_delegate`
@@ -343,7 +343,7 @@ This is the first release of MvGo that allows sending transactions. All types an
 - New: calls accept interface type `BlockID` which can be
     - `BlockAlias` (genesis or head)
     - `BlockLevel` an int64
-    - `tezos.BlockHash` for named blocks
+    - `mavryk.BlockHash` for named blocks
     - `BlockOffset` for offsets from a BlockID
 - New: `MempoolMonitor` to monitor new mempool transactions
 - Refactored `Mempool` type to return the same Operation type like block calls

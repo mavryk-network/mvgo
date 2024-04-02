@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"time"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 const (
@@ -292,7 +292,7 @@ func (v *Value) GetInt64(label string) (int64, bool) {
 				return t, true
 			case *big.Int:
 				return t.Int64(), true
-			case tezos.Z:
+			case mavryk.Z:
 				return t.Int64(), true
 			case string:
 				i, err := strconv.ParseInt(t, 10, 64)
@@ -315,7 +315,7 @@ func (v *Value) GetBig(label string) (*big.Int, bool) {
 			switch t := vv.(type) {
 			case *big.Int:
 				return t, true
-			case tezos.Z:
+			case mavryk.Z:
 				return t.Big(), true
 			case string:
 				return big.NewInt(0).SetString(t, 10)
@@ -325,18 +325,18 @@ func (v *Value) GetBig(label string) (*big.Int, bool) {
 	return nil, false
 }
 
-func (v *Value) GetZ(label string) (*tezos.Z, bool) {
+func (v *Value) GetZ(label string) (*mavryk.Z, bool) {
 	if m, err := v.Map(); err == nil {
 		if vv, ok := getPath(m, label); ok {
 			// big, string or nil
-			var z tezos.Z
+			var z mavryk.Z
 			if vv == nil {
 				return &z, ok
 			}
 			switch t := vv.(type) {
 			case *big.Int:
 				return z.SetBig(t), true
-			case tezos.Z:
+			case mavryk.Z:
 				return &t, true
 			case string:
 				b, ok := big.NewInt(0).SetString(t, 10)
@@ -387,64 +387,64 @@ func (v *Value) GetTime(label string) (time.Time, bool) {
 	return time.Time{}, false
 }
 
-func (v *Value) GetAddress(label string) (tezos.Address, bool) {
+func (v *Value) GetAddress(label string) (mavryk.Address, bool) {
 	if m, err := v.Map(); err == nil {
 		if vv, ok := getPath(m, label); ok {
 			// Adddress, string or nil
 			if vv == nil {
-				return tezos.InvalidAddress, ok
+				return mavryk.InvalidAddress, ok
 			}
 			switch t := vv.(type) {
-			case tezos.Address:
+			case mavryk.Address:
 				return t, true
 			case string:
-				if b, err := tezos.ParseAddress(t); err == nil {
+				if b, err := mavryk.ParseAddress(t); err == nil {
 					return b, true
 				}
 			}
 		}
 	}
-	return tezos.InvalidAddress, false
+	return mavryk.InvalidAddress, false
 }
 
-func (v *Value) GetKey(label string) (tezos.Key, bool) {
+func (v *Value) GetKey(label string) (mavryk.Key, bool) {
 	if m, err := v.Map(); err == nil {
 		if vv, ok := getPath(m, label); ok {
 			// Key, string or nil
 			if vv == nil {
-				return tezos.InvalidKey, ok
+				return mavryk.InvalidKey, ok
 			}
 			switch t := vv.(type) {
-			case tezos.Key:
+			case mavryk.Key:
 				return t, true
 			case string:
-				if b, err := tezos.ParseKey(t); err == nil {
+				if b, err := mavryk.ParseKey(t); err == nil {
 					return b, true
 				}
 			}
 		}
 	}
-	return tezos.InvalidKey, false
+	return mavryk.InvalidKey, false
 }
 
-func (v *Value) GetSignature(label string) (tezos.Signature, bool) {
+func (v *Value) GetSignature(label string) (mavryk.Signature, bool) {
 	if m, err := v.Map(); err == nil {
 		if vv, ok := getPath(m, label); ok {
 			// Signature, string or nil
 			if vv == nil {
-				return tezos.InvalidSignature, ok
+				return mavryk.InvalidSignature, ok
 			}
 			switch t := vv.(type) {
-			case tezos.Signature:
+			case mavryk.Signature:
 				return t, true
 			case string:
-				if b, err := tezos.ParseSignature(t); err == nil {
+				if b, err := mavryk.ParseSignature(t); err == nil {
 					return b, true
 				}
 			}
 		}
 	}
-	return tezos.InvalidSignature, false
+	return mavryk.InvalidSignature, false
 }
 
 func (v *Value) Unmarshal(val interface{}) error {

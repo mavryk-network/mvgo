@@ -8,18 +8,18 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // SeedNonceRevelation represents "seed_nonce_revelation" operation
 type SeedNonceRevelation struct {
 	Simple
-	Level int32          `json:"level"`
-	Nonce tezos.HexBytes `json:"nonce"`
+	Level int32           `json:"level"`
+	Nonce mavryk.HexBytes `json:"nonce"`
 }
 
-func (o SeedNonceRevelation) Kind() tezos.OpType {
-	return tezos.OpTypeSeedNonceRevelation
+func (o SeedNonceRevelation) Kind() mavryk.OpType {
+	return mavryk.OpTypeSeedNonceRevelation
 }
 
 func (o SeedNonceRevelation) MarshalJSON() ([]byte, error) {
@@ -35,14 +35,14 @@ func (o SeedNonceRevelation) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o SeedNonceRevelation) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o SeedNonceRevelation) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	binary.Write(buf, enc, o.Level)
 	buf.Write(o.Nonce.Bytes())
 	return nil
 }
 
-func (o *SeedNonceRevelation) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *SeedNonceRevelation) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -55,10 +55,10 @@ func (o *SeedNonceRevelation) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (
 
 func (o SeedNonceRevelation) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *SeedNonceRevelation) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

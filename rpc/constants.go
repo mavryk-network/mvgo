@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"time"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Constants represents only a limited subset of Tezos chain configuration params
@@ -55,7 +55,7 @@ func (c *Client) GetCustomConstants(ctx context.Context, id BlockID, resp any) e
 
 // GetParams returns a translated parameters structure for the current
 // network at block id.
-func (c *Client) GetParams(ctx context.Context, id BlockID) (*tezos.Params, error) {
+func (c *Client) GetParams(ctx context.Context, id BlockID) (*mavryk.Params, error) {
 	if !c.ChainId.IsValid() {
 		id, err := c.GetChainId(ctx)
 		if err != nil {
@@ -83,8 +83,8 @@ func (c *Client) GetParams(ctx context.Context, id BlockID) (*tezos.Params, erro
 	return p, nil
 }
 
-func (c Constants) MapToChainParams() *tezos.Params {
-	p := &tezos.Params{
+func (c Constants) MapToChainParams() *mavryk.Params {
+	p := &mavryk.Params{
 		BlocksPerCycle:               c.BlocksPerCycle,
 		PreservedCycles:              c.PreservedCycles,
 		BlocksPerSnapshot:            c.BlocksPerRollSnapshot + c.BlocksPerStakeSnapshot,

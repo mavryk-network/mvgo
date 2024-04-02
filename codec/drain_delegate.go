@@ -7,19 +7,19 @@ import (
 	"bytes"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // DrainDelegate represents "drain_delegate" operation
 type DrainDelegate struct {
 	Simple
-	ConsensusKey tezos.Address `json:"consensus_key"`
-	Delegate     tezos.Address `json:"delegate"`
-	Destination  tezos.Address `json:"destination"`
+	ConsensusKey mavryk.Address `json:"consensus_key"`
+	Delegate     mavryk.Address `json:"delegate"`
+	Destination  mavryk.Address `json:"destination"`
 }
 
-func (o DrainDelegate) Kind() tezos.OpType {
-	return tezos.OpTypeDrainDelegate
+func (o DrainDelegate) Kind() mavryk.OpType {
+	return mavryk.OpTypeDrainDelegate
 }
 
 func (o DrainDelegate) MarshalJSON() ([]byte, error) {
@@ -37,7 +37,7 @@ func (o DrainDelegate) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o DrainDelegate) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o DrainDelegate) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	buf.Write(o.ConsensusKey.Encode())
 	buf.Write(o.Delegate.Encode())
@@ -45,7 +45,7 @@ func (o DrainDelegate) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
 	return nil
 }
 
-func (o *DrainDelegate) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *DrainDelegate) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -63,10 +63,10 @@ func (o *DrainDelegate) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err er
 
 func (o DrainDelegate) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *DrainDelegate) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

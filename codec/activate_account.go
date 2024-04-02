@@ -8,18 +8,18 @@ import (
 	"fmt"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // ActivateAccount represents "activate_account" operation
 type ActivateAccount struct {
 	Simple
-	PublicKeyHash tezos.Address  `json:"pkh"`
-	Secret        tezos.HexBytes `json:"secret"`
+	PublicKeyHash mavryk.Address  `json:"pkh"`
+	Secret        mavryk.HexBytes `json:"secret"`
 }
 
-func (o ActivateAccount) Kind() tezos.OpType {
-	return tezos.OpTypeActivateAccount
+func (o ActivateAccount) Kind() mavryk.OpType {
+	return mavryk.OpTypeActivateAccount
 }
 
 func (o ActivateAccount) MarshalJSON() ([]byte, error) {
@@ -35,18 +35,18 @@ func (o ActivateAccount) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o ActivateAccount) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o ActivateAccount) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	buf.Write(o.PublicKeyHash[1:]) // only place where a 20 byte address is used (!)
 	buf.Write(o.Secret.Bytes())
 	return nil
 }
 
-func (o *ActivateAccount) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o *ActivateAccount) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	if err := ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return err
 	}
-	o.PublicKeyHash = tezos.NewAddress(tezos.AddressTypeEd25519, buf.Next(20))
+	o.PublicKeyHash = mavryk.NewAddress(mavryk.AddressTypeEd25519, buf.Next(20))
 	if !o.PublicKeyHash.IsValid() {
 		return fmt.Errorf("invalid address %q", o.PublicKeyHash)
 	}
@@ -55,10 +55,10 @@ func (o *ActivateAccount) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) error
 
 func (o ActivateAccount) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *ActivateAccount) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

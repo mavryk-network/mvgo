@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/mavryk-network/mvgo/codec"
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/rpc"
 	"github.com/mavryk-network/mvgo/signer"
 )
@@ -17,8 +17,8 @@ var _ signer.Signer = (*RemoteSigner)(nil)
 
 type RemoteSigner struct {
 	c     *rpc.Client
-	addrs []tezos.Address
-	auth  tezos.PrivateKey
+	addrs []mavryk.Address
+	auth  mavryk.PrivateKey
 }
 
 // New creates a new remote signer client and initializes it with the remote url.
@@ -32,21 +32,21 @@ func New(url string, client *http.Client) (*RemoteSigner, error) {
 	return &RemoteSigner{c: c}, nil
 }
 
-func (s *RemoteSigner) WithAddress(addr tezos.Address) *RemoteSigner {
+func (s *RemoteSigner) WithAddress(addr mavryk.Address) *RemoteSigner {
 	s.addrs = append(s.addrs, addr)
 	return s
 }
 
-func (s *RemoteSigner) WithAuthKey(sk tezos.PrivateKey) *RemoteSigner {
+func (s *RemoteSigner) WithAuthKey(sk mavryk.PrivateKey) *RemoteSigner {
 	s.auth = sk
 	return s
 }
 
 // AuthorizedKeys returns a list of addresses the remote signer accepts for
 // authenticating requests.
-func (s RemoteSigner) AuthorizedKeys(ctx context.Context) ([]tezos.Address, error) {
+func (s RemoteSigner) AuthorizedKeys(ctx context.Context) ([]mavryk.Address, error) {
 	type response struct {
-		Addrs []tezos.Address `json:"authorized_keys"`
+		Addrs []mavryk.Address `json:"authorized_keys"`
 	}
 	var resp response
 	err := s.c.Get(ctx, "/authorized_keys", &resp)
@@ -57,14 +57,14 @@ func (s RemoteSigner) AuthorizedKeys(ctx context.Context) ([]tezos.Address, erro
 }
 
 // ListAddresses returns a list of addresses the remote signer can produce signatures for.
-func (s RemoteSigner) ListAddresses(ctx context.Context) ([]tezos.Address, error) {
+func (s RemoteSigner) ListAddresses(ctx context.Context) ([]mavryk.Address, error) {
 	return s.addrs, nil
 }
 
 // GetKey returns the public key associated with address.
-func (s RemoteSigner) GetKey(ctx context.Context, address tezos.Address) (tezos.Key, error) {
+func (s RemoteSigner) GetKey(ctx context.Context, address mavryk.Address) (mavryk.Key, error) {
 	type response struct {
-		Pk tezos.Key `json:"public_key"`
+		Pk mavryk.Key `json:"public_key"`
 	}
 	var resp response
 	err := s.c.Get(ctx, "/keys/"+address.String(), &resp)
@@ -77,9 +77,9 @@ func (s RemoteSigner) GetKey(ctx context.Context, address tezos.Address) (tezos.
 //
 // Note that most remote signers for Tezos do not support signing of operation kinds other
 // than baking related operations.
-func (s RemoteSigner) SignMessage(ctx context.Context, address tezos.Address, msg string) (tezos.Signature, error) {
+func (s RemoteSigner) SignMessage(ctx context.Context, address mavryk.Address, msg string) (mavryk.Signature, error) {
 	op := codec.NewOp().
-		WithBranch(tezos.ZeroBlockHash).
+		WithBranch(mavryk.ZeroBlockHash).
 		WithContents(&codec.FailingNoop{
 			Arbitrary: msg,
 		})
@@ -91,22 +91,22 @@ func (s RemoteSigner) SignMessage(ctx context.Context, address tezos.Address, ms
 //
 // Note that most remote signers for Tezos do not support signing of operation kinds other
 // than baking related operations.
-func (s RemoteSigner) SignOperation(ctx context.Context, address tezos.Address, op *codec.Op) (tezos.Signature, error) {
+func (s RemoteSigner) SignOperation(ctx context.Context, address mavryk.Address, op *codec.Op) (mavryk.Signature, error) {
 	type response struct {
-		Sig tezos.Signature `json:"signature"`
+		Sig mavryk.Signature `json:"signature"`
 	}
 	var resp response
-	err := s.c.Post(ctx, "/keys/"+address.String(), tezos.HexBytes(op.WatermarkedBytes()), &resp)
+	err := s.c.Post(ctx, "/keys/"+address.String(), mavryk.HexBytes(op.WatermarkedBytes()), &resp)
 	return resp.Sig, err
 }
 
 // SignOperation signs a block header for address using the configured remote signer's
 // REST API. This call requires branch_id to be present.
-func (s RemoteSigner) SignBlock(ctx context.Context, address tezos.Address, head *codec.BlockHeader) (tezos.Signature, error) {
+func (s RemoteSigner) SignBlock(ctx context.Context, address mavryk.Address, head *codec.BlockHeader) (mavryk.Signature, error) {
 	type response struct {
-		Sig tezos.Signature `json:"signature"`
+		Sig mavryk.Signature `json:"signature"`
 	}
 	var resp response
-	err := s.c.Post(ctx, "/keys/"+address.String(), tezos.HexBytes(head.WatermarkedBytes()), &resp)
+	err := s.c.Post(ctx, "/keys/"+address.String(), mavryk.HexBytes(head.WatermarkedBytes()), &resp)
 	return resp.Sig, err
 }

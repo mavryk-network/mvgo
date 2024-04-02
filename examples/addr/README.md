@@ -6,10 +6,10 @@ This example shows how Tezos addresses and keys can be detected and decoded.
 
 ```go
 // pubkey
-key, err = tezos.ParseKey("edpk....")
+key, err = mavryk.ParseKey("edpk....")
 
 // addresss
-addr, err = tezos.ParseAddress("mv1...")
+addr, err = mavryk.ParseAddress("mv1...")
 ```
 
 ### Usage

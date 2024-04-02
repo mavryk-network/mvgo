@@ -10,9 +10,9 @@ import (
 	"github.com/mavryk-network/mvgo/contract"
 	"github.com/mavryk-network/mvgo/internal/compose"
 	"github.com/mavryk-network/mvgo/internal/compose/alpha"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/rpc"
 	"github.com/mavryk-network/mvgo/signer"
-	"github.com/mavryk-network/mvgo/tezos"
 
 	"github.com/pkg/errors"
 )
@@ -25,9 +25,9 @@ func init() {
 
 type TokenRevokeTask struct {
 	TargetTask
-	Spender  tezos.Address
+	Spender  mavryk.Address
 	Standard string
-	TokenId  tezos.Z
+	TokenId  mavryk.Z
 }
 
 func NewTokenRevokeTask() alpha.TaskBuilder {

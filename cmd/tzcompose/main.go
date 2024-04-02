@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"github.com/mavryk-network/mvgo/internal/compose"
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 
 	_ "github.com/mavryk-network/mvgo/internal/compose/alpha"
 	_ "github.com/mavryk-network/mvgo/internal/compose/alpha/task"
@@ -39,7 +39,7 @@ var (
 	// clone config
 	name                   string
 	mode                   compose.CloneMode
-	addr                   tezos.Address
+	addr                   mavryk.Address
 	numOpsAfterOrigination uint
 	version                string
 	indexUrl               string

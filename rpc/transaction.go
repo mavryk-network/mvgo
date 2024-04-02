@@ -4,7 +4,7 @@
 package rpc
 
 import (
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 )
 
@@ -14,15 +14,15 @@ var _ TypedOperation = (*Transaction)(nil)
 // Transaction represents a transaction operation
 type Transaction struct {
 	Manager
-	Destination tezos.Address         `json:"destination"`
+	Destination mavryk.Address        `json:"destination"`
 	Amount      int64                 `json:"amount,string"`
 	Parameters  *micheline.Parameters `json:"parameters,omitempty"`
 }
 
 // Costs returns operation cost to implement TypedOperation interface.
-func (t Transaction) Costs() tezos.Costs {
+func (t Transaction) Costs() mavryk.Costs {
 	res := t.Metadata.Result
-	cost := tezos.Costs{
+	cost := mavryk.Costs{
 		Fee:         t.Manager.Fee,
 		GasUsed:     res.Gas(),
 		StorageUsed: res.PaidStorageSizeDiff,
@@ -59,12 +59,12 @@ func (t Transaction) Costs() tezos.Costs {
 }
 
 type InternalResult struct {
-	Kind          tezos.OpType          `json:"kind"`
-	Source        tezos.Address         `json:"source"`
+	Kind          mavryk.OpType         `json:"kind"`
+	Source        mavryk.Address        `json:"source"`
 	Nonce         int64                 `json:"nonce"`
 	Result        OperationResult       `json:"result"`
-	Destination   *tezos.Address        `json:"destination,omitempty"` // transaction
-	Delegate      *tezos.Address        `json:"delegate,omitempty"`    // delegation
+	Destination   *mavryk.Address       `json:"destination,omitempty"` // transaction
+	Delegate      *mavryk.Address       `json:"delegate,omitempty"`    // delegation
 	Parameters    *micheline.Parameters `json:"parameters,omitempty"`  // transaction
 	Amount        int64                 `json:"amount,string"`         // transaction
 	Balance       int64                 `json:"balance,string"`        // origination
@@ -75,8 +75,8 @@ type InternalResult struct {
 	TicketUpdates []TicketUpdate        `json:"ticket_receipt"`        // v015
 }
 
-func (r InternalResult) Costs() tezos.Costs {
-	cost := tezos.Costs{
+func (r InternalResult) Costs() mavryk.Costs {
+	cost := mavryk.Costs{
 		GasUsed:     r.Result.Gas(),
 		StorageUsed: r.Result.PaidStorageSizeDiff,
 	}
@@ -112,13 +112,13 @@ func (r InternalResult) Costs() tezos.Costs {
 
 // found in block metadata from v010+
 type ImplicitResult struct {
-	Kind                tezos.OpType      `json:"kind"`
+	Kind                mavryk.OpType     `json:"kind"`
 	BalanceUpdates      BalanceUpdates    `json:"balance_updates"`
 	ConsumedGas         int64             `json:"consumed_gas,string"`
 	ConsumedMilliGas    int64             `json:"consumed_milligas,string"`
 	Storage             *micheline.Prim   `json:"storage,omitempty"`
 	StorageSize         int64             `json:"storage_size,string"`
-	OriginatedContracts []tezos.Address   `json:"originated_contracts,omitempty"`
+	OriginatedContracts []mavryk.Address  `json:"originated_contracts,omitempty"`
 	PaidStorageSizeDiff int64             `json:"paid_storage_size_diff,string"`
 	Script              *micheline.Script `json:"script,omitempty"`
 }

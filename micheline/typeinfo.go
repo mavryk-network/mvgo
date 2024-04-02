@@ -181,9 +181,9 @@ func mapGoTypeToPrimType(typ reflect.Type) (oc OpCode, err error) {
 		oc = T_BOOL
 	case reflect.Array:
 		switch typ.String() {
-		case "tezos.Address":
+		case "mavryk.Address":
 			oc = T_ADDRESS
-		case "tezos.ChainIdHash":
+		case "mavryk.ChainIdHash":
 			oc = T_CHAIN_ID
 		default:
 			if canTypUnmarshalBinary(typ) {
@@ -196,13 +196,13 @@ func mapGoTypeToPrimType(typ reflect.Type) (oc OpCode, err error) {
 		switch typ.String() {
 		case "time.Time":
 			oc = T_TIMESTAMP
-		case "tezos.Z":
+		case "mavryk.Z":
 			oc = T_NAT
-		case "tezos.N":
+		case "mavryk.N":
 			oc = T_NAT
-		case "tezos.Key":
+		case "mavryk.Key":
 			oc = T_KEY
-		case "tezos.Signature":
+		case "mavryk.Signature":
 			oc = T_SIGNATURE
 		default:
 			if canTypUnmarshalBinary(typ) {

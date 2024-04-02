@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 )
 
@@ -33,14 +33,14 @@ func (m UnparsingMode) String() string {
 }
 
 // Contracts holds a list of addresses
-type Contracts []tezos.Address
+type Contracts []mavryk.Address
 
 // Contracts holds info about a Tezos account
 type ContractInfo struct {
-	Balance        int64         `json:"balance,string"`
-	Delegate       tezos.Address `json:"delegate"`
-	Counter        int64         `json:"counter,string"`
-	Manager        string        `json:"manager"`
+	Balance        int64          `json:"balance,string"`
+	Delegate       mavryk.Address `json:"delegate"`
+	Counter        int64          `json:"counter,string"`
+	Manager        string         `json:"manager"`
 	FrozenDeposits struct {
 		InitialAmount int64 `json:"initial_amount,string"`
 		ActualAmount  int64 `json:"actual_amount,string"`
@@ -54,7 +54,7 @@ type ContractInfo struct {
 		// TODO
 	} `json:"staking_parameters"`
 	UnstakeRequests struct {
-		Delegate tezos.Address `json:"delegate"`
+		Delegate mavryk.Address `json:"delegate"`
 		Requests []struct {
 			Cycle           int64 `json:"cycle"`
 			RequestedAmount int64 `json:"requested_amount,string"`
@@ -88,16 +88,16 @@ func (u *UnstakedDeposit) UnmarshalJSON(buf []byte) error {
 }
 
 func (i ContractInfo) IsRevealed() bool {
-	return tezos.IsPublicKey(i.Manager)
+	return mavryk.IsPublicKey(i.Manager)
 }
 
-func (i ContractInfo) ManagerKey() tezos.Key {
-	key, _ := tezos.ParseKey(i.Manager)
+func (i ContractInfo) ManagerKey() mavryk.Key {
+	key, _ := mavryk.ParseKey(i.Manager)
 	return key
 }
 
 // GetContract returns info about an account at block id.
-func (c *Client) GetContract(ctx context.Context, addr tezos.Address, id BlockID) (*ContractInfo, error) {
+func (c *Client) GetContract(ctx context.Context, addr mavryk.Address, id BlockID) (*ContractInfo, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/contracts/%s", id, addr)
 	var info ContractInfo
 	err := c.Get(ctx, u, &info)
@@ -108,23 +108,23 @@ func (c *Client) GetContract(ctx context.Context, addr tezos.Address, id BlockID
 }
 
 // GetContractBalance returns the spendable balance for this account at block id.
-func (c *Client) GetContractBalance(ctx context.Context, addr tezos.Address, id BlockID) (tezos.Z, error) {
+func (c *Client) GetContractBalance(ctx context.Context, addr mavryk.Address, id BlockID) (mavryk.Z, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/contracts/%s/balance", id, addr)
-	var bal tezos.Z
+	var bal mavryk.Z
 	err := c.Get(ctx, u, &bal)
 	return bal, err
 }
 
 // GetManagerKey returns the revealed public key of an account at block id.
-func (c *Client) GetManagerKey(ctx context.Context, addr tezos.Address, id BlockID) (tezos.Key, error) {
+func (c *Client) GetManagerKey(ctx context.Context, addr mavryk.Address, id BlockID) (mavryk.Key, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/contracts/%s/manager_key", id, addr)
-	var key tezos.Key
+	var key mavryk.Key
 	err := c.Get(ctx, u, &key)
 	return key, err
 }
 
 // GetContractExt returns info about an account at block id including its public key when revealed.
-func (c *Client) GetContractExt(ctx context.Context, addr tezos.Address, id BlockID) (*ContractInfo, error) {
+func (c *Client) GetContractExt(ctx context.Context, addr mavryk.Address, id BlockID) (*ContractInfo, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/raw/json/contracts/index/%s", id, addr)
 	var info ContractInfo
 	err := c.Get(ctx, u, &info)
@@ -147,7 +147,7 @@ func (c *Client) ListContracts(ctx context.Context, id BlockID) (Contracts, erro
 }
 
 // GetContractScript returns the originated contract script in default data mode.
-func (c *Client) GetContractScript(ctx context.Context, addr tezos.Address) (*micheline.Script, error) {
+func (c *Client) GetContractScript(ctx context.Context, addr mavryk.Address) (*micheline.Script, error) {
 	u := fmt.Sprintf("chains/main/blocks/head/context/contracts/%s/script", addr)
 	s := micheline.NewScript()
 	err := c.Get(ctx, u, s)
@@ -159,7 +159,7 @@ func (c *Client) GetContractScript(ctx context.Context, addr tezos.Address) (*mi
 
 // GetNormalizedScript returns the originated contract script with global constants
 // expanded using given unparsing mode.
-func (c *Client) GetNormalizedScript(ctx context.Context, addr tezos.Address, mode UnparsingMode) (*micheline.Script, error) {
+func (c *Client) GetNormalizedScript(ctx context.Context, addr mavryk.Address, mode UnparsingMode) (*micheline.Script, error) {
 	u := fmt.Sprintf("chains/main/blocks/head/context/contracts/%s/script/normalized", addr)
 	s := micheline.NewScript()
 	if mode == "" {
@@ -178,7 +178,7 @@ func (c *Client) GetNormalizedScript(ctx context.Context, addr tezos.Address, mo
 }
 
 // GetContractStorage returns the contract's storage at block id.
-func (c *Client) GetContractStorage(ctx context.Context, addr tezos.Address, id BlockID) (micheline.Prim, error) {
+func (c *Client) GetContractStorage(ctx context.Context, addr mavryk.Address, id BlockID) (micheline.Prim, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/contracts/%s/storage", id, addr)
 	prim := micheline.Prim{}
 	err := c.Get(ctx, u, &prim)
@@ -189,7 +189,7 @@ func (c *Client) GetContractStorage(ctx context.Context, addr tezos.Address, id 
 }
 
 // GetContractStorageNormalized returns contract's storage at block id using unparsing mode.
-func (c *Client) GetContractStorageNormalized(ctx context.Context, addr tezos.Address, id BlockID, mode UnparsingMode) (micheline.Prim, error) {
+func (c *Client) GetContractStorageNormalized(ctx context.Context, addr mavryk.Address, id BlockID, mode UnparsingMode) (micheline.Prim, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/contracts/%s/storage/normalized", id, addr)
 	if mode == "" {
 		mode = UnparsingModeOptimized
@@ -208,7 +208,7 @@ func (c *Client) GetContractStorageNormalized(ctx context.Context, addr tezos.Ad
 }
 
 // GetContractEntrypoints returns the contract's entrypoints.
-func (c *Client) GetContractEntrypoints(ctx context.Context, addr tezos.Address) (map[string]micheline.Type, error) {
+func (c *Client) GetContractEntrypoints(ctx context.Context, addr mavryk.Address) (map[string]micheline.Type, error) {
 	u := fmt.Sprintf("chains/main/blocks/head/context/contracts/%s/entrypoints", addr)
 	type eptype struct {
 		Entrypoints map[string]micheline.Type `json:"entrypoints"`
@@ -225,9 +225,9 @@ func (c *Client) GetContractEntrypoints(ctx context.Context, addr tezos.Address)
 // large bigmaps and there is no means to limit the result. Use of this method is discouraged.
 // Instead, call the ListBigmapValuesExt method below. In case you require the pre-image of
 // bigmap keys consider calling an indexer API instead.
-func (c *Client) ListBigmapKeys(ctx context.Context, bigmap int64, id BlockID) ([]tezos.ExprHash, error) {
+func (c *Client) ListBigmapKeys(ctx context.Context, bigmap int64, id BlockID) ([]mavryk.ExprHash, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/raw/json/big_maps/index/%d/contents", id, bigmap)
-	hashes := make([]tezos.ExprHash, 0)
+	hashes := make([]mavryk.ExprHash, 0)
 	err := c.Get(ctx, u, &hashes)
 	if err != nil {
 		return nil, err
@@ -239,12 +239,12 @@ func (c *Client) ListBigmapKeys(ctx context.Context, bigmap int64, id BlockID) (
 // large bigmaps and there is no means to limit the result. Use of this method is discouraged.
 // Instead, call the ListActiveBigmapValuesExt method below. In case you require the pre-image of
 // bigmap keys consider calling an indexer API instead.
-func (c *Client) ListActiveBigmapKeys(ctx context.Context, bigmap int64) ([]tezos.ExprHash, error) {
+func (c *Client) ListActiveBigmapKeys(ctx context.Context, bigmap int64) ([]mavryk.ExprHash, error) {
 	return c.ListBigmapKeys(ctx, bigmap, Head)
 }
 
 // GetBigmapValue returns value at key hash from bigmap at block id
-func (c *Client) GetBigmapValue(ctx context.Context, bigmap int64, hash tezos.ExprHash, id BlockID) (micheline.Prim, error) {
+func (c *Client) GetBigmapValue(ctx context.Context, bigmap int64, hash mavryk.ExprHash, id BlockID) (micheline.Prim, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/big_maps/%d/%s", id, bigmap, hash)
 	prim := micheline.Prim{}
 	err := c.Get(ctx, u, &prim)
@@ -255,7 +255,7 @@ func (c *Client) GetBigmapValue(ctx context.Context, bigmap int64, hash tezos.Ex
 }
 
 // GetActiveBigmapValue returns current active value at key hash from bigmap.
-func (c *Client) GetActiveBigmapValue(ctx context.Context, bigmap int64, hash tezos.ExprHash) (micheline.Prim, error) {
+func (c *Client) GetActiveBigmapValue(ctx context.Context, bigmap int64, hash mavryk.ExprHash) (micheline.Prim, error) {
 	return c.GetBigmapValue(ctx, bigmap, hash, Head)
 }
 

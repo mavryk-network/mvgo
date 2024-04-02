@@ -6,7 +6,7 @@ package rpc
 import (
 	"encoding/json"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Ensure TxRollup implements the TypedOperation interface.
@@ -18,7 +18,7 @@ type TxRollup struct {
 	Manager
 
 	// rollup address (used by most ops)
-	Rollup tezos.Address `json:"rollup"`
+	Rollup mavryk.Address `json:"rollup"`
 
 	// tx_rollup_origination has no data
 
@@ -36,8 +36,8 @@ type TxRollup struct {
 }
 
 type TxRollupResult struct {
-	OriginatedRollup tezos.Address `json:"originated_rollup"` // v013 tx_rollup_originate
-	Level            int64         `json:"level"`             // v013 ?? here or in metadata??
+	OriginatedRollup mavryk.Address `json:"originated_rollup"` // v013 tx_rollup_originate
+	Level            int64          `json:"level"`             // v013 ?? here or in metadata??
 }
 
 func (r *TxRollup) UnmarshalJSON(data []byte) error {
@@ -46,17 +46,17 @@ func (r *TxRollup) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch r.Kind() {
-	case tezos.OpTypeTxRollupSubmitBatch:
+	case mavryk.OpTypeTxRollupSubmitBatch:
 		return json.Unmarshal(data, &r.Batch)
-	case tezos.OpTypeTxRollupRejection:
+	case mavryk.OpTypeTxRollupRejection:
 		return json.Unmarshal(data, &r.Reject)
-	case tezos.OpTypeTxRollupDispatchTickets:
+	case mavryk.OpTypeTxRollupDispatchTickets:
 		return json.Unmarshal(data, &r.Dispatch)
 	}
 	return nil
 }
 
-func (r *TxRollup) Target() tezos.Address {
+func (r *TxRollup) Target() mavryk.Address {
 	if r.Dispatch.TxRollup.IsValid() {
 		return r.Dispatch.TxRollup
 	}
@@ -64,7 +64,7 @@ func (r *TxRollup) Target() tezos.Address {
 }
 
 type TxRollupBatch struct {
-	Content tezos.HexBytes `json:"content"`
+	Content mavryk.HexBytes `json:"content"`
 	// BurnLimit int64          `json:"burn_limit,string,omitempty"`
 }
 
@@ -78,7 +78,7 @@ type TxRollupCommit struct {
 type TxRollupRejection struct {
 	Level                     int64           `json:"level"`
 	Message                   json.RawMessage `json:"commitment,omitempty"`
-	MessagePosition           tezos.Z         `json:"message_position"`
+	MessagePosition           mavryk.Z        `json:"message_position"`
 	MessagePath               []string        `json:"message_path,omitempty"`
 	MessageResultHash         string          `json:"message_result_hash"`
 	MessageResultPath         []string        `json:"message_result_path,omitempty"`
@@ -89,7 +89,7 @@ type TxRollupRejection struct {
 
 type TxRollupDispatch struct {
 	Level        int64           `json:"level"`
-	TxRollup     tezos.Address   `json:"tx_rollup"`
+	TxRollup     mavryk.Address  `json:"tx_rollup"`
 	ContextHash  string          `json:"context_hash"`
 	MessageIndex int64           `json:"message_index"`
 	TicketsInfo  json.RawMessage `json:"tickets_info"`

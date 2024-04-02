@@ -6,8 +6,7 @@ package compose
 import (
 	"crypto/ed25519"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
-
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/tyler-smith/go-bip32"
 )
 
@@ -40,8 +39,8 @@ func (c *Context) MakeAccount(id int, alias string) (Account, error) {
 	return acc, nil
 }
 
-func deriveChildKey(seed tezos.PrivateKey, id int) (tezos.PrivateKey, error) {
-	var sk tezos.PrivateKey
+func deriveChildKey(seed mavryk.PrivateKey, id int) (mavryk.PrivateKey, error) {
+	var sk mavryk.PrivateKey
 	masterKey, err := bip32.NewMasterKey(seed.Data)
 	if err != nil {
 		return sk, err
@@ -50,8 +49,8 @@ func deriveChildKey(seed tezos.PrivateKey, id int) (tezos.PrivateKey, error) {
 	if err != nil {
 		return sk, err
 	}
-	sk = tezos.PrivateKey{
-		Type: tezos.KeyTypeEd25519,
+	sk = mavryk.PrivateKey{
+		Type: mavryk.KeyTypeEd25519,
 		Data: ed25519.NewKeyFromSeed(bip32ChildKey.Key),
 	}
 	return sk, nil

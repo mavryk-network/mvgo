@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"time"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 
 	"github.com/pkg/errors"
@@ -120,25 +120,25 @@ func unmarshalString(str string, v reflect.Value) error {
 		}
 		v.Set(reflect.ValueOf(t))
 	case tAddress:
-		address, err := tezos.ParseAddress(str)
+		address, err := mavryk.ParseAddress(str)
 		if err != nil {
 			return errors.Wrapf(err, "failed to parse address: %s", str)
 		}
 		v.Set(reflect.ValueOf(address))
 	case tKey:
-		key, err := tezos.ParseKey(str)
+		key, err := mavryk.ParseKey(str)
 		if err != nil {
 			return errors.Wrapf(err, "failed to parse key: %s", str)
 		}
 		v.Set(reflect.ValueOf(key))
 	case tSignature:
-		sig, err := tezos.ParseSignature(str)
+		sig, err := mavryk.ParseSignature(str)
 		if err != nil {
 			return errors.Wrapf(err, "failed to parse signature: %s", str)
 		}
 		v.Set(reflect.ValueOf(sig))
 	case tChainIdHash:
-		chainID, err := tezos.ParseChainIdHash(str)
+		chainID, err := mavryk.ParseChainIdHash(str)
 		if err != nil {
 			return errors.Wrapf(err, "failed to parse chainID: %s", str)
 		}
@@ -158,25 +158,25 @@ func unmarshalBytes(b []byte, v reflect.Value) error {
 	case tBytes:
 		v.Set(reflect.ValueOf(b))
 	case tAddress:
-		var addr tezos.Address
+		var addr mavryk.Address
 		if err := addr.UnmarshalBinary(b); err != nil {
 			return errors.Wrapf(err, "failed to parse address: %v", b)
 		}
 		v.Set(reflect.ValueOf(addr))
 	case tKey:
-		var key tezos.Key
+		var key mavryk.Key
 		if err := key.UnmarshalBinary(b); err != nil {
 			return errors.Wrapf(err, "failed to parse key: %v", b)
 		}
 		v.Set(reflect.ValueOf(key))
 	case tSignature:
-		var sig tezos.Signature
+		var sig mavryk.Signature
 		if err := sig.UnmarshalBinary(b); err != nil {
 			return errors.Wrapf(err, "failed to parse key: %v", b)
 		}
 		v.Set(reflect.ValueOf(sig))
 	case tChainIdHash:
-		var chainID tezos.ChainIdHash
+		var chainID mavryk.ChainIdHash
 		if err := chainID.UnmarshalBinary(b); err != nil {
 			return errors.Wrapf(err, "failed to parse chainID: %v", b)
 		}
@@ -235,8 +235,8 @@ var (
 	tBytes       = reflect.TypeOf(([]byte)(nil))
 	tBool        = reflect.TypeOf(true)
 	tTime        = reflect.TypeOf(time.Time{})
-	tAddress     = reflect.TypeOf(tezos.Address{})
-	tKey         = reflect.TypeOf(tezos.Key{})
-	tSignature   = reflect.TypeOf(tezos.Signature{})
-	tChainIdHash = reflect.TypeOf(tezos.ChainIdHash{})
+	tAddress     = reflect.TypeOf(mavryk.Address{})
+	tKey         = reflect.TypeOf(mavryk.Key{})
+	tSignature   = reflect.TypeOf(mavryk.Signature{})
+	tChainIdHash = reflect.TypeOf(mavryk.ChainIdHash{})
 )

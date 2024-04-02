@@ -41,7 +41,7 @@ type Fa2NftBuilder struct{}
 // with the given rpc.
 //
 // Returns an error if the contract was not found at the given address.
-func NewFa2Nft(ctx context.Context, address tezos.Address, client *rpc.Client) (*Fa2Nft, error) {
+func NewFa2Nft(ctx context.Context, address mavryk.Address, client *rpc.Client) (*Fa2Nft, error) {
 	script, err := client.GetContractScript(ctx, address)
 	if err != nil {
 		return nil, err
@@ -119,7 +119,7 @@ func DeployFa2Nft(ctx context.Context, opts *rpc.CallOptions, client *rpc.Client
 // DeclareOwnership makes a call to the `declare_ownership` contract entry.
 //
 // declare_ownership(address0 address)
-func (_f *Fa2Nft) DeclareOwnership(ctx context.Context, opts *rpc.CallOptions, address0 tezos.Address) (*rpc.Receipt, error) {
+func (_f *Fa2Nft) DeclareOwnership(ctx context.Context, opts *rpc.CallOptions, address0 mavryk.Address) (*rpc.Receipt, error) {
 	params, err := _f.builder.DeclareOwnership(address0)
 	if err != nil {
 		return nil, err
@@ -130,14 +130,14 @@ func (_f *Fa2Nft) DeclareOwnership(ctx context.Context, opts *rpc.CallOptions, a
 // DeclareOwnership makes a call to the `declare_ownership` contract entry.
 //
 // declare_ownership(address0 address)
-func (_f *Fa2NftSession) DeclareOwnership(ctx context.Context, address0 tezos.Address) (*rpc.Receipt, error) {
+func (_f *Fa2NftSession) DeclareOwnership(ctx context.Context, address0 mavryk.Address) (*rpc.Receipt, error) {
 	return _f.Fa2Nft.DeclareOwnership(ctx, _f.Opts, address0)
 }
 
 // DeclareOwnership builds `declare_ownership` contract entry's parameters.
 //
 // declare_ownership(address0 address)
-func (Fa2NftBuilder) DeclareOwnership(address0 tezos.Address) (micheline.Parameters, error) {
+func (Fa2NftBuilder) DeclareOwnership(address0 mavryk.Address) (micheline.Parameters, error) {
 	prim, err := bind.MarshalParams(false, address0)
 	if err != nil {
 		return micheline.Parameters{}, errors.Wrap(err, "failed to marshal params")
@@ -293,7 +293,7 @@ func (Fa2NftBuilder) SetTokenMetadata(tid *big.Int, tdata bind.Map[string, []byt
 // SetPermits makes a call to the `set_permits` contract entry.
 //
 // set_permits(address0 address)
-func (_f *Fa2Nft) SetPermits(ctx context.Context, opts *rpc.CallOptions, address0 tezos.Address) (*rpc.Receipt, error) {
+func (_f *Fa2Nft) SetPermits(ctx context.Context, opts *rpc.CallOptions, address0 mavryk.Address) (*rpc.Receipt, error) {
 	params, err := _f.builder.SetPermits(address0)
 	if err != nil {
 		return nil, err
@@ -304,14 +304,14 @@ func (_f *Fa2Nft) SetPermits(ctx context.Context, opts *rpc.CallOptions, address
 // SetPermits makes a call to the `set_permits` contract entry.
 //
 // set_permits(address0 address)
-func (_f *Fa2NftSession) SetPermits(ctx context.Context, address0 tezos.Address) (*rpc.Receipt, error) {
+func (_f *Fa2NftSession) SetPermits(ctx context.Context, address0 mavryk.Address) (*rpc.Receipt, error) {
 	return _f.Fa2Nft.SetPermits(ctx, _f.Opts, address0)
 }
 
 // SetPermits builds `set_permits` contract entry's parameters.
 //
 // set_permits(address0 address)
-func (Fa2NftBuilder) SetPermits(address0 tezos.Address) (micheline.Parameters, error) {
+func (Fa2NftBuilder) SetPermits(address0 mavryk.Address) (micheline.Parameters, error) {
 	prim, err := bind.MarshalParams(false, address0)
 	if err != nil {
 		return micheline.Parameters{}, errors.Wrap(err, "failed to marshal params")
@@ -351,7 +351,7 @@ func (Fa2NftBuilder) UpdateOperators(list0 []bind.Or[*Fa2NftAddOperator, *Fa2Nft
 // UpdateOperatorsForAll makes a call to the `update_operators_for_all` contract entry.
 //
 // update_operators_for_all(list0 list)
-func (_f *Fa2Nft) UpdateOperatorsForAll(ctx context.Context, opts *rpc.CallOptions, list0 []bind.Or[tezos.Address, tezos.Address]) (*rpc.Receipt, error) {
+func (_f *Fa2Nft) UpdateOperatorsForAll(ctx context.Context, opts *rpc.CallOptions, list0 []bind.Or[mavryk.Address, mavryk.Address]) (*rpc.Receipt, error) {
 	params, err := _f.builder.UpdateOperatorsForAll(list0)
 	if err != nil {
 		return nil, err
@@ -362,14 +362,14 @@ func (_f *Fa2Nft) UpdateOperatorsForAll(ctx context.Context, opts *rpc.CallOptio
 // UpdateOperatorsForAll makes a call to the `update_operators_for_all` contract entry.
 //
 // update_operators_for_all(list0 list)
-func (_f *Fa2NftSession) UpdateOperatorsForAll(ctx context.Context, list0 []bind.Or[tezos.Address, tezos.Address]) (*rpc.Receipt, error) {
+func (_f *Fa2NftSession) UpdateOperatorsForAll(ctx context.Context, list0 []bind.Or[mavryk.Address, mavryk.Address]) (*rpc.Receipt, error) {
 	return _f.Fa2Nft.UpdateOperatorsForAll(ctx, _f.Opts, list0)
 }
 
 // UpdateOperatorsForAll builds `update_operators_for_all` contract entry's parameters.
 //
 // update_operators_for_all(list0 list)
-func (Fa2NftBuilder) UpdateOperatorsForAll(list0 []bind.Or[tezos.Address, tezos.Address]) (micheline.Parameters, error) {
+func (Fa2NftBuilder) UpdateOperatorsForAll(list0 []bind.Or[mavryk.Address, mavryk.Address]) (micheline.Parameters, error) {
 	prim, err := bind.MarshalParams(false, list0)
 	if err != nil {
 		return micheline.Parameters{}, errors.Wrap(err, "failed to marshal params")
@@ -467,7 +467,7 @@ func (Fa2NftBuilder) Transfer(list0 []*Fa2NftRecord11) (micheline.Parameters, er
 // Mint makes a call to the `mint` contract entry.
 //
 // mint(tow address, tid nat, tmd map, roy list)
-func (_f *Fa2Nft) Mint(ctx context.Context, opts *rpc.CallOptions, tow tezos.Address, tid *big.Int, tmd bind.Map[string, []byte], roy []*Fa2NftRecord1) (*rpc.Receipt, error) {
+func (_f *Fa2Nft) Mint(ctx context.Context, opts *rpc.CallOptions, tow mavryk.Address, tid *big.Int, tmd bind.Map[string, []byte], roy []*Fa2NftRecord1) (*rpc.Receipt, error) {
 	params, err := _f.builder.Mint(tow, tid, tmd, roy)
 	if err != nil {
 		return nil, err
@@ -478,14 +478,14 @@ func (_f *Fa2Nft) Mint(ctx context.Context, opts *rpc.CallOptions, tow tezos.Add
 // Mint makes a call to the `mint` contract entry.
 //
 // mint(tow address, tid nat, tmd map, roy list)
-func (_f *Fa2NftSession) Mint(ctx context.Context, tow tezos.Address, tid *big.Int, tmd bind.Map[string, []byte], roy []*Fa2NftRecord1) (*rpc.Receipt, error) {
+func (_f *Fa2NftSession) Mint(ctx context.Context, tow mavryk.Address, tid *big.Int, tmd bind.Map[string, []byte], roy []*Fa2NftRecord1) (*rpc.Receipt, error) {
 	return _f.Fa2Nft.Mint(ctx, _f.Opts, tow, tid, tmd, roy)
 }
 
 // Mint builds `mint` contract entry's parameters.
 //
 // mint(tow address, tid nat, tmd map, roy list)
-func (Fa2NftBuilder) Mint(tow tezos.Address, tid *big.Int, tmd bind.Map[string, []byte], roy []*Fa2NftRecord1) (micheline.Parameters, error) {
+func (Fa2NftBuilder) Mint(tow mavryk.Address, tid *big.Int, tmd bind.Map[string, []byte], roy []*Fa2NftRecord1) (micheline.Parameters, error) {
 	prim, err := bind.MarshalParams(false, tow, tid, tmd, roy)
 	if err != nil {
 		return micheline.Parameters{}, errors.Wrap(err, "failed to marshal params")
@@ -573,7 +573,7 @@ func (_f *Fa2NftRecord0) UnmarshalPrim(prim micheline.Prim) error {
 
 // Fa2NftRecord1 is a generated struct used to interact with Fa2Nft smart contract.
 type Fa2NftRecord1 struct {
-	PartAccount tezos.Address
+	PartAccount mavryk.Address
 	PartValue   *big.Int
 }
 
@@ -589,9 +589,9 @@ func (_f *Fa2NftRecord1) UnmarshalPrim(prim micheline.Prim) error {
 
 // Fa2NftRecord2 is a generated struct used to interact with Fa2Nft smart contract.
 type Fa2NftRecord2 struct {
-	Field0 tezos.Address
+	Field0 mavryk.Address
 	Field1 *big.Int
-	Field2 tezos.Address
+	Field2 mavryk.Address
 }
 
 // MarshalPrim marshals Fa2NftRecord2 into a Prim.
@@ -606,8 +606,8 @@ func (_f *Fa2NftRecord2) UnmarshalPrim(prim micheline.Prim) error {
 
 // Fa2NftRecord3 is a generated struct used to interact with Fa2Nft smart contract.
 type Fa2NftRecord3 struct {
-	Field0 tezos.Address
-	Field1 tezos.Address
+	Field0 mavryk.Address
+	Field1 mavryk.Address
 }
 
 // MarshalPrim marshals Fa2NftRecord3 into a Prim.
@@ -622,12 +622,12 @@ func (_f *Fa2NftRecord3) UnmarshalPrim(prim micheline.Prim) error {
 
 // Fa2NftStorage is a generated struct used to interact with Fa2Nft smart contract.
 type Fa2NftStorage struct {
-	Owner          tezos.Address
-	Permits        tezos.Address
-	OwnerCandidate tezos.Address
+	Owner          mavryk.Address
+	Permits        mavryk.Address
+	OwnerCandidate mavryk.Address
 	Paused         bool
 	TokenMetadata  bind.Bigmap[*big.Int, *Fa2NftRecord0]
-	Ledger         bind.Bigmap[*big.Int, tezos.Address]
+	Ledger         bind.Bigmap[*big.Int, mavryk.Address]
 	Royalties      bind.Bigmap[*big.Int, []*Fa2NftRecord1]
 	Operator       bind.Bigmap[*Fa2NftRecord2, struct{}]
 	OperatorForAll bind.Bigmap[*Fa2NftRecord3, struct{}]
@@ -646,7 +646,7 @@ func (_f *Fa2NftStorage) UnmarshalPrim(prim micheline.Prim) error {
 
 // Fa2NftRecord5 is a generated struct used to interact with Fa2Nft smart contract.
 type Fa2NftRecord5 struct {
-	Owner   tezos.Address
+	Owner   mavryk.Address
 	TokenId *big.Int
 }
 
@@ -662,7 +662,7 @@ func (_f *Fa2NftRecord5) UnmarshalPrim(prim micheline.Prim) error {
 
 // Fa2NftRequest is a generated struct used to interact with Fa2Nft smart contract.
 type Fa2NftRequest struct {
-	Owner   tezos.Address
+	Owner   mavryk.Address
 	TokenId *big.Int
 }
 
@@ -694,8 +694,8 @@ func (_f *Fa2NftRecord7) UnmarshalPrim(prim micheline.Prim) error {
 
 // Fa2NftAddOperator is a generated struct used to interact with Fa2Nft smart contract.
 type Fa2NftAddOperator struct {
-	Owner    tezos.Address
-	Operator tezos.Address
+	Owner    mavryk.Address
+	Operator mavryk.Address
 	TokenId  *big.Int
 }
 
@@ -711,8 +711,8 @@ func (_f *Fa2NftAddOperator) UnmarshalPrim(prim micheline.Prim) error {
 
 // Fa2NftRemoveOperator is a generated struct used to interact with Fa2Nft smart contract.
 type Fa2NftRemoveOperator struct {
-	Owner    tezos.Address
-	Operator tezos.Address
+	Owner    mavryk.Address
+	Operator mavryk.Address
 	TokenId  *big.Int
 }
 
@@ -728,7 +728,7 @@ func (_f *Fa2NftRemoveOperator) UnmarshalPrim(prim micheline.Prim) error {
 
 // Fa2NftRecord10 is a generated struct used to interact with Fa2Nft smart contract.
 type Fa2NftRecord10 struct {
-	To      tezos.Address
+	To      mavryk.Address
 	TokenId *big.Int
 	Amount  *big.Int
 }
@@ -745,7 +745,7 @@ func (_f *Fa2NftRecord10) UnmarshalPrim(prim micheline.Prim) error {
 
 // Fa2NftRecord11 is a generated struct used to interact with Fa2Nft smart contract.
 type Fa2NftRecord11 struct {
-	From tezos.Address
+	From mavryk.Address
 	Txs  []*Fa2NftRecord10
 }
 
@@ -762,8 +762,8 @@ func (_f *Fa2NftRecord11) UnmarshalPrim(prim micheline.Prim) error {
 // Fa2NftRecord12 is a generated struct used to interact with Fa2Nft smart contract.
 type Fa2NftRecord12 struct {
 	TransferParams []*Fa2NftRecord11
-	UserPk         tezos.Key
-	UserSig        tezos.Signature
+	UserPk         mavryk.Key
+	UserSig        mavryk.Signature
 }
 
 // MarshalPrim marshals Fa2NftRecord12 into a Prim.

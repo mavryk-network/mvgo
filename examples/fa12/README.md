@@ -65,9 +65,9 @@ There are different ways to accomplish this for your own contracts. Here we just
 
   // 3/ unmarshal the decoded Micheline parameters into a Go struct
   type FA12Transfer struct {
-    From  tezos.Address `json:"from"`
-    To    tezos.Address `json:"to"`
-    Value tezos.Z       `json:"value"`
+    From  mavryk.Address `json:"from"`
+    To    mavryk.Address `json:"to"`
+    Value mavryk.Z       `json:"value"`
   }
   type FA12TransferWrapper struct {
     Transfer FA12Transfer `json:"transfer"`

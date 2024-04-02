@@ -40,15 +40,15 @@ func goType(typ *ast.Struct) string {
 	case "timestamp":
 		return "time.Time"
 	case "address":
-		return "tezos.Address"
+		return "mavryk.Address"
 	case "key":
-		return "tezos.Key"
+		return "mavryk.Key"
 	case "unit":
 		return "struct{}"
 	case "chain_id":
-		return "tezos.ChainIdHash"
+		return "mavryk.ChainIdHash"
 	case "signature":
-		return "tezos.Signature"
+		return "mavryk.Signature"
 	case "struct":
 		return "*" + strcase.ToCamel(typ.Name)
 	case "big_map":

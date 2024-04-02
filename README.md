@@ -1,27 +1,12 @@
-## Blockwatch MvGo - Tezos Go SDK
+## Blockwatch MvGo - Mavryk Go SDK
 
 MvGo is [Blockwatch](https://blockwatch.cc)'s low-level Tezos Go SDK for reliable, high-performance applications. This SDK is free to use in commercial and non-commercial projects with a permissive license. Blockwatch is committed to keeping interfaces stable, providing long-term support, and updating MvGo on a regular basis to stay compliant with the most recent Tezos network protocol.
 
 MvGo's main focus is on **correctness**, **stability**, and **compliance** with Tezos mainnet. It supports binary and JSON encodings for all Tezos types including Micheline smart contract data and all transaction formats. It's an ideal fit for high-performance applications that read from and write to the Tezos blockchain.
 
-Current Tezos protocol support in MvGo
+Current Mavryk protocol support in MvGo
 
-- Oxford v018
-- Nairobi v017
-- Mumbai v016
-- Lima v015
-- Kathmandu v014
-- Jakarta v013
-- Ithaca v012
-- Hangzhou v011
-- Granada v010
-- Florence v009
-- Edo v008
-- Delphi v007
-- Carthage v006
-- Babylon v005
-- Athens v004
-- Alpha v001-v003
+- Atlas v001
 
 ### SDK features
 
@@ -103,10 +88,10 @@ To parse/decode an address and output its components you can do the following:
 import "github.com/mavryk-network/mvgo/mavryk"
 
 // parse and panic if invalid
-addr := tezos.MustParseAddress("tz3RDC3Jdn4j15J7bBHZd29EUee9gVB1CxD9")
+addr := mavryk.MustParseAddress("tz3RDC3Jdn4j15J7bBHZd29EUee9gVB1CxD9")
 
 // parse and return error if invalid
-addr, err := tezos.ParseAddress("tz3RDC3Jdn4j15J7bBHZd29EUee9gVB1CxD9")
+addr, err := mavryk.ParseAddress("tz3RDC3Jdn4j15J7bBHZd29EUee9gVB1CxD9")
 if err != nil {
 	fmt.Printf("Invalid address: %v\n", err)
 }
@@ -164,7 +149,7 @@ import (
 )
 
 // we use the Baker Registry on mainnet as example
-addr := tezos.MustParseAddress("KT1ChNsEFxwyCbJyWGSL3KdjeXE28AY1Kaog")
+addr := mavryk.MustParseAddress("KT1ChNsEFxwyCbJyWGSL3KdjeXE28AY1Kaog")
 
 // init RPC client
 c, _ := rpc.NewClient("https://rpc.tzstats.com", nil)
@@ -221,10 +206,10 @@ There are multiple options to access decoded data:
 // - `time.Time` for time values
 // - `string` stringified numbers for Nat, Int, Mumav
 // - `bool` for Booleans
-// - `tezos.Address` for any string or bytes sequence that contains an address
-// - `tezos.Key` for keys
-// - `tezos.Signature` for signatures
-// - `tezos.ChainIdHash` for chain ids
+// - `mavryk.Address` for any string or bytes sequence that contains an address
+// - `mavryk.Key` for keys
+// - `mavryk.Signature` for signatures
+// - `mavryk.ChainIdHash` for chain ids
 // - hex string for untyped bytes
 // - opcode names for any Michelson opcode
 // - opcode sequences for lambdas
@@ -244,16 +229,16 @@ fmt.Println("Value=", m.(map[string]interface{})["transfer"].(map[string]interfa
 //   GetBig() (*big.Int, bool)
 //   GetBool() (bool, bool)
 //   GetTime() (time.Time, bool)
-//   GetAddress() (tezos.Address, bool)
-//   GetKey() (tezos.Key, bool)
-//   GetSignature() (tezos.Signature, bool)
+//   GetAddress() (mavryk.Address, bool)
+//   GetKey() (mavryk.Key, bool)
+//   GetSignature() (mavryk.Signature, bool)
 from, ok := val.GetAddress("transfer.from")
 
 // 3/
 // unmarshal the decoded Micheline parameters into a json-tagged Go struct
 type FA12Transfer struct {
-    From  tezos.Address `json:"from"`
-    To    tezos.Address `json:"to"`
+    From  mavryk.Address `json:"from"`
+    To    mavryk.Address `json:"to"`
     Value int64         `json:"value,string"`
 }
 
@@ -276,7 +261,7 @@ import (
 )
 
 // we use the hic et nunc NFT market on mainnet as example
-addr := tezos.MustParseAddress("KT1Hkg5qeNhfwpKW4fXvq7HGZB9z2EnmCCA9")
+addr := mavryk.MustParseAddress("KT1Hkg5qeNhfwpKW4fXvq7HGZB9z2EnmCCA9")
 
 // init RPC client
 c, _ := rpc.NewClient("https://rpc.tzstats.com", nil)

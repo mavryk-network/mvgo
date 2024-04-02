@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 )
 
@@ -214,7 +214,7 @@ func (t TokenMetadata) Raw() []byte {
 	return buf
 }
 
-func ResolveTokenMetadata(ctx context.Context, contract *Contract, tokenid tezos.Z) (*TokenMetadata, error) {
+func ResolveTokenMetadata(ctx context.Context, contract *Contract, tokenid mavryk.Z) (*TokenMetadata, error) {
 	var (
 		store micheline.Prim
 		err   error
@@ -278,8 +278,8 @@ func ResolveTokenMetadata(ctx context.Context, contract *Contract, tokenid tezos
 }
 
 type TokenBalance struct {
-	Owner   tezos.Address
-	Token   tezos.Address
-	TokenId tezos.Z
-	Balance tezos.Z
+	Owner   mavryk.Address
+	Token   mavryk.Address
+	TokenId mavryk.Z
+	Balance mavryk.Z
 }

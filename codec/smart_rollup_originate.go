@@ -9,21 +9,21 @@ import (
 	"fmt"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 )
 
 // SmartRollupOriginate represents "smart_rollup_originate" operation
 type SmartRollupOriginate struct {
 	Manager
-	Pvm    tezos.PvmKind  `json:"pvm_kind"`
-	Kernel tezos.HexBytes `json:"kernel"`
-	Proof  tezos.HexBytes `json:"origination_proof"`
-	Type   micheline.Prim `json:"parameters_ty"`
+	Pvm    mavryk.PvmKind  `json:"pvm_kind"`
+	Kernel mavryk.HexBytes `json:"kernel"`
+	Proof  mavryk.HexBytes `json:"origination_proof"`
+	Type   micheline.Prim  `json:"parameters_ty"`
 }
 
-func (o SmartRollupOriginate) Kind() tezos.OpType {
-	return tezos.OpTypeSmartRollupOriginate
+func (o SmartRollupOriginate) Kind() mavryk.OpType {
+	return mavryk.OpTypeSmartRollupOriginate
 }
 
 func (o SmartRollupOriginate) MarshalJSON() ([]byte, error) {
@@ -45,7 +45,7 @@ func (o SmartRollupOriginate) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o SmartRollupOriginate) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o SmartRollupOriginate) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	binary.Write(buf, enc, o.Pvm)
@@ -55,7 +55,7 @@ func (o SmartRollupOriginate) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) e
 	return nil
 }
 
-func (o *SmartRollupOriginate) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *SmartRollupOriginate) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -65,7 +65,7 @@ func (o *SmartRollupOriginate) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) 
 	var b byte
 	if b, err = readByte(buf.Next(1)); err != nil {
 		return
-	} else if typ := tezos.PvmKind(b); !typ.IsValid() {
+	} else if typ := mavryk.PvmKind(b); !typ.IsValid() {
 		err = fmt.Errorf("Unsupported PVM type %d", b)
 		return
 	} else {
@@ -85,10 +85,10 @@ func (o *SmartRollupOriginate) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) 
 
 func (o SmartRollupOriginate) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *SmartRollupOriginate) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

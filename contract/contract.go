@@ -8,23 +8,23 @@ import (
 	"fmt"
 
 	"github.com/mavryk-network/mvgo/codec"
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 	"github.com/mavryk-network/mvgo/rpc"
 )
 
 type CallArguments interface {
-	WithSource(tezos.Address) CallArguments
-	WithDestination(tezos.Address) CallArguments
-	WithAmount(tezos.N) CallArguments
+	WithSource(mavryk.Address) CallArguments
+	WithDestination(mavryk.Address) CallArguments
+	WithAmount(mavryk.N) CallArguments
 	Encode() *codec.Transaction
 	Parameters() *micheline.Parameters
 }
 
 type TxArgs struct {
-	Source      tezos.Address
-	Destination tezos.Address
-	Amount      tezos.N
+	Source      mavryk.Address
+	Destination mavryk.Address
+	Amount      mavryk.N
 	Params      micheline.Parameters
 }
 
@@ -32,17 +32,17 @@ func NewTxArgs() *TxArgs {
 	return &TxArgs{}
 }
 
-func (a *TxArgs) WithSource(addr tezos.Address) CallArguments {
+func (a *TxArgs) WithSource(addr mavryk.Address) CallArguments {
 	a.Source = addr.Clone()
 	return a
 }
 
-func (a *TxArgs) WithDestination(addr tezos.Address) CallArguments {
+func (a *TxArgs) WithDestination(addr mavryk.Address) CallArguments {
 	a.Destination = addr.Clone()
 	return a
 }
 
-func (a *TxArgs) WithAmount(amount tezos.N) CallArguments {
+func (a *TxArgs) WithAmount(amount mavryk.N) CallArguments {
 	a.Amount = amount
 	return a
 }
@@ -67,14 +67,14 @@ func (a *TxArgs) Encode() *codec.Transaction {
 }
 
 type Contract struct {
-	addr   tezos.Address     // contract address
+	addr   mavryk.Address    // contract address
 	script *micheline.Script // script (type info + code)
 	store  *micheline.Prim   // current storage value
 	meta   *Tz16             // Tzip16 metadata
 	rpc    *rpc.Client       // the RPC client to use for queries and calls
 }
 
-func NewContract(addr tezos.Address, cli *rpc.Client) *Contract {
+func NewContract(addr mavryk.Address, cli *rpc.Client) *Contract {
 	return &Contract{
 		addr: addr,
 		rpc:  cli,
@@ -160,7 +160,7 @@ func (c *Contract) DecodeStorage(data []byte) error {
 	return nil
 }
 
-func (c Contract) Address() tezos.Address {
+func (c Contract) Address() mavryk.Address {
 	return c.addr
 }
 
@@ -285,8 +285,8 @@ func (c *Contract) RunView(ctx context.Context, name string, args micheline.Prim
 		View:         name,
 		Input:        args,
 		ChainId:      c.rpc.ChainId,
-		Source:       tezos.ZeroAddress,
-		Payer:        tezos.ZeroAddress,
+		Source:       mavryk.ZeroAddress,
+		Payer:        mavryk.ZeroAddress,
 		UnlimitedGas: true,
 		Mode:         "Readable",
 	}
@@ -295,7 +295,7 @@ func (c *Contract) RunView(ctx context.Context, name string, args micheline.Prim
 	return res.Data, err
 }
 
-func (c *Contract) RunViewExt(ctx context.Context, name string, args micheline.Prim, source, payer tezos.Address, gas int64) (micheline.Prim, error) {
+func (c *Contract) RunViewExt(ctx context.Context, name string, args micheline.Prim, source, payer mavryk.Address, gas int64) (micheline.Prim, error) {
 	req := rpc.RunViewRequest{
 		Contract: c.addr,
 		View:     name,
@@ -303,7 +303,7 @@ func (c *Contract) RunViewExt(ctx context.Context, name string, args micheline.P
 		ChainId:  c.rpc.ChainId,
 		Source:   source,
 		Payer:    payer,
-		Gas:      tezos.N(gas),
+		Gas:      mavryk.N(gas),
 		Mode:     "Readable",
 	}
 	if gas == 0 {
@@ -321,9 +321,9 @@ func (c *Contract) RunCallback(ctx context.Context, name string, args micheline.
 		Entrypoint: name,
 		Input:      args,
 		ChainId:    c.rpc.ChainId,
-		Source:     tezos.ZeroAddress,
-		Payer:      tezos.ZeroAddress,
-		Gas:        tezos.N(1_000_000), // guess
+		Source:     mavryk.ZeroAddress,
+		Payer:      mavryk.ZeroAddress,
+		Gas:        mavryk.N(1_000_000), // guess
 		Mode:       "Readable",
 	}
 	var res rpc.RunViewResponse
@@ -331,7 +331,7 @@ func (c *Contract) RunCallback(ctx context.Context, name string, args micheline.
 	return res.Data, err
 }
 
-func (c *Contract) RunCallbackExt(ctx context.Context, name string, args micheline.Prim, source, payer tezos.Address, gas int64) (micheline.Prim, error) {
+func (c *Contract) RunCallbackExt(ctx context.Context, name string, args micheline.Prim, source, payer mavryk.Address, gas int64) (micheline.Prim, error) {
 	req := rpc.RunViewRequest{
 		Contract:   c.addr,
 		Entrypoint: name,
@@ -339,7 +339,7 @@ func (c *Contract) RunCallbackExt(ctx context.Context, name string, args micheli
 		ChainId:    c.rpc.ChainId,
 		Source:     source,
 		Payer:      payer,
-		Gas:        tezos.N(gas),
+		Gas:        mavryk.N(gas),
 		Mode:       "Readable",
 	}
 	var res rpc.RunViewResponse
@@ -371,10 +371,10 @@ func (c *Contract) CallMulti(ctx context.Context, args []CallArguments, opts *rp
 }
 
 func (c *Contract) Deploy(ctx context.Context, opts *rpc.CallOptions) (*rpc.Receipt, error) {
-	return c.DeployExt(ctx, tezos.Address{}, 0, opts)
+	return c.DeployExt(ctx, mavryk.Address{}, 0, opts)
 }
 
-func (c *Contract) DeployExt(ctx context.Context, delegate tezos.Address, balance tezos.N, opts *rpc.CallOptions) (*rpc.Receipt, error) {
+func (c *Contract) DeployExt(ctx context.Context, delegate mavryk.Address, balance mavryk.N, opts *rpc.CallOptions) (*rpc.Receipt, error) {
 	if opts == nil {
 		opts = &rpc.DefaultOptions
 	}

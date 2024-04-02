@@ -16,7 +16,7 @@ import (
 	"strconv"
 	"strings"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 	"github.com/mavryk-network/mvgo/rpc"
 )
@@ -172,8 +172,8 @@ func (v *Tz16StorageView) Run(ctx context.Context, contract *Contract, args mich
 		},
 		Input:   micheline.NewPair(args, *contract.store),
 		Storage: micheline.NewCode(micheline.D_NONE),
-		Amount:  tezos.N(0),
-		Balance: tezos.N(0),
+		Amount:  mavryk.N(0),
+		Balance: mavryk.N(0),
 	}
 	var resp rpc.RunCodeResponse
 	if err := contract.rpc.RunCode(ctx, rpc.Head, req, &resp); err != nil {
@@ -244,7 +244,7 @@ func (c *Contract) resolveStorageUri(ctx context.Context, uri string, result int
 		key = parts[0]
 	} else {
 		// other contract
-		addr, err := tezos.ParseAddress(parts[0])
+		addr, err := mavryk.ParseAddress(parts[0])
 		if err != nil {
 			return fmt.Errorf("malformed tzip16 uri %q: %v", uri, err)
 		}

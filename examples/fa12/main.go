@@ -12,7 +12,7 @@ import (
 	"os"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 	"github.com/mavryk-network/mvgo/rpc"
 
@@ -61,7 +61,7 @@ func run() error {
 	}
 	rpc.UseLogger(log.Log)
 
-	hash, err := tezos.ParseBlockHash(flags.Arg(0))
+	hash, err := mavryk.ParseBlockHash(flags.Arg(0))
 	if err != nil {
 		return err
 	}
@@ -124,9 +124,9 @@ func run() error {
 
 	// 3/ unmarshal the decoded Micheline parameters into a Go struct
 	type FA12Transfer struct {
-		From  tezos.Address `json:"from"`
-		To    tezos.Address `json:"to"`
-		Value tezos.Z       `json:"value"`
+		From  mavryk.Address `json:"from"`
+		To    mavryk.Address `json:"to"`
+		Value mavryk.Z       `json:"value"`
 	}
 	type FA12TransferWrapper struct {
 		Transfer FA12Transfer `json:"transfer"`

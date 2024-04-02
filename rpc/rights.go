@@ -11,33 +11,33 @@ import (
 	"strconv"
 	"time"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // BakingRight holds information about the right to bake a specific Tezos block.
 type BakingRight struct {
-	Delegate      tezos.Address `json:"delegate"`
-	Level         int64         `json:"level"`
-	Priority      int           `json:"priority"` // until v011
-	Round         int           `json:"round"`    // v012+
-	EstimatedTime time.Time     `json:"estimated_time"`
+	Delegate      mavryk.Address `json:"delegate"`
+	Level         int64          `json:"level"`
+	Priority      int            `json:"priority"` // until v011
+	Round         int            `json:"round"`    // v012+
+	EstimatedTime time.Time      `json:"estimated_time"`
 }
 
-func (r BakingRight) Address() tezos.Address {
+func (r BakingRight) Address() mavryk.Address {
 	return r.Delegate
 }
 
 // EndorsingRight holds information about the right to endorse a specific Tezos block.
 type EndorsingRight struct {
-	Delegate       tezos.Address `json:"delegate"`
-	Level          int64         `json:"level"`
-	EstimatedTime  time.Time     `json:"estimated_time"`
-	Slots          []int         `json:"slots,omitempty"` // until v011
-	FirstSlot      int           `json:"first_slot"`      // v012+
-	EndorsingPower int           `json:"endorsing_power"` // v012+
+	Delegate       mavryk.Address `json:"delegate"`
+	Level          int64          `json:"level"`
+	EstimatedTime  time.Time      `json:"estimated_time"`
+	Slots          []int          `json:"slots,omitempty"` // until v011
+	FirstSlot      int            `json:"first_slot"`      // v012+
+	EndorsingPower int            `json:"endorsing_power"` // v012+
 }
 
-func (r EndorsingRight) Address() tezos.Address {
+func (r EndorsingRight) Address() mavryk.Address {
 	return r.Delegate
 }
 
@@ -53,8 +53,8 @@ type RollSnapshotInfo struct {
 }
 
 type StakeInfo struct {
-	ActiveStake int64         `json:"active_stake,string"`
-	Baker       tezos.Address `json:"baker"`
+	ActiveStake int64          `json:"active_stake,string"`
+	Baker       mavryk.Address `json:"baker"`
 }
 
 // v012+
@@ -74,7 +74,7 @@ type SnapshotIndex struct {
 
 type SnapshotRoll struct {
 	RollId   int64
-	OwnerKey tezos.Key
+	OwnerKey mavryk.Key
 }
 
 func (r *SnapshotRoll) UnmarshalJSON(data []byte) error {

@@ -7,21 +7,21 @@ import (
 	"bytes"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // SmartRollupTimeout represents "smart_rollup_timeout" operation
 type SmartRollupTimeout struct {
 	Manager
-	Rollup  tezos.Address `json:"rollup"`
+	Rollup  mavryk.Address `json:"rollup"`
 	Stakers struct {
-		Alice tezos.Address `json:"alice"`
-		Bob   tezos.Address `json:"bob"`
+		Alice mavryk.Address `json:"alice"`
+		Bob   mavryk.Address `json:"bob"`
 	} `json:"stakers"`
 }
 
-func (o SmartRollupTimeout) Kind() tezos.OpType {
-	return tezos.OpTypeSmartRollupTimeout
+func (o SmartRollupTimeout) Kind() mavryk.OpType {
+	return mavryk.OpTypeSmartRollupTimeout
 }
 
 func (o SmartRollupTimeout) MarshalJSON() ([]byte, error) {
@@ -42,7 +42,7 @@ func (o SmartRollupTimeout) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o SmartRollupTimeout) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o SmartRollupTimeout) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	buf.Write(o.Rollup.Hash()) // 20 byte only
@@ -51,14 +51,14 @@ func (o SmartRollupTimeout) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) err
 	return nil
 }
 
-func (o *SmartRollupTimeout) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *SmartRollupTimeout) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
 	if err = o.Manager.DecodeBuffer(buf, p); err != nil {
 		return
 	}
-	o.Rollup = tezos.NewAddress(tezos.AddressTypeSmartRollup, buf.Next(20))
+	o.Rollup = mavryk.NewAddress(mavryk.AddressTypeSmartRollup, buf.Next(20))
 	if err = o.Stakers.Alice.Decode(buf.Next(21)); err != nil {
 		return
 	}
@@ -70,10 +70,10 @@ func (o *SmartRollupTimeout) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (e
 
 func (o SmartRollupTimeout) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *SmartRollupTimeout) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

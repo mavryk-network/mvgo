@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 )
 
@@ -24,60 +24,60 @@ var (
 )
 
 type SmartRollupResult struct {
-	Address          *tezos.Address               `json:"address,omitempty"`            // v016, smart_rollup_originate
-	Size             *tezos.Z                     `json:"size,omitempty"`               // v016, smart_rollup_originate
-	InboxLevel       int64                        `json:"inbox_level,omitempty"`        // v016, smart_rollup_cement
-	StakedHash       *tezos.SmartRollupCommitHash `json:"staked_hash,omitempty"`        // v016, smart_rollup_publish
-	PublishedAtLevel int64                        `json:"published_at_level,omitempty"` // v016, smart_rollup_publish
-	GameStatus       *GameStatus                  `json:"game_status,omitempty"`        // v016, smart_rollup_refute, smart_rollup_timeout
-	Commitment       *tezos.SmartRollupCommitHash `json:"commitment_hash,omitempty"`    // v017, smart_rollup_cement
+	Address          *mavryk.Address               `json:"address,omitempty"`            // v016, smart_rollup_originate
+	Size             *mavryk.Z                     `json:"size,omitempty"`               // v016, smart_rollup_originate
+	InboxLevel       int64                         `json:"inbox_level,omitempty"`        // v016, smart_rollup_cement
+	StakedHash       *mavryk.SmartRollupCommitHash `json:"staked_hash,omitempty"`        // v016, smart_rollup_publish
+	PublishedAtLevel int64                         `json:"published_at_level,omitempty"` // v016, smart_rollup_publish
+	GameStatus       *GameStatus                   `json:"game_status,omitempty"`        // v016, smart_rollup_refute, smart_rollup_timeout
+	Commitment       *mavryk.SmartRollupCommitHash `json:"commitment_hash,omitempty"`    // v017, smart_rollup_cement
 }
 
 type SmartRollupOriginate struct {
 	Manager
-	PvmKind          tezos.PvmKind  `json:"pvm_kind"`
-	Kernel           tezos.HexBytes `json:"kernel"`
-	OriginationProof tezos.HexBytes `json:"origination_proof"`
-	ParametersTy     micheline.Prim `json:"parameters_ty"`
+	PvmKind          mavryk.PvmKind  `json:"pvm_kind"`
+	Kernel           mavryk.HexBytes `json:"kernel"`
+	OriginationProof mavryk.HexBytes `json:"origination_proof"`
+	ParametersTy     micheline.Prim  `json:"parameters_ty"`
 }
 
 type SmartRollupAddMessages struct {
 	Manager
-	Messages []tezos.HexBytes `json:"message"`
+	Messages []mavryk.HexBytes `json:"message"`
 }
 
 type SmartRollupCement struct {
 	Manager
-	Rollup     tezos.Address                `json:"rollup"`
-	Commitment *tezos.SmartRollupCommitHash `json:"commitment,omitempty"` // deprecated in v17
+	Rollup     mavryk.Address                `json:"rollup"`
+	Commitment *mavryk.SmartRollupCommitHash `json:"commitment,omitempty"` // deprecated in v17
 }
 
 type SmartRollupCommitment struct {
-	CompressedState tezos.SmartRollupStateHash  `json:"compressed_state"`
-	InboxLevel      int64                       `json:"inbox_level"`
-	Predecessor     tezos.SmartRollupCommitHash `json:"predecessor"`
-	NumberOfTicks   tezos.Z                     `json:"number_of_ticks"`
+	CompressedState mavryk.SmartRollupStateHash  `json:"compressed_state"`
+	InboxLevel      int64                        `json:"inbox_level"`
+	Predecessor     mavryk.SmartRollupCommitHash `json:"predecessor"`
+	NumberOfTicks   mavryk.Z                     `json:"number_of_ticks"`
 }
 
 type SmartRollupPublish struct {
 	Manager
-	Rollup     tezos.Address         `json:"rollup"`
+	Rollup     mavryk.Address        `json:"rollup"`
 	Commitment SmartRollupCommitment `json:"commitment"`
 }
 
 type SmartRollupRefute struct {
 	Manager
-	Rollup     tezos.Address         `json:"rollup"`
-	Opponent   tezos.Address         `json:"opponent"`
+	Rollup     mavryk.Address        `json:"rollup"`
+	Opponent   mavryk.Address        `json:"opponent"`
 	Refutation SmartRollupRefutation `json:"refutation"`
 }
 
 type SmartRollupRefutation struct {
-	Kind         string                       `json:"refutation_kind"`
-	PlayerHash   *tezos.SmartRollupCommitHash `json:"player_commitment_hash,omitempty"`
-	OpponentHash *tezos.SmartRollupCommitHash `json:"opponent_commitment_hash,omitempty"`
-	Choice       *tezos.Z                     `json:"choice,omitempty"`
-	Step         *SmartRollupRefuteStep       `json:"step,omitempty"`
+	Kind         string                        `json:"refutation_kind"`
+	PlayerHash   *mavryk.SmartRollupCommitHash `json:"player_commitment_hash,omitempty"`
+	OpponentHash *mavryk.SmartRollupCommitHash `json:"opponent_commitment_hash,omitempty"`
+	Choice       *mavryk.Z                     `json:"choice,omitempty"`
+	Step         *SmartRollupRefuteStep        `json:"step,omitempty"`
 }
 
 // Step can either be
@@ -94,7 +94,7 @@ type SmartRollupRefuteStep struct {
 }
 
 type SmartRollupProof struct {
-	PvmStep    tezos.HexBytes         `json:"pvm_step,omitempty"`
+	PvmStep    mavryk.HexBytes        `json:"pvm_step,omitempty"`
 	InputProof *SmartRollupInputProof `json:"input_proof,omitempty"`
 }
 
@@ -125,44 +125,44 @@ func (s SmartRollupRefuteStep) MarshalJSON() ([]byte, error) {
 }
 
 type SmartRollupTick struct {
-	State tezos.SmartRollupStateHash `json:"state"`
-	Tick  tezos.Z                    `json:"tick"`
+	State mavryk.SmartRollupStateHash `json:"state"`
+	Tick  mavryk.Z                    `json:"tick"`
 }
 
 type SmartRollupInputProof struct {
-	Kind    string         `json:"input_proof_kind"`
-	Level   int64          `json:"level"`
-	Counter tezos.Z        `json:"message_counter"`
-	Proof   tezos.HexBytes `json:"serialized_proof"`
+	Kind    string          `json:"input_proof_kind"`
+	Level   int64           `json:"level"`
+	Counter mavryk.Z        `json:"message_counter"`
+	Proof   mavryk.HexBytes `json:"serialized_proof"`
 }
 
 type SmartRollupTimeout struct {
 	Manager
-	Rollup  tezos.Address `json:"rollup"`
+	Rollup  mavryk.Address `json:"rollup"`
 	Stakers struct {
-		Alice tezos.Address `json:"alice"`
-		Bob   tezos.Address `json:"bob"`
+		Alice mavryk.Address `json:"alice"`
+		Bob   mavryk.Address `json:"bob"`
 	} `json:"stakers"`
 }
 
 type SmartRollupExecuteOutboxMessage struct {
 	Manager
-	Rollup             tezos.Address               `json:"rollup"`
-	CementedCommitment tezos.SmartRollupCommitHash `json:"cemented_commitment"`
-	OutputProof        tezos.HexBytes              `json:"output_proof"`
+	Rollup             mavryk.Address               `json:"rollup"`
+	CementedCommitment mavryk.SmartRollupCommitHash `json:"cemented_commitment"`
+	OutputProof        mavryk.HexBytes              `json:"output_proof"`
 }
 
 type SmartRollupRecoverBond struct {
 	Manager
-	Rollup tezos.Address `json:"rollup"`
-	Staker tezos.Address `json:"staker"`
+	Rollup mavryk.Address `json:"rollup"`
+	Staker mavryk.Address `json:"staker"`
 }
 
 type GameStatus struct {
-	Status string         `json:"status,omitempty"`
-	Kind   string         `json:"kind,omitempty"`
-	Reason string         `json:"reason,omitempty"`
-	Player *tezos.Address `json:"player,omitempty"`
+	Status string          `json:"status,omitempty"`
+	Kind   string          `json:"kind,omitempty"`
+	Reason string          `json:"reason,omitempty"`
+	Player *mavryk.Address `json:"player,omitempty"`
 }
 
 func (s *GameStatus) UnmarshalJSON(buf []byte) error {

@@ -41,7 +41,7 @@ type PayableBuilder struct{}
 // with the given rpc.
 //
 // Returns an error if the contract was not found at the given address.
-func NewPayable(ctx context.Context, address tezos.Address, client *rpc.Client) (*Payable, error) {
+func NewPayable(ctx context.Context, address mavryk.Address, client *rpc.Client) (*Payable, error) {
 	script, err := client.GetContractScript(ctx, address)
 	if err != nil {
 		return nil, err

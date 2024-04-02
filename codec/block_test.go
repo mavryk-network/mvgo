@@ -7,17 +7,17 @@ import (
 	"bytes"
 	"testing"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 func TestBlock(t *testing.T) {
 	type testcase struct {
-		data  tezos.HexBytes
+		data  mavryk.HexBytes
 		head  BlockHeader
-		chain tezos.ChainIdHash
-		hash  tezos.BlockHash
-		key   tezos.PrivateKey
-		sig   tezos.Signature
+		chain mavryk.ChainIdHash
+		hash  mavryk.BlockHash
+		key   mavryk.PrivateKey
+		sig   mavryk.Signature
 	}
 
 	var cases = []testcase{
@@ -27,23 +27,23 @@ func TestBlock(t *testing.T) {
 			head: BlockHeader{
 				Level:          306519,
 				Proto:          2,
-				Predecessor:    tezos.MustParseBlockHash("BMJpBGs6rDpEGki8vLVd6VAcLrnEnAhxAwpGjExRcT8qDCmwQQm"),
+				Predecessor:    mavryk.MustParseBlockHash("BMJpBGs6rDpEGki8vLVd6VAcLrnEnAhxAwpGjExRcT8qDCmwQQm"),
 				Timestamp:      asTime("2022-03-29T10:41:45Z"),
 				ValidationPass: 4,
-				OperationsHash: tezos.MustParseOpListListHash("LLoatxVfWnkjHGYBuXL6ELtKqkX1EvLr5ffHSd5pySMY88AY2MeMr"),
-				Fitness: []tezos.HexBytes{
+				OperationsHash: mavryk.MustParseOpListListHash("LLoatxVfWnkjHGYBuXL6ELtKqkX1EvLr5ffHSd5pySMY88AY2MeMr"),
+				Fitness: []mavryk.HexBytes{
 					asHex("02"),
 					asHex("0004ad57"),
 					asHex(""),
 					asHex("ffffffff"),
 					asHex("00000001"),
 				},
-				Context:          tezos.MustParseContextHash("CoVTNsN2t3DU6m6nL2HL3qEzCA2jhiUEAnWZde7dPmzcdm61EYBp"),
-				PayloadHash:      tezos.MustParsePayloadHash("vh2nZrxixzv4ZjAJn7PRj79GumUMAJzxuEYMjo496TYSaWhXYjZM"),
+				Context:          mavryk.MustParseContextHash("CoVTNsN2t3DU6m6nL2HL3qEzCA2jhiUEAnWZde7dPmzcdm61EYBp"),
+				PayloadHash:      mavryk.MustParsePayloadHash("vh2nZrxixzv4ZjAJn7PRj79GumUMAJzxuEYMjo496TYSaWhXYjZM"),
 				PayloadRound:     1,
 				ProofOfWorkNonce: asHex("df2ea592260c0100"),
-				LbVote:           tezos.FeatureVoteOn,
-				AiVote:           tezos.FeatureVoteOn,
+				LbVote:           mavryk.FeatureVoteOn,
+				AiVote:           mavryk.FeatureVoteOn,
 			},
 		},
 		{
@@ -51,21 +51,21 @@ func TestBlock(t *testing.T) {
 			head: BlockHeader{
 				Level:          1331,
 				Proto:          1,
-				Predecessor:    tezos.MustParseBlockHash("BKpbfCvh777DQHnXjU2sqHvVUNZ7dBAdqEfKkdw8EGSkD9LSYXb"),
+				Predecessor:    mavryk.MustParseBlockHash("BKpbfCvh777DQHnXjU2sqHvVUNZ7dBAdqEfKkdw8EGSkD9LSYXb"),
 				Timestamp:      asTime("2020-04-20T16:20:00Z"),
 				ValidationPass: 2,
-				OperationsHash: tezos.MustParseOpListListHash("LLoZqBDX1E2ADRXbmwYo8VtMNeHG6Ygzmm4Zqv97i91UPBQHy9Vq3"),
-				Fitness: []tezos.HexBytes{
+				OperationsHash: mavryk.MustParseOpListListHash("LLoZqBDX1E2ADRXbmwYo8VtMNeHG6Ygzmm4Zqv97i91UPBQHy9Vq3"),
+				Fitness: []mavryk.HexBytes{
 					asHex("01"),
 					asHex("000000000000000a"),
 				},
-				Context:          tezos.MustParseContextHash("CoVDyf9y9gHfAkPWofBJffo4X4bWjmehH2LeVonDcCKKzyQYwqdk"),
-				PayloadHash:      tezos.MustParsePayloadHash("vh1g87ZG6scSYxKhspAUzprQVuLAyoa5qMBKcUfjgnQGnFb3dJcG"),
+				Context:          mavryk.MustParseContextHash("CoVDyf9y9gHfAkPWofBJffo4X4bWjmehH2LeVonDcCKKzyQYwqdk"),
+				PayloadHash:      mavryk.MustParsePayloadHash("vh1g87ZG6scSYxKhspAUzprQVuLAyoa5qMBKcUfjgnQGnFb3dJcG"),
 				PayloadRound:     0,
 				ProofOfWorkNonce: asHex("101895ca00000000"),
-				SeedNonceHash:    tezos.MustParseNonceHash("nceUFoeQDgkJCmzdMWh19ZjBYqQD3N9fe6bXQ1ZsUKKvMn7iun5Z3"),
-				LbVote:           tezos.FeatureVoteOn,
-				AiVote:           tezos.FeatureVoteOn,
+				SeedNonceHash:    mavryk.MustParseNonceHash("nceUFoeQDgkJCmzdMWh19ZjBYqQD3N9fe6bXQ1ZsUKKvMn7iun5Z3"),
+				LbVote:           mavryk.FeatureVoteOn,
+				AiVote:           mavryk.FeatureVoteOn,
 			},
 		},
 		{
@@ -73,53 +73,53 @@ func TestBlock(t *testing.T) {
 			head: BlockHeader{
 				Level:          20878,
 				Proto:          1,
-				Predecessor:    tezos.MustParseBlockHash("BKty19HXfE15jjeLFCTxpEZRXRVkQKGBcArzn4eAgMYTrdaf6xc"),
+				Predecessor:    mavryk.MustParseBlockHash("BKty19HXfE15jjeLFCTxpEZRXRVkQKGBcArzn4eAgMYTrdaf6xc"),
 				Timestamp:      asTime("2021-11-17T03:45:57Z"),
 				ValidationPass: 4,
-				OperationsHash: tezos.MustParseOpListListHash("LLoaJEEVU5t92V3PEFG9SZ6JrgG3AAwLhKXkXxHjfiZFxLZeqaRcg"),
-				Fitness: []tezos.HexBytes{
+				OperationsHash: mavryk.MustParseOpListListHash("LLoaJEEVU5t92V3PEFG9SZ6JrgG3AAwLhKXkXxHjfiZFxLZeqaRcg"),
+				Fitness: []mavryk.HexBytes{
 					asHex("02"),
 					asHex("0000518e"),
 					asHex(""),
 					asHex("ffffffff"),
 					asHex("00000000"),
 				},
-				Context:          tezos.MustParseContextHash("CoWRqXN1hCqPoLNF5K53DkcqHSHA9638oXnyhg5nBBsK1gNVAQdZ"),
-				PayloadHash:      tezos.MustParsePayloadHash("vh2UJ9qvkLHcFbiotR462Ni84QU7xJ83fNwspoo9kq7spoNeSMkH"),
+				Context:          mavryk.MustParseContextHash("CoWRqXN1hCqPoLNF5K53DkcqHSHA9638oXnyhg5nBBsK1gNVAQdZ"),
+				PayloadHash:      mavryk.MustParsePayloadHash("vh2UJ9qvkLHcFbiotR462Ni84QU7xJ83fNwspoo9kq7spoNeSMkH"),
 				PayloadRound:     0,
 				ProofOfWorkNonce: asHex("a8e1dd3c00000000"),
-				LbVote:           tezos.FeatureVoteOn,
-				AiVote:           tezos.FeatureVoteOn,
+				LbVote:           mavryk.FeatureVoteOn,
+				AiVote:           mavryk.FeatureVoteOn,
 			},
 		},
 		{
 			data:  asHex("0000004c013ce881bd760605e86f07bfd8b462eae0f25151ac056978a9abb392e17cba833f0000000065a3e6f304ebbfbd7dd321a66af71edbb7ae270e4f84d4c50f56a412c53f9efdaaefa11516000000210000000102000000040000004c0000000000000004ffffffff0000000400000000081a1078f1729b2ac0da78480aade344e5f5ccfdcd2035bc59563c1ff80897d05677d1d20902581194154052443de6d0b3c5ffffd62bb8e771e2c1ec62217a25000000007769d51b04000000ff650c5a8c733f89717032992c43ac7f3e121a8dd141184353b5e8c76f25706ea90a"),
-			chain: tezos.MustParseChainIdHash("NetXdQprcVkpaWU"),
+			chain: mavryk.MustParseChainIdHash("NetXdQprcVkpaWU"),
 			head: BlockHeader{
 				Level:          76,
 				Proto:          1,
-				Predecessor:    tezos.MustParseBlockHash("BLB79vHaoWiyzYjc68zXWCQFB2snCY28reHR3w6bpvKwZqkZDTE"),
+				Predecessor:    mavryk.MustParseBlockHash("BLB79vHaoWiyzYjc68zXWCQFB2snCY28reHR3w6bpvKwZqkZDTE"),
 				Timestamp:      asTime("2024-01-14T13:51:47Z"),
 				ValidationPass: 4,
-				OperationsHash: tezos.MustParseOpListListHash("LLob7XuR6DGQ2jQPurB7AgBGNFi19WukXyuHd1ncjyXGF13qaAZFc"),
-				Fitness: []tezos.HexBytes{
+				OperationsHash: mavryk.MustParseOpListListHash("LLob7XuR6DGQ2jQPurB7AgBGNFi19WukXyuHd1ncjyXGF13qaAZFc"),
+				Fitness: []mavryk.HexBytes{
 					asHex("02"),
 					asHex("0000004c"),
 					asHex(""),
 					asHex("ffffffff"),
 					asHex("00000000"),
 				},
-				Context:          tezos.MustParseContextHash("CoUhsoi3yZqpNGCW1pgu4f7eX2kzbkgKdoekLCny4WtGYyUiH96s"),
-				PayloadHash:      tezos.MustParsePayloadHash("vh2LCpkG49XP71LxG7kVc1ob1erR3FnD3jfHjGJa8caN2N7Jn9nx"),
+				Context:          mavryk.MustParseContextHash("CoUhsoi3yZqpNGCW1pgu4f7eX2kzbkgKdoekLCny4WtGYyUiH96s"),
+				PayloadHash:      mavryk.MustParsePayloadHash("vh2LCpkG49XP71LxG7kVc1ob1erR3FnD3jfHjGJa8caN2N7Jn9nx"),
 				PayloadRound:     0,
 				ProofOfWorkNonce: asHex("7769d51b04000000"),
-				SeedNonceHash:    tezos.MustParseNonceHash("nceUzTAhmkcBo1CsZhgPKmt9daAaEWcHspXeeHQqSikEMG7dryrMR"),
-				LbVote:           tezos.FeatureVotePass,
-				AiVote:           tezos.FeatureVotePass,
+				SeedNonceHash:    mavryk.MustParseNonceHash("nceUzTAhmkcBo1CsZhgPKmt9daAaEWcHspXeeHQqSikEMG7dryrMR"),
+				LbVote:           mavryk.FeatureVotePass,
+				AiVote:           mavryk.FeatureVotePass,
 			},
-			hash: tezos.MustParseBlockHash("BKsWjip13q21S4cRDmrPG85pYJePST41BrFFrRskWoPCecd88fJ"),
-			key:  tezos.MustParsePrivateKey("edsk2uqQB9AY4FvioK2YMdfmyMrer5R8mGFyuaLLFfSRo8EoyNdht3"),
-			sig:  tezos.MustParseSignature("sigqKNyR7Xuo8TzuMSKA5HaL9XRVmozGM1brMm2ekUSpj14HCTE9zPszEvE6Vy1WEFHhpc4m1wsff4MGkXJQcNmhbALJa7bt"),
+			hash: mavryk.MustParseBlockHash("BKsWjip13q21S4cRDmrPG85pYJePST41BrFFrRskWoPCecd88fJ"),
+			key:  mavryk.MustParsePrivateKey("edsk2uqQB9AY4FvioK2YMdfmyMrer5R8mGFyuaLLFfSRo8EoyNdht3"),
+			sig:  mavryk.MustParseSignature("sigqKNyR7Xuo8TzuMSKA5HaL9XRVmozGM1brMm2ekUSpj14HCTE9zPszEvE6Vy1WEFHhpc4m1wsff4MGkXJQcNmhbALJa7bt"),
 		},
 	}
 
@@ -153,7 +153,7 @@ func TestBlock(t *testing.T) {
 		buf := c.head.Bytes()
 		if !bytes.Equal(buf, c.data.Bytes()) {
 			t.Errorf("Case %d: encode failed:\n    have: %s\n    want: %s\n", i,
-				tezos.HexBytes(buf), c.data,
+				mavryk.HexBytes(buf), c.data,
 			)
 		}
 

@@ -10,14 +10,14 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/mavryk-network/mvgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Voter holds information about a vote listing
 type Voter struct {
-	Delegate tezos.Address `json:"pkh"`
-	Rolls    int64         `json:"rolls"`
-	Power    int64         `json:"voting_power,string"`
+	Delegate mavryk.Address `json:"pkh"`
+	Rolls    int64          `json:"rolls"`
+	Power    int64          `json:"voting_power,string"`
 }
 
 // VoterList contains a list of voters
@@ -25,8 +25,8 @@ type VoterList []Voter
 
 // BallotInfo holds information about a vote listing
 type BallotInfo struct {
-	Delegate tezos.Address    `json:"pkh"`
-	Ballot   tezos.BallotVote `json:"ballot"`
+	Delegate mavryk.Address    `json:"pkh"`
+	Ballot   mavryk.BallotVote `json:"ballot"`
 }
 
 // BallotList contains a list of voters
@@ -41,8 +41,8 @@ type BallotSummary struct {
 
 // Proposal holds information about a vote listing
 type Proposal struct {
-	Proposal tezos.ProtocolHash `json:"proposal"`
-	Upvotes  int64              `json:"upvotes,string"`
+	Proposal mavryk.ProtocolHash `json:"proposal"`
+	Upvotes  int64               `json:"upvotes,string"`
 }
 
 func (p *Proposal) UnmarshalJSON(data []byte) error {
@@ -103,8 +103,8 @@ func (c *Client) GetVoteQuorum(ctx context.Context, id BlockID) (int, error) {
 }
 
 // GetVoteProposal returns the hash of the current voring proposal at block id.
-func (c *Client) GetVoteProposal(ctx context.Context, id BlockID) (tezos.ProtocolHash, error) {
-	var proposal tezos.ProtocolHash
+func (c *Client) GetVoteProposal(ctx context.Context, id BlockID) (mavryk.ProtocolHash, error) {
+	var proposal mavryk.ProtocolHash
 	u := fmt.Sprintf("chains/main/blocks/%s/votes/current_proposal", id)
 	err := c.Get(ctx, u, &proposal)
 	return proposal, err

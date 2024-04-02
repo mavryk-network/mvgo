@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 )
 
@@ -23,19 +23,19 @@ const (
 
 // Operation represents a single operation or batch of operations included in a block
 type Operation struct {
-	Protocol  tezos.ProtocolHash `json:"protocol"`
-	ChainID   tezos.ChainIdHash  `json:"chain_id"`
-	Hash      tezos.OpHash       `json:"hash"`
-	Branch    tezos.BlockHash    `json:"branch"`
-	Contents  OperationList      `json:"contents"`
-	Signature tezos.Signature    `json:"signature"`
-	Errors    []OperationError   `json:"error,omitempty"`    // mempool only
-	Metadata  string             `json:"metadata,omitempty"` // contains `too large` when stripped, this is BAD!!
+	Protocol  mavryk.ProtocolHash `json:"protocol"`
+	ChainID   mavryk.ChainIdHash  `json:"chain_id"`
+	Hash      mavryk.OpHash       `json:"hash"`
+	Branch    mavryk.BlockHash    `json:"branch"`
+	Contents  OperationList       `json:"contents"`
+	Signature mavryk.Signature    `json:"signature"`
+	Errors    []OperationError    `json:"error,omitempty"`    // mempool only
+	Metadata  string              `json:"metadata,omitempty"` // contains `too large` when stripped, this is BAD!!
 }
 
 // TotalCosts returns the sum of costs across all batched and internal operations.
-func (o Operation) TotalCosts() tezos.Costs {
-	var c tezos.Costs
+func (o Operation) TotalCosts() mavryk.Costs {
+	var c mavryk.Costs
 	for _, op := range o.Contents {
 		c = c.Add(op.Costs())
 	}
@@ -43,8 +43,8 @@ func (o Operation) TotalCosts() tezos.Costs {
 }
 
 // Costs returns ta list of individual costs for all batched operations.
-func (o Operation) Costs() []tezos.Costs {
-	list := make([]tezos.Costs, len(o.Contents))
+func (o Operation) Costs() []mavryk.Costs {
+	list := make([]mavryk.Costs, len(o.Contents))
 	for i, op := range o.Contents {
 		list[i] = op.Costs()
 	}
@@ -53,18 +53,18 @@ func (o Operation) Costs() []tezos.Costs {
 
 // TypedOperation must be implemented by all operations
 type TypedOperation interface {
-	Kind() tezos.OpType
+	Kind() mavryk.OpType
 	Meta() OperationMetadata
 	Result() OperationResult
-	Costs() tezos.Costs
-	Limits() tezos.Limits
+	Costs() mavryk.Costs
+	Limits() mavryk.Limits
 }
 
 // OperationError represents data describing an error conditon that lead to a
 // failed operation execution.
 type OperationError struct {
 	GenericError
-	Contract *tezos.Address  `json:"contract,omitempty"`
+	Contract *mavryk.Address `json:"contract,omitempty"`
 	Raw      json.RawMessage `json:"-"`
 }
 
@@ -78,20 +78,20 @@ type OperationMetadata struct {
 	InternalResults []*InternalResult `json:"internal_operation_results,omitempty"`
 
 	// endorsement only
-	Delegate            tezos.Address `json:"delegate"`
-	Slots               []int         `json:"slots,omitempty"`
-	EndorsementPower    int           `json:"endorsement_power,omitempty"`    // v12+
-	PreendorsementPower int           `json:"preendorsement_power,omitempty"` // v12+
+	Delegate            mavryk.Address `json:"delegate"`
+	Slots               []int          `json:"slots,omitempty"`
+	EndorsementPower    int            `json:"endorsement_power,omitempty"`    // v12+
+	PreendorsementPower int            `json:"preendorsement_power,omitempty"` // v12+
 
 	// some rollup ops only, FIXME: is this correct here or is this field in result?
 	Level int64 `json:"level"`
 
 	// v18 slashing ops may block a baker
-	ForbiddenDelegate tezos.Address `json:"forbidden_delegate"` // v18+
+	ForbiddenDelegate mavryk.Address `json:"forbidden_delegate"` // v18+
 }
 
 // Address returns the delegate address for endorsements.
-func (m OperationMetadata) Address() tezos.Address {
+func (m OperationMetadata) Address() mavryk.Address {
 	return m.Delegate
 }
 
@@ -99,19 +99,19 @@ func (m OperationMetadata) Address() tezos.Address {
 // This type is a generic container for all possible results. Which fields are actually
 // used depends on operation type and performed actions.
 type OperationResult struct {
-	Status               tezos.OpStatus   `json:"status"`
+	Status               mavryk.OpStatus  `json:"status"`
 	BalanceUpdates       BalanceUpdates   `json:"balance_updates"`
 	ConsumedGas          int64            `json:"consumed_gas,string"`      // deprecated in v015
 	ConsumedMilliGas     int64            `json:"consumed_milligas,string"` // v007+
 	Errors               []OperationError `json:"errors,omitempty"`
 	Allocated            bool             `json:"allocated_destination_contract"` // tx only
 	Storage              *micheline.Prim  `json:"storage,omitempty"`              // tx, orig
-	OriginatedContracts  []tezos.Address  `json:"originated_contracts"`           // orig only
+	OriginatedContracts  []mavryk.Address `json:"originated_contracts"`           // orig only
 	StorageSize          int64            `json:"storage_size,string"`            // tx, orig, const
 	PaidStorageSizeDiff  int64            `json:"paid_storage_size_diff,string"`  // tx, orig
 	BigmapDiff           json.RawMessage  `json:"big_map_diff,omitempty"`         // tx, orig, <v013
 	LazyStorageDiff      json.RawMessage  `json:"lazy_storage_diff,omitempty"`    // v008+ tx, orig
-	GlobalAddress        tezos.ExprHash   `json:"global_address"`                 // const
+	GlobalAddress        mavryk.ExprHash  `json:"global_address"`                 // const
 	TicketUpdatesCorrect []TicketUpdate   `json:"ticket_updates"`                 // v015
 	TicketReceipts       []TicketUpdate   `json:"ticket_receipt"`                 // v015, name on internal
 
@@ -147,7 +147,7 @@ func (r OperationResult) BigmapEvents() micheline.BigmapEvents {
 }
 
 func (r OperationResult) IsSuccess() bool {
-	return r.Status == tezos.OpStatusApplied
+	return r.Status == mavryk.OpStatusApplied
 }
 
 func (r OperationResult) Gas() int64 {
@@ -184,12 +184,12 @@ func (o *OperationError) UnmarshalJSON(data []byte) error {
 
 // Generic is the most generic operation type.
 type Generic struct {
-	OpKind   tezos.OpType      `json:"kind"`
+	OpKind   mavryk.OpType     `json:"kind"`
 	Metadata OperationMetadata `json:"metadata"`
 }
 
 // Kind returns the operation's type. Implements TypedOperation interface.
-func (e Generic) Kind() tezos.OpType {
+func (e Generic) Kind() mavryk.OpType {
 	return e.OpKind
 }
 
@@ -204,28 +204,28 @@ func (e Generic) Result() OperationResult {
 }
 
 // Costs returns empty operation costs to implement TypedOperation interface.
-func (e Generic) Costs() tezos.Costs {
-	return tezos.Costs{}
+func (e Generic) Costs() mavryk.Costs {
+	return mavryk.Costs{}
 }
 
 // Limits returns empty operation limits to implement TypedOperation interface.
-func (e Generic) Limits() tezos.Limits {
-	return tezos.Limits{}
+func (e Generic) Limits() mavryk.Limits {
+	return mavryk.Limits{}
 }
 
 // Manager represents data common for all manager operations.
 type Manager struct {
 	Generic
-	Source       tezos.Address `json:"source"`
-	Fee          int64         `json:"fee,string"`
-	Counter      int64         `json:"counter,string"`
-	GasLimit     int64         `json:"gas_limit,string"`
-	StorageLimit int64         `json:"storage_limit,string"`
+	Source       mavryk.Address `json:"source"`
+	Fee          int64          `json:"fee,string"`
+	Counter      int64          `json:"counter,string"`
+	GasLimit     int64          `json:"gas_limit,string"`
+	StorageLimit int64          `json:"storage_limit,string"`
 }
 
 // Limits returns manager operation limits to implement TypedOperation interface.
-func (e Manager) Limits() tezos.Limits {
-	return tezos.Limits{
+func (e Manager) Limits() mavryk.Limits {
+	return mavryk.Limits{
 		Fee:          e.Fee,
 		GasLimit:     e.GasLimit,
 		StorageLimit: e.StorageLimit,
@@ -236,7 +236,7 @@ func (e Manager) Limits() tezos.Limits {
 type OperationList []TypedOperation
 
 // Contains returns true when the list contains an operation of kind typ.
-func (o OperationList) Contains(typ tezos.OpType) bool {
+func (o OperationList) Contains(typ mavryk.OpType) bool {
 	for _, v := range o {
 		if v.Kind() == typ {
 			return true
@@ -245,7 +245,7 @@ func (o OperationList) Contains(typ tezos.OpType) bool {
 	return false
 }
 
-func (o OperationList) Select(typ tezos.OpType, n int) TypedOperation {
+func (o OperationList) Select(typ mavryk.OpType, n int) TypedOperation {
 	var cnt int
 	for _, v := range o {
 		if v.Kind() != typ {
@@ -297,86 +297,86 @@ func (e *OperationList) UnmarshalJSON(data []byte) error {
 			start += 1
 		}
 		end := start + bytes.IndexByte(data[start:], '"')
-		kind := tezos.ParseOpType(string(data[start:end]))
+		kind := mavryk.ParseOpType(string(data[start:end]))
 		var op TypedOperation
 		switch kind {
 		// anonymous operations
-		case tezos.OpTypeActivateAccount:
+		case mavryk.OpTypeActivateAccount:
 			op = &Activation{}
-		case tezos.OpTypeDoubleBakingEvidence:
+		case mavryk.OpTypeDoubleBakingEvidence:
 			op = &DoubleBaking{}
-		case tezos.OpTypeDoubleEndorsementEvidence,
-			tezos.OpTypeDoublePreendorsementEvidence:
+		case mavryk.OpTypeDoubleEndorsementEvidence,
+			mavryk.OpTypeDoublePreendorsementEvidence:
 			op = &DoubleEndorsement{}
-		case tezos.OpTypeSeedNonceRevelation:
+		case mavryk.OpTypeSeedNonceRevelation:
 			op = &SeedNonce{}
-		case tezos.OpTypeDrainDelegate:
+		case mavryk.OpTypeDrainDelegate:
 			op = &DrainDelegate{}
 
 		// consensus operations
-		case tezos.OpTypeEndorsement,
-			tezos.OpTypeEndorsementWithSlot,
-			tezos.OpTypePreendorsement:
+		case mavryk.OpTypeEndorsement,
+			mavryk.OpTypeEndorsementWithSlot,
+			mavryk.OpTypePreendorsement:
 			op = &Endorsement{}
 
 		// amendment operations
-		case tezos.OpTypeProposals:
+		case mavryk.OpTypeProposals:
 			op = &Proposals{}
-		case tezos.OpTypeBallot:
+		case mavryk.OpTypeBallot:
 			op = &Ballot{}
 
 		// manager operations
-		case tezos.OpTypeTransaction:
+		case mavryk.OpTypeTransaction:
 			op = &Transaction{}
-		case tezos.OpTypeOrigination:
+		case mavryk.OpTypeOrigination:
 			op = &Origination{}
-		case tezos.OpTypeDelegation:
+		case mavryk.OpTypeDelegation:
 			op = &Delegation{}
-		case tezos.OpTypeReveal:
+		case mavryk.OpTypeReveal:
 			op = &Reveal{}
-		case tezos.OpTypeRegisterConstant:
+		case mavryk.OpTypeRegisterConstant:
 			op = &ConstantRegistration{}
-		case tezos.OpTypeSetDepositsLimit:
+		case mavryk.OpTypeSetDepositsLimit:
 			op = &SetDepositsLimit{}
-		case tezos.OpTypeIncreasePaidStorage:
+		case mavryk.OpTypeIncreasePaidStorage:
 			op = &IncreasePaidStorage{}
-		case tezos.OpTypeVdfRevelation:
+		case mavryk.OpTypeVdfRevelation:
 			op = &VdfRevelation{}
-		case tezos.OpTypeTransferTicket:
+		case mavryk.OpTypeTransferTicket:
 			op = &TransferTicket{}
-		case tezos.OpTypeUpdateConsensusKey:
+		case mavryk.OpTypeUpdateConsensusKey:
 			op = &UpdateConsensusKey{}
 
 			// DEPRECATED: tx rollup operations, kept for testnet backward compatibility
-		case tezos.OpTypeTxRollupOrigination,
-			tezos.OpTypeTxRollupSubmitBatch,
-			tezos.OpTypeTxRollupCommit,
-			tezos.OpTypeTxRollupReturnBond,
-			tezos.OpTypeTxRollupFinalizeCommitment,
-			tezos.OpTypeTxRollupRemoveCommitment,
-			tezos.OpTypeTxRollupRejection,
-			tezos.OpTypeTxRollupDispatchTickets:
+		case mavryk.OpTypeTxRollupOrigination,
+			mavryk.OpTypeTxRollupSubmitBatch,
+			mavryk.OpTypeTxRollupCommit,
+			mavryk.OpTypeTxRollupReturnBond,
+			mavryk.OpTypeTxRollupFinalizeCommitment,
+			mavryk.OpTypeTxRollupRemoveCommitment,
+			mavryk.OpTypeTxRollupRejection,
+			mavryk.OpTypeTxRollupDispatchTickets:
 			op = &TxRollup{}
 
-		case tezos.OpTypeSmartRollupOriginate:
+		case mavryk.OpTypeSmartRollupOriginate:
 			op = &SmartRollupOriginate{}
-		case tezos.OpTypeSmartRollupAddMessages:
+		case mavryk.OpTypeSmartRollupAddMessages:
 			op = &SmartRollupAddMessages{}
-		case tezos.OpTypeSmartRollupCement:
+		case mavryk.OpTypeSmartRollupCement:
 			op = &SmartRollupCement{}
-		case tezos.OpTypeSmartRollupPublish:
+		case mavryk.OpTypeSmartRollupPublish:
 			op = &SmartRollupPublish{}
-		case tezos.OpTypeSmartRollupRefute:
+		case mavryk.OpTypeSmartRollupRefute:
 			op = &SmartRollupRefute{}
-		case tezos.OpTypeSmartRollupTimeout:
+		case mavryk.OpTypeSmartRollupTimeout:
 			op = &SmartRollupTimeout{}
-		case tezos.OpTypeSmartRollupExecuteOutboxMessage:
+		case mavryk.OpTypeSmartRollupExecuteOutboxMessage:
 			op = &SmartRollupExecuteOutboxMessage{}
-		case tezos.OpTypeSmartRollupRecoverBond:
+		case mavryk.OpTypeSmartRollupRecoverBond:
 			op = &SmartRollupRecoverBond{}
-		case tezos.OpTypeDalAttestation:
+		case mavryk.OpTypeDalAttestation:
 			op = &DalAttestation{}
-		case tezos.OpTypeDalPublishSlotHeader:
+		case mavryk.OpTypeDalPublishSlotHeader:
 			op = &DalPublishSlotHeader{}
 
 		default:
@@ -394,8 +394,8 @@ func (e *OperationList) UnmarshalJSON(data []byte) error {
 
 // GetBlockOperationHash returns a single operation hashes included in block
 // https://tezos.gitlab.io/active/rpc.html#get-block-id-operation-hashes-list-offset-operation-offset
-func (c *Client) GetBlockOperationHash(ctx context.Context, id BlockID, l, n int) (tezos.OpHash, error) {
-	var hash tezos.OpHash
+func (c *Client) GetBlockOperationHash(ctx context.Context, id BlockID, l, n int) (mavryk.OpHash, error) {
+	var hash mavryk.OpHash
 	u := fmt.Sprintf("chains/main/blocks/%s/operation_hashes/%d/%d", id, l, n)
 	err := c.Get(ctx, u, &hash)
 	return hash, err
@@ -403,8 +403,8 @@ func (c *Client) GetBlockOperationHash(ctx context.Context, id BlockID, l, n int
 
 // GetBlockOperationHashes returns a list of list of operation hashes included in block
 // https://tezos.gitlab.io/active/rpc.html#get-block-id-operation-hashes
-func (c *Client) GetBlockOperationHashes(ctx context.Context, id BlockID) ([][]tezos.OpHash, error) {
-	hashes := make([][]tezos.OpHash, 0)
+func (c *Client) GetBlockOperationHashes(ctx context.Context, id BlockID) ([][]mavryk.OpHash, error) {
+	hashes := make([][]mavryk.OpHash, 0)
 	u := fmt.Sprintf("chains/main/blocks/%s/operation_hashes", id)
 	if err := c.Get(ctx, u, &hashes); err != nil {
 		return nil, err
@@ -415,8 +415,8 @@ func (c *Client) GetBlockOperationHashes(ctx context.Context, id BlockID) ([][]t
 // GetBlockOperationListHashes returns a list of operation hashes included in block
 // at a specified list position (i.e. validation pass) [0..3]
 // https://tezos.gitlab.io/active/rpc.html#get-block-id-operation-hashes-list-offset
-func (c *Client) GetBlockOperationListHashes(ctx context.Context, id BlockID, l int) ([]tezos.OpHash, error) {
-	hashes := make([]tezos.OpHash, 0)
+func (c *Client) GetBlockOperationListHashes(ctx context.Context, id BlockID, l int) ([]mavryk.OpHash, error) {
+	hashes := make([]mavryk.OpHash, 0)
 	u := fmt.Sprintf("chains/main/blocks/%s/operation_hashes/%d", id, l)
 	if err := c.Get(ctx, u, &hashes); err != nil {
 		return nil, err

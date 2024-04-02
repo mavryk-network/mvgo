@@ -7,7 +7,7 @@ import (
 	"context"
 	"fmt"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 type StakingParameters struct {
@@ -17,7 +17,7 @@ type StakingParameters struct {
 }
 
 // GetDelegateStakingParams returns a delegate's current staking setup
-func (c *Client) GetDelegateStakingParams(ctx context.Context, addr tezos.Address, id BlockID) (*StakingParameters, error) {
+func (c *Client) GetDelegateStakingParams(ctx context.Context, addr mavryk.Address, id BlockID) (*StakingParameters, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/delegates/%s/active_staking_parameters", id, addr)
 	p := &StakingParameters{}
 	if err := c.Get(ctx, u, p); err != nil {
@@ -27,7 +27,7 @@ func (c *Client) GetDelegateStakingParams(ctx context.Context, addr tezos.Addres
 }
 
 // GetDelegatePendingStakingParams returns a delegate's future staking setup
-func (c *Client) GetDelegatePendingStakingParams(ctx context.Context, addr tezos.Address, id BlockID) ([]StakingParameters, error) {
+func (c *Client) GetDelegatePendingStakingParams(ctx context.Context, addr mavryk.Address, id BlockID) ([]StakingParameters, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/delegates/%s/pending_staking_parameters", id, addr)
 	list := make([]StakingParameters, 0, 5)
 	if err := c.Get(ctx, u, &list); err != nil {
@@ -42,7 +42,7 @@ type FrozenDeposit struct {
 }
 
 // GetUnstakedFrozenDeposits returns a delegate's unstaked frozen deposits
-func (c *Client) GetUnstakedFrozenDeposits(ctx context.Context, addr tezos.Address, id BlockID) ([]FrozenDeposit, error) {
+func (c *Client) GetUnstakedFrozenDeposits(ctx context.Context, addr mavryk.Address, id BlockID) ([]FrozenDeposit, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/delegates/%s/unstaked_frozen_deposits", id, addr)
 	list := make([]FrozenDeposit, 0, 7)
 	if err := c.Get(ctx, u, &list); err != nil {

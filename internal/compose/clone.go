@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"os"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 )
 
@@ -60,7 +60,7 @@ func (m *CloneMode) Set(s string) (err error) {
 
 type CloneConfig struct {
 	Name     string
-	Contract tezos.Address
+	Contract mavryk.Address
 	IndexUrl string
 	NumOps   uint
 	Path     string

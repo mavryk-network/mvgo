@@ -10,9 +10,9 @@ import (
 	"github.com/mavryk-network/mvgo/contract"
 	"github.com/mavryk-network/mvgo/internal/compose"
 	"github.com/mavryk-network/mvgo/internal/compose/alpha"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/rpc"
 	"github.com/mavryk-network/mvgo/signer"
-	"github.com/mavryk-network/mvgo/tezos"
 
 	"github.com/pkg/errors"
 )
@@ -26,14 +26,14 @@ func init() {
 type TokenTransferTask struct {
 	TargetTask
 	Standard  string
-	From      tezos.Address
+	From      mavryk.Address
 	Receivers []TokenReceiver
 }
 
 type TokenReceiver struct {
-	Address tezos.Address
-	Amount  tezos.Z
-	TokenId tezos.Z
+	Address mavryk.Address
+	Amount  mavryk.Z
+	TokenId mavryk.Z
 }
 
 func NewTokenTransferTask() alpha.TaskBuilder {

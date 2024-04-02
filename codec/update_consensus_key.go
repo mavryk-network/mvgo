@@ -7,18 +7,18 @@ import (
 	"bytes"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // UpdateConsensusKey represents "update_consensus_key" operation
 type UpdateConsensusKey struct {
 	Manager
-	Amount    tezos.Z   `json:"amount"`
-	PublicKey tezos.Key `json:"pk"`
+	Amount    mavryk.Z   `json:"amount"`
+	PublicKey mavryk.Key `json:"pk"`
 }
 
-func (o UpdateConsensusKey) Kind() tezos.OpType {
-	return tezos.OpTypeUpdateConsensusKey
+func (o UpdateConsensusKey) Kind() mavryk.OpType {
+	return mavryk.OpTypeUpdateConsensusKey
 }
 
 func (o UpdateConsensusKey) MarshalJSON() ([]byte, error) {
@@ -34,14 +34,14 @@ func (o UpdateConsensusKey) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o UpdateConsensusKey) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o UpdateConsensusKey) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	buf.Write(o.PublicKey.Bytes())
 	return nil
 }
 
-func (o *UpdateConsensusKey) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *UpdateConsensusKey) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -56,10 +56,10 @@ func (o *UpdateConsensusKey) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (e
 
 func (o UpdateConsensusKey) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *UpdateConsensusKey) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

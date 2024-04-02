@@ -7,7 +7,7 @@ import (
 	"math/big"
 	"time"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 
 	"github.com/pkg/errors"
@@ -153,10 +153,10 @@ type hashType [sha256.Size]byte
 //   - bool
 //   - *big.Int
 //   - time.Time
-//   - tezos.Address
-//   - tezos.Key
-//   - tezos.Signature
-//   - tezos.ChainIdHash
+//   - mavryk.Address
+//   - mavryk.Key
+//   - mavryk.Signature
+//   - mavryk.ChainIdHash
 //   - bind.Or
 //   - bind.Option
 //   - pair
@@ -177,12 +177,12 @@ func hashFunc(keyType any) func(any) hashType {
 		return func(k any) hashType { return hashBytes(k.(*big.Int).Bytes()) }
 	case time.Time:
 		return func(k any) hashType { return hashBytes(must(k.(time.Time).MarshalBinary())) }
-	case tezos.Address:
-		return func(k any) hashType { return hashBytes(k.(tezos.Address).Hash()) }
-	case tezos.Key:
-		return func(k any) hashType { return hashBytes(k.(tezos.Key).Bytes()) }
-	case tezos.ChainIdHash:
-		return func(k any) hashType { return hashBytes(k.(tezos.ChainIdHash).Bytes()) }
+	case mavryk.Address:
+		return func(k any) hashType { return hashBytes(k.(mavryk.Address).Hash()) }
+	case mavryk.Key:
+		return func(k any) hashType { return hashBytes(k.(mavryk.Key).Bytes()) }
+	case mavryk.ChainIdHash:
+		return func(k any) hashType { return hashBytes(k.(mavryk.ChainIdHash).Bytes()) }
 	case keyHasher:
 		return func(k any) hashType { return k.(keyHasher).keyHash() }
 	}

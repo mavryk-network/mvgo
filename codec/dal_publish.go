@@ -8,20 +8,20 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // DalPublishSlotHeader represents "Dal_publish_slot_header" operation
 type DalPublishSlotHeader struct {
 	Manager
-	Level      int32          `json:"level"`
-	Index      byte           `json:"index"`
-	Commitment tezos.HexBytes `json:"commitment"`
-	Proof      tezos.HexBytes `json:"commitment_proof"`
+	Level      int32           `json:"level"`
+	Index      byte            `json:"index"`
+	Commitment mavryk.HexBytes `json:"commitment"`
+	Proof      mavryk.HexBytes `json:"commitment_proof"`
 }
 
-func (o DalPublishSlotHeader) Kind() tezos.OpType {
-	return tezos.OpTypeDalPublishSlotHeader
+func (o DalPublishSlotHeader) Kind() mavryk.OpType {
+	return mavryk.OpTypeDalPublishSlotHeader
 }
 
 func (o DalPublishSlotHeader) MarshalJSON() ([]byte, error) {
@@ -44,7 +44,7 @@ func (o DalPublishSlotHeader) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o DalPublishSlotHeader) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o DalPublishSlotHeader) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	binary.Write(buf, enc, o.Level)
@@ -54,7 +54,7 @@ func (o DalPublishSlotHeader) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) e
 	return nil
 }
 
-func (o *DalPublishSlotHeader) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *DalPublishSlotHeader) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -78,10 +78,10 @@ func (o *DalPublishSlotHeader) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) 
 
 func (o DalPublishSlotHeader) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *DalPublishSlotHeader) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

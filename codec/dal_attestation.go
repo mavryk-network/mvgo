@@ -8,19 +8,19 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // DalAttestation represents "dal_attestation" operation
 type DalAttestation struct {
 	Simple
-	Attestor    tezos.Address `json:"attestor"`
-	Attestation tezos.Z       `json:"attestation"`
-	Level       int32         `json:"level"`
+	Attestor    mavryk.Address `json:"attestor"`
+	Attestation mavryk.Z       `json:"attestation"`
+	Level       int32          `json:"level"`
 }
 
-func (o DalAttestation) Kind() tezos.OpType {
-	return tezos.OpTypeDalAttestation
+func (o DalAttestation) Kind() mavryk.OpType {
+	return mavryk.OpTypeDalAttestation
 }
 
 func (o DalAttestation) MarshalJSON() ([]byte, error) {
@@ -38,7 +38,7 @@ func (o DalAttestation) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o DalAttestation) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o DalAttestation) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	buf.Write(o.Attestor.Encode())
 	buf.Write(o.Attestation.Bytes())
@@ -46,7 +46,7 @@ func (o DalAttestation) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
 	return nil
 }
 
-func (o *DalAttestation) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *DalAttestation) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -62,10 +62,10 @@ func (o *DalAttestation) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err e
 
 func (o DalAttestation) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *DalAttestation) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

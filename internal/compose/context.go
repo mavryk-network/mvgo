@@ -12,7 +12,7 @@ import (
 	"strings"
 
 	"github.com/mavryk-network/mvgo/codec"
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 	"github.com/mavryk-network/mvgo/rpc"
 
@@ -27,16 +27,16 @@ type Engine interface {
 
 type Account struct {
 	Id         int
-	Address    tezos.Address
-	PrivateKey tezos.PrivateKey
+	Address    mavryk.Address
+	PrivateKey mavryk.PrivateKey
 }
 
 type Context struct {
 	context.Context
 	BaseAccount  Account
 	MaxId        int
-	Accounts     map[tezos.Address]Account
-	Contracts    map[tezos.Address]*micheline.Script
+	Accounts     map[mavryk.Address]Account
+	Contracts    map[mavryk.Address]*micheline.Script
 	Variables    map[string]string
 	Log          log.Logger
 	client       *rpc.Client // RPC client
@@ -52,8 +52,8 @@ type Context struct {
 func NewContext(ctx context.Context) Context {
 	return Context{
 		Context:   ctx,
-		Accounts:  make(map[tezos.Address]Account),
-		Contracts: make(map[tezos.Address]*micheline.Script),
+		Accounts:  make(map[mavryk.Address]Account),
+		Contracts: make(map[mavryk.Address]*micheline.Script),
 		MaxId:     -1,
 		Variables: make(map[string]string),
 		Log:       log.Disabled,
@@ -106,7 +106,7 @@ func (c *Context) WithBase(k string) *Context {
 	if k == "" {
 		return c
 	}
-	sk, err := tezos.ParsePrivateKey(k)
+	sk, err := mavryk.ParsePrivateKey(k)
 	if err != nil {
 		c.Log.Errorf("base key: %v", err)
 		return c
@@ -129,8 +129,8 @@ func (c *Context) Init() (err error) {
 		return
 	}
 	c.Log.Infof("Using base account %s", c.BaseAccount.Address)
-	c.AddVariable("zero", tezos.ZeroAddress.String())
-	c.AddVariable("burn", tezos.BurnAddress.String())
+	c.AddVariable("zero", mavryk.ZeroAddress.String())
+	c.AddVariable("burn", mavryk.BurnAddress.String())
 	c.client, err = rpc.NewClient(c.url, nil)
 	if err != nil {
 		return
@@ -191,7 +191,7 @@ func (c *Context) ResolveString(val any) (string, error) {
 	}
 }
 
-func (c *Context) ResolveAddress(val any) (a tezos.Address, err error) {
+func (c *Context) ResolveAddress(val any) (a mavryk.Address, err error) {
 	if val == nil {
 		err = fmt.Errorf("missing value")
 		return
@@ -204,7 +204,7 @@ func (c *Context) ResolveAddress(val any) (a tezos.Address, err error) {
 		err = fmt.Errorf("missing value")
 		return
 	}
-	a, err = tezos.ParseAddress(v)
+	a, err = mavryk.ParseAddress(v)
 	return
 }
 
@@ -230,33 +230,33 @@ func (c *Context) ResolveInt64(val any) (i int64, err error) {
 	return
 }
 
-func (c *Context) ResolveZ(val any) (z tezos.Z, err error) {
+func (c *Context) ResolveZ(val any) (z mavryk.Z, err error) {
 	if val == nil {
 		err = fmt.Errorf("missing value")
 		return
 	}
 	switch v := val.(type) {
 	case int:
-		z = tezos.NewZ(int64(v))
+		z = mavryk.NewZ(int64(v))
 	case int64:
-		z = tezos.NewZ(v)
+		z = mavryk.NewZ(v)
 	case uint:
-		z = tezos.NewZ(int64(v))
+		z = mavryk.NewZ(int64(v))
 	case uint64:
-		z = tezos.NewZ(int64(v))
+		z = mavryk.NewZ(int64(v))
 	case string:
 		v, err = c.ResolveString(v)
 		if err != nil {
 			return
 		}
-		z, err = tezos.ParseZ(v)
+		z, err = mavryk.ParseZ(v)
 	default:
 		err = fmt.Errorf("invalid type %T for bigint value", val)
 	}
 	return
 }
 
-func (c *Context) ResolvePrivateKey(val any) (sk tezos.PrivateKey, err error) {
+func (c *Context) ResolvePrivateKey(val any) (sk mavryk.PrivateKey, err error) {
 	v, ok := val.(string)
 	if !ok {
 		err = fmt.Errorf("invalid type %T, expected string", val)
@@ -265,7 +265,7 @@ func (c *Context) ResolvePrivateKey(val any) (sk tezos.PrivateKey, err error) {
 	if v == "" {
 		return c.BaseAccount.PrivateKey, nil
 	}
-	var addr tezos.Address
+	var addr mavryk.Address
 	addr, err = c.ResolveAddress(val)
 	if err != nil {
 		return
@@ -279,7 +279,7 @@ func (c *Context) ResolvePrivateKey(val any) (sk tezos.PrivateKey, err error) {
 	return
 }
 
-func (c *Context) ResolveScript(addr tezos.Address) (*micheline.Script, error) {
+func (c *Context) ResolveScript(addr mavryk.Address) (*micheline.Script, error) {
 	if s, ok := c.Contracts[addr]; ok {
 		return s, nil
 	}
@@ -316,7 +316,7 @@ func (c *Context) Send(op *codec.Op, opts *rpc.CallOptions) (*rpc.Receipt, error
 
 func (c *Context) SubscribeBlocks(cb rpc.ObserverCallback) (int, error) {
 	c.client.Listen()
-	id := c.client.BlockObserver.Subscribe(tezos.ZeroOpHash, cb)
+	id := c.client.BlockObserver.Subscribe(mavryk.ZeroOpHash, cb)
 	return id, nil
 }
 
@@ -325,7 +325,7 @@ func (c *Context) UnsubscribeBlocks(id int) error {
 	return nil
 }
 
-func (c *Context) Params() *tezos.Params {
+func (c *Context) Params() *mavryk.Params {
 	return c.client.Params
 }
 

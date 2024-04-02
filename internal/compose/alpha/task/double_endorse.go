@@ -10,7 +10,7 @@ import (
 	"github.com/mavryk-network/mvgo/codec"
 	"github.com/mavryk-network/mvgo/internal/compose"
 	"github.com/mavryk-network/mvgo/internal/compose/alpha"
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/rpc"
 	"github.com/mavryk-network/mvgo/signer"
 
@@ -25,7 +25,7 @@ func init() {
 
 type DoubleEndorseTask struct {
 	TargetTask
-	BakerKey tezos.PrivateKey
+	BakerKey mavryk.PrivateKey
 }
 
 func NewDoubleEndorseTask() alpha.TaskBuilder {
@@ -115,7 +115,7 @@ func (t *DoubleEndorseTask) parse(ctx compose.Context, task alpha.Task) (err err
 	return
 }
 
-func (t *DoubleEndorseTask) randomEndorsement(ctx compose.Context, head *rpc.BlockHeaderLogEntry, slot int) (codec.TenderbakeInlinedEndorsement, tezos.OpHash) {
+func (t *DoubleEndorseTask) randomEndorsement(ctx compose.Context, head *rpc.BlockHeaderLogEntry, slot int) (codec.TenderbakeInlinedEndorsement, mavryk.OpHash) {
 	// generate a random endorsement for the latest block
 	e := codec.TenderbakeEndorsement{
 		Slot:  int16(slot),
@@ -146,7 +146,7 @@ func (t *DoubleEndorseTask) randomEndorsement(ctx compose.Context, head *rpc.Blo
 	return ed, op.Hash()
 }
 
-func (t *DoubleEndorseTask) fetchEndorsingRights(ctx compose.Context, addr tezos.Address, id tezos.BlockHash) (int, bool, error) {
+func (t *DoubleEndorseTask) fetchEndorsingRights(ctx compose.Context, addr mavryk.Address, id mavryk.BlockHash) (int, bool, error) {
 	u := fmt.Sprintf("/chains/main/blocks/%s/helpers/endorsing_rights?delegate=%s", id, addr)
 	var rights []struct {
 		Level     int64                `json:"level"`

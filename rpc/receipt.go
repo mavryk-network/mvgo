@@ -8,7 +8,7 @@ import (
 	"errors"
 	"sync"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 var (
@@ -17,7 +17,7 @@ var (
 )
 
 type Receipt struct {
-	Block  tezos.BlockHash
+	Block  mavryk.BlockHash
 	Height int64
 	List   int
 	Pos    int
@@ -25,15 +25,15 @@ type Receipt struct {
 }
 
 // TotalCosts returns the sum of costs across all batched and internal operations.
-func (r *Receipt) TotalCosts() tezos.Costs {
+func (r *Receipt) TotalCosts() mavryk.Costs {
 	if r.Op != nil {
 		return r.Op.TotalCosts()
 	}
-	return tezos.Costs{}
+	return mavryk.Costs{}
 }
 
 // Costs returns a list of individual costs for all batched operations.
-func (r *Receipt) Costs() []tezos.Costs {
+func (r *Receipt) Costs() []mavryk.Costs {
 	if r.Op != nil {
 		return r.Op.Costs()
 	}
@@ -44,9 +44,9 @@ func (r *Receipt) Costs() []tezos.Costs {
 func (r *Receipt) IsSuccess() bool {
 	for _, v := range r.Op.Contents {
 		switch v.Result().Status {
-		case tezos.OpStatusApplied:
+		case mavryk.OpStatusApplied:
 			return true
-		case tezos.OpStatusInvalid:
+		case mavryk.OpStatusInvalid:
 			// only manager ops contain a status field
 			return true
 		default:
@@ -64,12 +64,12 @@ func (r *Receipt) IsSuccess() bool {
 func (r *Receipt) Error() error {
 	for _, v := range r.Op.Contents {
 		res := v.Result()
-		if len(res.Errors) > 0 && res.Status != tezos.OpStatusApplied {
+		if len(res.Errors) > 0 && res.Status != mavryk.OpStatusApplied {
 			return res.Errors[len(res.Errors)-1].GenericError
 		}
 		for _, vv := range v.Meta().InternalResults {
 			res := vv.Result
-			if len(res.Errors) > 0 && res.Status != tezos.OpStatusApplied {
+			if len(res.Errors) > 0 && res.Status != mavryk.OpStatusApplied {
 				return res.Errors[len(res.Errors)-1].GenericError
 			}
 		}
@@ -78,10 +78,10 @@ func (r *Receipt) Error() error {
 }
 
 // OriginatedContract returns the first contract address deployed by the operation.
-func (r *Receipt) OriginatedContract() (tezos.Address, bool) {
+func (r *Receipt) OriginatedContract() (mavryk.Address, bool) {
 	if r.IsSuccess() {
 		for _, contents := range r.Op.Contents {
-			if contents.Kind() == tezos.OpTypeOrigination {
+			if contents.Kind() == mavryk.OpTypeOrigination {
 				result := contents.Result()
 				if len(result.OriginatedContracts) > 0 {
 					return result.OriginatedContracts[0], true
@@ -89,39 +89,39 @@ func (r *Receipt) OriginatedContract() (tezos.Address, bool) {
 			}
 		}
 	}
-	return tezos.InvalidAddress, false
+	return mavryk.InvalidAddress, false
 }
 
 // MinLimits returns a list of individual operation costs mapped to limits for use
 // in simulation results. Fee is reset to zero to prevent higher simulation fee from
 // spilling over into real fees paid.
-func (r *Receipt) MinLimits() []tezos.Limits {
-	lims := make([]tezos.Limits, len(r.Op.Contents))
+func (r *Receipt) MinLimits() []mavryk.Limits {
+	lims := make([]mavryk.Limits, len(r.Op.Contents))
 	for i, v := range r.Op.Costs() {
 		lims[i].Fee = 0
 		lims[i].GasLimit = v.GasUsed
-		lims[i].StorageLimit = v.StorageUsed + v.AllocationBurn/tezos.DefaultParams.CostPerByte
+		lims[i].StorageLimit = v.StorageUsed + v.AllocationBurn/mavryk.DefaultParams.CostPerByte
 	}
 	return lims
 }
 
 type Result struct {
-	oh     tezos.OpHash    // the operation hash to watch
-	block  tezos.BlockHash // the block hash where op was included
-	height int64           // block height
-	list   int             // the list where op was included
-	pos    int             // the list position where op was included
-	err    error           // saves any error
-	ttl    int64           // number of blocks before wait fails
-	wait   int64           // number of confirmations required
-	blocks int64           // number of confirmation blocks seen
-	obs    *Observer       // blockchain observer
-	subId  int             // monitor subscription id
-	done   chan struct{}   // channel used to signal completion
-	once   sync.Once       // ensures only one completion state exists
+	oh     mavryk.OpHash    // the operation hash to watch
+	block  mavryk.BlockHash // the block hash where op was included
+	height int64            // block height
+	list   int              // the list where op was included
+	pos    int              // the list position where op was included
+	err    error            // saves any error
+	ttl    int64            // number of blocks before wait fails
+	wait   int64            // number of confirmations required
+	blocks int64            // number of confirmation blocks seen
+	obs    *Observer        // blockchain observer
+	subId  int              // monitor subscription id
+	done   chan struct{}    // channel used to signal completion
+	once   sync.Once        // ensures only one completion state exists
 }
 
-func NewResult(oh tezos.OpHash) *Result {
+func NewResult(oh mavryk.OpHash) *Result {
 	return &Result{
 		oh:   oh,
 		wait: 1,
@@ -129,7 +129,7 @@ func NewResult(oh tezos.OpHash) *Result {
 	}
 }
 
-func (r *Result) Hash() tezos.OpHash {
+func (r *Result) Hash() mavryk.OpHash {
 	return r.oh
 }
 

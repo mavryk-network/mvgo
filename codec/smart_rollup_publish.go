@@ -8,23 +8,23 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // SmartRollupPublish represents "smart_rollup_publish" operation
 type SmartRollupPublish struct {
 	Manager
-	Rollup     tezos.Address `json:"rollup"`
+	Rollup     mavryk.Address `json:"rollup"`
 	Commitment struct {
-		State         tezos.SmartRollupStateHash `json:"compressed_state"`
-		InboxLevel    int32                      `json:"inbox_level"`
-		Predecessor   tezos.SmartRollupStateHash `json:"predecessor"`
-		NumberOfTicks int64                      `json:"number_of_ticks,string"`
+		State         mavryk.SmartRollupStateHash `json:"compressed_state"`
+		InboxLevel    int32                       `json:"inbox_level"`
+		Predecessor   mavryk.SmartRollupStateHash `json:"predecessor"`
+		NumberOfTicks int64                       `json:"number_of_ticks,string"`
 	} `json:"commitment"`
 }
 
-func (o SmartRollupPublish) Kind() tezos.OpType {
-	return tezos.OpTypeSmartRollupPublish
+func (o SmartRollupPublish) Kind() mavryk.OpType {
+	return mavryk.OpTypeSmartRollupPublish
 }
 
 func (o SmartRollupPublish) MarshalJSON() ([]byte, error) {
@@ -49,7 +49,7 @@ func (o SmartRollupPublish) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o SmartRollupPublish) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o SmartRollupPublish) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	buf.Write(o.Rollup.Hash()) // 20 byte only
@@ -60,30 +60,30 @@ func (o SmartRollupPublish) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) err
 	return nil
 }
 
-func (o *SmartRollupPublish) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *SmartRollupPublish) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
 	if err = o.Manager.DecodeBuffer(buf, p); err != nil {
 		return
 	}
-	o.Rollup = tezos.NewAddress(tezos.AddressTypeSmartRollup, buf.Next(20))
-	o.Commitment.State = tezos.NewSmartRollupStateHash(buf.Next(32))
+	o.Rollup = mavryk.NewAddress(mavryk.AddressTypeSmartRollup, buf.Next(20))
+	o.Commitment.State = mavryk.NewSmartRollupStateHash(buf.Next(32))
 	o.Commitment.InboxLevel, err = readInt32(buf.Next(4))
 	if err != nil {
 		return
 	}
-	o.Commitment.Predecessor = tezos.NewSmartRollupStateHash(buf.Next(32))
+	o.Commitment.Predecessor = mavryk.NewSmartRollupStateHash(buf.Next(32))
 	o.Commitment.NumberOfTicks, err = readInt64(buf.Next(8))
 	return
 }
 
 func (o SmartRollupPublish) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *SmartRollupPublish) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

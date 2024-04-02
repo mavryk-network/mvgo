@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"golang.org/x/exp/slices"
 )
 
@@ -631,7 +631,7 @@ func (p Prim) BuildType() Type {
 	case PrimBytes:
 		t.Type = PrimNullary
 		// detect address encoding first
-		var addr tezos.Address
+		var addr mavryk.Address
 		if err := addr.Decode(p.Bytes); err == nil {
 			if addr.IsRollup() {
 				t.OpCode = T_TX_ROLLUP_L2_ADDRESS
@@ -649,13 +649,13 @@ func (p Prim) BuildType() Type {
 			// detect timestamp and address encoding first
 			if _, err := time.Parse(time.RFC3339, p.String); err == nil {
 				t.OpCode = T_TIMESTAMP
-			} else if addr, err := tezos.ParseAddress(p.String); err == nil {
+			} else if addr, err := mavryk.ParseAddress(p.String); err == nil {
 				if addr.IsRollup() {
 					t.OpCode = T_TX_ROLLUP_L2_ADDRESS
 				} else {
 					t.OpCode = T_ADDRESS
 				}
-			} else if _, err := tezos.ParseSignature(p.String); err == nil {
+			} else if _, err := mavryk.ParseSignature(p.String); err == nil {
 				t.OpCode = T_SIGNATURE
 			}
 		}

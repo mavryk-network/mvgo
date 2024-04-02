@@ -29,8 +29,7 @@ import (
 	"strings"
 	"syscall"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
-
+	"github.com/mavryk-network/mvgo/mavryk"
 	"golang.org/x/term"
 )
 
@@ -117,7 +116,7 @@ func run() error {
 	}
 }
 
-func readPassword() tezos.PassphraseFunc {
+func readPassword() mavryk.PassphraseFunc {
 	pwd := password
 	source := "command line"
 	if pwd == "" {
@@ -139,15 +138,15 @@ func readPassword() tezos.PassphraseFunc {
 }
 
 func info(val string) error {
-	if tezos.IsPrivateKey(val) {
+	if mavryk.IsPrivateKey(val) {
 		var (
-			sk  tezos.PrivateKey
+			sk  mavryk.PrivateKey
 			err error
 		)
-		if tezos.IsEncryptedKey(val) {
-			sk, err = tezos.ParseEncryptedPrivateKey(val, readPassword())
+		if mavryk.IsEncryptedKey(val) {
+			sk, err = mavryk.ParseEncryptedPrivateKey(val, readPassword())
 		} else {
-			sk, err = tezos.ParsePrivateKey(val)
+			sk, err = mavryk.ParsePrivateKey(val)
 		}
 		if err != nil {
 			return err
@@ -167,8 +166,8 @@ func info(val string) error {
 		fmt.Printf("Address          %s\n", pk.Address())
 		fmt.Printf("Private Key Hex  %x (%d)\n", sk.Data, len(sk.Data))
 		fmt.Printf("Public Key Hex   %x (%d)\n", pk.Data, len(pk.Data))
-	} else if tezos.IsPublicKey(val) {
-		pk, err := tezos.ParseKey(val)
+	} else if mavryk.IsPublicKey(val) {
+		pk, err := mavryk.ParseKey(val)
 		if err != nil {
 			return err
 		}
@@ -179,8 +178,8 @@ func info(val string) error {
 		fmt.Printf("Public Key       %s\n", pk)
 		fmt.Printf("Public Key Hex   %x (%d)\n", pk.Data, len(pk.Data))
 		fmt.Printf("Address          %s\n", pk.Address())
-	} else if tezos.IsSignature(val) {
-		sig, err := tezos.ParseSignature(val)
+	} else if mavryk.IsSignature(val) {
+		sig, err := mavryk.ParseSignature(val)
 		if err != nil {
 			return err
 		}
@@ -195,16 +194,16 @@ func info(val string) error {
 }
 
 func gen(val string) error {
-	if !tezos.IsPrivateKey(val) {
+	if !mavryk.IsPrivateKey(val) {
 		return fmt.Errorf("unsupported private key type")
 	}
 
-	typ, doEncrypt := tezos.ParseKeyType(val)
+	typ, doEncrypt := mavryk.ParseKeyType(val)
 	if !typ.IsValid() {
 		return fmt.Errorf("invalid private key type")
 	}
 
-	sk, err := tezos.GenerateKey(typ)
+	sk, err := mavryk.GenerateKey(typ)
 	if err != nil {
 		return err
 	}
@@ -228,11 +227,11 @@ func gen(val string) error {
 }
 
 func encrypt(key string) error {
-	if !tezos.IsPrivateKey(key) {
+	if !mavryk.IsPrivateKey(key) {
 		return fmt.Errorf("private key required")
 	}
 
-	sk, err := tezos.ParseEncryptedPrivateKey(key, readPassword())
+	sk, err := mavryk.ParseEncryptedPrivateKey(key, readPassword())
 	if err != nil {
 		return err
 	}
@@ -254,12 +253,12 @@ func encrypt(key string) error {
 }
 
 func sign(key, msg string, generic bool) error {
-	sk, err := tezos.ParseEncryptedPrivateKey(key, readPassword())
+	sk, err := mavryk.ParseEncryptedPrivateKey(key, readPassword())
 	if err != nil {
 		return err
 	}
 	pk := sk.Public()
-	digest := tezos.Digest([]byte(msg))
+	digest := mavryk.Digest([]byte(msg))
 	sig, err := sk.Sign(digest[:])
 	if err != nil {
 		return err
@@ -279,7 +278,7 @@ func sign(key, msg string, generic bool) error {
 }
 
 func signDigest(key, dgst string, generic bool) error {
-	sk, err := tezos.ParseEncryptedPrivateKey(key, readPassword())
+	sk, err := mavryk.ParseEncryptedPrivateKey(key, readPassword())
 	if err != nil {
 		return err
 	}
@@ -306,11 +305,11 @@ func signDigest(key, dgst string, generic bool) error {
 	return nil
 }
 func verify(key, sig, msg string) error {
-	pk, err := tezos.ParseKey(key)
+	pk, err := mavryk.ParseKey(key)
 	if err != nil {
 		return err
 	}
-	s, err := tezos.ParseSignature(sig)
+	s, err := mavryk.ParseSignature(sig)
 	if err != nil {
 		return err
 	}
@@ -321,7 +320,7 @@ func verify(key, sig, msg string) error {
 			return err
 		}
 	}
-	digest := tezos.Digest([]byte(m))
+	digest := mavryk.Digest([]byte(m))
 	if err := pk.Verify(digest[:], s); err == nil {
 		fmt.Println("Signature OK")
 	} else {

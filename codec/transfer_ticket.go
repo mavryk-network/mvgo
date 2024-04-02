@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"strconv"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 )
 
@@ -16,14 +16,14 @@ type TransferTicket struct {
 	Manager
 	Contents    micheline.Prim `json:"ticket_contents"`
 	Type        micheline.Prim `json:"ticket_ty"`
-	Ticketer    tezos.Address  `json:"ticket_ticketer"`
-	Amount      tezos.N        `json:"ticket_amount"`
-	Destination tezos.Address  `json:"destination"`
+	Ticketer    mavryk.Address `json:"ticket_ticketer"`
+	Amount      mavryk.N       `json:"ticket_amount"`
+	Destination mavryk.Address `json:"destination"`
 	Entrypoint  string         `json:"entrypoint"`
 }
 
-func (o TransferTicket) Kind() tezos.OpType {
-	return tezos.OpTypeTransferTicket
+func (o TransferTicket) Kind() mavryk.OpType {
+	return mavryk.OpTypeTransferTicket
 }
 
 func (o TransferTicket) MarshalJSON() ([]byte, error) {
@@ -49,7 +49,7 @@ func (o TransferTicket) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o TransferTicket) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o TransferTicket) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	writePrimWithLen(buf, o.Contents)
@@ -61,7 +61,7 @@ func (o TransferTicket) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
 	return nil
 }
 
-func (o *TransferTicket) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *TransferTicket) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -89,10 +89,10 @@ func (o *TransferTicket) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err e
 
 func (o TransferTicket) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *TransferTicket) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

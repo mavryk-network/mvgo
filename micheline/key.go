@@ -13,8 +13,7 @@ import (
 	"strings"
 	"time"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
-
+	"github.com/mavryk-network/mvgo/mavryk"
 	"golang.org/x/crypto/blake2b"
 )
 
@@ -26,9 +25,9 @@ type Key struct {
 	StringKey    string
 	BytesKey     []byte
 	BoolKey      bool
-	AddrKey      tezos.Address
-	KeyKey       tezos.Key
-	SignatureKey tezos.Signature
+	AddrKey      mavryk.Address
+	KeyKey       mavryk.Key
+	SignatureKey mavryk.Signature
 	TimeKey      time.Time
 	PrimKey      Prim
 }
@@ -81,13 +80,13 @@ func NewKey(typ Type, key Prim) (Key, error) {
 	case T_KEY_HASH, T_ADDRESS:
 		// in some cases (originated contract storage) addresses are strings
 		if len(key.Bytes) == 0 && len(key.String) > 0 {
-			a, err := tezos.ParseAddress(strings.Split(key.String, "%")[0])
+			a, err := mavryk.ParseAddress(strings.Split(key.String, "%")[0])
 			if err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for string type address: %w", err)
 			}
 			k.AddrKey = a
 		} else {
-			a := tezos.Address{}
+			a := mavryk.Address{}
 			if err := a.Decode(key.Bytes); err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for type address: %w", err)
 			}
@@ -95,13 +94,13 @@ func NewKey(typ Type, key Prim) (Key, error) {
 		}
 	case T_KEY:
 		if len(key.Bytes) == 0 && len(key.String) > 0 {
-			kk, err := tezos.ParseKey(key.String)
+			kk, err := mavryk.ParseKey(key.String)
 			if err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for string type key: %w", err)
 			}
 			k.KeyKey = kk
 		} else {
-			kk := tezos.Key{}
+			kk := mavryk.Key{}
 			if err := kk.UnmarshalBinary(key.Bytes); err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for type key: %w", err)
 			}
@@ -109,13 +108,13 @@ func NewKey(typ Type, key Prim) (Key, error) {
 		}
 	case T_SIGNATURE:
 		if len(key.Bytes) == 0 && len(key.String) > 0 {
-			sk, err := tezos.ParseSignature(key.String)
+			sk, err := mavryk.ParseSignature(key.String)
 			if err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for string type signature: %w", err)
 			}
 			k.SignatureKey = sk
 		} else {
-			sk := tezos.Signature{}
+			sk := mavryk.Signature{}
 			if err := sk.UnmarshalBinary(key.Bytes); err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for type signature: %w", err)
 			}
@@ -146,7 +145,7 @@ func NewKeyPtr(typ Type, key Prim) (*Key, error) {
 
 func (k Key) IsPacked() bool {
 	return k.Type.OpCode == T_BYTES && (isPackedBytes(k.BytesKey) ||
-		tezos.IsAddressBytes(k.BytesKey) ||
+		mavryk.IsAddressBytes(k.BytesKey) ||
 		isASCIIBytes(k.BytesKey))
 }
 
@@ -224,13 +223,13 @@ func ParseKey(typ OpCode, val string) (Key, error) {
 		}
 	case T_KEY_HASH, T_ADDRESS:
 		key.Type.Type = PrimBytes
-		key.AddrKey, err = tezos.ParseAddress(val)
+		key.AddrKey, err = mavryk.ParseAddress(val)
 	case T_KEY:
 		key.Type.Type = PrimBytes
-		key.KeyKey, err = tezos.ParseKey(val)
+		key.KeyKey, err = mavryk.ParseKey(val)
 	case T_SIGNATURE:
 		key.Type.Type = PrimBytes
-		key.SignatureKey, err = tezos.ParseSignature(val)
+		key.SignatureKey, err = mavryk.ParseSignature(val)
 	case T_PAIR:
 		// parse comma-separated list into a right-hand pair tree
 		prims := []Prim{}
@@ -271,14 +270,14 @@ func InferKeyType(val string) OpCode {
 	if val == D_UNIT.String() {
 		return T_UNIT
 	}
-	if _, err := tezos.ParseAddress(val); err == nil {
+	if _, err := mavryk.ParseAddress(val); err == nil {
 		// Note: can also be KEY_HASH, but used inconsistently
 		return T_ADDRESS
 	}
-	if _, err := tezos.ParseKey(val); err == nil {
+	if _, err := mavryk.ParseKey(val); err == nil {
 		return T_KEY
 	}
-	if _, err := tezos.ParseSignature(val); err == nil {
+	if _, err := mavryk.ParseSignature(val); err == nil {
 		return T_SIGNATURE
 	}
 	if _, err := time.Parse(time.RFC3339, val); err == nil {
@@ -329,7 +328,7 @@ func (k Key) Bytes() []byte {
 			p.OpCode = D_FALSE
 		}
 	case T_TIMESTAMP:
-		var z tezos.Z
+		var z mavryk.Z
 		z.SetInt64(k.TimeKey.Unix())
 		p.Type = PrimInt
 		p.Int = z.Big()
@@ -361,11 +360,11 @@ func (k Key) MarshalBinary() ([]byte, error) {
 	return k.Bytes(), nil
 }
 
-func (k Key) Hash() tezos.ExprHash {
+func (k Key) Hash() mavryk.ExprHash {
 	return KeyHash(k.Bytes())
 }
 
-func KeyHash(buf []byte) tezos.ExprHash {
+func KeyHash(buf []byte) mavryk.ExprHash {
 	// blake2b with digest size 32 byte
 	h, _ := blake2b.New(32, nil)
 
@@ -374,7 +373,7 @@ func KeyHash(buf []byte) tezos.ExprHash {
 	h.Write(buf)
 
 	// wrap in exprhash
-	return tezos.NewExprHash(h.Sum(nil))
+	return mavryk.NewExprHash(h.Sum(nil))
 }
 
 func (k Key) String() string {

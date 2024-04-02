@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"os"
 
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/rpc"
 )
 
@@ -73,18 +73,18 @@ func run() error {
 
 	// simulate
 	if proto != "" {
-		p.Protocol, err = tezos.ParseProtocolHash(proto)
+		p.Protocol, err = mavryk.ParseProtocolHash(proto)
 		if err != nil {
 			return err
 		}
 	}
 	if net != "" {
-		p.ChainId, err = tezos.ParseChainIdHash(net)
+		p.ChainId, err = mavryk.ParseChainIdHash(net)
 		if err != nil {
 			return err
 		}
 	}
-	fmt.Printf("Using protocol %s on %s\n", tezos.Short(p.Protocol.String())[:8], p.Network)
+	fmt.Printf("Using protocol %s on %s\n", mavryk.Short(p.Protocol.String())[:8], p.Network)
 
 	fmt.Println("Height .............................. ", block.GetLevel())
 	fmt.Println("Cycle ............................... ", block.GetCycle())

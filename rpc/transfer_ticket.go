@@ -4,7 +4,7 @@
 package rpc
 
 import (
-	tezos "github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 )
 
@@ -13,18 +13,18 @@ var _ TypedOperation = (*TransferTicket)(nil)
 
 type TransferTicket struct {
 	Manager
-	Destination tezos.Address  `json:"destination"`
+	Destination mavryk.Address `json:"destination"`
 	Entrypoint  string         `json:"entrypoint"`
 	Type        micheline.Prim `json:"ticket_ty"`
 	Contents    micheline.Prim `json:"ticket_contents"`
-	Ticketer    tezos.Address  `json:"ticket_ticketer"`
-	Amount      tezos.Z        `json:"ticket_amount"`
+	Ticketer    mavryk.Address `json:"ticket_ticketer"`
+	Amount      mavryk.Z       `json:"ticket_amount"`
 }
 
 // Costs returns operation cost to implement TypedOperation interface.
-func (t TransferTicket) Costs() tezos.Costs {
+func (t TransferTicket) Costs() mavryk.Costs {
 	res := t.Metadata.Result
-	cost := tezos.Costs{
+	cost := mavryk.Costs{
 		Fee:     t.Manager.Fee,
 		GasUsed: res.Gas(),
 	}
