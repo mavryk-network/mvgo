@@ -191,7 +191,7 @@ func (c *Contract) ResolveTz16Uri(ctx context.Context, uri string, result interf
 	}
 
 	switch uri[:protoIdx] {
-	case "tezos-storage":
+	case "mavryk-storage":
 		return c.resolveStorageUri(ctx, uri, result, checksum)
 	case "http", "https":
 		return c.resolveHttpUri(ctx, uri, result, checksum)
@@ -217,13 +217,13 @@ func (c *Contract) ResolveTz16Uri(ctx context.Context, uri string, result interf
 }
 
 func (c *Contract) resolveStorageUri(ctx context.Context, uri string, result interface{}, checksum []byte) error {
-	if !strings.HasPrefix(uri, "tezos-storage:") {
+	if !strings.HasPrefix(uri, "mavryk-storage:") {
 		return fmt.Errorf("invalid tzip16 storage uri prefix: %q", uri)
 	}
 
-	// prefix is either `tezos-storage:` or `tezos-storage://`
-	uri = strings.TrimPrefix(uri, "tezos-storage://")
-	uri = strings.TrimPrefix(uri, "tezos-storage:")
+	// prefix is either `mavryk-storage:` or `mavryk-storage://`
+	uri = strings.TrimPrefix(uri, "mavryk-storage://")
+	uri = strings.TrimPrefix(uri, "mavryk-storage:")
 	parts := strings.SplitN(uri, "/", 2)
 
 	// resolve bigmap and key to read

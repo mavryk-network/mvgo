@@ -16,15 +16,15 @@
       "prim": "big_map"
     },
     "value": {
-      "bytes": "74657a6f732d73746f726167653a64617461"
+      "bytes": "6d617672796b2d73746f726167653a64617461"
     },
     "key": {
       "string": ""
     },
     "type_hex": "08610368036900000009256d65746164617461",
-    "value_hex": "0a0000001274657a6f732d73746f726167653a64617461",
+    "value_hex": "0a000000136d617672796b2d73746f726167653a64617461",
     "key_hex": "0100000000",
-    "want_value": "tezos-storage:data",
+    "want_value": "mavryk-storage:data",
     "want_key": ""
   },
   {

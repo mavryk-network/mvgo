@@ -125,7 +125,7 @@ func (c *Contract) ResolveMetadata(ctx context.Context) (*Tz16, error) {
 		}
 	}
 	tz16 := &Tz16{}
-	if err := c.resolveStorageUri(ctx, "tezos-storage:", tz16, nil); err != nil {
+	if err := c.resolveStorageUri(ctx, "mavryk-storage:", tz16, nil); err != nil {
 		return nil, err
 	}
 	c.meta = tz16
