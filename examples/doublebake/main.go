@@ -51,7 +51,7 @@ func init() {
 	}
 	flags.Usage = func() {}
 	flags.BoolVar(&verbose, "v", false, "be verbose")
-	flags.StringVar(&node, "node", "https://rpc.mavryk.network/atlasnet", "Mavryk node URL")
+	flags.StringVar(&node, "node", "https://atlasnet.rpc.mavryk.network", "Mavryk node URL")
 }
 
 func main() {
