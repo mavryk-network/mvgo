@@ -13,11 +13,11 @@ import (
 	"strings"
 	"time"
 
-	"blockwatch.cc/tzgo/internal/compose"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/internal/compose"
+	"github.com/mavryk-network/mvgo/mavryk"
 
-	_ "blockwatch.cc/tzgo/internal/compose/alpha"
-	_ "blockwatch.cc/tzgo/internal/compose/alpha/task"
+	_ "github.com/mavryk-network/mvgo/internal/compose/alpha"
+	_ "github.com/mavryk-network/mvgo/internal/compose/alpha/task"
 )
 
 var (
@@ -39,7 +39,7 @@ var (
 	// clone config
 	name                   string
 	mode                   compose.CloneMode
-	addr                   tezos.Address
+	addr                   mavryk.Address
 	numOpsAfterOrigination uint
 	version                string
 	indexUrl               string

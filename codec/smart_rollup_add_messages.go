@@ -8,17 +8,17 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // SmartRollupAddMessages represents "smart_rollup_add_messages" operation
 type SmartRollupAddMessages struct {
 	Manager
-	Messages []tezos.HexBytes `json:"messages"`
+	Messages []mavryk.HexBytes `json:"messages"`
 }
 
-func (o SmartRollupAddMessages) Kind() tezos.OpType {
-	return tezos.OpTypeSmartRollupAddMessages
+func (o SmartRollupAddMessages) Kind() mavryk.OpType {
+	return mavryk.OpTypeSmartRollupAddMessages
 }
 
 func (o SmartRollupAddMessages) MarshalJSON() ([]byte, error) {
@@ -42,7 +42,7 @@ func (o SmartRollupAddMessages) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o SmartRollupAddMessages) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o SmartRollupAddMessages) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	var sz int
@@ -56,7 +56,7 @@ func (o SmartRollupAddMessages) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params)
 	return nil
 }
 
-func (o *SmartRollupAddMessages) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *SmartRollupAddMessages) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -69,7 +69,7 @@ func (o *SmartRollupAddMessages) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params
 		return
 	}
 	for sz > 0 {
-		var msg tezos.HexBytes
+		var msg mavryk.HexBytes
 		msg, err = readBytesWithLen(buf)
 		if err != nil {
 			return
@@ -82,10 +82,10 @@ func (o *SmartRollupAddMessages) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params
 
 func (o SmartRollupAddMessages) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *SmartRollupAddMessages) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

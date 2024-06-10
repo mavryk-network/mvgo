@@ -10,11 +10,11 @@ import (
 	"math/big"
 	"time"
 
-	"blockwatch.cc/tzgo/contract"
-	"blockwatch.cc/tzgo/contract/bind"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/contract"
+	"github.com/mavryk-network/mvgo/contract/bind"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/pkg/errors"
 )
 
@@ -41,7 +41,7 @@ type PayableBuilder struct{}
 // with the given rpc.
 //
 // Returns an error if the contract was not found at the given address.
-func NewPayable(ctx context.Context, address tezos.Address, client *rpc.Client) (*Payable, error) {
+func NewPayable(ctx context.Context, address mavryk.Address, client *rpc.Client) (*Payable, error) {
 	script, err := client.GetContractScript(ctx, address)
 	if err != nil {
 		return nil, err
@@ -146,7 +146,7 @@ const (
 	PayableSendTzEntry = "send_tz"
 )
 
-const PayableMicheline = `{"code":[{"prim":"parameter","args":[{"prim":"unit","annots":["%send_tz"]}]},{"prim":"storage","args":[{"prim":"mutez"}]},{"prim":"code","args":[[{"prim":"UNPAIR"},{"prim":"DROP"},{"prim":"PUSH","args":[{"prim":"mutez"},{"int":"0"}]},{"prim":"AMOUNT"},{"prim":"COMPARE"},{"prim":"GT"},{"prim":"NOT"},{"prim":"IF","args":[[{"prim":"PUSH","args":[{"prim":"string"},{"string":"r1"}]},{"prim":"PUSH","args":[{"prim":"string"},{"string":"INVALID_CONDITION"}]},{"prim":"PAIR"},{"prim":"FAILWITH"}],[]]},{"prim":"AMOUNT"},{"prim":"SWAP"},{"prim":"DROP"},{"prim":"NIL","args":[{"prim":"operation"}]},{"prim":"PAIR"}]]}],"storage":{}}`
+const PayableMicheline = `{"code":[{"prim":"parameter","args":[{"prim":"unit","annots":["%send_tz"]}]},{"prim":"storage","args":[{"prim":"mumav"}]},{"prim":"code","args":[[{"prim":"UNPAIR"},{"prim":"DROP"},{"prim":"PUSH","args":[{"prim":"mumav"},{"int":"0"}]},{"prim":"AMOUNT"},{"prim":"COMPARE"},{"prim":"GT"},{"prim":"NOT"},{"prim":"IF","args":[[{"prim":"PUSH","args":[{"prim":"string"},{"string":"r1"}]},{"prim":"PUSH","args":[{"prim":"string"},{"string":"INVALID_CONDITION"}]},{"prim":"PAIR"},{"prim":"FAILWITH"}],[]]},{"prim":"AMOUNT"},{"prim":"SWAP"},{"prim":"DROP"},{"prim":"NIL","args":[{"prim":"operation"}]},{"prim":"PAIR"}]]}],"storage":{}}`
 
 var (
 	_ = big.NewInt

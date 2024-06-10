@@ -8,7 +8,7 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // FailingNoop represents "failing_noop" operations. Used for signing arbitrary messages
@@ -19,8 +19,8 @@ type FailingNoop struct {
 	Arbitrary string `json:"arbitrary"`
 }
 
-func (o FailingNoop) Kind() tezos.OpType {
-	return tezos.OpTypeFailingNoop
+func (o FailingNoop) Kind() mavryk.OpType {
+	return mavryk.OpTypeFailingNoop
 }
 
 func (o FailingNoop) MarshalJSON() ([]byte, error) {
@@ -34,7 +34,7 @@ func (o FailingNoop) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o FailingNoop) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o FailingNoop) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	// convert utf8 string to bytes
 	val := []byte(o.Arbitrary)
@@ -43,7 +43,7 @@ func (o FailingNoop) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
 	return nil
 }
 
-func (o *FailingNoop) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *FailingNoop) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -59,10 +59,10 @@ func (o *FailingNoop) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err erro
 
 func (o FailingNoop) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *FailingNoop) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

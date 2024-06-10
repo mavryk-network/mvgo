@@ -22,11 +22,12 @@ import (
 	"strconv"
 	"strings"
 
-	"blockwatch.cc/tzgo/contract"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/contract"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/signer"
+
 	"github.com/echa/log"
 )
 
@@ -185,11 +186,11 @@ func run() error {
 }
 
 func loadContract(ctx context.Context, c *rpc.Client, addr string, resolve bool) (*contract.Contract, error) {
-	a, err := tezos.ParseAddress(addr)
+	a, err := mavryk.ParseAddress(addr)
 	if err != nil {
 		return nil, err
 	}
-	if a.Type() != tezos.AddressTypeContract {
+	if a.Type() != mavryk.AddressTypeContract {
 		return nil, fmt.Errorf("Invalid contract address")
 	}
 	con := contract.NewContract(a, c)
@@ -431,14 +432,14 @@ func balance_of(ctx context.Context, c *rpc.Client, addr, owner, id string) erro
 	if err != nil {
 		return err
 	}
-	own, err := tezos.ParseAddress(owner)
+	own, err := mavryk.ParseAddress(owner)
 	if err != nil {
 		return err
 	}
 	req := []contract.FA2BalanceRequest{
 		contract.FA2BalanceRequest{
 			Owner:   own,
-			TokenId: tezos.NewZ(i),
+			TokenId: mavryk.NewZ(i),
 		},
 	}
 	fa2 := con.AsFA2(i)
@@ -457,7 +458,7 @@ func getBalance(ctx context.Context, c *rpc.Client, addr, owner string) error {
 	if err != nil {
 		return err
 	}
-	own, err := tezos.ParseAddress(owner)
+	own, err := mavryk.ParseAddress(owner)
 	if err != nil {
 		return err
 	}
@@ -477,11 +478,11 @@ func getAllowance(ctx context.Context, c *rpc.Client, addr, owner, spender strin
 	if err != nil {
 		return err
 	}
-	own, err := tezos.ParseAddress(owner)
+	own, err := mavryk.ParseAddress(owner)
 	if err != nil {
 		return err
 	}
-	spend, err := tezos.ParseAddress(spender)
+	spend, err := mavryk.ParseAddress(spender)
 	if err != nil {
 		return err
 	}
@@ -524,15 +525,15 @@ func transfer(ctx context.Context, c *rpc.Client) error {
 	if err != nil {
 		return fmt.Errorf("Invalid token id %q: %v", fId, err)
 	}
-	var amount tezos.Z
+	var amount mavryk.Z
 	if err := amount.UnmarshalText([]byte(fAmount)); err != nil {
 		return fmt.Errorf("Invalid amount %q: %v", fAmount, err)
 	}
-	to, err := tezos.ParseAddress(fReceiver)
+	to, err := mavryk.ParseAddress(fReceiver)
 	if err != nil {
 		return fmt.Errorf("Invalid receiver %q: %v", fReceiver, err)
 	}
-	key, err := tezos.ParsePrivateKey(fKey)
+	key, err := mavryk.ParsePrivateKey(fKey)
 	if err != nil {
 		return fmt.Errorf("Invalid private key %q: %v", fKey, err)
 	}
@@ -569,15 +570,15 @@ func approve(ctx context.Context, c *rpc.Client) error {
 	fAmount := flags.Arg(3)
 	fKey := flags.Arg(4)
 
-	var amount tezos.Z
+	var amount mavryk.Z
 	if err := amount.UnmarshalText([]byte(fAmount)); err != nil {
 		return fmt.Errorf("Invalid amount %q: %v", fAmount, err)
 	}
-	to, err := tezos.ParseAddress(fReceiver)
+	to, err := mavryk.ParseAddress(fReceiver)
 	if err != nil {
 		return fmt.Errorf("Invalid spender %q: %v", fReceiver, err)
 	}
-	key, err := tezos.ParsePrivateKey(fKey)
+	key, err := mavryk.ParsePrivateKey(fKey)
 	if err != nil {
 		return fmt.Errorf("Invalid private key %q: %v", fKey, err)
 	}
@@ -606,11 +607,11 @@ func revoke(ctx context.Context, c *rpc.Client) error {
 	fReceiver := flags.Arg(2)
 	fKey := flags.Arg(3)
 
-	to, err := tezos.ParseAddress(fReceiver)
+	to, err := mavryk.ParseAddress(fReceiver)
 	if err != nil {
 		return fmt.Errorf("Invalid spender %q: %v", fReceiver, err)
 	}
-	key, err := tezos.ParsePrivateKey(fKey)
+	key, err := mavryk.ParsePrivateKey(fKey)
 	if err != nil {
 		return fmt.Errorf("Invalid private key %q: %v", fKey, err)
 	}
@@ -644,11 +645,11 @@ func addOperator(ctx context.Context, c *rpc.Client) error {
 	if err != nil {
 		return fmt.Errorf("Invalid token id %q: %v", fId, err)
 	}
-	to, err := tezos.ParseAddress(fReceiver)
+	to, err := mavryk.ParseAddress(fReceiver)
 	if err != nil {
 		return fmt.Errorf("Invalid spender %q: %v", fReceiver, err)
 	}
-	key, err := tezos.ParsePrivateKey(fKey)
+	key, err := mavryk.ParsePrivateKey(fKey)
 	if err != nil {
 		return fmt.Errorf("Invalid private key %q: %v", fKey, err)
 	}
@@ -683,11 +684,11 @@ func removeOperator(ctx context.Context, c *rpc.Client) error {
 	if err != nil {
 		return fmt.Errorf("Invalid token id %q: %v", fId, err)
 	}
-	to, err := tezos.ParseAddress(fReceiver)
+	to, err := mavryk.ParseAddress(fReceiver)
 	if err != nil {
 		return fmt.Errorf("Invalid spender %q: %v", fReceiver, err)
 	}
-	key, err := tezos.ParsePrivateKey(fKey)
+	key, err := mavryk.ParsePrivateKey(fKey)
 	if err != nil {
 		return fmt.Errorf("Invalid private key %q: %v", fKey, err)
 	}

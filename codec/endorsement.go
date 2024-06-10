@@ -8,7 +8,7 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Endorsement represents "endorsement" operation
@@ -28,17 +28,17 @@ func (o Endorsement) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o Endorsement) Kind() tezos.OpType {
-	return tezos.OpTypeEndorsement
+func (o Endorsement) Kind() mavryk.OpType {
+	return mavryk.OpTypeEndorsement
 }
 
-func (o Endorsement) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o Endorsement) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	binary.Write(buf, enc, o.Level)
 	return nil
 }
 
-func (o *Endorsement) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *Endorsement) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -51,20 +51,20 @@ func (o *Endorsement) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err erro
 
 func (o Endorsement) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *Endorsement) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }
 
 // InlinedEndorsement represents inlined endorsement operation with signature. This
 // type is uses as part of other operations, but is not a stand-alone operation.
 type InlinedEndorsement struct {
-	Branch      tezos.BlockHash `json:"branch"`
-	Endorsement Endorsement     `json:"operations"`
-	Signature   tezos.Signature `json:"signature"`
+	Branch      mavryk.BlockHash `json:"branch"`
+	Endorsement Endorsement      `json:"operations"`
+	Signature   mavryk.Signature `json:"signature"`
 }
 
 func (o InlinedEndorsement) MarshalJSON() ([]byte, error) {
@@ -84,15 +84,15 @@ func (o InlinedEndorsement) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o InlinedEndorsement) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o InlinedEndorsement) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.Write(o.Branch.Bytes())
 	o.Endorsement.EncodeBuffer(buf, p)
 	buf.Write(o.Signature.Data) // generic sig, no tag (!)
 	return nil
 }
 
-func (o *InlinedEndorsement) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
-	err = o.Branch.UnmarshalBinary(buf.Next(tezos.HashTypeBlock.Len))
+func (o *InlinedEndorsement) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
+	err = o.Branch.UnmarshalBinary(buf.Next(mavryk.HashTypeBlock.Len))
 	if err != nil {
 		return
 	}
@@ -112,8 +112,8 @@ type EndorsementWithSlot struct {
 	Slot        int16              `json:"slot"`
 }
 
-func (o EndorsementWithSlot) Kind() tezos.OpType {
-	return tezos.OpTypeEndorsementWithSlot
+func (o EndorsementWithSlot) Kind() mavryk.OpType {
+	return mavryk.OpTypeEndorsementWithSlot
 }
 
 func (o EndorsementWithSlot) MarshalJSON() ([]byte, error) {
@@ -130,7 +130,7 @@ func (o EndorsementWithSlot) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o EndorsementWithSlot) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o EndorsementWithSlot) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	b2 := bytes.NewBuffer(nil)
 	o.Endorsement.EncodeBuffer(b2, p)
@@ -140,7 +140,7 @@ func (o EndorsementWithSlot) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) er
 	return nil
 }
 
-func (o *EndorsementWithSlot) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *EndorsementWithSlot) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -157,25 +157,25 @@ func (o *EndorsementWithSlot) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (
 
 func (o EndorsementWithSlot) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *EndorsementWithSlot) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }
 
 // TenderbakeEndorsement represents tenderbake endorsement operation
 type TenderbakeEndorsement struct {
 	Simple
-	Slot             int16             `json:"slot"`
-	Level            int32             `json:"level"`
-	Round            int32             `json:"round"`
-	BlockPayloadHash tezos.PayloadHash `json:"block_payload_hash"`
+	Slot             int16              `json:"slot"`
+	Level            int32              `json:"level"`
+	Round            int32              `json:"round"`
+	BlockPayloadHash mavryk.PayloadHash `json:"block_payload_hash"`
 }
 
-func (o TenderbakeEndorsement) Kind() tezos.OpType {
-	return tezos.OpTypeEndorsement
+func (o TenderbakeEndorsement) Kind() mavryk.OpType {
+	return mavryk.OpTypeEndorsement
 }
 
 func (o TenderbakeEndorsement) MarshalJSON() ([]byte, error) {
@@ -195,7 +195,7 @@ func (o TenderbakeEndorsement) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o TenderbakeEndorsement) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o TenderbakeEndorsement) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	binary.Write(buf, enc, o.Slot)
 	binary.Write(buf, enc, o.Level)
@@ -204,7 +204,7 @@ func (o TenderbakeEndorsement) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) 
 	return nil
 }
 
-func (o *TenderbakeEndorsement) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *TenderbakeEndorsement) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -226,20 +226,20 @@ func (o *TenderbakeEndorsement) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params)
 
 func (o TenderbakeEndorsement) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *TenderbakeEndorsement) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }
 
 // TenderbakeInlinedEndorsement represents inlined endorsement operation with signature. This
 // type is uses as part of other operations, but is not a stand-alone operation.
 type TenderbakeInlinedEndorsement struct {
-	Branch      tezos.BlockHash       `json:"branch"`
+	Branch      mavryk.BlockHash      `json:"branch"`
 	Endorsement TenderbakeEndorsement `json:"operations"`
-	Signature   tezos.Signature       `json:"signature"`
+	Signature   mavryk.Signature      `json:"signature"`
 }
 
 func (o TenderbakeInlinedEndorsement) MarshalJSON() ([]byte, error) {
@@ -256,15 +256,15 @@ func (o TenderbakeInlinedEndorsement) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o TenderbakeInlinedEndorsement) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o TenderbakeInlinedEndorsement) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.Write(o.Branch.Bytes())
 	o.Endorsement.EncodeBuffer(buf, p)
 	buf.Write(o.Signature.Data) // generic sig, no tag (!)
 	return nil
 }
 
-func (o *TenderbakeInlinedEndorsement) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
-	err = o.Branch.UnmarshalBinary(buf.Next(tezos.HashTypeBlock.Len))
+func (o *TenderbakeInlinedEndorsement) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
+	err = o.Branch.UnmarshalBinary(buf.Next(mavryk.HashTypeBlock.Len))
 	if err != nil {
 		return
 	}
@@ -280,14 +280,14 @@ func (o *TenderbakeInlinedEndorsement) DecodeBuffer(buf *bytes.Buffer, p *tezos.
 // TenderbakePreendorsement represents tenderbake preendorsement operation
 type TenderbakePreendorsement struct {
 	Simple
-	Slot             int16             `json:"slot"`
-	Level            int32             `json:"level"`
-	Round            int32             `json:"round"`
-	BlockPayloadHash tezos.PayloadHash `json:"block_payload_hash"`
+	Slot             int16              `json:"slot"`
+	Level            int32              `json:"level"`
+	Round            int32              `json:"round"`
+	BlockPayloadHash mavryk.PayloadHash `json:"block_payload_hash"`
 }
 
-func (o TenderbakePreendorsement) Kind() tezos.OpType {
-	return tezos.OpTypePreendorsement
+func (o TenderbakePreendorsement) Kind() mavryk.OpType {
+	return mavryk.OpTypePreendorsement
 }
 
 func (o TenderbakePreendorsement) MarshalJSON() ([]byte, error) {
@@ -307,7 +307,7 @@ func (o TenderbakePreendorsement) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o TenderbakePreendorsement) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o TenderbakePreendorsement) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	binary.Write(buf, enc, o.Slot)
 	binary.Write(buf, enc, o.Level)
@@ -316,7 +316,7 @@ func (o TenderbakePreendorsement) EncodeBuffer(buf *bytes.Buffer, p *tezos.Param
 	return nil
 }
 
-func (o *TenderbakePreendorsement) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *TenderbakePreendorsement) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -338,20 +338,20 @@ func (o *TenderbakePreendorsement) DecodeBuffer(buf *bytes.Buffer, p *tezos.Para
 
 func (o TenderbakePreendorsement) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *TenderbakePreendorsement) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }
 
 // TenderbakeInlinedPreendorsement represents inlined preendorsement operation with signature. This
 // type is uses as part of other operations, but is not a stand-alone operation.
 type TenderbakeInlinedPreendorsement struct {
-	Branch      tezos.BlockHash          `json:"branch"`
+	Branch      mavryk.BlockHash         `json:"branch"`
 	Endorsement TenderbakePreendorsement `json:"operations"`
-	Signature   tezos.Signature          `json:"signature"`
+	Signature   mavryk.Signature         `json:"signature"`
 }
 
 func (o TenderbakeInlinedPreendorsement) MarshalJSON() ([]byte, error) {
@@ -368,15 +368,15 @@ func (o TenderbakeInlinedPreendorsement) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o TenderbakeInlinedPreendorsement) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o TenderbakeInlinedPreendorsement) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.Write(o.Branch.Bytes())
 	o.Endorsement.EncodeBuffer(buf, p)
 	buf.Write(o.Signature.Data) // generic sig, no tag (!)
 	return nil
 }
 
-func (o *TenderbakeInlinedPreendorsement) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
-	err = o.Branch.UnmarshalBinary(buf.Next(tezos.HashTypeBlock.Len))
+func (o *TenderbakeInlinedPreendorsement) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
+	err = o.Branch.UnmarshalBinary(buf.Next(mavryk.HashTypeBlock.Len))
 	if err != nil {
 		return
 	}

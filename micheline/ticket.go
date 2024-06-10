@@ -3,9 +3,7 @@
 
 package micheline
 
-import (
-	"blockwatch.cc/tzgo/tezos"
-)
+import "github.com/mavryk-network/mvgo/mavryk"
 
 // Wraps ticket value type into type structure that is compatible
 // with ticket values. This is necessary because T_TICKET uses an
@@ -32,7 +30,7 @@ func TicketType(t Prim) Type {
 // Wraps ticket content into structure that is compatible
 // with ticket type. This is necessary for transfer_ticket calls which
 // use explicit fields for value, amount and ticketer.
-func TicketValue(v Prim, ticketer tezos.Address, amount tezos.Z) Prim {
+func TicketValue(v Prim, ticketer mavryk.Address, amount mavryk.Z) Prim {
 	return NewPair(
 		NewBytes(ticketer.EncodePadded()),
 		NewPair(v, NewNat(amount.Big())),

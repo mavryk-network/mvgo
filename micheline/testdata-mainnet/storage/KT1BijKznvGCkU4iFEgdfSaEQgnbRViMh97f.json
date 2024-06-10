@@ -219,7 +219,7 @@
                       "annots": [
                         "%last_commission"
                       ],
-                      "prim": "mutez"
+                      "prim": "mumav"
                     },
                     {
                       "annots": [
@@ -1075,7 +1075,7 @@
     "type_hex": "0765076507650765046e000000062561646d696e0462000000092562616e6b726f6c6c076508650765076508600765036203620362000000162562616e6b726f6c6c5f646973747269627574696f6e04620000000f2562616e6b726f6c6c5f6c696d6974076504620000001225686967685f73636f7265735f636f756e740860076503620362036200000015256a61636b706f745f646973747269627574696f6e0765076504620000000e256a61636b706f745f7368617265046200000008256d61785f626574046200000008256d696e5f6265740000000725636f6e66696704620000000c2567616d65735f636f756e7407650765065f0765036e0765076504620000000425626574046200000007257061796f757407650462000000072572616e646f6d04620000000a2574696d657374616d700000000c25686967685f73636f726573046200000008256a61636b706f740765046a00000010256c6173745f636f6d6d697373696f6e046e00000007256f7261636c65076507650861036e0765076504620000000425626574046200000007257061796f757407650462000000072572616e646f6d04620000000a2574696d657374616d7000000009256f7574636f6d65730860036e0765036803620000000d2570656e64696e675f626574730765065f0765036e0765076504620000000425626574046200000007257061796f757407650462000000072572616e646f6d04620000000a2574696d657374616d70000000112570656e64696e675f6f7574636f6d6573046e0000000625746f6b656e",
     "value_hex": "02000005090200000386070707070a0000001600009a07b1dd35031e0caba73ade4146361f8defff92008094a0e6c53f0707070707070707020000007d070407070000008c809f01000007040707008c809f01008c88a502000107040707008c88a50200ac92b40200040704070700ac92b40200acecba0200060704070700acecba0200848cbc02000a0704070700848cbc0200b8dbbc02000f0704070700b8dbbc02009896bd02001e07040707009896bd0200b0a0bd0200000080c0a8ca9a3a0707000a020000003d070407070000009896bd02000007040707009896bd020088a0bd02001e070407070088a0bd0200aca0bd0200280704070700aca0bd0200b0a0bd02003207070707000a0080c8afa0250080a8d6b907009d040707020000024802000000360a000000160000cecc7b1c52d7532be7920f4712093ced6be5b84907070080c8afa0250080b09dc2df01008fe8ba0200b0b09bfbd95e02000000360a00000016000000d73b428a6403750ec77e9946ac4d80ac61ab2207070080c8afa0250080a0be8195010093d9b10200b4c896f2d95e02000000360a000000160000cecc7b1c52d7532be7920f4712093ced6be5b84907070080c8afa0250080a0be8195010095b5b00200b0d4cefbd95e02000000360a00000016000000d73b428a6403750ec77e9946ac4d80ac61ab2207070080f882ad160080d0918e860100bc9bb4020080e4dff0d95e02000000350a000000160000cecc7b1c52d7532be7920f4712093ced6be5b84907070080f882ad160080e08bb459009b84a90200989bccf0d95e02000000350a0000001600002fdd06e1abbe616466869b9d6f6a5c60a0ab00b707070080a8d6b907008090dfc04a0097f2bb0200baf8d9fcd95e02000000350a0000001600006fc866bd7dda549317d6832c254346496578b2bc07070080a8d6b907008090dfc04a00b687bc0200b094819dda5e02000000350a0000001600006fc866bd7dda549317d6832c254346496578b2bc07070080a8d6b907008090dfc04a00b3f5bb0200978dc39dda5e02000000350a0000001600006fc866bd7dda549317d6832c254346496578b2bc07070080a8d6b9070080f085da2c008880b80200b5cda2f3d95e02000000350a0000001600006fc866bd7dda549317d6832c254346496578b2bc07070080a8d6b9070080f085da2c00b08fb7020096aea49cda5e00809888fab82000be6a0a00000016000006e62cd116de2a6a11b300cd83bad8768131abe50707008578020000003207040a0000001600006fc866bd7dda549317d6832c254346496578b2bc070701000000084a53616f553175710080a8d6b907020000012202000000350a0000001600006fc866bd7dda549317d6832c254346496578b2bc07070080a8d6b9070080a8d6b9070094aeb00100b3a9d2a1da5e02000000350a0000001600006fc866bd7dda549317d6832c254346496578b2bc07070080a8d6b9070080f085da2c0098b5b60200a1fe88a1da5e02000000350a0000001600006fc866bd7dda549317d6832c254346496578b2bc07070080a8d6b9070080a8d6b90700a2dce2010093d9d5a0da5e02000000350a0000001600006fc866bd7dda549317d6832c254346496578b2bc07070080a8d6b9070080a0d9e61d008fcda60200bf86c7a0da5e02000000350a0000001600006fc866bd7dda549317d6832c254346496578b2bc07070080a8d6b9070080a8d6b90700bdee8a0200bde583a0da5e0a0000001601f1343a45ae9591fccb7a2f9dafb587f8c3353e4f00",
     "want_value": {
-      "admin": "tz1ZgTyJaVYx3uSTKjDFZCstU7nZhecgodqk",
+      "admin": "mv1N3wGttrrJdBDgU3n6o2Zud8eYG36AHoaQ",
       "bankroll": "1091700000000",
       "config": {
         "bankroll_distribution": {
@@ -1103,70 +1103,70 @@
       "games_count": "285",
       "high_scores": [
         {
-          "0": "tz1eVUrDciqMQ8msVhtHiPUY4oXR4Gxs3orP",
+          "0": "mv1Srx9ow68hyQZ6e2T8xDAZDpPPcfN6eneY",
           "bet": "5000000000",
           "payout": "30000000000",
           "random": "2578959",
           "timestamp": "1626982280240"
         },
         {
-          "0": "tz1KiUXfWuF65Ck5zY4otx8t5pHToY8stYhj",
+          "0": "mv185wqFqGYSeUXK8rdf8mpuEq9SMvbqWjn7",
           "bet": "5000000000",
           "payout": "20000000000",
           "random": "2504275",
           "timestamp": "1626972803636"
         },
         {
-          "0": "tz1eVUrDciqMQ8msVhtHiPUY4oXR4Gxs3orP",
+          "0": "mv1Srx9ow68hyQZ6e2T8xDAZDpPPcfN6eneY",
           "bet": "5000000000",
           "payout": "20000000000",
           "random": "2493781",
           "timestamp": "1626982700336"
         },
         {
-          "0": "tz1KiUXfWuF65Ck5zY4otx8t5pHToY8stYhj",
+          "0": "mv185wqFqGYSeUXK8rdf8mpuEq9SMvbqWjn7",
           "bet": "3000000000",
           "payout": "18000000000",
           "random": "2524924",
           "timestamp": "1626971306240"
         },
         {
-          "0": "tz1eVUrDciqMQ8msVhtHiPUY4oXR4Gxs3orP",
+          "0": "mv1Srx9ow68hyQZ6e2T8xDAZDpPPcfN6eneY",
           "bet": "3000000000",
           "payout": "12000000000",
           "random": "2433307",
           "timestamp": "1626971145944"
         },
         {
-          "0": "tz1Q17EMNrpUEHDH47dVVT8K6Xt9SiWDsYVS",
+          "0": "mv1CNaXwhE7poYzWCSCLjGpLFYk8173n3hz5",
           "bet": "1000000000",
           "payout": "10000000000",
           "random": "2587799",
           "timestamp": "1626983841338"
         },
         {
-          "0": "tz1Vq5mYKXw1dD9js26An8dXdASuzo3bfE2w",
+          "0": "mv1JCZ58duENCUvy1Lf21xKYnBJtZBaz4ovS",
           "bet": "1000000000",
           "payout": "10000000000",
           "random": "2589174",
           "timestamp": "1627017717040"
         },
         {
-          "0": "tz1Vq5mYKXw1dD9js26An8dXdASuzo3bfE2w",
+          "0": "mv1JCZ58duENCUvy1Lf21xKYnBJtZBaz4ovS",
           "bet": "1000000000",
           "payout": "10000000000",
           "random": "2588019",
           "timestamp": "1627018257239"
         },
         {
-          "0": "tz1Vq5mYKXw1dD9js26An8dXdASuzo3bfE2w",
+          "0": "mv1JCZ58duENCUvy1Lf21xKYnBJtZBaz4ovS",
           "bet": "1000000000",
           "payout": "6000000000",
           "random": "2555912",
           "timestamp": "1626973950837"
         },
         {
-          "0": "tz1Vq5mYKXw1dD9js26An8dXdASuzo3bfE2w",
+          "0": "mv1JCZ58duENCUvy1Lf21xKYnBJtZBaz4ovS",
           "bet": "1000000000",
           "payout": "6000000000",
           "random": "2548720",
@@ -1175,45 +1175,45 @@
       ],
       "jackpot": "557400000000",
       "last_commission": "6846",
-      "oracle": "tz1LGWV7a5DZYwmArB3L7Qek6vHeiZEz3qwf",
+      "oracle": "mv18dynhtSWv8DYPzVcBMELmFw9dGwhopBVE",
       "outcomes": 7685,
       "pending_bets": {
-        "tz1Vq5mYKXw1dD9js26An8dXdASuzo3bfE2w": {
+        "mv1JCZ58duENCUvy1Lf21xKYnBJtZBaz4ovS": {
           "0": "JSaoU1uq",
           "1": "1000000000"
         }
       },
       "pending_outcomes": [
         {
-          "0": "tz1Vq5mYKXw1dD9js26An8dXdASuzo3bfE2w",
+          "0": "mv1JCZ58duENCUvy1Lf21xKYnBJtZBaz4ovS",
           "bet": "1000000000",
           "payout": "1000000000",
           "random": "1444756",
           "timestamp": "1627022576243"
         },
         {
-          "0": "tz1Vq5mYKXw1dD9js26An8dXdASuzo3bfE2w",
+          "0": "mv1JCZ58duENCUvy1Lf21xKYnBJtZBaz4ovS",
           "bet": "1000000000",
           "payout": "6000000000",
           "random": "2542936",
           "timestamp": "1627021975457"
         },
         {
-          "0": "tz1Vq5mYKXw1dD9js26An8dXdASuzo3bfE2w",
+          "0": "mv1JCZ58duENCUvy1Lf21xKYnBJtZBaz4ovS",
           "bet": "1000000000",
           "payout": "1000000000",
           "random": "1857314",
           "timestamp": "1627021555283"
         },
         {
-          "0": "tz1Vq5mYKXw1dD9js26An8dXdASuzo3bfE2w",
+          "0": "mv1JCZ58duENCUvy1Lf21xKYnBJtZBaz4ovS",
           "bet": "1000000000",
           "payout": "4000000000",
           "random": "2413391",
           "timestamp": "1627021435327"
         },
         {
-          "0": "tz1Vq5mYKXw1dD9js26An8dXdASuzo3bfE2w",
+          "0": "mv1JCZ58duENCUvy1Lf21xKYnBJtZBaz4ovS",
           "bet": "1000000000",
           "payout": "1000000000",
           "random": "2186173",

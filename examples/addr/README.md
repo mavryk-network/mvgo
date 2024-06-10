@@ -6,19 +6,19 @@ This example shows how Tezos addresses and keys can be detected and decoded.
 
 ```go
 // pubkey
-key, err = tezos.ParseKey("edpk....")
+key, err = mavryk.ParseKey("edpk....")
 
 // addresss
-addr, err = tezos.ParseAddress("tz1...")
+addr, err = mavryk.ParseAddress("mv1...")
 ```
 
 ### Usage
 
 ```sh
 // decode address types
-go run . tz1QMREVfenun5z18veejSRjiM44y1QfrfXA
-go run . tz2Athio4Vrc1Ge2GdpFAY7dFceVN5eMy6oj
-go run . tz3YjPMAXtsCQYzVRoYFPg4n32WAvXEh6QQb
+go run . mv1CitY5z26GMMmEHFDVyG7ksMv3XPpqEsbS
+go run . mv2Nbn1Vg9s93REgZ3QWjgHmgR8yBQoHuvsh
+go run . mv3M6rekrGAYypmia876dVkoC3N9Uuj7xVXh
 go run . KT1GyeRktoGPEKsWpchWguyy8FAf3aNHkw2T
 
 // decode pubkeys

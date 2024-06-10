@@ -27,13 +27,13 @@
                     "annots": [
                       "%balance"
                     ],
-                    "prim": "mutez"
+                    "prim": "mumav"
                   },
                   {
                     "annots": [
                       "%to_sell"
                     ],
-                    "prim": "mutez"
+                    "prim": "mumav"
                   }
                 ],
                 "prim": "pair"
@@ -47,7 +47,7 @@
                 "annots": [
                   "%held_supply"
                 ],
-                "prim": "mutez"
+                "prim": "mumav"
               },
               {
                 "args": [
@@ -55,7 +55,7 @@
                     "annots": [
                       "%target_supply"
                     ],
-                    "prim": "mutez"
+                    "prim": "mumav"
                   },
                   {
                     "args": [
@@ -76,7 +76,7 @@
                             "annots": [
                               "%min_tx"
                             ],
-                            "prim": "mutez"
+                            "prim": "mumav"
                           },
                           {
                             "args": [
@@ -383,7 +383,7 @@
   "type_hex": "0765035d08650860036e0865046a000000082562616c616e6365046a0000000825746f5f73656c6c000000083a6163636f756e7400000009256163636f756e74730765046a0000000c2568656c645f737570706c790765046a0000000e257461726765745f737570706c7907650663036e0000000d2573656c6c5f616461707465720765046a00000007256d696e5f74780765045d0000000c2564657374696e6174696f6e0765046e000000062561646d696e0765046800000005256e616d650468000000072573796d626f6c000000083a73746f72616765",
   "value_hex": "02000002500a0000001500910233b7659ac6cbe08d1831581d9d87d191277102000001af07040a00000016000001b2c38ddb1d86f69b64f37c5d1c2097f63b7fba07070080cc96b89801000007040a0000001600000577d0a99d31f1e5df58abfd0bbdba4448dd990b070700bff1a5c30b000007040a00000016000006cd8c504028217c5aaec6cc21515d38db87e94d07070080d2c7b616000007040a0000001600002eea8ad638ee9fadfce9672d8cd7eb4ac42138c30707008094ebdc03000007040a00000016000063ab7c0bbdf39cd8519e49266f7ad1835ab593ee07070080aea7831e000007040a00000016000091e3c2c4f1cce4a72a12e0bc86c45c0c0c13d0b007070080ccd0b109000007040a000000160000985c88c5ac1f5740053edb950352cfd9c5cc6ac2070700809cc99b05000007040a00000016016fc27eb2d8c9f1804cbbfc3612ea54a677f14dad0007070080a1c6f324000007040a000000160170e602fb66055dba0782e80647641fbfe9920b960007070080a8d6b907000007040a0000001601b7ba1dc8c3f186a7d62df198fdeaf13b00875c0f00070700b8e99da4e301000007040a0000001601d9b7b6f18379086676ebdc4db30dfd094620ba460007070080bcc1960b000000b7a8acc785040080e0a596bb1105090a00000016012d8ef07a388cd6e569a8b6cbbb7544f7ac2f5b4700008094ebdc030a000000150007a16181edf61006fd5d48c648df4fff1f4e892d0a000000160000910233b7659ac6cbe08d1831581d9d87d1912771010000000f54657a6f537465616d20546f6b656e0100000003545354",
   "want_value": {
-    "0": "tz1YrmJw6Lje27gWqZ94gU9mNavEjkHu1xGc",
+    "0": "mv1MEEcXQi2zbPTjyshuvHqnXbnDJ8n8L9bf",
     "storage": {
       "accounts": {
         "KT1JmhZoVANxaxqDMjzoHADWVNZ1KEdH3t7k": {
@@ -402,37 +402,37 @@
           "balance": "1500000000",
           "to_sell": "0"
         },
-        "tz1Ko1X3UCcDJdCi4v1gPVukzpSQWPGYvMhK": {
+        "mv18AUpdnZuZstywDEaXdKbn9qJP4mjfdcJT": {
           "balance": "20460000000",
           "to_sell": "0"
         },
-        "tz1L8wbybaM7CurNbUAJ9yCTCY5ParymyHTH": {
+        "mv18WQuZuweTnBdbjnj9PntUMYwN9FSZHhgj": {
           "balance": "1546959999",
           "to_sell": "0"
         },
-        "tz1LFzz16geToJt64vHKB2JGUiubDchnc7F4": {
+        "mv18dUHbR3wpNafKDErAQqzHdjmZn196t7cY": {
           "balance": "3010000000",
           "to_sell": "0"
         },
-        "tz1Pv6kEJrbKoRfBFRcQnzTZqRU1sBYuknyE": {
+        "mv1CHa3pdDtgNhSQPkBG2p9azSKzRa1EBrmA": {
           "balance": "500000000",
           "to_sell": "0"
         },
-        "tz1Uj324nemjvaK5DDbzyRjSrBBm9mfzgvJf": {
+        "mv1H6WKf7256Vr6JMYArDFRU1C3jiA8bwWxp": {
           "balance": "4030000000",
           "to_sell": "0"
         },
-        "tz1YwRX2uSLXXbUEAKjxhYcAu6mZ6GKJ1n2z": {
+        "mv1MJtpdDodt6sFTJeJowNJC47dXeerumEiP": {
           "balance": "1260000000",
           "to_sell": "0"
         },
-        "tz1ZXeFfsL3pe3jnUWLe9fe2qX4f8KQRsu8N": {
+        "mv1Mu7ZGBhMBDKX1cpuVPVL3zXvdghvmbEju": {
           "balance": "700000000",
           "to_sell": "0"
         }
       },
-      "admin": "tz1YrmJw6Lje27gWqZ94gU9mNavEjkHu1xGc",
-      "destination": "tz1LLNkQK4UQV6QcFShiXJ2vT2ELw449MzAA",
+      "admin": "mv1MEEcXQi2zbPTjyshuvHqnXbnDJ8n8L9bf",
+      "destination": "mv18hr3zdRmm4NBqPmGZm7iwc36KVSbr44Yv",
       "held_supply": "69465377335",
       "min_tx": "500000000",
       "name": "TezoSteam Token",

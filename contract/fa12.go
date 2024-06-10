@@ -8,19 +8,19 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/codec"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
 )
 
 // Represents a generic FA1 (tzip5) or FA1.2 (tzip7) token
 type FA1Token struct {
-	Address  tezos.Address
+	Address  mavryk.Address
 	contract *Contract
 }
 
-func NewFA1Token(addr tezos.Address, cli *rpc.Client) *FA1Token {
+func NewFA1Token(addr mavryk.Address, cli *rpc.Client) *FA1Token {
 	return &FA1Token{Address: addr, contract: NewContract(addr, cli)}
 }
 
@@ -33,11 +33,11 @@ func (t FA1Token) Equal(v FA1Token) bool {
 }
 
 func (t FA1Token) ResolveMetadata(ctx context.Context) (*TokenMetadata, error) {
-	return ResolveTokenMetadata(ctx, t.contract, tezos.NewZ(0))
+	return ResolveTokenMetadata(ctx, t.contract, mavryk.NewZ(0))
 }
 
-func (t FA1Token) GetBalance(ctx context.Context, owner tezos.Address) (tezos.Z, error) {
-	var balance tezos.Z
+func (t FA1Token) GetBalance(ctx context.Context, owner mavryk.Address) (mavryk.Z, error) {
+	var balance mavryk.Z
 	prim, err := t.contract.RunCallback(ctx, "getBalance", micheline.NewBytes(owner.EncodePadded()))
 	if err == nil {
 		balance.SetBig(prim.Int)
@@ -45,8 +45,8 @@ func (t FA1Token) GetBalance(ctx context.Context, owner tezos.Address) (tezos.Z,
 	return balance, err
 }
 
-func (t FA1Token) GetTotalSupply(ctx context.Context) (tezos.Z, error) {
-	var supply tezos.Z
+func (t FA1Token) GetTotalSupply(ctx context.Context) (mavryk.Z, error) {
+	var supply mavryk.Z
 	prim, err := t.contract.RunCallback(ctx, "getTotalSupply", micheline.NewPrim(micheline.D_UNIT))
 	if err == nil {
 		supply.SetBig(prim.Int)
@@ -54,8 +54,8 @@ func (t FA1Token) GetTotalSupply(ctx context.Context) (tezos.Z, error) {
 	return supply, err
 }
 
-func (t FA1Token) GetAllowance(ctx context.Context, owner, spender tezos.Address) (tezos.Z, error) {
-	var allowance tezos.Z
+func (t FA1Token) GetAllowance(ctx context.Context, owner, spender mavryk.Address) (mavryk.Z, error) {
+	var allowance mavryk.Z
 	prim, err := t.contract.RunCallback(ctx, "getAllowance",
 		micheline.NewPair(
 			micheline.NewBytes(owner.EncodePadded()),
@@ -68,29 +68,29 @@ func (t FA1Token) GetAllowance(ctx context.Context, owner, spender tezos.Address
 	return allowance, err
 }
 
-func (t FA1Token) Approve(spender tezos.Address, amount tezos.Z) CallArguments {
+func (t FA1Token) Approve(spender mavryk.Address, amount mavryk.Z) CallArguments {
 	return NewFA1ApprovalArgs().
 		Approve(spender, amount).
 		WithSource(spender).
 		WithDestination(t.Address)
 }
 
-func (t FA1Token) Revoke(spender tezos.Address) CallArguments {
+func (t FA1Token) Revoke(spender mavryk.Address) CallArguments {
 	return NewFA1ApprovalArgs().
 		Revoke(spender).
 		WithSource(spender).
 		WithDestination(t.Address)
 }
 
-func (t FA1Token) Transfer(from, to tezos.Address, amount tezos.Z) CallArguments {
+func (t FA1Token) Transfer(from, to mavryk.Address, amount mavryk.Z) CallArguments {
 	return NewFA1TransferArgs().WithTransfer(from, to, amount).
 		WithSource(from).
 		WithDestination(t.Address)
 }
 
 type FA1Approval struct {
-	Spender tezos.Address `json:"spender"`
-	Value   tezos.Z       `json:"value"`
+	Spender mavryk.Address `json:"spender"`
+	Value   mavryk.Z       `json:"value"`
 }
 
 type FA1ApprovalArgs struct {
@@ -104,25 +104,25 @@ func NewFA1ApprovalArgs() *FA1ApprovalArgs {
 	return &FA1ApprovalArgs{}
 }
 
-func (a *FA1ApprovalArgs) WithSource(addr tezos.Address) CallArguments {
+func (a *FA1ApprovalArgs) WithSource(addr mavryk.Address) CallArguments {
 	a.Source = addr.Clone()
 	return a
 }
 
-func (a *FA1ApprovalArgs) WithDestination(addr tezos.Address) CallArguments {
+func (a *FA1ApprovalArgs) WithDestination(addr mavryk.Address) CallArguments {
 	a.Destination = addr.Clone()
 	return a
 }
 
-func (p *FA1ApprovalArgs) Approve(spender tezos.Address, amount tezos.Z) *FA1ApprovalArgs {
+func (p *FA1ApprovalArgs) Approve(spender mavryk.Address, amount mavryk.Z) *FA1ApprovalArgs {
 	p.Approval.Spender = spender.Clone()
 	p.Approval.Value = amount.Clone()
 	return p
 }
 
-func (p *FA1ApprovalArgs) Revoke(spender tezos.Address) *FA1ApprovalArgs {
+func (p *FA1ApprovalArgs) Revoke(spender mavryk.Address) *FA1ApprovalArgs {
 	p.Approval.Spender = spender.Clone()
-	p.Approval.Value = tezos.NewZ(0)
+	p.Approval.Value = mavryk.NewZ(0)
 	return p
 }
 
@@ -147,18 +147,18 @@ func (p FA1ApprovalArgs) Encode() *codec.Transaction {
 }
 
 type FA1Transfer struct {
-	From   tezos.Address `json:"from"`
-	To     tezos.Address `json:"to"`
-	Amount tezos.Z       `json:"value"`
+	From   mavryk.Address `json:"from"`
+	To     mavryk.Address `json:"to"`
+	Amount mavryk.Z       `json:"value"`
 }
 
 // compatible with micheline.Value.Unmarshal()
 func (t *FA1Transfer) UnmarshalJSON(data []byte) error {
 	var xfer struct {
 		Transfer struct {
-			From   tezos.Address `json:"from"`
-			To     tezos.Address `json:"to"`
-			Amount tezos.Z       `json:"value"`
+			From   mavryk.Address `json:"from"`
+			To     mavryk.Address `json:"to"`
+			Amount mavryk.Z       `json:"value"`
 		} `json:"transfer"`
 	}
 	if err := json.Unmarshal(data, &xfer); err != nil {
@@ -181,17 +181,17 @@ func NewFA1TransferArgs() *FA1TransferArgs {
 	return &FA1TransferArgs{}
 }
 
-func (a *FA1TransferArgs) WithSource(addr tezos.Address) CallArguments {
+func (a *FA1TransferArgs) WithSource(addr mavryk.Address) CallArguments {
 	a.Source = addr.Clone()
 	return a
 }
 
-func (a *FA1TransferArgs) WithDestination(addr tezos.Address) CallArguments {
+func (a *FA1TransferArgs) WithDestination(addr mavryk.Address) CallArguments {
 	a.Destination = addr.Clone()
 	return a
 }
 
-func (p *FA1TransferArgs) WithTransfer(from, to tezos.Address, amount tezos.Z) *FA1TransferArgs {
+func (p *FA1TransferArgs) WithTransfer(from, to mavryk.Address, amount mavryk.Z) *FA1TransferArgs {
 	p.Transfer.From = from.Clone()
 	p.Transfer.To = to.Clone()
 	p.Transfer.Amount = amount.Clone()
@@ -251,7 +251,7 @@ func (r FA1TransferReceipt) Result() *rpc.Transaction {
 	return r.tx
 }
 
-func (r FA1TransferReceipt) Costs() tezos.Costs {
+func (r FA1TransferReceipt) Costs() mavryk.Costs {
 	return r.tx.Costs()
 }
 

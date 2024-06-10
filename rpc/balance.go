@@ -3,9 +3,7 @@
 
 package rpc
 
-import (
-	"blockwatch.cc/tzgo/tezos"
-)
+import "github.com/mavryk-network/mvgo/mavryk"
 
 // BalanceUpdate is a variable structure depending on the Kind field
 type BalanceUpdate struct {
@@ -15,9 +13,9 @@ type BalanceUpdate struct {
 	Change   int64  `json:"change,string"` // amount, <0 =
 
 	// related debtor or creditor
-	Contract  tezos.Address `json:"contract"`  // contract only
-	Delegate  tezos.Address `json:"delegate"`  // freezer and burn only
-	Committer tezos.Address `json:"committer"` // committer only
+	Contract  mavryk.Address `json:"contract"`  // contract only
+	Delegate  mavryk.Address `json:"delegate"`  // freezer and burn only
+	Committer mavryk.Address `json:"committer"` // committer only
 
 	// Ithaca only
 	IsParticipationBurn bool `json:"participation"` // burn only
@@ -25,20 +23,20 @@ type BalanceUpdate struct {
 
 	// legacy freezer cycle
 	Level_ int64 `json:"level"` // wrongly called level, it's cycle
-	Cycle_ int64 `json:"cycle"` // v4 fix, also used in Oxford for unstake
+	Cycle_ int64 `json:"cycle"` // v4 fix, also used in Atlas for unstake
 
 	// smart rollup
 	BondId struct {
-		SmartRollup tezos.Address `json:"smart_rollup"`
+		SmartRollup mavryk.Address `json:"smart_rollup"`
 	} `json:"bond_id"`
 
-	// Oxford staking
+	// Atlas staking
 	Staker struct {
-		Contract tezos.Address `json:"contract"` // tz1/2/3 accounts (only stake, unstake)
-		Delegate tezos.Address `json:"delegate"` // baker
-		Baker    tezos.Address `json:"baker"`    // baker
+		Contract mavryk.Address `json:"contract"` // tz1/2/3 accounts (only stake, unstake)
+		Delegate mavryk.Address `json:"delegate"` // baker
+		Baker    mavryk.Address `json:"baker"`    // baker
 	} `json:"staker"`
-	DelayedOp tezos.OpHash `json:"delayed_operation_hash"`
+	DelayedOp mavryk.OpHash `json:"delayed_operation_hash"`
 }
 
 // Categories
@@ -69,7 +67,7 @@ type BalanceUpdate struct {
 // - `deposits` represents the account of frozen deposits in subsequent protocols (replacing the legacy container account `legacy_deposits` above).
 // - `unstaked_deposits` represent tez for which unstaking has been requested.
 
-func (b BalanceUpdate) Address() tezos.Address {
+func (b BalanceUpdate) Address() mavryk.Address {
 	switch {
 	case b.Contract.IsValid():
 		return b.Contract
@@ -84,7 +82,7 @@ func (b BalanceUpdate) Address() tezos.Address {
 	case b.Staker.Baker.IsValid():
 		return b.Staker.Baker
 	}
-	return tezos.Address{}
+	return mavryk.Address{}
 }
 
 func (b BalanceUpdate) IsSharedStake() bool {

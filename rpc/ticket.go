@@ -4,19 +4,19 @@
 package rpc
 
 import (
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 type Ticket struct {
-	Ticketer tezos.Address  `json:"ticketer"`
+	Ticketer mavryk.Address `json:"ticketer"`
 	Content  micheline.Prim `json:"content"`
 	Type     micheline.Prim `json:"content_type"`
 }
 
 type TicketBalanceUpdate struct {
-	Account tezos.Address `json:"account"`
-	Amount  tezos.Z       `json:"amount"`
+	Account mavryk.Address `json:"account"`
+	Amount  mavryk.Z       `json:"amount"`
 }
 
 type TicketUpdate struct {

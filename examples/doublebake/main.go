@@ -14,7 +14,7 @@
 // - wait one block
 // - send the 2 signed endorsements in as double_endorsement_evidence
 //
-// To specify the baker key set env var TZGO_PRIVATE_KEY
+// To specify the baker key set env var MVGO_PRIVATE_KEY
 
 package main
 
@@ -30,11 +30,11 @@ import (
 	"syscall"
 	"time"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
 	"github.com/echa/log"
+	"github.com/mavryk-network/mvgo/codec"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/signer"
 	"golang.org/x/crypto/blake2b"
 )
 
@@ -42,16 +42,16 @@ var (
 	flags   = flag.NewFlagSet("doublex", flag.ContinueOnError)
 	verbose bool
 	node    string
-	sk      tezos.PrivateKey
+	sk      mavryk.PrivateKey
 )
 
 func init() {
-	if k := os.Getenv("TZGO_PRIVATE_KEY"); k != "" {
-		sk = tezos.MustParsePrivateKey(k)
+	if k := os.Getenv("MVGO_PRIVATE_KEY"); k != "" {
+		sk = mavryk.MustParsePrivateKey(k)
 	}
 	flags.Usage = func() {}
 	flags.BoolVar(&verbose, "v", false, "be verbose")
-	flags.StringVar(&node, "node", "https://rpc.oxford.tzstats.com", "Tezos node URL")
+	flags.StringVar(&node, "node", "https://atlasnet.rpc.mavryk.network", "Mavryk node URL")
 }
 
 func main() {
@@ -171,7 +171,7 @@ func handleBlock(ctx context.Context, c *rpc.Client, b *rpc.BlockHeaderLogEntry)
 	return nil
 }
 
-func fetchEndorsingRights(ctx context.Context, c *rpc.Client, id tezos.BlockHash) (int, bool, error) {
+func fetchEndorsingRights(ctx context.Context, c *rpc.Client, id mavryk.BlockHash) (int, bool, error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/helpers/endorsing_rights?delegate=%s", id, sk.Address())
 	var rights []struct {
 		Level         int64                `json:"level"`
@@ -219,7 +219,7 @@ func sendDoubleEndorse(ctx context.Context, c *rpc.Client, b *rpc.BlockHeaderLog
 	return nil
 }
 
-func signEndorsement(c *rpc.Client, b *rpc.BlockHeaderLogEntry, slot int, random bool) (codec.TenderbakeInlinedEndorsement, tezos.OpHash) {
+func signEndorsement(c *rpc.Client, b *rpc.BlockHeaderLogEntry, slot int, random bool) (codec.TenderbakeInlinedEndorsement, mavryk.OpHash) {
 	e := codec.TenderbakeEndorsement{
 		Slot:             int16(slot),
 		Level:            int32(b.Level),
@@ -245,7 +245,7 @@ func signEndorsement(c *rpc.Client, b *rpc.BlockHeaderLogEntry, slot int, random
 }
 
 // FIXME: what's the correct method to calculate op hash from contents?
-func ophash(buf []byte) (oh tezos.OpHash) {
+func ophash(buf []byte) (oh mavryk.OpHash) {
 	h, _ := blake2b.New(32, nil)
 	h.Write(buf)
 	copy(oh[:], h.Sum(nil))

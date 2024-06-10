@@ -11,8 +11,8 @@ import (
 	"io"
 	"strconv"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 const (
@@ -32,17 +32,17 @@ var (
 // Operation is a generic type used to handle different Tezos operation
 // types inside an operation's contents list.
 type Operation interface {
-	Kind() tezos.OpType
-	Limits() tezos.Limits
+	Kind() mavryk.OpType
+	Limits() mavryk.Limits
 	GetCounter() int64
-	WithSource(tezos.Address)
+	WithSource(mavryk.Address)
 	WithCounter(int64)
-	WithLimits(tezos.Limits)
+	WithLimits(mavryk.Limits)
 	encoding.BinaryMarshaler
 	encoding.BinaryUnmarshaler
 	MarshalJSON() ([]byte, error)
-	EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error
-	DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) error
+	EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error
+	DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error
 }
 
 // Op is a container used to collect, serialize and sign Tezos operations.
@@ -50,21 +50,21 @@ type Operation interface {
 // operations, but is agnostic to the order/lifecycle in which data is added
 // or updated.
 type Op struct {
-	Branch    tezos.BlockHash    `json:"branch"`    // used for TTL handling
-	Contents  []Operation        `json:"contents"`  // non-zero list of transactions
-	Signature tezos.Signature    `json:"signature"` // added during the lifecycle
-	ChainId   *tezos.ChainIdHash `json:"-"`         // optional, used for remote signing only
-	TTL       int64              `json:"-"`         // optional, specify TTL in blocks
-	Params    *tezos.Params      `json:"-"`         // optional, define protocol to encode for
-	Source    tezos.Address      `json:"-"`         // optional, used as manager/sender
+	Branch    mavryk.BlockHash    `json:"branch"`    // used for TTL handling
+	Contents  []Operation         `json:"contents"`  // non-zero list of transactions
+	Signature mavryk.Signature    `json:"signature"` // added during the lifecycle
+	ChainId   *mavryk.ChainIdHash `json:"-"`         // optional, used for remote signing only
+	TTL       int64               `json:"-"`         // optional, specify TTL in blocks
+	Params    *mavryk.Params      `json:"-"`         // optional, define protocol to encode for
+	Source    mavryk.Address      `json:"-"`         // optional, used as manager/sender
 }
 
 // NewOp creates a new empty operation that uses default params and a
 // default operation TTL.
 func NewOp() *Op {
 	return &Op{
-		Params: tezos.DefaultParams,
-		TTL:    tezos.DefaultParams.MaxOperationsTTL - 2, // Ithaca recommendation
+		Params: mavryk.DefaultParams,
+		TTL:    mavryk.DefaultParams.MaxOperationsTTL - 2, // Ithaca recommendation
 	}
 }
 
@@ -80,8 +80,8 @@ func (o Op) NeedCounter() bool {
 }
 
 // WithParams defines the protocol and other chain configuration params for which
-// the operation will be encoded. If unset, defaults to tezos.DefaultParams.
-func (o *Op) WithParams(p *tezos.Params) *Op {
+// the operation will be encoded. If unset, defaults to mavryk.DefaultParams.
+func (o *Op) WithParams(p *mavryk.Params) *Op {
 	o.Params = p
 	return o
 }
@@ -100,7 +100,7 @@ func (o *Op) WithContentsFront(op Operation) *Op {
 
 // WithSource sets the source for all manager operations to addr. It is required
 // before calling other WithXXX functions.
-func (o *Op) WithSource(addr tezos.Address) *Op {
+func (o *Op) WithSource(addr mavryk.Address) *Op {
 	for _, v := range o.Contents {
 		v.WithSource(addr)
 	}
@@ -110,13 +110,13 @@ func (o *Op) WithSource(addr tezos.Address) *Op {
 
 // WithTransfer adds a simple value transfer transaction to the contents list.
 // Source must be defined via WithSource() before calling this function.
-func (o *Op) WithTransfer(to tezos.Address, amount int64) *Op {
+func (o *Op) WithTransfer(to mavryk.Address, amount int64) *Op {
 	o.Contents = append(o.Contents, &Transaction{
 		Manager: Manager{
 			Source:  o.Source,
 			Counter: 0,
 		},
-		Amount:      tezos.N(amount),
+		Amount:      mavryk.N(amount),
 		Destination: to,
 	})
 	return o
@@ -124,7 +124,7 @@ func (o *Op) WithTransfer(to tezos.Address, amount int64) *Op {
 
 // WithCall adds a contract call transaction to the contents list.
 // Source must be defined via WithSource() before calling this function.
-func (o *Op) WithCall(to tezos.Address, params micheline.Parameters) *Op {
+func (o *Op) WithCall(to mavryk.Address, params micheline.Parameters) *Op {
 	o.Contents = append(o.Contents, &Transaction{
 		Manager: Manager{
 			Source:  o.Source,
@@ -138,13 +138,13 @@ func (o *Op) WithCall(to tezos.Address, params micheline.Parameters) *Op {
 
 // WithCallExt adds a contract call with value transfer transaction to the contents list.
 // Source must be defined via WithSource() before calling this function.
-func (o *Op) WithCallExt(to tezos.Address, params micheline.Parameters, amount int64) *Op {
+func (o *Op) WithCallExt(to mavryk.Address, params micheline.Parameters, amount int64) *Op {
 	o.Contents = append(o.Contents, &Transaction{
 		Manager: Manager{
 			Source:  o.Source,
 			Counter: 0,
 		},
-		Amount:      tezos.N(amount),
+		Amount:      mavryk.N(amount),
 		Destination: to,
 		Parameters:  &params,
 	})
@@ -167,13 +167,13 @@ func (o *Op) WithOrigination(script micheline.Script) *Op {
 // WithOriginationExt adds a contract origination transaction with optional delegation to
 // baker and an optional value transfer to the contents list.
 // Source must be defined via WithSource() before calling this function.
-func (o *Op) WithOriginationExt(script micheline.Script, baker tezos.Address, amount int64) *Op {
+func (o *Op) WithOriginationExt(script micheline.Script, baker mavryk.Address, amount int64) *Op {
 	o.Contents = append(o.Contents, &Origination{
 		Manager: Manager{
 			Source:  o.Source,
 			Counter: 0,
 		},
-		Balance:  tezos.N(amount),
+		Balance:  mavryk.N(amount),
 		Delegate: baker,
 		Script:   script,
 	})
@@ -182,7 +182,7 @@ func (o *Op) WithOriginationExt(script micheline.Script, baker tezos.Address, am
 
 // WithDelegation adds a delegation transaction to the contents list.
 // Source must be defined via WithSource() before calling this function.
-func (o *Op) WithDelegation(to tezos.Address) *Op {
+func (o *Op) WithDelegation(to mavryk.Address) *Op {
 	o.Contents = append(o.Contents, &Delegation{
 		Manager: Manager{
 			Source:  o.Source,
@@ -321,14 +321,14 @@ func (o *Op) WithTTL(n int64) *Op {
 }
 
 // WithBranch sets the branch for this operation to hash.
-func (o *Op) WithBranch(hash tezos.BlockHash) *Op {
+func (o *Op) WithBranch(hash mavryk.BlockHash) *Op {
 	o.Branch = hash
 	return o
 }
 
 // WithChainId sets chain_id for this operation to id. Use this only for remote signing
 // of (pre)endorsements as it creates an invalid binary encoding otherwise.
-func (o *Op) WithChainId(id tezos.ChainIdHash) *Op {
+func (o *Op) WithChainId(id mavryk.ChainIdHash) *Op {
 	clone := id.Clone()
 	o.ChainId = &clone
 	return o
@@ -346,7 +346,7 @@ func (o *Op) WithChainId(id tezos.ChainIdHash) *Op {
 // apply to all zero/lower fee operations and the entire batch may overpay
 // (e.g. if you have the first operation pay all fees for example and set
 // remaining fees to zero).
-func (o *Op) WithLimits(limits []tezos.Limits, margin int64) *Op {
+func (o *Op) WithLimits(limits []mavryk.Limits, margin int64) *Op {
 	for i, v := range o.Contents {
 		if len(limits) < i {
 			continue
@@ -360,7 +360,7 @@ func (o *Op) WithLimits(limits []tezos.Limits, margin int64) *Op {
 		if storage > 0 {
 			storage += margin
 		}
-		adj := tezos.Limits{
+		adj := mavryk.Limits{
 			GasLimit:     gas,
 			StorageLimit: storage,
 		}
@@ -383,7 +383,7 @@ func (o *Op) WithMinFee() *Op {
 		// extend current limit with minimum fee estimate based on size + gas
 		lim := v.Limits()
 
-		adj := tezos.Limits{
+		adj := mavryk.Limits{
 			GasLimit:     lim.GasLimit,
 			StorageLimit: lim.StorageLimit,
 			Fee:          max64(lim.Fee, CalculateMinFee(v, lim.GasLimit, i == 0, o.Params)),
@@ -397,8 +397,8 @@ func (o *Op) WithMinFee() *Op {
 
 // Limits returns the sum of all limits (fee, gas, storage limit) currently
 // set for all contained operations.
-func (o Op) Limits() tezos.Limits {
-	var l tezos.Limits
+func (o Op) Limits() mavryk.Limits {
+	var l mavryk.Limits
 	for _, v := range o.Contents {
 		l = l.Add(v.Limits())
 	}
@@ -414,7 +414,7 @@ func (o *Op) Bytes() []byte {
 	}
 	p := o.Params
 	if p == nil {
-		p = tezos.DefaultParams
+		p = mavryk.DefaultParams
 	}
 	buf := bytes.NewBuffer(nil)
 	buf.Write(o.Branch.Bytes())
@@ -422,7 +422,7 @@ func (o *Op) Bytes() []byte {
 		_ = v.EncodeBuffer(buf, p)
 	}
 	switch o.Contents[0].Kind() {
-	case tezos.OpTypeEndorsementWithSlot:
+	case mavryk.OpTypeEndorsementWithSlot:
 		// no signature
 	default:
 		if o.Signature.IsValid() {
@@ -441,11 +441,11 @@ func (o *Op) WatermarkedBytes() []byte {
 	}
 	p := o.Params
 	if p == nil {
-		p = tezos.DefaultParams
+		p = mavryk.DefaultParams
 	}
 	buf := bytes.NewBuffer(nil)
 	switch o.Contents[0].Kind() {
-	case tezos.OpTypeEndorsement, tezos.OpTypeEndorsementWithSlot:
+	case mavryk.OpTypeEndorsement, mavryk.OpTypeEndorsementWithSlot:
 		if p.OperationTagsVersion < 2 {
 			buf.WriteByte(EmmyEndorsementWatermark)
 		} else {
@@ -454,7 +454,7 @@ func (o *Op) WatermarkedBytes() []byte {
 		if o.ChainId != nil {
 			buf.Write(o.ChainId.Bytes())
 		}
-	case tezos.OpTypePreendorsement:
+	case mavryk.OpTypePreendorsement:
 		buf.WriteByte(TenderbakePreendorsementWatermark)
 		if o.ChainId != nil {
 			buf.Write(o.ChainId.Bytes())
@@ -473,13 +473,13 @@ func (o *Op) WatermarkedBytes() []byte {
 // is the binary serialized operation (without signature) prefixed with a
 // type-dependent watermark byte.
 func (o *Op) Digest() []byte {
-	d := tezos.Digest(o.WatermarkedBytes())
+	d := mavryk.Digest(o.WatermarkedBytes())
 	return d[:]
 }
 
 // WithSignature adds an externally created signature to the operation.
 // No signature validation is performed, it is assumed the signature is correct.
-func (o *Op) WithSignature(sig tezos.Signature) *Op {
+func (o *Op) WithSignature(sig mavryk.Signature) *Op {
 	o.Signature = sig
 	return o
 }
@@ -487,7 +487,7 @@ func (o *Op) WithSignature(sig tezos.Signature) *Op {
 // Sign signs the operation using provided private key. If a valid signature
 // already exists this function is a noop. Fails when either branch or contents
 // are empty.
-func (o *Op) Sign(key tezos.PrivateKey) error {
+func (o *Op) Sign(key mavryk.PrivateKey) error {
 	if !o.Branch.IsValid() {
 		return fmt.Errorf("tezos: missing branch")
 	}
@@ -504,8 +504,8 @@ func (o *Op) Sign(key tezos.PrivateKey) error {
 
 // Hash calculates the operation hash. For the hash to be correct, the operation
 // must contain a valid signature.
-func (o *Op) Hash() (h tezos.OpHash) {
-	d := tezos.Digest(o.Bytes())
+func (o *Op) Hash() (h mavryk.OpHash) {
+	d := mavryk.Digest(o.Bytes())
 	copy(h[:], d[:])
 	return
 }
@@ -531,9 +531,9 @@ func (o *Op) MarshalJSON() ([]byte, error) {
 	}
 	buf.WriteByte(']')
 	sig := o.Signature
-	if len(o.Contents) > 0 && o.Contents[0].Kind() == tezos.OpTypeEndorsementWithSlot {
+	if len(o.Contents) > 0 && o.Contents[0].Kind() == mavryk.OpTypeEndorsementWithSlot {
 		// no signature
-		sig = tezos.InvalidSignature
+		sig = mavryk.InvalidSignature
 	}
 	if sig.IsValid() {
 		buf.WriteString(`,"signature":`)
@@ -555,7 +555,7 @@ func DecodeOp(data []byte) (*Op, error) {
 	buf := bytes.NewBuffer(data)
 	o := &Op{
 		Contents: make([]Operation, 0),
-		Params:   tezos.DefaultParams,
+		Params:   mavryk.DefaultParams,
 	}
 	if err := o.Branch.UnmarshalBinary(buf.Next(32)); err != nil {
 		return nil, err
@@ -564,79 +564,79 @@ func DecodeOp(data []byte) (*Op, error) {
 		var op Operation
 		tag, _ := buf.ReadByte()
 		buf.UnreadByte()
-		switch tezos.ParseOpTag(tag) {
-		case tezos.OpTypeEndorsement:
+		switch mavryk.ParseOpTag(tag) {
+		case mavryk.OpTypeEndorsement:
 			if o.Params.OperationTagsVersion < 2 {
 				op = new(Endorsement)
 			} else {
 				op = new(TenderbakeEndorsement)
 			}
-		case tezos.OpTypePreendorsement:
+		case mavryk.OpTypePreendorsement:
 			op = new(TenderbakePreendorsement)
-		case tezos.OpTypeEndorsementWithSlot:
+		case mavryk.OpTypeEndorsementWithSlot:
 			op = new(EndorsementWithSlot)
-		case tezos.OpTypeSeedNonceRevelation:
+		case mavryk.OpTypeSeedNonceRevelation:
 			op = new(SeedNonceRevelation)
-		case tezos.OpTypeDoubleEndorsementEvidence:
+		case mavryk.OpTypeDoubleEndorsementEvidence:
 			if o.Params.OperationTagsVersion < 2 {
 				op = new(DoubleEndorsementEvidence)
 			} else {
 				op = new(TenderbakeDoubleEndorsementEvidence)
 			}
-		case tezos.OpTypeDoublePreendorsementEvidence:
+		case mavryk.OpTypeDoublePreendorsementEvidence:
 			op = new(TenderbakeDoublePreendorsementEvidence)
-		case tezos.OpTypeDoubleBakingEvidence:
+		case mavryk.OpTypeDoubleBakingEvidence:
 			op = new(DoubleBakingEvidence)
-		case tezos.OpTypeActivateAccount:
+		case mavryk.OpTypeActivateAccount:
 			op = new(ActivateAccount)
-		case tezos.OpTypeProposals:
+		case mavryk.OpTypeProposals:
 			op = new(Proposals)
-		case tezos.OpTypeBallot:
+		case mavryk.OpTypeBallot:
 			op = new(Ballot)
-		case tezos.OpTypeReveal:
+		case mavryk.OpTypeReveal:
 			op = new(Reveal)
-		case tezos.OpTypeTransaction:
+		case mavryk.OpTypeTransaction:
 			op = new(Transaction)
-		case tezos.OpTypeOrigination:
+		case mavryk.OpTypeOrigination:
 			op = new(Origination)
-		case tezos.OpTypeDelegation:
+		case mavryk.OpTypeDelegation:
 			op = new(Delegation)
-		case tezos.OpTypeFailingNoop:
+		case mavryk.OpTypeFailingNoop:
 			op = new(FailingNoop)
-		case tezos.OpTypeRegisterConstant:
+		case mavryk.OpTypeRegisterConstant:
 			op = new(RegisterGlobalConstant)
-		case tezos.OpTypeSetDepositsLimit:
+		case mavryk.OpTypeSetDepositsLimit:
 			op = new(SetDepositsLimit)
-		case tezos.OpTypeTransferTicket:
+		case mavryk.OpTypeTransferTicket:
 			op = new(TransferTicket)
-		case tezos.OpTypeVdfRevelation:
+		case mavryk.OpTypeVdfRevelation:
 			op = new(VdfRevelation)
-		case tezos.OpTypeIncreasePaidStorage:
+		case mavryk.OpTypeIncreasePaidStorage:
 			op = new(IncreasePaidStorage)
-		case tezos.OpTypeDrainDelegate:
+		case mavryk.OpTypeDrainDelegate:
 			op = new(DrainDelegate)
-		case tezos.OpTypeUpdateConsensusKey:
+		case mavryk.OpTypeUpdateConsensusKey:
 			op = new(UpdateConsensusKey)
-		case tezos.OpTypeSmartRollupOriginate:
+		case mavryk.OpTypeSmartRollupOriginate:
 			op = new(SmartRollupOriginate)
-		case tezos.OpTypeSmartRollupAddMessages:
+		case mavryk.OpTypeSmartRollupAddMessages:
 			op = new(SmartRollupAddMessages)
-		case tezos.OpTypeSmartRollupCement:
+		case mavryk.OpTypeSmartRollupCement:
 			op = new(SmartRollupCement)
-		case tezos.OpTypeSmartRollupPublish:
+		case mavryk.OpTypeSmartRollupPublish:
 			op = new(SmartRollupPublish)
 		// TODO
-		// case tezos.OpTypeSmartRollupRefute:
+		// case mavryk.OpTypeSmartRollupRefute:
 		// 	op = new(SmartRollupRefute)
-		case tezos.OpTypeSmartRollupTimeout:
+		case mavryk.OpTypeSmartRollupTimeout:
 			op = new(SmartRollupTimeout)
-		case tezos.OpTypeSmartRollupExecuteOutboxMessage:
+		case mavryk.OpTypeSmartRollupExecuteOutboxMessage:
 			op = new(SmartRollupExecuteOutboxMessage)
-		case tezos.OpTypeSmartRollupRecoverBond:
+		case mavryk.OpTypeSmartRollupRecoverBond:
 			op = new(SmartRollupRecoverBond)
-		case tezos.OpTypeDalAttestation:
+		case mavryk.OpTypeDalAttestation:
 			op = new(DalAttestation)
-		case tezos.OpTypeDalPublishSlotHeader:
+		case mavryk.OpTypeDalPublishSlotHeader:
 			op = new(DalPublishSlotHeader)
 
 		default:
@@ -648,7 +648,7 @@ func DecodeOp(data []byte) (*Op, error) {
 			}
 			return nil, fmt.Errorf("tezos: unsupported operation tag %d", tag)
 		}
-		if err := op.DecodeBuffer(buf, tezos.DefaultParams); err != nil {
+		if err := op.DecodeBuffer(buf, mavryk.DefaultParams); err != nil {
 			return nil, err
 		}
 		o.Contents = append(o.Contents, op)

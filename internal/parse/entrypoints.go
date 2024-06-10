@@ -4,8 +4,9 @@ import (
 	"sort"
 	"strconv"
 
-	"blockwatch.cc/tzgo/contract/ast"
-	"blockwatch.cc/tzgo/micheline"
+	"github.com/mavryk-network/mvgo/contract/ast"
+	"github.com/mavryk-network/mvgo/micheline"
+
 	"github.com/pkg/errors"
 )
 

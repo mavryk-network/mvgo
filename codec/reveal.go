@@ -7,17 +7,17 @@ import (
 	"bytes"
 	"strconv"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Reveal represents "reveal" operation
 type Reveal struct {
 	Manager
-	PublicKey tezos.Key `json:"public_key"`
+	PublicKey mavryk.Key `json:"public_key"`
 }
 
-func (o Reveal) Kind() tezos.OpType {
-	return tezos.OpTypeReveal
+func (o Reveal) Kind() mavryk.OpType {
+	return mavryk.OpTypeReveal
 }
 
 func (o Reveal) MarshalJSON() ([]byte, error) {
@@ -33,14 +33,14 @@ func (o Reveal) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o Reveal) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o Reveal) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	buf.Write(o.PublicKey.Bytes())
 	return nil
 }
 
-func (o *Reveal) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *Reveal) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -55,10 +55,10 @@ func (o *Reveal) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
 
 func (o Reveal) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *Reveal) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

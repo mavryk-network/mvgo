@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 type PrimUnmarshaler interface {
@@ -308,7 +308,7 @@ func (p Prim) unmarshal(val reflect.Value) error {
 			}
 		case T_ADDRESS:
 			var (
-				addr tezos.Address
+				addr mavryk.Address
 				err  error
 			)
 			if pp.Bytes != nil {
@@ -322,7 +322,7 @@ func (p Prim) unmarshal(val reflect.Value) error {
 			dst.Set(reflect.ValueOf(addr))
 		case T_KEY:
 			var (
-				key tezos.Key
+				key mavryk.Key
 				err error
 			)
 			if pp.Bytes != nil {
@@ -336,7 +336,7 @@ func (p Prim) unmarshal(val reflect.Value) error {
 			dst.Set(reflect.ValueOf(key))
 		case T_SIGNATURE:
 			var (
-				sig tezos.Signature
+				sig mavryk.Signature
 				err error
 			)
 			if pp.Bytes != nil {
@@ -350,7 +350,7 @@ func (p Prim) unmarshal(val reflect.Value) error {
 			dst.Set(reflect.ValueOf(sig))
 		case T_CHAIN_ID:
 			var (
-				chain tezos.ChainIdHash
+				chain mavryk.ChainIdHash
 				err   error
 			)
 			if pp.Bytes != nil {

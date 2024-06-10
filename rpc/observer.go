@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // WIP: interface may change
@@ -23,14 +23,14 @@ type ObserverCallback func(*BlockHeaderLogEntry, int64, int, int, bool) bool
 type observerSubscription struct {
 	id      int
 	cb      ObserverCallback
-	oh      tezos.OpHash
+	oh      mavryk.OpHash
 	matched bool
 }
 
 type Observer struct {
 	subs     map[int]*observerSubscription
-	watched  map[tezos.OpHash][]int
-	recent   map[tezos.OpHash][3]int64
+	watched  map[mavryk.OpHash][]int
+	recent   map[mavryk.OpHash][3]int64
 	seq      int
 	once     sync.Once
 	mu       sync.Mutex
@@ -45,9 +45,9 @@ func NewObserver() *Observer {
 	ctx, cancel := context.WithCancel(context.Background())
 	m := &Observer{
 		subs:     make(map[int]*observerSubscription),
-		watched:  make(map[tezos.OpHash][]int),
-		recent:   make(map[tezos.OpHash][3]int64),
-		minDelay: tezos.DefaultParams.MinimalBlockDelay,
+		watched:  make(map[mavryk.OpHash][]int),
+		recent:   make(map[mavryk.OpHash][3]int64),
+		minDelay: mavryk.DefaultParams.MinimalBlockDelay,
 		ctx:      ctx,
 		cancel:   cancel,
 		head: &BlockHeaderLogEntry{
@@ -71,11 +71,11 @@ func (m *Observer) Close() {
 	defer m.mu.Unlock()
 	m.cancel()
 	m.subs = make(map[int]*observerSubscription)
-	m.watched = make(map[tezos.OpHash][]int)
-	m.recent = make(map[tezos.OpHash][3]int64)
+	m.watched = make(map[mavryk.OpHash][]int)
+	m.recent = make(map[mavryk.OpHash][3]int64)
 }
 
-func (m *Observer) Subscribe(oh tezos.OpHash, cb ObserverCallback) int {
+func (m *Observer) Subscribe(oh mavryk.OpHash, cb ObserverCallback) int {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	m.seq++
@@ -108,7 +108,7 @@ func (m *Observer) Unsubscribe(id int) {
 	}
 }
 
-func (m *Observer) removeWatcher(oh tezos.OpHash, id int) {
+func (m *Observer) removeWatcher(oh mavryk.OpHash, id int) {
 	n := 0
 	for _, v := range m.watched[oh] {
 		if v != id {
@@ -234,15 +234,15 @@ func (m *Observer) listenBlocks() {
 
 		// handle block watchers
 		m.mu.Lock()
-		for _, id := range m.watched[tezos.ZeroOpHash] {
+		for _, id := range m.watched[mavryk.ZeroOpHash] {
 			sub, ok := m.subs[id]
 			if !ok {
-				m.removeWatcher(tezos.ZeroOpHash, id)
+				m.removeWatcher(mavryk.ZeroOpHash, id)
 				continue
 			}
 			if remove := sub.cb(head, head.Level, -1, -1, false); remove {
 				delete(m.subs, id)
-				m.removeWatcher(tezos.ZeroOpHash, id)
+				m.removeWatcher(mavryk.ZeroOpHash, id)
 			}
 		}
 
@@ -267,7 +267,7 @@ func (m *Observer) listenBlocks() {
 
 		// pull block ops when subs exist
 		var (
-			ohs [][]tezos.OpHash
+			ohs [][]mavryk.OpHash
 			err error
 		)
 		if numSubs > 0 {

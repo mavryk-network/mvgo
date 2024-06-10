@@ -10,11 +10,11 @@ import (
 	"math/big"
 	"time"
 
-	"blockwatch.cc/tzgo/contract"
-	"blockwatch.cc/tzgo/contract/bind"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/contract"
+	"github.com/mavryk-network/mvgo/contract/bind"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/pkg/errors"
 )
 
@@ -41,7 +41,7 @@ type HelloBuilder struct{}
 // with the given rpc.
 //
 // Returns an error if the contract was not found at the given address.
-func NewHello(ctx context.Context, address tezos.Address, client *rpc.Client) (*Hello, error) {
+func NewHello(ctx context.Context, address mavryk.Address, client *rpc.Client) (*Hello, error) {
 	script, err := client.GetContractScript(ctx, address)
 	if err != nil {
 		return nil, err

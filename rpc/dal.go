@@ -3,9 +3,7 @@
 
 package rpc
 
-import (
-	"blockwatch.cc/tzgo/tezos"
-)
+import "github.com/mavryk-network/mvgo/mavryk"
 
 // Ensure DAL types implement the TypedOperation interface.
 var (
@@ -16,16 +14,16 @@ var (
 type DalPublishSlotHeader struct {
 	Manager
 	SlotHeader struct {
-		Level      int64          `json:"level"`
-		Index      byte           `json:"index"`
-		Commitment string         `json:"commitment"`
-		Proof      tezos.HexBytes `json:"commitment_proof"`
+		Level      int64           `json:"level"`
+		Index      byte            `json:"index"`
+		Commitment string          `json:"commitment"`
+		Proof      mavryk.HexBytes `json:"commitment_proof"`
 	} `json:"slot_header"`
 }
 
 type DalAttestation struct {
 	Generic
-	Attestor    tezos.Address `json:"attestor"`
-	Attestation tezos.Z       `json:"attestation"`
-	Level       int64         `json:"level"`
+	Attestor    mavryk.Address `json:"attestor"`
+	Attestation mavryk.Z       `json:"attestation"`
+	Level       int64          `json:"level"`
 }

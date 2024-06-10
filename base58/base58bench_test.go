@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"testing"
 
-	"blockwatch.cc/tzgo/base58"
+	"github.com/mavryk-network/mvgo/base58"
 )
 
 var (

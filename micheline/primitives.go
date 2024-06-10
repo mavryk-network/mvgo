@@ -26,7 +26,7 @@ import (
 	"strings"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 var (
@@ -454,7 +454,7 @@ func (p Prim) IsScalarType() bool {
 		T_SIGNATURE,
 		T_STRING,
 		T_BYTES,
-		T_MUTEZ,
+		T_MUMAV,
 		T_TIMESTAMP,
 		T_UNIT,
 		T_OPERATION,
@@ -561,7 +561,7 @@ func (p Prim) LooksLikeContainer() bool {
 // records.
 //
 // Works for simple and nested primitives but may mis-detect ambiguous
-// simple types like PrimInt (used for int, nat, timestamp, mutez), or PrimString
+// simple types like PrimInt (used for int, nat, timestamp, mumav), or PrimString
 // resp. PrimBytes. May also misdetect when optional types like T_OR, T_OPTION are
 // used and their values are nil since we cannot detect embedded type here.
 func (p Prim) HasSimilarChildTypes() bool {
@@ -684,7 +684,7 @@ func (p Prim) FoldPair() Prim {
 // generated with PACK (starting with 0x05), an address or ascii/utf string.
 func (p Prim) IsPacked() bool {
 	return p.Type == PrimBytes &&
-		(isPackedBytes(p.Bytes) || tezos.IsAddressBytes(p.Bytes) || isASCIIBytes(p.Bytes))
+		(isPackedBytes(p.Bytes) || mavryk.IsAddressBytes(p.Bytes) || isASCIIBytes(p.Bytes))
 }
 
 // Packs produces a packed serialization for of a primitive's contents that
@@ -719,8 +719,8 @@ func (p Prim) Unpack() (pp Prim, err error) {
 				pp = up
 			}
 		}
-	case tezos.IsAddressBytes(p.Bytes):
-		a := tezos.Address{}
+	case mavryk.IsAddressBytes(p.Bytes):
+		a := mavryk.Address{}
 		if err := a.Decode(p.Bytes); err != nil {
 			return p, err
 		}
@@ -807,7 +807,7 @@ func (p Prim) Value(as OpCode) interface{} {
 			}
 			return tm
 		default:
-			var z tezos.Z
+			var z mavryk.Z
 			z.SetBig(p.Int)
 			return z
 		}
@@ -821,25 +821,25 @@ func (p Prim) Value(as OpCode) interface{} {
 			return p.String
 
 		case T_KEY_HASH, T_ADDRESS, T_CONTRACT:
-			a, err := tezos.ParseAddress(p.String)
+			a, err := mavryk.ParseAddress(p.String)
 			if err == nil {
 				return a
 			}
 
 		case T_KEY:
-			k, err := tezos.ParseKey(p.String)
+			k, err := mavryk.ParseKey(p.String)
 			if err == nil {
 				return k
 			}
 
 		case T_SIGNATURE:
-			s, err := tezos.ParseSignature(p.String)
+			s, err := mavryk.ParseSignature(p.String)
 			if err == nil {
 				return s
 			}
 
 		case T_CHAIN_ID:
-			id, err := tezos.ParseChainIdHash(p.String)
+			id, err := mavryk.ParseChainIdHash(p.String)
 			if err == nil {
 				return id
 			}
@@ -852,28 +852,28 @@ func (p Prim) Value(as OpCode) interface{} {
 	case PrimBytes:
 		switch as {
 		case T_KEY_HASH, T_ADDRESS, T_CONTRACT:
-			a := tezos.Address{}
+			a := mavryk.Address{}
 			if err := a.Decode(p.Bytes); err == nil {
 				return a
 			}
 		case T_TX_ROLLUP_L2_ADDRESS:
-			return tezos.NewAddress(tezos.AddressTypeBls12_381, p.Bytes)
+			return mavryk.NewAddress(mavryk.AddressTypeBls12_381, p.Bytes)
 
 		case T_KEY:
-			k := tezos.Key{}
+			k := mavryk.Key{}
 			if err := k.UnmarshalBinary(p.Bytes); err == nil {
 				return k
 			}
 
 		case T_SIGNATURE:
-			s := tezos.Signature{}
+			s := mavryk.Signature{}
 			if err := s.UnmarshalBinary(p.Bytes); err == nil {
 				return s
 			}
 
 		case T_CHAIN_ID:
-			if len(p.Bytes) == tezos.HashTypeChainId.Len {
-				return tezos.NewChainIdHash(p.Bytes)
+			if len(p.Bytes) == mavryk.HashTypeChainId.Len {
+				return mavryk.NewChainIdHash(p.Bytes)
 			}
 
 		default:
@@ -1093,7 +1093,7 @@ func (p Prim) EncodeBuffer(buf *bytes.Buffer) error {
 	buf.WriteByte(byte(p.Type))
 	switch p.Type {
 	case PrimInt:
-		var z tezos.Z
+		var z mavryk.Z
 		z.SetBig(p.Int)
 		if err := z.EncodeBuffer(buf); err != nil {
 			return err
@@ -1335,7 +1335,7 @@ func (p *Prim) DecodeBuffer(buf *bytes.Buffer) error {
 	switch tag {
 	case PrimInt:
 		// data is a zarith number
-		var z tezos.Z
+		var z mavryk.Z
 		if err := z.DecodeBuffer(buf); err != nil {
 			return err
 		}

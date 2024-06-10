@@ -6,8 +6,8 @@ package contract
 import (
 	"fmt"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 type NftLedgerSchema byte
@@ -65,7 +65,7 @@ func DetectNftLedger(key, val micheline.Prim) NftLedgerSchema {
 }
 
 type NftLedger struct {
-	Address    tezos.Address
+	Address    mavryk.Address
 	Schema     NftLedgerSchema
 	Bigmap     int64
 	FirstBlock int64
@@ -78,9 +78,9 @@ func (l NftLedger) DecodeEntry(prim micheline.Prim) (bal NftLedgerEntry, err err
 }
 
 type NftLedgerEntry struct {
-	Owner   tezos.Address
-	TokenId tezos.Z
-	Balance tezos.Z
+	Owner   mavryk.Address
+	TokenId mavryk.Z
+	Balance mavryk.Z
 	schema  NftLedgerSchema
 }
 
@@ -103,9 +103,9 @@ type NftLedger1 NftLedgerEntry
 
 func (b *NftLedger1) UnmarshalPrim(prim micheline.Prim) error {
 	var alias struct {
-		Owner   tezos.Address `prim:"owner,path=0/0"`
-		TokenId tezos.Z       `prim:"token_id,path=0/1"`
-		Balance tezos.Z       `prim:"balance,path=1"`
+		Owner   mavryk.Address `prim:"owner,path=0/0"`
+		TokenId mavryk.Z       `prim:"token_id,path=0/1"`
+		Balance mavryk.Z       `prim:"balance,path=1"`
 	}
 	err := prim.Decode(&alias)
 	if err == nil {
@@ -121,8 +121,8 @@ type NftLedgerTyp2 NftLedgerEntry
 
 func (b *NftLedgerTyp2) UnmarshalPrim(prim micheline.Prim) error {
 	var alias struct {
-		TokenId tezos.Z       `prim:"token_id,path=0"`
-		Owner   tezos.Address `prim:"owner,path=1"`
+		TokenId mavryk.Z       `prim:"token_id,path=0"`
+		Owner   mavryk.Address `prim:"owner,path=1"`
 	}
 	err := prim.Decode(&alias)
 	if err == nil {
@@ -138,9 +138,9 @@ type NftLedgerTyp3 NftLedgerEntry
 
 func (b *NftLedgerTyp3) UnmarshalPrim(prim micheline.Prim) error {
 	var alias struct {
-		TokenId tezos.Z       `prim:"token_id,path=0/0"`
-		Owner   tezos.Address `prim:"owner,path=0/1"`
-		Balance tezos.Z       `prim:"balance,path=1"`
+		TokenId mavryk.Z       `prim:"token_id,path=0/0"`
+		Owner   mavryk.Address `prim:"owner,path=0/1"`
+		Balance mavryk.Z       `prim:"balance,path=1"`
 	}
 	err := prim.Decode(&alias)
 	if err == nil {

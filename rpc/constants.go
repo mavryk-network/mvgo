@@ -9,11 +9,11 @@ import (
 	"strconv"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // Constants represents only a limited subset of Tezos chain configuration params
-// which are required by TzGo. Users must define custom structs to read other
+// which are required by MvGo. Users must define custom structs to read other
 // constants as needed.
 type Constants struct {
 	PreservedCycles              int64    `json:"preserved_cycles"`
@@ -55,7 +55,7 @@ func (c *Client) GetCustomConstants(ctx context.Context, id BlockID, resp any) e
 
 // GetParams returns a translated parameters structure for the current
 // network at block id.
-func (c *Client) GetParams(ctx context.Context, id BlockID) (*tezos.Params, error) {
+func (c *Client) GetParams(ctx context.Context, id BlockID) (*mavryk.Params, error) {
 	if !c.ChainId.IsValid() {
 		id, err := c.GetChainId(ctx)
 		if err != nil {
@@ -83,8 +83,8 @@ func (c *Client) GetParams(ctx context.Context, id BlockID) (*tezos.Params, erro
 	return p, nil
 }
 
-func (c Constants) MapToChainParams() *tezos.Params {
-	p := &tezos.Params{
+func (c Constants) MapToChainParams() *mavryk.Params {
+	p := &mavryk.Params{
 		BlocksPerCycle:               c.BlocksPerCycle,
 		PreservedCycles:              c.PreservedCycles,
 		BlocksPerSnapshot:            c.BlocksPerRollSnapshot + c.BlocksPerStakeSnapshot,

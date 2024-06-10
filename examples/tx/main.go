@@ -19,11 +19,12 @@ import (
 	"strconv"
 	"strings"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/signer/remote"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/codec"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/signer"
+	"github.com/mavryk-network/mvgo/signer/remote"
+
 	"github.com/echa/log"
 )
 
@@ -31,12 +32,12 @@ var (
 	flags   = flag.NewFlagSet("tx", flag.ContinueOnError)
 	verbose bool
 	node    string
-	sk      tezos.PrivateKey
+	sk      mavryk.PrivateKey
 )
 
 func init() {
-	if k := os.Getenv("TZGO_PRIVATE_KEY"); k != "" {
-		sk = tezos.MustParsePrivateKey(k)
+	if k := os.Getenv("MVGO_PRIVATE_KEY"); k != "" {
+		sk = mavryk.MustParsePrivateKey(k)
 	}
 }
 
@@ -201,78 +202,78 @@ func run() error {
 
 func makeOp(c *rpc.Client, t, data string) (codec.Operation, error) {
 	var o codec.Operation
-	switch tezos.ParseOpType(t) {
-	case tezos.OpTypeActivateAccount:
+	switch mavryk.ParseOpType(t) {
+	case mavryk.OpTypeActivateAccount:
 		o = new(codec.ActivateAccount)
-	case tezos.OpTypeDoubleBakingEvidence:
+	case mavryk.OpTypeDoubleBakingEvidence:
 		o = new(codec.DoubleBakingEvidence)
-	case tezos.OpTypeDoubleEndorsementEvidence:
+	case mavryk.OpTypeDoubleEndorsementEvidence:
 		if c.Params.OperationTagsVersion < 2 {
 			o = new(codec.DoubleEndorsementEvidence)
 		} else {
 			o = new(codec.TenderbakeDoubleEndorsementEvidence)
 		}
-	case tezos.OpTypeDoublePreendorsementEvidence:
+	case mavryk.OpTypeDoublePreendorsementEvidence:
 		o = new(codec.TenderbakeDoublePreendorsementEvidence)
-	case tezos.OpTypeSeedNonceRevelation:
+	case mavryk.OpTypeSeedNonceRevelation:
 		o = new(codec.SeedNonceRevelation)
-	case tezos.OpTypeTransaction:
+	case mavryk.OpTypeTransaction:
 		o = new(codec.Transaction)
-	case tezos.OpTypeOrigination:
+	case mavryk.OpTypeOrigination:
 		o = new(codec.Origination)
-	case tezos.OpTypeDelegation:
+	case mavryk.OpTypeDelegation:
 		o = new(codec.Delegation)
-	case tezos.OpTypeReveal:
+	case mavryk.OpTypeReveal:
 		o = new(codec.Reveal)
-	case tezos.OpTypePreendorsement:
+	case mavryk.OpTypePreendorsement:
 		o = new(codec.TenderbakePreendorsement)
-	case tezos.OpTypeEndorsement:
+	case mavryk.OpTypeEndorsement:
 		if c.Params.OperationTagsVersion < 2 {
 			o = new(codec.Endorsement)
 		} else {
 			o = new(codec.TenderbakeEndorsement)
 		}
-	case tezos.OpTypeEndorsementWithSlot:
+	case mavryk.OpTypeEndorsementWithSlot:
 		o = new(codec.EndorsementWithSlot)
-	case tezos.OpTypeProposals:
+	case mavryk.OpTypeProposals:
 		o = new(codec.Proposals)
-	case tezos.OpTypeBallot:
+	case mavryk.OpTypeBallot:
 		o = new(codec.Ballot)
-	case tezos.OpTypeFailingNoop:
+	case mavryk.OpTypeFailingNoop:
 		o = new(codec.FailingNoop)
-	case tezos.OpTypeRegisterConstant:
+	case mavryk.OpTypeRegisterConstant:
 		o = new(codec.RegisterGlobalConstant)
-	case tezos.OpTypeSetDepositsLimit:
+	case mavryk.OpTypeSetDepositsLimit:
 		o = new(codec.SetDepositsLimit)
-	case tezos.OpTypeTransferTicket:
+	case mavryk.OpTypeTransferTicket:
 		o = new(codec.TransferTicket)
-	case tezos.OpTypeVdfRevelation:
+	case mavryk.OpTypeVdfRevelation:
 		o = new(codec.VdfRevelation)
-	case tezos.OpTypeIncreasePaidStorage:
+	case mavryk.OpTypeIncreasePaidStorage:
 		o = new(codec.IncreasePaidStorage)
-	case tezos.OpTypeDrainDelegate:
+	case mavryk.OpTypeDrainDelegate:
 		o = new(codec.DrainDelegate)
-	case tezos.OpTypeUpdateConsensusKey:
+	case mavryk.OpTypeUpdateConsensusKey:
 		o = new(codec.UpdateConsensusKey)
-	case tezos.OpTypeSmartRollupOriginate:
+	case mavryk.OpTypeSmartRollupOriginate:
 		o = new(codec.SmartRollupOriginate)
-	case tezos.OpTypeSmartRollupAddMessages:
+	case mavryk.OpTypeSmartRollupAddMessages:
 		o = new(codec.SmartRollupAddMessages)
-	case tezos.OpTypeSmartRollupCement:
+	case mavryk.OpTypeSmartRollupCement:
 		o = new(codec.SmartRollupCement)
-	case tezos.OpTypeSmartRollupPublish:
+	case mavryk.OpTypeSmartRollupPublish:
 		o = new(codec.SmartRollupPublish)
-	case tezos.OpTypeSmartRollupRefute:
+	case mavryk.OpTypeSmartRollupRefute:
 		o = new(codec.SmartRollupRefute)
-	case tezos.OpTypeSmartRollupTimeout:
+	case mavryk.OpTypeSmartRollupTimeout:
 		o = new(codec.SmartRollupTimeout)
-	case tezos.OpTypeSmartRollupExecuteOutboxMessage:
+	case mavryk.OpTypeSmartRollupExecuteOutboxMessage:
 		o = new(codec.SmartRollupExecuteOutboxMessage)
-	case tezos.OpTypeSmartRollupRecoverBond:
+	case mavryk.OpTypeSmartRollupRecoverBond:
 		o = new(codec.SmartRollupRecoverBond)
-	case tezos.OpTypeDalAttestation:
+	case mavryk.OpTypeDalAttestation:
 		o = new(codec.DalAttestation)
-	case tezos.OpTypeDalPublishSlotHeader:
+	case mavryk.OpTypeDalPublishSlotHeader:
 		o = new(codec.DalPublishSlotHeader)
 	default:
 		return nil, fmt.Errorf("Unsupported op type %q", t)
@@ -284,7 +285,7 @@ func makeOp(c *rpc.Client, t, data string) (codec.Operation, error) {
 }
 
 func encodeZ(s string) error {
-	var z, x tezos.Z
+	var z, x mavryk.Z
 	if err := z.UnmarshalText([]byte(s)); err != nil {
 		return err
 	}
@@ -300,7 +301,7 @@ func encodeZ(s string) error {
 }
 
 func encodeN(s string) error {
-	var z, x tezos.N
+	var z, x mavryk.N
 	if err := z.UnmarshalText([]byte(s)); err != nil {
 		return err
 	}
@@ -368,7 +369,7 @@ func printTypeInfo(typ reflect.Type, prefix string) {
 
 func encode(ctx context.Context, c *rpc.Client, typ, data string) error {
 	if !sk.IsValid() {
-		return fmt.Errorf("Invalid private key. use -sk or TZGO_PRIVATE_KEY")
+		return fmt.Errorf("Invalid private key. use -sk or MVGO_PRIVATE_KEY")
 	}
 	op := codec.NewOp()
 	if data[0] == '[' {
@@ -454,7 +455,7 @@ func digest(ctx context.Context, c *rpc.Client, msg string) error {
 
 func sign(ctx context.Context, c *rpc.Client, msg string) error {
 	if !sk.IsValid() {
-		return fmt.Errorf("Invalid private key. use -sk or TZGO_PRIVATE_KEY")
+		return fmt.Errorf("Invalid private key. use -sk or MVGO_PRIVATE_KEY")
 	}
 	buf, err := hex.DecodeString(msg)
 	if err != nil {
@@ -481,7 +482,7 @@ func sign_remote(ctx context.Context, c *rpc.Client, addr, msg string) error {
 	if err != nil {
 		return err
 	}
-	a, err := tezos.ParseAddress(addr)
+	a, err := mavryk.ParseAddress(addr)
 	if err != nil {
 		return err
 	}
@@ -539,7 +540,7 @@ func broadcast(ctx context.Context, c *rpc.Client, msg, sig string) error {
 	if err != nil {
 		return err
 	}
-	s, err := tezos.ParseSignature(sig)
+	s, err := mavryk.ParseSignature(sig)
 	if err != nil {
 		return err
 	}
@@ -553,7 +554,7 @@ func broadcast(ctx context.Context, c *rpc.Client, msg, sig string) error {
 }
 
 func wait(ctx context.Context, c *rpc.Client, op, conf, ttl string) error {
-	oh, err := tezos.ParseOpHash(op)
+	oh, err := mavryk.ParseOpHash(op)
 	if err != nil {
 		return err
 	}
@@ -591,7 +592,7 @@ func wait(ctx context.Context, c *rpc.Client, op, conf, ttl string) error {
 
 func send(ctx context.Context, c *rpc.Client, typ, data string) error {
 	if !sk.IsValid() {
-		return fmt.Errorf("Invalid private key. use -sk or TZGO_PRIVATE_KEY")
+		return fmt.Errorf("Invalid private key. use -sk or MVGO_PRIVATE_KEY")
 	}
 	c.Signer = signer.NewFromKey(sk)
 	op := codec.NewOp()

@@ -5,12 +5,12 @@ TzGen is a code generator that enables creating Golang struct types and smart co
 ## Installation
 
 ```bash
-go install blockwatch.cc/tzgo/cmd/tzgen
+go install github.com/mavryk-network/mvgo/cmd/tzgen
 ```
 
 ## Using TzGen
 
-When using TzGen you don't have to worry about details of Micheline or TzGo. TzGen produces all interfaces and types you'll need to call any of your contract's entrypoints, read its storage and bigmap entries.
+When using TzGen you don't have to worry about details of Micheline or MvGo. TzGen produces all interfaces and types you'll need to call any of your contract's entrypoints, read its storage and bigmap entries.
 
 You can run tzgen manually which will write an auto-generated Go source file that you can build together with your project and check in to your repository.
 
@@ -34,7 +34,7 @@ You can also use tzgen in combination with the go generate tool if you want to c
 
 1. Add a go generate comment into a Go source code file:
 ```
-//go:generate go run -mod=mod blockwatch.cc/tzgo/cmd/tzgen -name <name> -pkg <pkg> -address <addr> -out <file.go>
+//go:generate go run -mod=mod github.com/mavryk-network/mvgo/cmd/tzgen -name <name> -pkg <pkg> -address <addr> -out <file.go>
 ```
 
 2. Call go generate `./path-to-your-pkg-or-cmd` to make Go call whatever script you have defined in 1:

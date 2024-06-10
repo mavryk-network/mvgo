@@ -1,7 +1,7 @@
 // Copyright (c) 2020-2022 Blockwatch Data Inc.
 // Author: alex@blockwatch.cc
 
-package tezos
+package mavryk
 
 import (
 	"bytes"
@@ -27,25 +27,25 @@ func TestAddress(t *testing.T) {
 	}
 
 	cases := []testcase{
-		// tz1
+		// mv1
 		{
-			Address: "tz1LggX2HUdvJ1tF4Fvv8fjsrzLeW4Jr9t2Q",
+			Address: "mv1949pcbqwGsHfUCaVmNVRu21Cd4SnbpvpP",
 			Hash:    "0b78887fdd0cd3bfbe75a717655728e0205bb958",
 			Type:    AddressTypeEd25519,
 			Bytes:   "000b78887fdd0cd3bfbe75a717655728e0205bb958",
 			Padded:  "00000b78887fdd0cd3bfbe75a717655728e0205bb958",
 		},
-		// tz2
+		// mv2
 		{
-			Address: "tz2VN9n2C56xGLykHCjhNvZQqUeTVisrHjxA",
+			Address: "mv2h5E4ioj7VJVaQZcKxx4jZGH8wK45EEUxc",
 			Hash:    "e6e7cfd00186c29ede318bef62ac85ddec8a50d5",
 			Type:    AddressTypeSecp256k1,
 			Bytes:   "01e6e7cfd00186c29ede318bef62ac85ddec8a50d5",
 			Padded:  "0001e6e7cfd00186c29ede318bef62ac85ddec8a50d5",
 		},
-		// tz3
+		// mv3
 		{
-			Address: "tz3Qa3kjWa6B3XgvZcVe24gTfjkc5WZRz59Q",
+			Address: "mv3CwX4KpwPXcoU9hw4VFtNUpkcadtynsrxB",
 			Hash:    "2e8671595e32ddd3c1e3f229898e9bec727eca90",
 			Type:    AddressTypeP256,
 			Bytes:   "022e8671595e32ddd3c1e3f229898e9bec727eca90",
@@ -59,18 +59,18 @@ func TestAddress(t *testing.T) {
 			Bytes:   "015c149d65c5ca113bc2bc3c861ef6ea8030d7155300",
 			Padded:  "015c149d65c5ca113bc2bc3c861ef6ea8030d7155300",
 		},
-		// btz1
+		// bmv1
 		{
-			Address: "btz1LKs15uHQ4PgCoY3ZDq55CKJ5wDq9jQwfk",
+			Address: "bmv18hLJgDehQxwz2gN854tmDUJwunDhpUnNm",
 			Hash:    "000b80d92ce17aa6070fde1a99288a4213a5b650",
 			Type:    AddressTypeBlinded,
 			Bytes:   "03000b80d92ce17aa6070fde1a99288a4213a5b650",
 			Padded:  "0003000b80d92ce17aa6070fde1a99288a4213a5b650",
 		},
 		// TODO: AddressTypeSapling
-		// tz4
+		// mv4
 		{
-			Address: "tz4HVR6aty9KwsQFHh81C1G7gBdhxT8kuytm",
+			Address: "mv4VCVPHWd9rz1zua6iGm9SG6z8BmnST9pSE",
 			Hash:    "5d1497f39b87599983fe8f29599b679564be822d",
 			Type:    AddressTypeBls12_381,
 			Bytes:   "045d1497f39b87599983fe8f29599b679564be822d",
@@ -181,7 +181,7 @@ func TestAddress(t *testing.T) {
 
 func TestInvalidAddress(t *testing.T) {
 	// invalid base58 string
-	if _, err := ParseAddress("tz1KzpjBnunNJVABHBnzfG4iuLmphitExW2"); err == nil {
+	if _, err := ParseAddress("mv1KzpjBnunNJVABHBnzfG4iuLmphitExW2"); err == nil {
 		t.Errorf("Expected error on invalid base58 string")
 	}
 
@@ -221,12 +221,12 @@ func BenchmarkAddressDecode(b *testing.B) {
 	b.SetBytes(21)
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		_, _ = ParseAddress("tz3Qa3kjWa6B3XgvZcVe24gTfjkc5WZRz59Q")
+		_, _ = ParseAddress("mv3CwX4KpwPXcoU9hw4VFtNUpkcadtynsrxB")
 	}
 }
 
 func BenchmarkAddressEncode(b *testing.B) {
-	a, _ := ParseAddress("tz3Qa3kjWa6B3XgvZcVe24gTfjkc5WZRz59Q")
+	a, _ := ParseAddress("mv3CwX4KpwPXcoU9hw4VFtNUpkcadtynsrxB")
 	b.SetBytes(21)
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {

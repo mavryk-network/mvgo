@@ -15,7 +15,7 @@ import (
 	"log"
 	"os"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 var (
@@ -52,14 +52,14 @@ func run() error {
 	}
 
 	var (
-		key  tezos.Key
-		addr tezos.Address
+		key  mavryk.Key
+		addr mavryk.Address
 		err  error
 	)
 	// try decoding as key
-	if key, err = tezos.ParseKey(flags.Arg(0)); err != nil {
+	if key, err = mavryk.ParseKey(flags.Arg(0)); err != nil {
 		// try decoding an address
-		if addr, err = tezos.ParseAddress(flags.Arg(0)); err != nil {
+		if addr, err = mavryk.ParseAddress(flags.Arg(0)); err != nil {
 			// try decoding as hex
 			buf, err := hex.DecodeString(flags.Arg(0))
 			if err != nil {
@@ -78,12 +78,12 @@ func run() error {
 
 	if key.IsValid() {
 		fmt.Printf("Key     %s\n", key.String())
-		fmt.Printf("ReKey   %s\n", tezos.NewKey(addr.KeyType(), key.Data))
+		fmt.Printf("ReKey   %s\n", mavryk.NewKey(addr.KeyType(), key.Data))
 		fmt.Printf("KeyData %x\n", key.Data)
 		addr = key.Address()
 	}
 	fmt.Printf("Address %s\n", addr.String())
-	fmt.Printf("Short   %s\n", tezos.Short(addr))
+	fmt.Printf("Short   %s\n", mavryk.Short(addr))
 	fmt.Printf("PkType  %s\n", addr.Type())
 	fmt.Printf("PkHash  %x\n", addr.Hash())
 	return nil
@@ -95,7 +95,7 @@ func blinded() error {
 	// "secret": "06da1e038224114366831e47aee7f128f4675311",
 
 	// try decoding an address
-	addr, err := tezos.ParseAddress(flags.Arg(0))
+	addr, err := mavryk.ParseAddress(flags.Arg(0))
 	if err != nil {
 		return err
 	}
@@ -104,7 +104,7 @@ func blinded() error {
 	if err != nil {
 		return err
 	}
-	blind, err := tezos.BlindAddress(addr, secret)
+	blind, err := mavryk.BlindAddress(addr, secret)
 	if err != nil {
 		return err
 	}

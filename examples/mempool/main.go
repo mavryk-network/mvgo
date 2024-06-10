@@ -13,8 +13,9 @@ import (
 	"io"
 	"os"
 
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/rpc"
+
 	"github.com/echa/log"
 )
 
@@ -95,7 +96,7 @@ func info(ctx context.Context, c *rpc.Client) error {
 	if err != nil {
 		return err
 	}
-	cnt := make([]map[tezos.OpType]int, 5)
+	cnt := make([]map[mavryk.OpType]int, 5)
 	for i, v := range [][]*rpc.Operation{
 		mem.Applied,
 		mem.Refused,
@@ -104,7 +105,7 @@ func info(ctx context.Context, c *rpc.Client) error {
 		mem.Unprocessed,
 	} {
 		if cnt[i] == nil {
-			cnt[i] = make(map[tezos.OpType]int)
+			cnt[i] = make(map[mavryk.OpType]int)
 		}
 		m := cnt[i]
 		for _, op := range v {

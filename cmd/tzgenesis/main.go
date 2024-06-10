@@ -8,13 +8,13 @@ import (
 	"os"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 var (
-	proto = tezos.MustParseProtocolHash("ProtoGenesisGenesisGenesisGenesisGenesisGenesk612im")
-	key   = tezos.MustParseKey("edpkuSLWfVU1Vq7Jg9FucPyKmma6otcMHac9zG4oU1KMHSTBpJuGQ2")
-	block tezos.BlockHash
+	proto = mavryk.MustParseProtocolHash("ProtoGenesisGenesisGenesisGenesisGenesisGenesk612im")
+	key   = mavryk.MustParseKey("edpkuSLWfVU1Vq7Jg9FucPyKmma6otcMHac9zG4oU1KMHSTBpJuGQ2")
+	block mavryk.BlockHash
 	name  = "TEZOS"
 	tm    string
 )
@@ -68,9 +68,9 @@ type Genesis struct {
 }
 
 type GenesisInfo struct {
-	Timestamp string             `json:"timestamp"`
-	Block     tezos.BlockHash    `json:"block"`
-	Protocol  tezos.ProtocolHash `json:"protocol"`
+	Timestamp string              `json:"timestamp"`
+	Block     mavryk.BlockHash    `json:"block"`
+	Protocol  mavryk.ProtocolHash `json:"protocol"`
 }
 
 type GenesisParams struct {
@@ -78,5 +78,5 @@ type GenesisParams struct {
 }
 
 type GenesisValues struct {
-	Key tezos.Key `json:"genesis_pubkey"`
+	Key mavryk.Key `json:"genesis_pubkey"`
 }

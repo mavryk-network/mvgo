@@ -15,14 +15,15 @@ import (
 	"os"
 	"strings"
 
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/signer"
+
 	"github.com/echa/log"
 )
 
 const (
 	libraryVersion = "1.17.0"
-	userAgent      = "tzgo/v" + libraryVersion
+	userAgent      = "mvgo/v" + libraryVersion
 	mediaType      = "application/json"
 	ipfsUrl        = "https://ipfs.io"
 )
@@ -40,9 +41,9 @@ type Client struct {
 	// Optional API key for protected endpoints
 	ApiKey string
 	// The chain the client will query.
-	ChainId tezos.ChainIdHash
+	ChainId mavryk.ChainIdHash
 	// The current chain configuration.
-	Params *tezos.Params
+	Params *mavryk.Params
 	// An active event observer to watch for operation inclusion
 	BlockObserver *Observer
 	// An active event observer to watch for operation posting to the mempool
@@ -78,7 +79,7 @@ func NewClient(baseURL string, httpClient *http.Client) (*Client, error) {
 		q.Del("api_key")
 		u.RawQuery = q.Encode()
 	} else {
-		key = os.Getenv("TZGO_API_KEY")
+		key = os.Getenv("MVGO_API_KEY")
 	}
 	ipfs, _ := url.Parse(ipfsUrl)
 	c := &Client{

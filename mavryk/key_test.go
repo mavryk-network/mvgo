@@ -1,7 +1,7 @@
 // Copyright (c) 2020-2022 Blockwatch Data Inc.
 // Author: alex@blockwatch.cc
 
-package tezos
+package mavryk
 
 import (
 	"testing"
@@ -20,19 +20,19 @@ func TestKey(t *testing.T) {
 		{
 			Priv:    "edsk4FTF78Qf1m2rykGpHqostAiq5gYW4YZEoGUSWBTJr2njsDHSnd",
 			Pub:     "edpkv45regue1bWtuHnCgLU8xWKLwa9qRqv4gimgJKro4LSc3C5VjV",
-			Address: MustParseAddress("tz1LggX2HUdvJ1tF4Fvv8fjsrzLeW4Jr9t2Q"),
+			Address: MustParseAddress("mv1949pcbqwGsHfUCaVmNVRu21Cd4SnbpvpP"),
 		},
 		// secp256k1 unencrypted
 		{
 			Priv:    "spsk2oTAhiaSywh9ctt8yZLRxL3bo8Mayd3hKFi5iBaoqj2R8bx7ow",
 			Pub:     "sppk7auhfZa5wAcR8hk3WCw47kHgG3Pp8zaP3ctdAqdDd2dBAeZBof1",
-			Address: MustParseAddress("tz2VN9n2C56xGLykHCjhNvZQqUeTVisrHjxA"),
+			Address: MustParseAddress("mv2h5E4ioj7VJVaQZcKxx4jZGH8wK45EEUxc"),
 		},
 		// p256 unencrypted
 		{
 			Priv:    "p2sk35q9MJHLN1SBHNhKq7oho1vnZL28bYfsSKDUrDn2e4XVcp6ohZ",
 			Pub:     "p2pk64zMPtYav6yiaHV2DhSQ65gbKMr3gkLQtK7TTQCpJEVUhxxEnxo",
-			Address: MustParseAddress("tz3VCJEo1rRyyVejmpaRjbgGT9uE66sZmUtQ"),
+			Address: MustParseAddress("mv3HZmYPLDjLYmRxv99GyRNHcAmCeVNVMgDR"),
 		},
 		// bls12_381 unencrypted
 		// {
@@ -44,21 +44,21 @@ func TestKey(t *testing.T) {
 		{
 			Priv:    "edesk1uiM6BaysskGto8pRtzKQqFqsy1sea1QRjTzaQYuBxYNhuN6eqEU78TGRXZocsVRJYcN7AaU9JDykwUd8KW",
 			Pub:     "edpkttVn1coEZNjcjjAF36jDXDB377imNiKCHqjdXSt85eVN779jfX",
-			Address: MustParseAddress("tz1MKPxkZLfdw31LL7zi55aZEoyH9DPL7eh7"),
+			Address: MustParseAddress("mv19gsGLshxzWJnZUSZZJuGaPpqFhbqZb755"),
 			Pass:    "foo",
 		},
 		// secp256k1 encrypted
 		{
 			Priv:    "spesk246GnDVaqGoYZvKbjrWM1g6xUXnyETXtwZgEYFnP8BQXcaS4rfQQco7C94D1yBmcL1v46Sqy8fXrhBSM7TW",
 			Pub:     "sppk7aSJpAzeXNTaobig65si221WTqgPh8mJsCJSAiZU7asJkWBVGyx",
-			Address: MustParseAddress("tz29QkiEM1xf3chaZj6DjL5udNLbUZ8d6QJ4"),
+			Address: MustParseAddress("mv2M7pzvxfyC5mJEr8gVJUG44Aq5HtG6mUQV"),
 			Pass:    "foo",
 		},
 		// p256 encrypted
 		{
 			Priv:    "p2esk27ocLPLp1JkTWfxByXysGyB7MBDURYJAzAGJLR3XSEV9Nq8wFFdDVXVTwvCwR7Ne2dcUveamjXbvZf3on6T",
 			Pub:     "p2pk66vAYU7rN1ckJMp38Z9pXCrkiZCVyi6KyeMwhY69h5WDPHdMecH",
-			Address: MustParseAddress("tz3Qa3kjWa6B3XgvZcVe24gTfjkc5WZRz59Q"),
+			Address: MustParseAddress("mv3CwX4KpwPXcoU9hw4VFtNUpkcadtynsrxB"),
 			Pass:    "foo",
 		},
 	}

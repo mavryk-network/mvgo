@@ -5,7 +5,8 @@ import (
 	"strings"
 	"text/template"
 
-	"blockwatch.cc/tzgo/contract/ast"
+	"github.com/mavryk-network/mvgo/contract/ast"
+
 	"github.com/iancoleman/strcase"
 )
 
@@ -28,7 +29,7 @@ func receiver(typeName string) string {
 
 func goType(typ *ast.Struct) string {
 	switch typ.MichelineType {
-	case "nat", "mutez", "int":
+	case "nat", "mumav", "int":
 		return "*big.Int"
 	case "string":
 		return "string"
@@ -39,15 +40,15 @@ func goType(typ *ast.Struct) string {
 	case "timestamp":
 		return "time.Time"
 	case "address":
-		return "tezos.Address"
+		return "mavryk.Address"
 	case "key":
-		return "tezos.Key"
+		return "mavryk.Key"
 	case "unit":
 		return "struct{}"
 	case "chain_id":
-		return "tezos.ChainIdHash"
+		return "mavryk.ChainIdHash"
 	case "signature":
-		return "tezos.Signature"
+		return "mavryk.Signature"
 	case "struct":
 		return "*" + strcase.ToCamel(typ.Name)
 	case "big_map":
@@ -72,22 +73,22 @@ func goType(typ *ast.Struct) string {
 
 func marshalPrimMethod(typ *ast.Struct) string {
 	switch typ.MichelineType {
-	case "nat", "int", "mutez":
+	case "nat", "int", "mumav":
 		return "micheline.NewBig(%s)"
 	case "string":
 		return "micheline.NewString(%s)"
 	case "bool":
-		return "tzgoext.MarshalPrimBool(%s)"
+		return "mvgoext.MarshalPrimBool(%s)"
 	case "bytes", "keyhash":
 		return "micheline.NewBytes(%s)"
 	case "timestamp":
-		return "tzgoext.MarshalPrimTimestamp(%s)"
+		return "mvgoext.MarshalPrimTimestamp(%s)"
 	case "address":
 		return "micheline.NewString(%s.String())"
 	case "signature", "key", "chain_id":
 		return "micheline.NewBytes(%s.Bytes())"
 	case "list":
-		return "tzgoext.MarshalPrimSeq[" + goType(typ) + "](%s, tzgoext.MarshalAny)"
+		return "mvgoext.MarshalPrimSeq[" + goType(typ) + "](%s, mvgoext.MarshalAny)"
 	case "lambda", "struct":
 		return "%s.Prim"
 	default:

@@ -1,7 +1,7 @@
 // Copyright (c) 2020-2021 Blockwatch Data Inc.
 // Author: alex@blockwatch.cc
 
-package tezos
+package mavryk
 
 import (
 	"bytes"
@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"strings"
 
-	"blockwatch.cc/tzgo/base58"
+	"github.com/mavryk-network/mvgo/base58"
 )
 
 var (

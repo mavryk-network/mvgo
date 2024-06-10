@@ -1,7 +1,7 @@
 // Copyright (c) 2020-2023 Blockwatch Data Inc.
 // Author: alex@blockwatch.cc
 
-package tezos
+package mavryk
 
 import (
 	"time"
@@ -23,11 +23,11 @@ var (
 		MaxOperationsTTL:             240,
 	}).
 		WithChainId(Mainnet).
-		WithDeployment(Deployments[Mainnet].AtProtocol(ProtoV016_2))
+		WithDeployment(Deployments[Mainnet].AtProtocol(ProtoV001))
 
-	// GhostnetParams defines the blockchain configuration for Ghostnet testnet.
+	// BasenetParams defines the blockchain configuration for Basenet testnet.
 	// To produce compliant transactions, use these defaults in op.WithParams().
-	GhostnetParams = (&Params{
+	BasenetParams = (&Params{
 		MinimalBlockDelay:            8 * time.Second,
 		CostPerByte:                  250,
 		OriginationSize:              257,
@@ -37,12 +37,12 @@ var (
 		MaxOperationDataLength:       32768,
 		MaxOperationsTTL:             240,
 	}).
-		WithChainId(Ghostnet).
-		WithDeployment(Deployments[Ghostnet].AtProtocol(ProtoV016_2))
+		WithChainId(Basenet).
+		WithDeployment(Deployments[Basenet].AtProtocol(ProtoV001))
 
-	// NairobinetParams defines the blockchain configuration for Nairobi testnet.
+	// AtlasnetParams defines the blockchain configuration for Atlas testnet.
 	// To produce compliant transactions, use these defaults in op.WithParams().
-	NairobinetParams = (&Params{
+	AtlasnetParams = (&Params{
 		MinimalBlockDelay:            8 * time.Second,
 		CostPerByte:                  250,
 		OriginationSize:              257,
@@ -52,23 +52,8 @@ var (
 		MaxOperationDataLength:       32768,
 		MaxOperationsTTL:             240,
 	}).
-		WithChainId(Nairobinet).
-		WithDeployment(Deployments[Nairobinet].AtProtocol(ProtoV017))
-
-	// OxfordnetParams defines the blockchain configuration for Oxford testnet.
-	// To produce compliant transactions, use these defaults in op.WithParams().
-	OxfordnetParams = (&Params{
-		MinimalBlockDelay:            8 * time.Second,
-		CostPerByte:                  250,
-		OriginationSize:              257,
-		HardGasLimitPerOperation:     1040000,
-		HardGasLimitPerBlock:         2600000,
-		HardStorageLimitPerOperation: 60000,
-		MaxOperationDataLength:       32768,
-		MaxOperationsTTL:             240,
-	}).
-		WithChainId(Oxfordnet).
-		WithDeployment(Deployments[Oxfordnet].AtProtocol(ProtoV018))
+		WithChainId(Atlasnet).
+		WithDeployment(Deployments[Atlasnet].AtProtocol(ProtoV001))
 )
 
 // Params contains a subset of protocol configuration settings that are relevant
@@ -124,12 +109,10 @@ func (p *Params) WithChainId(id ChainIdHash) *Params {
 		switch id {
 		case Mainnet:
 			p.Network = "Mainnet"
-		case Ghostnet:
-			p.Network = "Ghostnet"
-		case Nairobinet:
-			p.Network = "Nairobinet"
-		case Oxfordnet:
-			p.Network = "Oxfordnet"
+		case Basenet:
+			p.Network = "Basenet"
+		case Atlasnet:
+			p.Network = "Atlasnet"
 		}
 	}
 	return p

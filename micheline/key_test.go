@@ -10,13 +10,13 @@ import (
 	"encoding/json"
 	"testing"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 type keyTest struct {
 	Name   string
 	Type   string
-	Hash   tezos.ExprHash
+	Hash   mavryk.ExprHash
 	Hex    string
 	Value  json.RawMessage
 	String string
@@ -29,7 +29,7 @@ var keyInfo = []keyTest{
 	{
 		Name:   "int",
 		Type:   "int",
-		Hash:   tezos.MustParseExprHash("exprv6n4YrvfCD2N6JmSF9aZxtcrcDCDV5YAFpaJDhJU6bhmNHz3YK"),
+		Hash:   mavryk.MustParseExprHash("exprv6n4YrvfCD2N6JmSF9aZxtcrcDCDV5YAFpaJDhJU6bhmNHz3YK"),
 		Hex:    "00a005",
 		Value:  []byte(`"352"`),
 		String: "352",
@@ -39,17 +39,17 @@ var keyInfo = []keyTest{
 	{
 		Name:   "nat",
 		Type:   "nat",
-		Hash:   tezos.MustParseExprHash("expruE5MGe6oKRLTiog6iBZzpztj5kCGzMEYBfWzsVebPnhn43ndYa"),
+		Hash:   mavryk.MustParseExprHash("expruE5MGe6oKRLTiog6iBZzpztj5kCGzMEYBfWzsVebPnhn43ndYa"),
 		Hex:    "008eb818",
 		Value:  []byte(`"200206"`),
 		String: "200206",
 		Prim:   NewInt64(200206),
 	},
-	//   mutez
+	//   mumav
 	{
-		Name:   "mutez",
-		Type:   "mutez",
-		Hash:   tezos.MustParseExprHash("expruE5MGe6oKRLTiog6iBZzpztj5kCGzMEYBfWzsVebPnhn43ndYa"),
+		Name:   "mumav",
+		Type:   "mumav",
+		Hash:   mavryk.MustParseExprHash("expruE5MGe6oKRLTiog6iBZzpztj5kCGzMEYBfWzsVebPnhn43ndYa"),
 		Hex:    "008eb818",
 		Value:  []byte(`"200206"`),
 		String: "200206",
@@ -59,7 +59,7 @@ var keyInfo = []keyTest{
 	{
 		Name:   "unit",
 		Type:   "unit",
-		Hash:   tezos.MustParseExprHash("expruaDPoTWXcTR6fiQPy4KZSW72U6Swc1rVmMiP1KdwmCceeEpVjd"),
+		Hash:   mavryk.MustParseExprHash("expruaDPoTWXcTR6fiQPy4KZSW72U6Swc1rVmMiP1KdwmCceeEpVjd"),
 		Hex:    "030b",
 		Value:  []byte(`null`),
 		String: "Unit",
@@ -69,7 +69,7 @@ var keyInfo = []keyTest{
 	{
 		Name:   "string",
 		Type:   "string",
-		Hash:   tezos.MustParseExprHash("exprtiRSZkLKYRess9GZ3ryb4cVQD36WLo2oysZBFxKTZ2jXqcHWGj"),
+		Hash:   mavryk.MustParseExprHash("exprtiRSZkLKYRess9GZ3ryb4cVQD36WLo2oysZBFxKTZ2jXqcHWGj"),
 		Hex:    "010000000947616d65206f6e6521",
 		Value:  []byte(`"Game one!"`),
 		String: "Game one!",
@@ -79,7 +79,7 @@ var keyInfo = []keyTest{
 	{
 		Name:   "bytes",
 		Type:   "bytes",
-		Hash:   tezos.MustParseExprHash("expruLUtQBGu3aw4onM4nA9A8UM7PrDh3pbcrqnrFpzAAuTd12Ggdv"),
+		Hash:   mavryk.MustParseExprHash("expruLUtQBGu3aw4onM4nA9A8UM7PrDh3pbcrqnrFpzAAuTd12Ggdv"),
 		Hex:    "0a000000209e2dce28b861646c13c2b9cf4245e483a837525f2d1547a410293e29c3734d6e",
 		Value:  []byte(`"9e2dce28b861646c13c2b9cf4245e483a837525f2d1547a410293e29c3734d6e"`),
 		String: "9e2dce28b861646c13c2b9cf4245e483a837525f2d1547a410293e29c3734d6e",
@@ -87,32 +87,32 @@ var keyInfo = []keyTest{
 	},
 	//   key_hash
 	{
-		Name:   "tz1 key_hash",
+		Name:   "mv1 key_hash",
 		Type:   "key_hash",
-		Hash:   tezos.MustParseExprHash("exprtc5kFMbFCzkSq1hZkDrLWqQBUdpPx3URB7KvEu72XBFBqv7k72"),
-		Hex:    "0a000000150046a2c00eb115343242347fa1cd672a2bc1dcc609",
-		Value:  []byte(`"tz1S5WxdZR5f9NzsPXhr7L9L1vrEb5spZFur"`),
-		String: "tz1S5WxdZR5f9NzsPXhr7L9L1vrEb5spZFur",
-		Prim:   NewBytes(tezos.MustParseAddress("tz1S5WxdZR5f9NzsPXhr7L9L1vrEb5spZFur").Encode()),
+		Hash:   mavryk.MustParseExprHash("exprtqoHg7oQtzkxaJGFMnGCZGTS1sYmzWGBiBq8678wgzzAAapd21"),
+		Hex:    "0a000000150026f32c59c5240691c60ce20ec52cc2afaa47cf62",
+		Value:  []byte(`"mv1BZSyyRgGX7QogeDCanY1Mr3VD9UwBJGFM"`),
+		String: "mv1BZSyyRgGX7QogeDCanY1Mr3VD9UwBJGFM",
+		Prim:   NewBytes(mavryk.MustParseAddress("mv1BZSyyRgGX7QogeDCanY1Mr3VD9UwBJGFM").Encode()),
 	},
 	//   address
 	{
-		Name:   "tz1 address",
+		Name:   "mv1 address",
 		Type:   "address",
-		Hash:   tezos.MustParseExprHash("expruQacisQeiLaWSgSHFeLA4BdLfS6yswqYQ8gjYSmJABQ9Sf53Y4"),
-		Hex:    "0a000000160000b8c25930f179a13ffeefa8b0026318f7e508a8fc",
-		Value:  []byte(`"tz1cUwqynCFDp1D22kLNtWMKxpoZFDHg5eZH"`),
-		String: "tz1cUwqynCFDp1D22kLNtWMKxpoZFDHg5eZH",
-		Prim:   NewBytes(tezos.MustParseAddress("tz1cUwqynCFDp1D22kLNtWMKxpoZFDHg5eZH").EncodePadded()),
+		Hash:   mavryk.MustParseExprHash("expruUXWZpQ8CbM2KQR3zZLcvfbs75J247Bac2yrQHNaTrcboWdptW"),
+		Hex:    "0a000000160000449cf979e666c4706a26c8176f930e35d5b42493",
+		Value:  []byte(`"mv1EGHzY37ttLfXHRxxZJNQ9aVWQJe95voSo"`),
+		String: "mv1EGHzY37ttLfXHRxxZJNQ9aVWQJe95voSo",
+		Prim:   NewBytes(mavryk.MustParseAddress("mv1EGHzY37ttLfXHRxxZJNQ9aVWQJe95voSo").EncodePadded()),
 	},
 	{
 		Name:   "KT1 address",
 		Type:   "address",
-		Hash:   tezos.MustParseExprHash("exprvAHu1SyoiSzyh9w7GPfifvyrNiMb442y7Q2MA8tcPCGPajxRH6"),
+		Hash:   mavryk.MustParseExprHash("exprvAHu1SyoiSzyh9w7GPfifvyrNiMb442y7Q2MA8tcPCGPajxRH6"),
 		Hex:    "0a0000001601a3d0f58d8964bd1b37fb0a0c197b38cf46608d4900",
 		Value:  []byte(`"KT1PWx2mnDueood7fEmfbBDKx1D9BAnnXitn"`),
 		String: "KT1PWx2mnDueood7fEmfbBDKx1D9BAnnXitn",
-		Prim:   NewBytes(tezos.MustParseAddress("KT1PWx2mnDueood7fEmfbBDKx1D9BAnnXitn").EncodePadded()),
+		Prim:   NewBytes(mavryk.MustParseAddress("KT1PWx2mnDueood7fEmfbBDKx1D9BAnnXitn").EncodePadded()),
 	},
 
 	//   timestamp as string
@@ -122,11 +122,11 @@ var keyInfo = []keyTest{
 	{
 		Name:   "key",
 		Type:   "key",
-		Hash:   tezos.MustParseExprHash("exprv1Vjr2jWEzSALFrHaoubi3jELpXvnMtGNG4ZJPDMRHxrQtyBDW"),
+		Hash:   mavryk.MustParseExprHash("exprv1Vjr2jWEzSALFrHaoubi3jELpXvnMtGNG4ZJPDMRHxrQtyBDW"),
 		Hex:    "0a000000210078149c2d111816aaef9e329970c344fc32375dd5eff99eeeed3b37a9d51beacd",
 		Value:  []byte(`"edpkuZ7ERiU5B8knLqQsVMH86j9RLMUyHyL665oCXDkPQxF7HGqSeJ"`),
 		String: "edpkuZ7ERiU5B8knLqQsVMH86j9RLMUyHyL665oCXDkPQxF7HGqSeJ",
-		Prim:   NewBytes(tezos.MustParseKey("edpkuZ7ERiU5B8knLqQsVMH86j9RLMUyHyL665oCXDkPQxF7HGqSeJ").Bytes()),
+		Prim:   NewBytes(mavryk.MustParseKey("edpkuZ7ERiU5B8knLqQsVMH86j9RLMUyHyL665oCXDkPQxF7HGqSeJ").Bytes()),
 	},
 	//   signature
 	//   bool
@@ -136,38 +136,38 @@ var keyInfo = []keyTest{
 	{
 		Name:   "Pair(address,nat)",
 		Type:   "pair",
-		Hash:   tezos.MustParseExprHash("exprvD1v8DxXvrsCqbx7BA2ZqxYuUk9jXE1QrXuL46i3MWG6o1szUq"),
+		Hash:   mavryk.MustParseExprHash("exprvD1v8DxXvrsCqbx7BA2ZqxYuUk9jXE1QrXuL46i3MWG6o1szUq"),
 		Hex:    "07070a0000001600005db799bf9b0dc319ba1cf21ab01461a9639043ca009902",
-		Value:  []byte(`{"0":"tz1UBZUkXpKGhYsP5KtzDNqLLchwF4uHrGjw","1":"153"}`),
-		String: "tz1UBZUkXpKGhYsP5KtzDNqLLchwF4uHrGjw,153",
+		Value:  []byte(`{"0":"mv1GZ2nLrBcdGpecDeTqTCXMVdZuoTUecDks","1":"153"}`),
+		String: "mv1GZ2nLrBcdGpecDeTqTCXMVdZuoTUecDks,153",
 		Prim: NewPair(
-			NewBytes(tezos.MustParseAddress("tz1UBZUkXpKGhYsP5KtzDNqLLchwF4uHrGjw").EncodePadded()),
+			NewBytes(mavryk.MustParseAddress("mv1GZ2nLrBcdGpecDeTqTCXMVdZuoTUecDks").EncodePadded()),
 			NewInt64(153),
 		),
 	},
 	{
 		Name:   "Pair(address,string)",
 		Type:   "pair",
-		Hash:   tezos.MustParseExprHash("exprtdyqcWJgj564TtpwqXkkHQu728pP4hVM7vdc16RVXaSbWoJttS"),
-		Hex:    "07070a000000160000fe533bc9b5847c783653835de5889ba6a946a2b601000000094449435245524a3238",
-		Value:  []byte(`{"0":"tz1ipn31fhqk47Tr3f7KZAeCamyqMBXBAKBi","1":"DICRERJ28"}`),
-		String: "tz1ipn31fhqk47Tr3f7KZAeCamyqMBXBAKBi,DICRERJ28",
+		Hash:   mavryk.MustParseExprHash("expruCp21FBR8PnYGy2QQnAA684LTQJhUVvM1GCVP8CyY3WeLJSzWh"),
+		Hex:    "07070a0000001600002ca7bca83fa8cfbb594c013d611d08eae48a9f3b01000000094449435245524a3238",
+		Value:  []byte(`{"0":"mv1C5cfidAuDUVZgZjjuGgAskjxPftLrShLx","1":"DICRERJ28"}`),
+		String: "mv1C5cfidAuDUVZgZjjuGgAskjxPftLrShLx,DICRERJ28",
 		Prim: NewPair(
-			NewBytes(tezos.MustParseAddress("tz1ipn31fhqk47Tr3f7KZAeCamyqMBXBAKBi").EncodePadded()),
+			NewBytes(mavryk.MustParseAddress("mv1C5cfidAuDUVZgZjjuGgAskjxPftLrShLx").EncodePadded()),
 			NewString("DICRERJ28"),
 		),
 	},
 	{
 		Name:   "Pair(address,address,nat)",
 		Type:   "pair",
-		Hash:   tezos.MustParseExprHash("exprtXiCYp3hWQMDQNszcmsigcU13M32bzQYLDaQp35t2F1Nqj6tiW"),
-		Hex:    "07070a00000016000060d8a7d4dc6eee130387b916a79193e65e6ef65107070a0000001601c953466e6cf9295ecad052acc742247dd0e3c91900008f01",
-		Value:  []byte(`{"0":"tz1UU772ew1GALQ2Uh8fCCN4uhzWBzSQH4Az","1":"KT1SwH9P1Tx8a58Mm6qBExQFTcy2rwZyZiXS","2":"79"}`),
-		String: "tz1UU772ew1GALQ2Uh8fCCN4uhzWBzSQH4Az,KT1SwH9P1Tx8a58Mm6qBExQFTcy2rwZyZiXS,79",
+		Hash:   mavryk.MustParseExprHash("expruV4TWZLF1QLgBT2sLehF5LLUTgrQZRjrJcBFiTcyHACyCfejLc"),
+		Hex:    "07070a0000001600009b671169734f0ba7c9853d03b5512cfbe404fe0f07070a0000001601c953466e6cf9295ecad052acc742247dd0e3c91900008f01",
+		Value:  []byte(`{"0":"mv1NBCCjdZe99TYysW3JCcEJzKrcVwf29bdX","1":"KT1SwH9P1Tx8a58Mm6qBExQFTcy2rwZyZiXS","2":"79"}`),
+		String: "mv1NBCCjdZe99TYysW3JCcEJzKrcVwf29bdX,KT1SwH9P1Tx8a58Mm6qBExQFTcy2rwZyZiXS,79",
 		Prim: NewPair(
-			NewBytes(tezos.MustParseAddress("tz1UU772ew1GALQ2Uh8fCCN4uhzWBzSQH4Az").EncodePadded()),
+			NewBytes(mavryk.MustParseAddress("mv1NBCCjdZe99TYysW3JCcEJzKrcVwf29bdX").EncodePadded()),
 			NewPair(
-				NewBytes(tezos.MustParseAddress("KT1SwH9P1Tx8a58Mm6qBExQFTcy2rwZyZiXS").EncodePadded()),
+				NewBytes(mavryk.MustParseAddress("KT1SwH9P1Tx8a58Mm6qBExQFTcy2rwZyZiXS").EncodePadded()),
 				NewInt64(79),
 			),
 		),

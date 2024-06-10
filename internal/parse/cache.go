@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"hash/fnv"
 
-	"blockwatch.cc/tzgo/contract/ast"
+	"github.com/mavryk-network/mvgo/contract/ast"
 )
 
 type Cache struct {

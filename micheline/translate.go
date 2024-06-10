@@ -433,7 +433,7 @@ func walkTree(m map[string]interface{}, label string, typ Type, stack *Stack, lv
 		// nat
 		// string
 		// bytes
-		// mutez
+		// mumav
 		// bool
 		// key_hash
 		// timestamp

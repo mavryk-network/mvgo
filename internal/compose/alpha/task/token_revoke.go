@@ -6,13 +6,13 @@ package task
 import (
 	"fmt"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/contract"
-	"blockwatch.cc/tzgo/internal/compose"
-	"blockwatch.cc/tzgo/internal/compose/alpha"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/codec"
+	"github.com/mavryk-network/mvgo/contract"
+	"github.com/mavryk-network/mvgo/internal/compose"
+	"github.com/mavryk-network/mvgo/internal/compose/alpha"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/signer"
 
 	"github.com/pkg/errors"
 )
@@ -25,9 +25,9 @@ func init() {
 
 type TokenRevokeTask struct {
 	TargetTask
-	Spender  tezos.Address
+	Spender  mavryk.Address
 	Standard string
-	TokenId  tezos.Z
+	TokenId  mavryk.Z
 }
 
 func NewTokenRevokeTask() alpha.TaskBuilder {

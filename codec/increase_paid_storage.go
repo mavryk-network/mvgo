@@ -7,18 +7,18 @@ import (
 	"bytes"
 	"strconv"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // IncreasePaidStorage represents "increase_paid_storage" operation
 type IncreasePaidStorage struct {
 	Manager
-	Amount      tezos.Z       `json:"amount"`
-	Destination tezos.Address `json:"destination"`
+	Amount      mavryk.Z       `json:"amount"`
+	Destination mavryk.Address `json:"destination"`
 }
 
-func (o IncreasePaidStorage) Kind() tezos.OpType {
-	return tezos.OpTypeIncreasePaidStorage
+func (o IncreasePaidStorage) Kind() mavryk.OpType {
+	return mavryk.OpTypeIncreasePaidStorage
 }
 
 func (o IncreasePaidStorage) MarshalJSON() ([]byte, error) {
@@ -36,7 +36,7 @@ func (o IncreasePaidStorage) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o IncreasePaidStorage) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o IncreasePaidStorage) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	o.Amount.EncodeBuffer(buf)
@@ -44,7 +44,7 @@ func (o IncreasePaidStorage) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) er
 	return nil
 }
 
-func (o *IncreasePaidStorage) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *IncreasePaidStorage) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -59,10 +59,10 @@ func (o *IncreasePaidStorage) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (
 
 func (o IncreasePaidStorage) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *IncreasePaidStorage) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

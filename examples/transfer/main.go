@@ -11,10 +11,11 @@ import (
 	"os"
 	"strconv"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/codec"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/rpc"
+	"github.com/mavryk-network/mvgo/signer"
+
 	"github.com/echa/log"
 )
 
@@ -94,7 +95,7 @@ func run() error {
 }
 
 func transfer(ctx context.Context, c *rpc.Client) error {
-	sk, err := tezos.ParsePrivateKey(key)
+	sk, err := mavryk.ParsePrivateKey(key)
 	if err != nil {
 		return fmt.Errorf("Invalid private key %q: %v", key, err)
 	}
@@ -105,7 +106,7 @@ func transfer(ctx context.Context, c *rpc.Client) error {
 	for i := 1; i < flags.NArg(); i += 2 {
 		fReceiver := flags.Arg(i)
 		fAmount := flags.Arg(i + 1)
-		recv, err := tezos.ParseAddress(fReceiver)
+		recv, err := mavryk.ParseAddress(fReceiver)
 		if err != nil {
 			return fmt.Errorf("Invalid receiver %q: %v", fReceiver, err)
 		}

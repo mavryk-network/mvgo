@@ -8,7 +8,7 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // DoubleEndorsementEvidence represents "double_endorsement_evidence" operation
@@ -19,8 +19,8 @@ type DoubleEndorsementEvidence struct {
 	Slot int16              `json:"slot"`
 }
 
-func (o DoubleEndorsementEvidence) Kind() tezos.OpType {
-	return tezos.OpTypeDoubleEndorsementEvidence
+func (o DoubleEndorsementEvidence) Kind() mavryk.OpType {
+	return mavryk.OpTypeDoubleEndorsementEvidence
 }
 
 func (o DoubleEndorsementEvidence) MarshalJSON() ([]byte, error) {
@@ -40,7 +40,7 @@ func (o DoubleEndorsementEvidence) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o DoubleEndorsementEvidence) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o DoubleEndorsementEvidence) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	b2 := bytes.NewBuffer(nil)
 	o.Op1.EncodeBuffer(b2, p)
@@ -54,7 +54,7 @@ func (o DoubleEndorsementEvidence) EncodeBuffer(buf *bytes.Buffer, p *tezos.Para
 	return nil
 }
 
-func (o *DoubleEndorsementEvidence) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *DoubleEndorsementEvidence) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -81,12 +81,12 @@ func (o *DoubleEndorsementEvidence) DecodeBuffer(buf *bytes.Buffer, p *tezos.Par
 
 func (o DoubleEndorsementEvidence) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *DoubleEndorsementEvidence) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }
 
 // TenderbakeDoubleEndorsementEvidence represents "double_endorsement_evidence" operation
@@ -97,8 +97,8 @@ type TenderbakeDoubleEndorsementEvidence struct {
 	Op2 TenderbakeInlinedEndorsement `json:"op2"`
 }
 
-func (o TenderbakeDoubleEndorsementEvidence) Kind() tezos.OpType {
-	return tezos.OpTypeDoubleEndorsementEvidence
+func (o TenderbakeDoubleEndorsementEvidence) Kind() mavryk.OpType {
+	return mavryk.OpTypeDoubleEndorsementEvidence
 }
 
 func (o TenderbakeDoubleEndorsementEvidence) MarshalJSON() ([]byte, error) {
@@ -116,7 +116,7 @@ func (o TenderbakeDoubleEndorsementEvidence) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o TenderbakeDoubleEndorsementEvidence) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o TenderbakeDoubleEndorsementEvidence) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	b2 := bytes.NewBuffer(nil)
 	o.Op1.EncodeBuffer(b2, p)
@@ -129,7 +129,7 @@ func (o TenderbakeDoubleEndorsementEvidence) EncodeBuffer(buf *bytes.Buffer, p *
 	return nil
 }
 
-func (o *TenderbakeDoubleEndorsementEvidence) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *TenderbakeDoubleEndorsementEvidence) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -152,12 +152,12 @@ func (o *TenderbakeDoubleEndorsementEvidence) DecodeBuffer(buf *bytes.Buffer, p 
 
 func (o TenderbakeDoubleEndorsementEvidence) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *TenderbakeDoubleEndorsementEvidence) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }
 
 // TenderbakeDoublePreendorsementEvidence represents "double_preendorsement_evidence" operation
@@ -168,8 +168,8 @@ type TenderbakeDoublePreendorsementEvidence struct {
 	Op2 TenderbakeInlinedPreendorsement `json:"op2"`
 }
 
-func (o TenderbakeDoublePreendorsementEvidence) Kind() tezos.OpType {
-	return tezos.OpTypeDoublePreendorsementEvidence
+func (o TenderbakeDoublePreendorsementEvidence) Kind() mavryk.OpType {
+	return mavryk.OpTypeDoublePreendorsementEvidence
 }
 
 func (o TenderbakeDoublePreendorsementEvidence) MarshalJSON() ([]byte, error) {
@@ -187,7 +187,7 @@ func (o TenderbakeDoublePreendorsementEvidence) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o TenderbakeDoublePreendorsementEvidence) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o TenderbakeDoublePreendorsementEvidence) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	b2 := bytes.NewBuffer(nil)
 	o.Op1.EncodeBuffer(b2, p)
@@ -200,7 +200,7 @@ func (o TenderbakeDoublePreendorsementEvidence) EncodeBuffer(buf *bytes.Buffer, 
 	return nil
 }
 
-func (o *TenderbakeDoublePreendorsementEvidence) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *TenderbakeDoublePreendorsementEvidence) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -223,10 +223,10 @@ func (o *TenderbakeDoublePreendorsementEvidence) DecodeBuffer(buf *bytes.Buffer,
 
 func (o TenderbakeDoublePreendorsementEvidence) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *TenderbakeDoublePreendorsementEvidence) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

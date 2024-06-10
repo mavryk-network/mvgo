@@ -1,4 +1,4 @@
-module blockwatch.cc/tzgo
+module github.com/mavryk-network/mvgo
 
 go 1.18
 

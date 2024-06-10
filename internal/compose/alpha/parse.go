@@ -12,10 +12,11 @@ import (
 	"strconv"
 	"strings"
 
-	"blockwatch.cc/tzgo/contract/bind"
-	"blockwatch.cc/tzgo/internal/compose"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/contract/bind"
+	"github.com/mavryk-network/mvgo/internal/compose"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
+
 	"github.com/pkg/errors"
 )
 
@@ -105,7 +106,7 @@ func ParseScript(ctx compose.Context, task Task) (*micheline.Script, error) {
 			// if err != nil {
 			// 	return nil, err
 			// }
-			// ctx.Log.Infof("Gen: %s", tezos.HexBytes(buf))
+			// ctx.Log.Infof("Gen: %s", mavryk.HexBytes(buf))
 		}
 	}
 	if !script.Storage.IsValid() {
@@ -130,7 +131,7 @@ func ParseParams(ctx compose.Context, task Task) (*micheline.Prim, error) {
 		if p.Path == nil {
 			ctx.Log.Debugf("Resolving destination script for %s...", task.Destination)
 			// load script
-			addr, err := tezos.ParseAddress(task.Destination)
+			addr, err := mavryk.ParseAddress(task.Destination)
 			if err != nil {
 				return nil, err
 			}

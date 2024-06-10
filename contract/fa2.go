@@ -10,20 +10,20 @@ import (
 	"fmt"
 	"sort"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/codec"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
 )
 
 // Represents a generic FA2 (tzip12) token
 type FA2Token struct {
-	Address  tezos.Address
-	TokenId  tezos.Z
+	Address  mavryk.Address
+	TokenId  mavryk.Z
 	contract *Contract
 }
 
-func NewFA2Token(addr tezos.Address, id int64, cli *rpc.Client) *FA2Token {
+func NewFA2Token(addr mavryk.Address, id int64, cli *rpc.Client) *FA2Token {
 	t := &FA2Token{Address: addr, contract: NewContract(addr, cli)}
 	t.TokenId.SetInt64(id)
 	return t
@@ -42,19 +42,19 @@ func (t FA2Token) ResolveMetadata(ctx context.Context) (*TokenMetadata, error) {
 }
 
 type FA2BalanceRequest struct {
-	Owner   tezos.Address `json:"owner"`
-	TokenId tezos.Z       `json:"token_id"`
+	Owner   mavryk.Address `json:"owner"`
+	TokenId mavryk.Z       `json:"token_id"`
 }
 
 type FA2BalanceResponse struct {
 	Request FA2BalanceRequest `json:"request"`
-	Balance tezos.Z           `json:"balance"`
+	Balance mavryk.Z          `json:"balance"`
 }
 
-func (t FA2Token) GetBalance(ctx context.Context, owner tezos.Address) (tezos.Z, error) {
+func (t FA2Token) GetBalance(ctx context.Context, owner mavryk.Address) (mavryk.Z, error) {
 	resp, err := t.GetBalances(ctx, []FA2BalanceRequest{{Owner: owner, TokenId: t.TokenId}})
 	if err != nil {
-		return tezos.Z{}, err
+		return mavryk.Z{}, err
 	}
 	return resp[0].Balance, nil
 }
@@ -80,21 +80,21 @@ func (t FA2Token) GetBalances(ctx context.Context, req []FA2BalanceRequest) ([]F
 	return resp, err
 }
 
-func (t FA2Token) AddOperator(owner, operator tezos.Address) CallArguments {
+func (t FA2Token) AddOperator(owner, operator mavryk.Address) CallArguments {
 	return NewFA2ApprovalArgs().
 		AddOperator(owner, operator, t.TokenId).
 		WithSource(owner).
 		WithDestination(t.Address)
 }
 
-func (t FA2Token) RemoveOperator(owner, operator tezos.Address) CallArguments {
+func (t FA2Token) RemoveOperator(owner, operator mavryk.Address) CallArguments {
 	return NewFA2ApprovalArgs().
 		RemoveOperator(owner, operator, t.TokenId).
 		WithSource(owner).
 		WithDestination(t.Address)
 }
 
-func (t FA2Token) Transfer(from, to tezos.Address, amount tezos.Z) CallArguments {
+func (t FA2Token) Transfer(from, to mavryk.Address, amount mavryk.Z) CallArguments {
 	return NewFA2TransferArgs().
 		WithTransfer(from, to, t.TokenId, amount).
 		WithSource(from).
@@ -102,10 +102,10 @@ func (t FA2Token) Transfer(from, to tezos.Address, amount tezos.Z) CallArguments
 }
 
 type FA2Approval struct {
-	Owner    tezos.Address `json:"owner"`
-	Operator tezos.Address `json:"operator"`
-	TokenId  tezos.Z       `json:"token_id"`
-	Add      bool          `json:"-"`
+	Owner    mavryk.Address `json:"owner"`
+	Operator mavryk.Address `json:"operator"`
+	TokenId  mavryk.Z       `json:"token_id"`
+	Add      bool           `json:"-"`
 }
 
 func (p *FA2Approval) UnmarshalJSON(data []byte) error {
@@ -171,17 +171,17 @@ func NewFA2ApprovalArgs() *FA2ApprovalArgs {
 	}
 }
 
-func (a *FA2ApprovalArgs) WithSource(addr tezos.Address) CallArguments {
+func (a *FA2ApprovalArgs) WithSource(addr mavryk.Address) CallArguments {
 	a.Source = addr.Clone()
 	return a
 }
 
-func (a *FA2ApprovalArgs) WithDestination(addr tezos.Address) CallArguments {
+func (a *FA2ApprovalArgs) WithDestination(addr mavryk.Address) CallArguments {
 	a.Destination = addr.Clone()
 	return a
 }
 
-func (p *FA2ApprovalArgs) AddOperator(owner, operator tezos.Address, id tezos.Z) *FA2ApprovalArgs {
+func (p *FA2ApprovalArgs) AddOperator(owner, operator mavryk.Address, id mavryk.Z) *FA2ApprovalArgs {
 	if p.Approvals == nil {
 		p.Approvals = make([]FA2Approval, 0)
 	}
@@ -194,7 +194,7 @@ func (p *FA2ApprovalArgs) AddOperator(owner, operator tezos.Address, id tezos.Z)
 	return p
 }
 
-func (p *FA2ApprovalArgs) RemoveOperator(owner, operator tezos.Address, id tezos.Z) *FA2ApprovalArgs {
+func (p *FA2ApprovalArgs) RemoveOperator(owner, operator mavryk.Address, id mavryk.Z) *FA2ApprovalArgs {
 	if p.Approvals == nil {
 		p.Approvals = make([]FA2Approval, 0)
 	}
@@ -218,10 +218,10 @@ func (p FA2ApprovalArgs) Encode() *codec.Transaction {
 }
 
 type FA2Transfer struct {
-	From    tezos.Address
-	To      tezos.Address
-	TokenId tezos.Z
-	Amount  tezos.Z
+	From    mavryk.Address
+	To      mavryk.Address
+	TokenId mavryk.Z
+	Amount  mavryk.Z
 }
 
 func (t FA2Transfer) Prim() micheline.Prim {
@@ -246,11 +246,11 @@ func (l FA2TransferList) Swap(i, j int) { l[i], l[j] = l[j], l[i] }
 func (t *FA2TransferList) UnmarshalJSON(data []byte) error {
 	var xfer struct {
 		Transfers []struct {
-			From tezos.Address `json:"from_"`
+			From mavryk.Address `json:"from_"`
 			Txs  []struct {
-				To      tezos.Address `json:"to_"`
-				TokenId tezos.Z       `json:"token_id"`
-				Amount  tezos.Z       `json:"amount"`
+				To      mavryk.Address `json:"to_"`
+				TokenId mavryk.Z       `json:"token_id"`
+				Amount  mavryk.Z       `json:"amount"`
 			} `json:"txs"`
 		} `json:"transfer"`
 	}
@@ -288,17 +288,17 @@ func NewFA2TransferArgs() *FA2TransferArgs {
 	}
 }
 
-func (a *FA2TransferArgs) WithSource(addr tezos.Address) CallArguments {
+func (a *FA2TransferArgs) WithSource(addr mavryk.Address) CallArguments {
 	a.Source = addr.Clone()
 	return a
 }
 
-func (a *FA2TransferArgs) WithDestination(addr tezos.Address) CallArguments {
+func (a *FA2TransferArgs) WithDestination(addr mavryk.Address) CallArguments {
 	a.Destination = addr.Clone()
 	return a
 }
 
-func (p *FA2TransferArgs) WithTransfer(from, to tezos.Address, id, amount tezos.Z) *FA2TransferArgs {
+func (p *FA2TransferArgs) WithTransfer(from, to mavryk.Address, id, amount mavryk.Z) *FA2TransferArgs {
 	if p.Transfers == nil {
 		p.Transfers = make(FA2TransferList, 0)
 	}
@@ -381,7 +381,7 @@ func (r FA2TransferReceipt) Result() *rpc.Transaction {
 	return r.tx
 }
 
-func (r FA2TransferReceipt) Costs() tezos.Costs {
+func (r FA2TransferReceipt) Costs() mavryk.Costs {
 	return r.tx.Costs()
 }
 

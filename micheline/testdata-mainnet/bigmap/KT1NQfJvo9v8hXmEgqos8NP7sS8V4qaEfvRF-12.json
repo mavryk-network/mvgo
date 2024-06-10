@@ -125,7 +125,7 @@
     "type_hex": "076103690369",
     "value_hex": "0a0000001c050a00000016000055ef1b7187b649eb7ce7eb78763a44a1cbb2f95f",
     "key_hex": "0a0000000d050100000007734d6173746572",
-    "want_value": "tz1TUQZtFFZ4Eh7TsYzrL7qFVvabTM63qAqY",
+    "want_value": "mv1FqssUZcrQoxth1sZhZwXGewSa1jZiK2pi",
     "want_key": "sMaster"
   },
   {
@@ -228,7 +228,7 @@
     "want_value": "1",
     "want_key": {
       "0": "sRoles",
-      "1": "tz1TUQZtFFZ4Eh7TsYzrL7qFVvabTM63qAqY"
+      "1": "mv1FqssUZcrQoxth1sZhZwXGewSa1jZiK2pi"
     }
   },
   {

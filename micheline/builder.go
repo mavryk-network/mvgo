@@ -7,7 +7,7 @@ import (
 	"math/big"
 	"sort"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 var (
@@ -46,11 +46,11 @@ func NewInt64(i int64) Prim {
 	return NewBig(big.NewInt(i))
 }
 
-func NewZ(z tezos.Z) Prim {
+func NewZ(z mavryk.Z) Prim {
 	return NewBig(new(big.Int).Set(z.Big()))
 }
 
-func NewMutez(n tezos.N) Prim {
+func NewMumav(n mavryk.N) Prim {
 	return NewBig(big.NewInt(int64(n)))
 }
 
@@ -62,11 +62,11 @@ func NewNat(i *big.Int) Prim {
 	return Prim{Type: PrimInt, Int: i}
 }
 
-func NewKeyHash(a tezos.Address) Prim {
+func NewKeyHash(a mavryk.Address) Prim {
 	return NewBytes(a.Encode())
 }
 
-func NewAddress(a tezos.Address) Prim {
+func NewAddress(a mavryk.Address) Prim {
 	return NewBytes(a.EncodePadded())
 }
 

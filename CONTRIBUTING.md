@@ -1,6 +1,6 @@
-# Contributing to tzGO
+# Contributing to mvGO
 
-We welcome all contributions to tzGO, be it extensions, bug fixes, documentation, or examples. This document outlines some of the conventions we put in place to keep the work on tzGO tidy and fun.
+We welcome all contributions to mvGO, be it extensions, bug fixes, documentation, or examples. This document outlines some of the conventions we put in place to keep the work on mvGO tidy and fun.
 
 Before you start, please **read** and **sign** our Contributor License Agreement and send it to license@blockwatch.cc:
 

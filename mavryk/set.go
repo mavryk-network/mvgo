@@ -1,10 +1,10 @@
 // Copyright (c) 2020-2023 Blockwatch Data Inc.
 // Author: alex@blockwatch.cc
 
-package tezos
+package mavryk
 
 import (
-	"blockwatch.cc/tzgo/hash"
+	"github.com/mavryk-network/mvgo/hash"
 )
 
 type AddressSet struct {

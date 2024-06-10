@@ -10,28 +10,28 @@ import (
 	"io"
 	"math"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 // TODO: fetch dynamic from /chains/main/mempool/filter
 const (
-	minFeeFixedNanoTez int64 = 100_000
-	minFeeByteNanoTez  int64 = 1_000
-	minFeeGasNanoTez   int64 = 100
+	minFeeFixedNanoMav int64 = 100_000
+	minFeeByteNanoMav  int64 = 1_000
+	minFeeGasNanoMav   int64 = 100
 )
 
 // CalculateMinFee returns the minimum fee at/above which bakers will accept
 // this operation under default config settings. Lower fee operations may not
 // pass the fee filter and may time out in the mempool.
-func CalculateMinFee(o Operation, gas int64, withHeader bool, p *tezos.Params) int64 {
+func CalculateMinFee(o Operation, gas int64, withHeader bool, p *mavryk.Params) int64 {
 	buf := bytes.NewBuffer(nil)
 	_ = o.EncodeBuffer(buf, p)
 	sz := int64(buf.Len())
 	if withHeader {
 		sz += 32 + 64 // branch + signature
 	}
-	fee := minFeeFixedNanoTez + sz*minFeeByteNanoTez + gas*minFeeGasNanoTez
+	fee := minFeeFixedNanoMav + sz*minFeeByteNanoMav + gas*minFeeGasNanoMav
 	return int64(math.Ceil(float64(fee) / 1000)) // nano -> micro, round up
 }
 
@@ -39,7 +39,7 @@ func CalculateMinFee(o Operation, gas int64, withHeader bool, p *tezos.Params) i
 // type tag and minimum size for the operation under the current protocol. It returns
 // an error when tag does not match or when the buffer is too short for reading the
 // mandatory operation contents.
-func ensureTagAndSize(buf *bytes.Buffer, typ tezos.OpType, ver int) error {
+func ensureTagAndSize(buf *bytes.Buffer, typ mavryk.OpType, ver int) error {
 	if buf == nil {
 		return io.ErrShortBuffer
 	}
@@ -118,7 +118,7 @@ func max64(x, y int64) int64 {
 	return y
 }
 
-func writeBytesWithLen(buf *bytes.Buffer, b tezos.HexBytes) (err error) {
+func writeBytesWithLen(buf *bytes.Buffer, b mavryk.HexBytes) (err error) {
 	err = binary.Write(buf, enc, uint32(len(b)))
 	if err != nil {
 		return
@@ -127,7 +127,7 @@ func writeBytesWithLen(buf *bytes.Buffer, b tezos.HexBytes) (err error) {
 	return err
 }
 
-func readBytesWithLen(buf *bytes.Buffer) (b tezos.HexBytes, err error) {
+func readBytesWithLen(buf *bytes.Buffer) (b mavryk.HexBytes, err error) {
 	var l uint32
 	l, err = readUint32(buf.Next(4))
 	if err != nil {

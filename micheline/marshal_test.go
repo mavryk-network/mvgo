@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 type marshalTest struct {
@@ -37,10 +37,10 @@ var marshalTests = []marshalTest{
 		Optimized: false,
 		Want:      `{"int":"1"}`,
 	},
-	//   mutez
+	//   mumav
 	{
-		Name:      "mutez",
-		Spec:      `{"annots": ["%money"],"prim": "mutez"}`,
+		Name:      "mumav",
+		Spec:      `{"annots": ["%money"],"prim": "mumav"}`,
 		Value:     map[string]any{"money": 1},
 		Optimized: false,
 		Want:      `{"int":"1"}`,
@@ -102,59 +102,59 @@ var marshalTests = []marshalTest{
 	{
 		Name:      "key_hash_string_opt",
 		Spec:      `{"annots": ["%baker"],"prim": "key_hash"}`,
-		Value:     map[string]any{"baker": "tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"},
+		Value:     map[string]any{"baker": "mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"},
 		Optimized: false,
-		Want:      `{"string":"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"}`,
+		Want:      `{"string":"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"}`,
 	},
 	{
 		Name:      "key_hash_string_noopt",
 		Spec:      `{"annots": ["%baker"],"prim": "key_hash"}`,
-		Value:     map[string]any{"baker": "tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"},
+		Value:     map[string]any{"baker": "mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"},
 		Optimized: true,
-		Want:      `{"bytes":"00cf8dad6c9cd30672987242a8c2a94fc72816d8cf"}`,
+		Want:      `{"bytes":"009ec090ac91d1351dc4791bdb48a98f64421caa1c"}`,
 	},
 	{
 		Name:      "key_hash_addr_opt",
 		Spec:      `{"annots": ["%baker"],"prim": "key_hash"}`,
-		Value:     map[string]any{"baker": tezos.MustParseAddress("tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc")},
+		Value:     map[string]any{"baker": mavryk.MustParseAddress("mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4")},
 		Optimized: false,
-		Want:      `{"string":"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"}`,
+		Want:      `{"string":"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"}`,
 	},
 	{
 		Name:      "key_hash_addr_noopt",
 		Spec:      `{"annots": ["%baker"],"prim": "key_hash"}`,
-		Value:     map[string]any{"baker": tezos.MustParseAddress("tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc")},
+		Value:     map[string]any{"baker": mavryk.MustParseAddress("mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4")},
 		Optimized: true,
-		Want:      `{"bytes":"00cf8dad6c9cd30672987242a8c2a94fc72816d8cf"}`,
+		Want:      `{"bytes":"009ec090ac91d1351dc4791bdb48a98f64421caa1c"}`,
 	},
 	//   address
 	{
 		Name:      "address_string_opt",
 		Spec:      `{"annots": ["%reporterAccount"],"prim": "address"}`,
-		Value:     map[string]any{"reporterAccount": "tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"},
+		Value:     map[string]any{"reporterAccount": "mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"},
 		Optimized: false,
-		Want:      `{"string":"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"}`,
+		Want:      `{"string":"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"}`,
 	},
 	{
 		Name:      "address_string_noopt",
 		Spec:      `{"annots": ["%reporterAccount"],"prim": "address"}`,
-		Value:     map[string]any{"reporterAccount": "tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"},
+		Value:     map[string]any{"reporterAccount": "mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"},
 		Optimized: true,
-		Want:      `{"bytes":"0000cf8dad6c9cd30672987242a8c2a94fc72816d8cf"}`,
+		Want:      `{"bytes":"00009ec090ac91d1351dc4791bdb48a98f64421caa1c"}`,
 	},
 	{
 		Name:      "address_addr_opt",
 		Spec:      `{"annots": ["%reporterAccount"],"prim": "address"}`,
-		Value:     map[string]any{"reporterAccount": tezos.MustParseAddress("tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc")},
+		Value:     map[string]any{"reporterAccount": mavryk.MustParseAddress("mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4")},
 		Optimized: false,
-		Want:      `{"string":"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"}`,
+		Want:      `{"string":"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"}`,
 	},
 	{
 		Name:      "address_addr_noopt",
 		Spec:      `{"annots": ["%reporterAccount"],"prim": "address"}`,
-		Value:     map[string]any{"reporterAccount": tezos.MustParseAddress("tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc")},
+		Value:     map[string]any{"reporterAccount": mavryk.MustParseAddress("mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4")},
 		Optimized: true,
-		Want:      `{"bytes":"0000cf8dad6c9cd30672987242a8c2a94fc72816d8cf"}`,
+		Want:      `{"bytes":"00009ec090ac91d1351dc4791bdb48a98f64421caa1c"}`,
 	},
 	//   key
 	{
@@ -174,14 +174,14 @@ var marshalTests = []marshalTest{
 	{
 		Name:      "key_key_noopt",
 		Spec:      `{"annots": ["%pour_authorizer"],"prim": "key"}`,
-		Value:     map[string]any{"pour_authorizer": tezos.MustParseKey("edpkvEfPbB2Q8dpo8D7DcLXC7ft4ogfeayPzxnvTiuz3iKM9TonxHh")},
+		Value:     map[string]any{"pour_authorizer": mavryk.MustParseKey("edpkvEfPbB2Q8dpo8D7DcLXC7ft4ogfeayPzxnvTiuz3iKM9TonxHh")},
 		Optimized: false,
 		Want:      `{"string":"edpkvEfPbB2Q8dpo8D7DcLXC7ft4ogfeayPzxnvTiuz3iKM9TonxHh"}`,
 	},
 	{
 		Name:      "key_key_opt",
 		Spec:      `{"annots": ["%pour_authorizer"],"prim": "key"}`,
-		Value:     map[string]any{"pour_authorizer": tezos.MustParseKey("edpkvEfPbB2Q8dpo8D7DcLXC7ft4ogfeayPzxnvTiuz3iKM9TonxHh")},
+		Value:     map[string]any{"pour_authorizer": mavryk.MustParseKey("edpkvEfPbB2Q8dpo8D7DcLXC7ft4ogfeayPzxnvTiuz3iKM9TonxHh")},
 		Optimized: true,
 		Want:      `{"bytes":"00d1e4cae729906793005dbdfddef090c4153042bf922e4db3a99a0467c45b9898"}`,
 	},
@@ -218,14 +218,14 @@ var marshalTests = []marshalTest{
 	{
 		Name:      "signature_sig_noopt",
 		Spec:      `{"annots": ["%sig"],"prim": "signature"}`,
-		Value:     map[string]any{"sig": tezos.MustParseSignature("sigqgQgW5qQCsuHP5HhMhAYR2HjcChUE7zAczsyCdF681rfZXpxnXFHu3E6ycmz4pQahjvu3VLfa7FMCxZXmiMiuZFQS4MHy")},
+		Value:     map[string]any{"sig": mavryk.MustParseSignature("sigqgQgW5qQCsuHP5HhMhAYR2HjcChUE7zAczsyCdF681rfZXpxnXFHu3E6ycmz4pQahjvu3VLfa7FMCxZXmiMiuZFQS4MHy")},
 		Optimized: false,
 		Want:      `{"string":"sigqgQgW5qQCsuHP5HhMhAYR2HjcChUE7zAczsyCdF681rfZXpxnXFHu3E6ycmz4pQahjvu3VLfa7FMCxZXmiMiuZFQS4MHy"}`,
 	},
 	{
 		Name:      "signature_sig_opt",
 		Spec:      `{"annots": ["%sig"],"prim": "signature"}`,
-		Value:     map[string]any{"sig": tezos.MustParseSignature("sigqgQgW5qQCsuHP5HhMhAYR2HjcChUE7zAczsyCdF681rfZXpxnXFHu3E6ycmz4pQahjvu3VLfa7FMCxZXmiMiuZFQS4MHy")},
+		Value:     map[string]any{"sig": mavryk.MustParseSignature("sigqgQgW5qQCsuHP5HhMhAYR2HjcChUE7zAczsyCdF681rfZXpxnXFHu3E6ycmz4pQahjvu3VLfa7FMCxZXmiMiuZFQS4MHy")},
 		Optimized: true,
 		Want:      `{"bytes":"d3a9e1467b32104921d4e2dd93265739c1a5faee7a7f8880842b096c0b6714200c43fd5872f82581dfe1cb3a76ccdadaa4d6361d72b4abee6884cb7ed87f0b04"}`,
 	},
@@ -249,24 +249,24 @@ var marshalTests = []marshalTest{
 	{
 		Name:      "set",
 		Spec:      `{"annots": ["%admins"],"prim": "set", "args": [{"prim": "key_hash"}]}`,
-		Value:     map[string]any{"admins": []any{"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"}},
+		Value:     map[string]any{"admins": []any{"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"}},
 		Optimized: false,
-		Want:      `[{"string":"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"}]`,
+		Want:      `[{"string":"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"}]`,
 	},
 	{
 		Name:      "set",
 		Spec:      `{"annots": ["%admins"],"prim": "set", "args": [{"prim": "key_hash"}]}`,
-		Value:     map[string]any{"admins": []any{tezos.MustParseAddress("tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc")}},
+		Value:     map[string]any{"admins": []any{mavryk.MustParseAddress("mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4")}},
 		Optimized: false,
-		Want:      `[{"string":"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"}]`,
+		Want:      `[{"string":"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"}]`,
 	},
 	// map
 	{
 		Name:      "map",
 		Spec:      `{"annots":["%approvals"],"prim":"map","args":[{"prim":"address"},{"prim":"nat"}]}`,
-		Value:     map[string]any{"approvals": map[string]any{"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc": "1"}},
+		Value:     map[string]any{"approvals": map[string]any{"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4": "1"}},
 		Optimized: false,
-		Want:      `[{"prim":"Elt","args":[{"string":"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"},{"int":"1"}]}]`,
+		Want:      `[{"prim":"Elt","args":[{"string":"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"},{"int":"1"}]}]`,
 	},
 	{
 		Name:      "map",
@@ -287,18 +287,18 @@ var marshalTests = []marshalTest{
 	{
 		Name:      "option_with_value",
 		Spec:      `{"annots":["%reporterAccount"],"prim":"option","args":[{"prim":"address"}]}`,
-		Value:     map[string]any{"reporterAccount": "tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"},
+		Value:     map[string]any{"reporterAccount": "mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"},
 		Optimized: false,
-		Want:      `{"prim":"Some","args":[{"string":"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"}]}`,
+		Want:      `{"prim":"Some","args":[{"string":"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"}]}`,
 	},
 
 	// named union type
 	{
 		Name:      "named-union",
 		Spec:      `{"annots":["%update_operators"],"args":[{"args":[{"annots":["%add_operator"],"args":[{"annots":["%owner"],"prim":"address"},{"args":[{"annots":["%operator"],"prim":"address"},{"annots":["%token_id"],"prim":"nat"}],"prim":"pair"}],"prim":"pair"},{"annots":["%remove_operator"],"args":[{"annots":["%owner"],"prim":"address"},{"args":[{"annots":["%operator"],"prim":"address"},{"annots":["%token_id"],"prim":"nat"}],"prim":"pair"}],"prim":"pair"}],"prim":"or"}],"prim":"list"}`,
-		Value:     map[string]any{"update_operators": []any{map[string]any{"add_operator": map[string]any{"owner": "tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc", "operator": "tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc", "token_id": "0"}}}},
+		Value:     map[string]any{"update_operators": []any{map[string]any{"add_operator": map[string]any{"owner": "mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4", "operator": "mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4", "token_id": "0"}}}},
 		Optimized: false,
-		Want:      `[{"prim":"Left","args":[{"prim":"Pair","args":[{"string":"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"},{"prim":"Pair","args":[{"string":"tz1eZUHkQDC1bBEbvrrUxkbWEagdZJXQyszc"},{"int":"0"}]}]}]}]`,
+		Want:      `[{"prim":"Left","args":[{"prim":"Pair","args":[{"string":"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"},{"prim":"Pair","args":[{"string":"mv1NUuSgQ3rvNBZE9FWTdgQ2oEomsRvP1Le4"},{"int":"0"}]}]}]}]`,
 	},
 
 	// TODO
@@ -321,7 +321,7 @@ var marshalTests = []marshalTest{
 	// // right-hand pair tree
 	// {
 	// 	Name: "right_hand_pair_tree",
-	// 	Spec: `{"args":[{"annots":["%tokenPool"],"prim":"nat"},{"args":[{"annots":["%xtzPool"],"prim":"mutez"},{"args":[{"annots":["%lqtTotal"],"prim":"nat"},{"args":[{"annots":["%tokenAddress"],"prim":"address"},{"annots":["%lqtAddress"],"prim":"address"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}`,
+	// 	Spec: `{"args":[{"annots":["%tokenPool"],"prim":"nat"},{"args":[{"annots":["%xtzPool"],"prim":"mumav"},{"args":[{"annots":["%lqtTotal"],"prim":"nat"},{"args":[{"annots":["%tokenAddress"],"prim":"address"},{"annots":["%lqtAddress"],"prim":"address"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}],"prim":"pair"}`,
 	// },
 
 	// unsupported

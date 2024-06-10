@@ -39,7 +39,7 @@
                       "annots": [
                         "%amount"
                       ],
-                      "prim": "mutez"
+                      "prim": "mumav"
                     },
                     {
                       "annots": [
@@ -54,7 +54,7 @@
                   "annots": [
                     "%payoff"
                   ],
-                  "prim": "mutez"
+                  "prim": "mumav"
                 }
               ],
               "prim": "pair"
@@ -108,8 +108,8 @@
     "key_hex": "0a000000209e2dce28b861646c13c2b9cf4245e483a837525f2d1547a410293e29c3734d6e",
     "want_value": {
       "recipients": {
-        "initiator": "tz1Xih37CyCZsCJAxGkzCTX1ojnvMQwDBrXN",
-        "participant": "tz1aKTCbAUuea2RV9kxqRVRg3HT7f1RKnp6a"
+        "initiator": "mv1L6ALhXLVvSU5Q6bKqSHD2xketuoSp3LhV",
+        "participant": "mv1NgvWBUrD19JCiJ5XgfK7hCJK6DPutePcv"
       },
       "settings": {
         "amount": "814276307",

@@ -4,16 +4,16 @@
 package task
 
 import (
-	"blockwatch.cc/tzgo/internal/compose"
-	"blockwatch.cc/tzgo/internal/compose/alpha"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/internal/compose"
+	"github.com/mavryk-network/mvgo/internal/compose/alpha"
+	"github.com/mavryk-network/mvgo/mavryk"
 
 	"github.com/pkg/errors"
 )
 
 type BaseTask struct {
-	Source tezos.Address
-	Key    tezos.PrivateKey
+	Source mavryk.Address
+	Key    mavryk.PrivateKey
 }
 
 func (t *BaseTask) parse(ctx compose.Context, task alpha.Task) (err error) {
@@ -35,7 +35,7 @@ func (t *BaseTask) parse(ctx compose.Context, task alpha.Task) (err error) {
 
 type TargetTask struct {
 	BaseTask
-	Destination tezos.Address
+	Destination mavryk.Address
 }
 
 func (t *TargetTask) parse(ctx compose.Context, task alpha.Task) (err error) {

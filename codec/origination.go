@@ -7,20 +7,20 @@ import (
 	"bytes"
 	"strconv"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 // Origination represents "origination" operation
 type Origination struct {
 	Manager
-	Balance  tezos.N          `json:"balance"`
-	Delegate tezos.Address    `json:"delegate,omitempty"`
+	Balance  mavryk.N         `json:"balance"`
+	Delegate mavryk.Address   `json:"delegate,omitempty"`
 	Script   micheline.Script `json:"script"`
 }
 
-func (o Origination) Kind() tezos.OpType {
-	return tezos.OpTypeOrigination
+func (o Origination) Kind() mavryk.OpType {
+	return mavryk.OpTypeOrigination
 }
 
 func (o Origination) MarshalJSON() ([]byte, error) {
@@ -43,7 +43,7 @@ func (o Origination) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o Origination) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o Origination) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	o.Balance.EncodeBuffer(buf)
@@ -57,7 +57,7 @@ func (o Origination) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
 	return nil
 }
 
-func (o *Origination) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *Origination) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -73,7 +73,7 @@ func (o *Origination) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err erro
 		return err
 	}
 	if ok {
-		addr := tezos.Address{}
+		addr := mavryk.Address{}
 		err = addr.Decode(buf.Next(21))
 		if err != nil {
 			return err
@@ -88,10 +88,10 @@ func (o *Origination) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err erro
 
 func (o Origination) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *Origination) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

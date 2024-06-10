@@ -5,11 +5,11 @@ package codec
 
 import (
 	"bytes"
+
+	"github.com/mavryk-network/mvgo/mavryk"
 	// "encoding/binary"
 	// "io"
 	// "strconv"
-
-	"blockwatch.cc/tzgo/tezos"
 )
 
 // Smart_rollup_refute (tag 204)
@@ -131,17 +131,17 @@ import (
 // SmartRollupRefute represents "smart_rollup_refute" operation
 type SmartRollupRefute struct {
 	Manager
-	Rollup     tezos.Address         `json:"rollup"`
-	Opponent   tezos.Address         `json:"opponent"`
+	Rollup     mavryk.Address        `json:"rollup"`
+	Opponent   mavryk.Address        `json:"opponent"`
 	Refutation SmartRollupRefutation `json:"refutation"`
 }
 
 type SmartRollupRefutation struct {
-	Kind         string                      `json:"refutation_kind"`
-	PlayerHash   tezos.SmartRollupCommitHash `json:"player_commitment_hash"`
-	OpponentHash tezos.SmartRollupCommitHash `json:"opponent_commitment_hash"`
-	Choice       tezos.Z                     `json:"choice"`
-	Step         SmartRollupRefuteStep       `json:"step"`
+	Kind         string                       `json:"refutation_kind"`
+	PlayerHash   mavryk.SmartRollupCommitHash `json:"player_commitment_hash"`
+	OpponentHash mavryk.SmartRollupCommitHash `json:"opponent_commitment_hash"`
+	Choice       mavryk.Z                     `json:"choice"`
+	Step         SmartRollupRefuteStep        `json:"step"`
 }
 
 type SmartRollupRefuteStep struct {
@@ -150,24 +150,24 @@ type SmartRollupRefuteStep struct {
 }
 
 type SmartRollupProof struct {
-	PvmStep    tezos.HexBytes        `json:"pvm_step"`
+	PvmStep    mavryk.HexBytes       `json:"pvm_step"`
 	InputProof SmartRollupInputProof `json:"input_proof"`
 }
 
 type SmartRollupTick struct {
-	State tezos.SmartRollupStateHash `json:"state"`
-	Tick  tezos.Z                    `json:"tick"`
+	State mavryk.SmartRollupStateHash `json:"state"`
+	Tick  mavryk.Z                    `json:"tick"`
 }
 
 type SmartRollupInputProof struct {
-	Kind    string         `json:"input_proof_kind"`
-	Level   int64          `json:"level"`
-	Counter tezos.Z        `json:"message_counter"`
-	Proof   tezos.HexBytes `json:"serialized_proof"`
+	Kind    string          `json:"input_proof_kind"`
+	Level   int64           `json:"level"`
+	Counter mavryk.Z        `json:"message_counter"`
+	Proof   mavryk.HexBytes `json:"serialized_proof"`
 }
 
-func (o SmartRollupRefute) Kind() tezos.OpType {
-	return tezos.OpTypeSmartRollupRefute
+func (o SmartRollupRefute) Kind() mavryk.OpType {
+	return mavryk.OpTypeSmartRollupRefute
 }
 
 func (o SmartRollupRefute) MarshalJSON() ([]byte, error) {
@@ -176,14 +176,14 @@ func (o SmartRollupRefute) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o SmartRollupRefute) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o SmartRollupRefute) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	// TODO if needed
 	return nil
 }
 
-func (o *SmartRollupRefute) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *SmartRollupRefute) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -196,10 +196,10 @@ func (o *SmartRollupRefute) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (er
 
 func (o SmartRollupRefute) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *SmartRollupRefute) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

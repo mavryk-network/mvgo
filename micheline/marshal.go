@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 type PrimMarshaler interface {
@@ -296,7 +296,7 @@ func (t Typedef) marshal(v any, optimized bool, depth int) (Prim, error) {
 					return NewInt64(int64(val)), nil
 				}
 				return NewString(time.Unix(int64(val), 0).UTC().Format(time.RFC3339)), nil
-			case T_INT, T_NAT, T_MUTEZ:
+			case T_INT, T_NAT, T_MUMAV:
 				return NewInt64(int64(val)), nil
 			default:
 				return InvalidPrim, fmt.Errorf("unsupported type conversion %T to opcode %s for on field %s", v, t.Type, t.Name)
@@ -312,7 +312,7 @@ func (t Typedef) marshal(v any, optimized bool, depth int) (Prim, error) {
 					return NewInt64(val), nil
 				}
 				return NewString(time.Unix(val, 0).UTC().Format(time.RFC3339)), nil
-			case T_INT, T_NAT, T_MUTEZ:
+			case T_INT, T_NAT, T_MUMAV:
 				return NewInt64(val), nil
 			default:
 				return InvalidPrim, fmt.Errorf("unsupported type conversion %T to opcode %s on field %s", v, t.Type, t.Name)
@@ -322,7 +322,7 @@ func (t Typedef) marshal(v any, optimized bool, depth int) (Prim, error) {
 				return NewInt64(val.Unix()), nil
 			}
 			return NewString(val.UTC().Format(time.RFC3339)), nil
-		case tezos.Address:
+		case mavryk.Address:
 			if optimized {
 				switch oc {
 				case T_KEY_HASH:
@@ -334,17 +334,17 @@ func (t Typedef) marshal(v any, optimized bool, depth int) (Prim, error) {
 				}
 			}
 			return NewString(val.String()), nil
-		case tezos.Key:
+		case mavryk.Key:
 			if optimized {
 				return NewBytes(val.Bytes()), nil
 			}
 			return NewString(val.String()), nil
-		case tezos.Signature:
+		case mavryk.Signature:
 			if optimized {
 				return NewBytes(val.Bytes()), nil
 			}
 			return NewString(val.String()), nil
-		case tezos.ChainIdHash:
+		case mavryk.ChainIdHash:
 			return NewString(val.String()), nil
 
 		default:
@@ -361,7 +361,7 @@ func ParsePrim(typ Typedef, val string, optimized bool) (p Prim, err error) {
 		return
 	}
 	switch typ.OpCode() {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		i := big.NewInt(0)
 		err = i.UnmarshalText([]byte(val))
 		p = NewBig(i)
@@ -397,24 +397,24 @@ func ParsePrim(typ Typedef, val string, optimized bool) (p Prim, err error) {
 			p = NewString(tm.Format(time.RFC3339))
 		}
 	case T_KEY_HASH:
-		var addr tezos.Address
-		addr, err = tezos.ParseAddress(val)
+		var addr mavryk.Address
+		addr, err = mavryk.ParseAddress(val)
 		if optimized {
 			p = NewKeyHash(addr)
 		} else {
 			p = NewString(addr.String())
 		}
 	case T_ADDRESS:
-		var addr tezos.Address
-		addr, err = tezos.ParseAddress(val)
+		var addr mavryk.Address
+		addr, err = mavryk.ParseAddress(val)
 		if optimized {
 			p = NewAddress(addr)
 		} else {
 			p = NewString(addr.String())
 		}
 	case T_KEY:
-		var key tezos.Key
-		key, err = tezos.ParseKey(val)
+		var key mavryk.Key
+		key, err = mavryk.ParseKey(val)
 		if optimized {
 			p = NewBytes(key.Bytes())
 		} else {
@@ -422,8 +422,8 @@ func ParsePrim(typ Typedef, val string, optimized bool) (p Prim, err error) {
 		}
 
 	case T_SIGNATURE:
-		var sig tezos.Signature
-		sig, err = tezos.ParseSignature(val)
+		var sig mavryk.Signature
+		sig, err = mavryk.ParseSignature(val)
 		if optimized {
 			p = NewBytes(sig.Bytes())
 		} else {

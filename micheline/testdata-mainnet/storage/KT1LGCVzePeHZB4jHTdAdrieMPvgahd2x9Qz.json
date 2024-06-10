@@ -10,7 +10,7 @@
           {
             "args": [
               {
-                "prim": "mutez"
+                "prim": "mumav"
               },
               {
                 "args": [
@@ -122,19 +122,19 @@
       "0": "testuser",
       "1": "300000",
       "2": "2018-09-11T02:53:44Z",
-      "3": "tz1hEomk8mX3mKeapVqUGYJXDQQbbncnpwZX"
+      "3": "mv1VcH5LT8pQLbRoxpQKWMzYNRGaAB9dPbns"
     },
     {
       "0": "testuser",
       "1": "100000",
       "2": "2018-09-11T02:41:44Z",
-      "3": "tz1hEomk8mX3mKeapVqUGYJXDQQbbncnpwZX"
+      "3": "mv1VcH5LT8pQLbRoxpQKWMzYNRGaAB9dPbns"
     },
     {
       "0": "testuser",
       "1": "100000",
       "2": "2018-09-09T03:24:12Z",
-      "3": "tz1hEomk8mX3mKeapVqUGYJXDQQbbncnpwZX"
+      "3": "mv1VcH5LT8pQLbRoxpQKWMzYNRGaAB9dPbns"
     }
   ]
 }]

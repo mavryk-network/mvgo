@@ -3,9 +3,7 @@
 
 package rpc
 
-import (
-	"blockwatch.cc/tzgo/tezos"
-)
+import "github.com/mavryk-network/mvgo/mavryk"
 
 // Ensure Delegation implements the TypedOperation interface.
 var _ TypedOperation = (*Delegation)(nil)
@@ -13,12 +11,12 @@ var _ TypedOperation = (*Delegation)(nil)
 // Delegation represents a transaction operation
 type Delegation struct {
 	Manager
-	Delegate tezos.Address `json:"delegate,omitempty"`
+	Delegate mavryk.Address `json:"delegate,omitempty"`
 }
 
 // Cost returns operation cost to implement TypedOperation interface.
-func (d Delegation) Costs() tezos.Costs {
-	return tezos.Costs{
+func (d Delegation) Costs() mavryk.Costs {
+	return mavryk.Costs{
 		Fee:     d.Manager.Fee,
 		GasUsed: d.Metadata.Result.ConsumedGas,
 	}

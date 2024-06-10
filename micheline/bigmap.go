@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 var BigmapRefType = Prim{
@@ -49,15 +49,15 @@ func (l BigmapEvents) Filter(id int64) BigmapEvents {
 }
 
 type BigmapEvent struct {
-	Action    DiffAction     `json:"action"`
-	Id        int64          `json:"big_map,string"`
-	KeyHash   tezos.ExprHash `json:"key_hash"`                   // update/remove
-	Key       Prim           `json:"key"`                        // update/remove
-	Value     Prim           `json:"value"`                      // update
-	KeyType   Prim           `json:"key_type"`                   // alloc
-	ValueType Prim           `json:"value_type"`                 // alloc
-	SourceId  int64          `json:"source_big_map,string"`      // copy
-	DestId    int64          `json:"destination_big_map,string"` // copy
+	Action    DiffAction      `json:"action"`
+	Id        int64           `json:"big_map,string"`
+	KeyHash   mavryk.ExprHash `json:"key_hash"`                   // update/remove
+	Key       Prim            `json:"key"`                        // update/remove
+	Value     Prim            `json:"value"`                      // update
+	KeyType   Prim            `json:"key_type"`                   // alloc
+	ValueType Prim            `json:"value_type"`                 // alloc
+	SourceId  int64           `json:"source_big_map,string"`      // copy
+	DestId    int64           `json:"destination_big_map,string"` // copy
 }
 
 func (e BigmapEvent) Encoding() PrimType {
@@ -107,11 +107,11 @@ func (e BigmapEvent) MarshalJSON() ([]byte, error) {
 	case DiffActionUpdate, DiffActionRemove:
 		// set key, keyhash, value
 		val := struct {
-			Id      int64           `json:"big_map,string"`
-			Action  DiffAction      `json:"action"`
-			Key     *Prim           `json:"key,omitempty"`
-			KeyHash *tezos.ExprHash `json:"key_hash,omitempty"`
-			Value   *Prim           `json:"value,omitempty"`
+			Id      int64            `json:"big_map,string"`
+			Action  DiffAction       `json:"action"`
+			Key     *Prim            `json:"key,omitempty"`
+			KeyHash *mavryk.ExprHash `json:"key_hash,omitempty"`
+			Value   *Prim            `json:"value,omitempty"`
 		}{
 			Id:     e.Id,
 			Action: e.Action,

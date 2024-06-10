@@ -9,64 +9,64 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"blockwatch.cc/tzgo/codec"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/signer"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/codec"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/signer"
 )
 
 const ExtraSafetyMargin int64 = 100 // used to adjust gas and storage estimations
 
 var (
 	// for reveal
-	DefaultRevealLimits = tezos.Limits{
+	DefaultRevealLimits = mavryk.Limits{
 		Fee:      1000,
 		GasLimit: 1000,
 	}
-	// for transfers to tz1/2/3
-	DefaultTransferLimitsEOA = tezos.Limits{
+	// for transfers to mv1/2/3
+	DefaultTransferLimitsEOA = mavryk.Limits{
 		Fee:      1000,
 		GasLimit: 1420, // 1820 when source is emptied
 	}
 	// for transfers to manager.tz
-	DefaultTransferLimitsKT1 = tezos.Limits{
+	DefaultTransferLimitsKT1 = mavryk.Limits{
 		Fee:      1000,
 		GasLimit: 2078,
 	}
 	// for delegation
-	DefaultDelegationLimitsEOA = tezos.Limits{
+	DefaultDelegationLimitsEOA = mavryk.Limits{
 		Fee:      1000,
 		GasLimit: 1000,
 	}
 	// for baker registration
-	DefaultBakerRegistrationLimits = tezos.Limits{
+	DefaultBakerRegistrationLimits = mavryk.Limits{
 		Fee:      1000,
 		GasLimit: 1000,
 	}
 	// for simulating contract calls and other operations
 	// used when no explicit costs are set
-	DefaultSimulationLimits = tezos.Limits{
-		GasLimit:     tezos.DefaultParams.HardGasLimitPerOperation,
-		StorageLimit: tezos.DefaultParams.HardStorageLimitPerOperation,
+	DefaultSimulationLimits = mavryk.Limits{
+		GasLimit:     mavryk.DefaultParams.HardGasLimitPerOperation,
+		StorageLimit: mavryk.DefaultParams.HardStorageLimitPerOperation,
 	}
 )
 
 type CallOptions struct {
-	Confirmations     int64         // number of confirmations to wait after broadcast
-	MaxFee            int64         // max acceptable fee, optional (default = 0)
-	TTL               int64         // max lifetime for operations in blocks
-	IgnoreLimits      bool          // ignore simulated limits and use user-defined limits from op
-	ExtraGasMargin    int64         // safety margin in case simulation underestimates future usage
-	SimulationBlockID BlockID       // custom block id to simulate operation (default is head, use to select a past block)
-	SimulationOffset  int64         // custom block offset for future block simulations
-	Signer            signer.Signer // optional signer interface to use for signing the transaction
-	Sender            tezos.Address // optional address to sign for (use when signer manages multiple addresses)
-	Observer          *Observer     // optional custom block observer for waiting on confirmations
+	Confirmations     int64          // number of confirmations to wait after broadcast
+	MaxFee            int64          // max acceptable fee, optional (default = 0)
+	TTL               int64          // max lifetime for operations in blocks
+	IgnoreLimits      bool           // ignore simulated limits and use user-defined limits from op
+	ExtraGasMargin    int64          // safety margin in case simulation underestimates future usage
+	SimulationBlockID BlockID        // custom block id to simulate operation (default is head, use to select a past block)
+	SimulationOffset  int64          // custom block offset for future block simulations
+	Signer            signer.Signer  // optional signer interface to use for signing the transaction
+	Sender            mavryk.Address // optional address to sign for (use when signer manages multiple addresses)
+	Observer          *Observer      // optional custom block observer for waiting on confirmations
 }
 
 var DefaultOptions = CallOptions{
 	Confirmations:    2,
-	TTL:              tezos.DefaultParams.MaxOperationsTTL - 2,
+	TTL:              mavryk.DefaultParams.MaxOperationsTTL - 2,
 	MaxFee:           1_000_000,
 	ExtraGasMargin:   ExtraSafetyMargin,
 	SimulationOffset: 5, // use pessimistic value to prevent gas exhausted errors (node's default is 3)
@@ -78,23 +78,23 @@ func NewCallOptions() *CallOptions {
 }
 
 type RunOperationRequest struct {
-	Operation *codec.Op         `json:"operation"`
-	ChainId   tezos.ChainIdHash `json:"chain_id"`
-	Latency   int64             `json:"latency,omitempty"`
+	Operation *codec.Op          `json:"operation"`
+	ChainId   mavryk.ChainIdHash `json:"chain_id"`
+	Latency   int64              `json:"latency,omitempty"`
 }
 
 type RunViewRequest struct {
-	Contract     tezos.Address     `json:"contract"`
-	Entrypoint   string            `json:"entrypoint,omitempty"`
-	View         string            `json:"view,omitempty"`
-	Input        micheline.Prim    `json:"input"`
-	ChainId      tezos.ChainIdHash `json:"chain_id"`
-	Source       tezos.Address     `json:"source"`
-	Payer        tezos.Address     `json:"payer"`
-	Gas          tezos.N           `json:"gas"`
-	Mode         string            `json:"unparsing_mode"`          // "Readable" | "Optimized"
-	UnlimitedGas bool              `json:"unlimited_gas,omitempty"` // view
-	Now          string            `json:"now,omitempty"`           // view
+	Contract     mavryk.Address     `json:"contract"`
+	Entrypoint   string             `json:"entrypoint,omitempty"`
+	View         string             `json:"view,omitempty"`
+	Input        micheline.Prim     `json:"input"`
+	ChainId      mavryk.ChainIdHash `json:"chain_id"`
+	Source       mavryk.Address     `json:"source"`
+	Payer        mavryk.Address     `json:"payer"`
+	Gas          mavryk.N           `json:"gas"`
+	Mode         string             `json:"unparsing_mode"`          // "Readable" | "Optimized"
+	UnlimitedGas bool               `json:"unlimited_gas,omitempty"` // view
+	Now          string             `json:"now,omitempty"`           // view
 }
 
 type RunViewResponse struct {
@@ -102,16 +102,16 @@ type RunViewResponse struct {
 }
 
 type RunCodeRequest struct {
-	ChainId    tezos.ChainIdHash `json:"chain_id"`
-	Script     micheline.Code    `json:"script"`
-	Storage    micheline.Prim    `json:"storage"`
-	Input      micheline.Prim    `json:"input"`
-	Amount     tezos.N           `json:"amount"`
-	Balance    tezos.N           `json:"balance"`
-	Source     *tezos.Address    `json:"source,omitempty"`
-	Payer      *tezos.Address    `json:"payer,omitempty"`
-	Gas        *tezos.N          `json:"gas,omitempty"`
-	Entrypoint string            `json:"entrypoint,omitempty"`
+	ChainId    mavryk.ChainIdHash `json:"chain_id"`
+	Script     micheline.Code     `json:"script"`
+	Storage    micheline.Prim     `json:"storage"`
+	Input      micheline.Prim     `json:"input"`
+	Amount     mavryk.N           `json:"amount"`
+	Balance    mavryk.N           `json:"balance"`
+	Source     *mavryk.Address    `json:"source,omitempty"`
+	Payer      *mavryk.Address    `json:"payer,omitempty"`
+	Gas        *mavryk.N          `json:"gas,omitempty"`
+	Entrypoint string             `json:"entrypoint,omitempty"`
 }
 
 // RunCodeResponse -
@@ -125,10 +125,10 @@ type RunCodeResponse struct {
 // Complete ensures an operation is compatible with the current source account's
 // on-chain state. Sets branch for TTL control, replay counters, and reveals
 // the sender's pubkey if not published yet.
-func (c *Client) Complete(ctx context.Context, o *codec.Op, key tezos.Key) error {
+func (c *Client) Complete(ctx context.Context, o *codec.Op, key mavryk.Key) error {
 	needBranch := !o.Branch.IsValid()
 	needCounter := o.NeedCounter()
-	mayNeedReveal := len(o.Contents) > 0 && o.Contents[0].Kind() != tezos.OpTypeReveal
+	mayNeedReveal := len(o.Contents) > 0 && o.Contents[0].Kind() != mavryk.OpTypeReveal
 
 	if !needBranch && !mayNeedReveal && !needCounter {
 		return nil
@@ -186,7 +186,7 @@ func (c *Client) Simulate(ctx context.Context, o *codec.Op, opts *CallOptions) (
 	sim := &codec.Op{
 		Branch:    o.Branch,
 		Contents:  o.Contents,
-		Signature: tezos.ZeroSignature,
+		Signature: mavryk.ZeroSignature,
 		TTL:       o.TTL,
 		Params:    c.Params,
 	}
@@ -263,7 +263,7 @@ func (c *Client) Validate(ctx context.Context, o *codec.Op) error {
 		Contents: o.Contents,
 	}
 	local := op.Bytes()
-	var remote tezos.HexBytes
+	var remote mavryk.HexBytes
 	if err := c.ForgeOperation(ctx, Head, op, &remote); err != nil {
 		return err
 	}
@@ -276,7 +276,7 @@ func (c *Client) Validate(ctx context.Context, o *codec.Op) error {
 
 // Broadcast sends the signed operation to network and returns the operation hash
 // on successful pre-validation.
-func (c *Client) Broadcast(ctx context.Context, o *codec.Op) (tezos.OpHash, error) {
+func (c *Client) Broadcast(ctx context.Context, o *codec.Op) (mavryk.OpHash, error) {
 	return c.BroadcastOperation(ctx, o.Bytes())
 }
 
@@ -433,7 +433,7 @@ func (c *Client) TraceCode(ctx context.Context, id BlockID, body, resp interface
 // BroadcastOperation sends a signed operation to the network (injection).
 // The call returns the operation hash on success. If theoperation was rejected
 // by the node error is of type RPCError.
-func (c *Client) BroadcastOperation(ctx context.Context, body []byte) (hash tezos.OpHash, err error) {
+func (c *Client) BroadcastOperation(ctx context.Context, body []byte) (hash mavryk.OpHash, err error) {
 	err = c.Post(ctx, "injection/operation", hex.EncodeToString(body), &hash)
 	return
 }

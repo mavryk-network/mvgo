@@ -3,9 +3,7 @@
 
 package rpc
 
-import (
-	"blockwatch.cc/tzgo/tezos"
-)
+import "github.com/mavryk-network/mvgo/mavryk"
 
 // Ensure Activation implements the TypedOperation interface.
 var _ TypedOperation = (*Activation)(nil)
@@ -13,6 +11,6 @@ var _ TypedOperation = (*Activation)(nil)
 // Activation represents a transaction operation
 type Activation struct {
 	Generic
-	Pkh    tezos.Address  `json:"pkh"`
-	Secret tezos.HexBytes `json:"secret"`
+	Pkh    mavryk.Address  `json:"pkh"`
+	Secret mavryk.HexBytes `json:"secret"`
 }

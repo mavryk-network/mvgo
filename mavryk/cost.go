@@ -1,7 +1,7 @@
 // Copyright (c) 2020-2022 Blockwatch Data Inc.
 // Author: alex@blockwatch.cc
 
-package tezos
+package mavryk
 
 // Limits represents all resource limits defined for an operation in Tezos.
 type Limits struct {
@@ -23,12 +23,12 @@ func (x Limits) Add(y Limits) Limits {
 // user operations have variable cost. For transactions with internal results costs
 // are a summary.
 type Costs struct {
-	Fee            int64 // the total fee paid in mutez
-	Burn           int64 // total amount of mutez burned (not included in fee)
+	Fee            int64 // the total fee paid in mumav
+	Burn           int64 // total amount of mumav burned (not included in fee)
 	GasUsed        int64 // gas used
 	StorageUsed    int64 // new storage bytes allocated
-	StorageBurn    int64 // mutez burned for allocating new storage (not included in fee)
-	AllocationBurn int64 // mutez burned for allocating a new account (not included in fee)
+	StorageBurn    int64 // mumav burned for allocating new storage (not included in fee)
+	AllocationBurn int64 // mumav burned for allocating a new account (not included in fee)
 }
 
 // Add adds two costs z = x + y and returns the sum z without changing any of the inputs.

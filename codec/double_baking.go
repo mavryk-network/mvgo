@@ -8,7 +8,7 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 // DoubleBakingEvidence represents "double_baking_evidence" operation
@@ -18,8 +18,8 @@ type DoubleBakingEvidence struct {
 	Bh2 BlockHeader `json:"bh2"`
 }
 
-func (o DoubleBakingEvidence) Kind() tezos.OpType {
-	return tezos.OpTypeDoubleBakingEvidence
+func (o DoubleBakingEvidence) Kind() mavryk.OpType {
+	return mavryk.OpTypeDoubleBakingEvidence
 }
 
 func (o DoubleBakingEvidence) MarshalJSON() ([]byte, error) {
@@ -43,7 +43,7 @@ func (o DoubleBakingEvidence) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o DoubleBakingEvidence) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o DoubleBakingEvidence) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	b2 := bytes.NewBuffer(nil)
 	o.Bh1.EncodeBuffer(b2)
@@ -56,7 +56,7 @@ func (o DoubleBakingEvidence) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) e
 	return nil
 }
 
-func (o *DoubleBakingEvidence) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *DoubleBakingEvidence) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -80,10 +80,10 @@ func (o *DoubleBakingEvidence) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) 
 
 func (o DoubleBakingEvidence) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *DoubleBakingEvidence) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

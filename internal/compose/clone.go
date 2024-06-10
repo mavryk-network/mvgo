@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"os"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 type CloneMode byte
@@ -60,7 +60,7 @@ func (m *CloneMode) Set(s string) (err error) {
 
 type CloneConfig struct {
 	Name     string
-	Contract tezos.Address
+	Contract mavryk.Address
 	IndexUrl string
 	NumOps   uint
 	Path     string

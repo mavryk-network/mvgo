@@ -11,7 +11,7 @@ import (
 	"io"
 	"strconv"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 type Script struct {
@@ -74,8 +74,8 @@ func (s Script) Views(withPrim, withCode bool) (Views, error) {
 	return views, nil
 }
 
-func (s Script) Constants() []tezos.ExprHash {
-	c := make([]tezos.ExprHash, 0)
+func (s Script) Constants() []mavryk.ExprHash {
+	c := make([]mavryk.ExprHash, 0)
 	for _, prim := range []Prim{
 		s.Code.Param,
 		s.Code.Storage,
@@ -85,7 +85,7 @@ func (s Script) Constants() []tezos.ExprHash {
 	} {
 		prim.Walk(func(p Prim) error {
 			if p.IsConstant() {
-				if h, err := tezos.ParseExprHash(p.Args[0].String); err == nil {
+				if h, err := mavryk.ParseExprHash(p.Args[0].String); err == nil {
 					c = append(c, h)
 				}
 			}
@@ -239,8 +239,8 @@ func DetectBigmaps(typ, storage Prim) map[string]int64 {
 					buf := v.Args[0].Bytes
 					if isASCIIBytes(buf) {
 						name = string(buf)
-					} else if tezos.IsAddressBytes(buf) {
-						a := tezos.Address{}
+					} else if mavryk.IsAddressBytes(buf) {
+						a := mavryk.Address{}
 						_ = a.Decode(buf)
 						name = a.String()
 					}

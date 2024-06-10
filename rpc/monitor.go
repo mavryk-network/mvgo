@@ -10,7 +10,7 @@ import (
 	"io"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 var ErrMonitorClosed = errors.New("monitor closed")
@@ -25,8 +25,8 @@ type Monitor interface {
 
 // BootstrappedBlock represents bootstrapped block stream message
 type BootstrappedBlock struct {
-	Block     tezos.BlockHash `json:"block"`
-	Timestamp time.Time       `json:"timestamp"`
+	Block     mavryk.BlockHash `json:"block"`
+	Timestamp time.Time        `json:"timestamp"`
 }
 
 type BootstrapMonitor struct {
@@ -104,16 +104,16 @@ func (m *BootstrapMonitor) Close() {
 
 // BlockHeaderLogEntry is a log entry returned for a new block when monitoring
 type BlockHeaderLogEntry struct {
-	Hash           tezos.BlockHash      `json:"hash"`
-	Level          int64                `json:"level"`
-	Proto          int                  `json:"proto"`
-	Predecessor    tezos.BlockHash      `json:"predecessor"`
-	Timestamp      time.Time            `json:"timestamp"`
-	ValidationPass int                  `json:"validation_pass"`
-	OperationsHash tezos.OpListListHash `json:"operations_hash"`
-	Fitness        []tezos.HexBytes     `json:"fitness"`
-	Context        tezos.ContextHash    `json:"context"`
-	ProtocolData   tezos.HexBytes       `json:"protocol_data"`
+	Hash           mavryk.BlockHash      `json:"hash"`
+	Level          int64                 `json:"level"`
+	Proto          int                   `json:"proto"`
+	Predecessor    mavryk.BlockHash      `json:"predecessor"`
+	Timestamp      time.Time             `json:"timestamp"`
+	ValidationPass int                   `json:"validation_pass"`
+	OperationsHash mavryk.OpListListHash `json:"operations_hash"`
+	Fitness        []mavryk.HexBytes     `json:"fitness"`
+	Context        mavryk.ContextHash    `json:"context"`
+	ProtocolData   mavryk.HexBytes       `json:"protocol_data"`
 }
 
 func (h *BlockHeader) LogEntry() *BlockHeaderLogEntry {
@@ -127,7 +127,7 @@ func (h *BlockHeader) LogEntry() *BlockHeaderLogEntry {
 		OperationsHash: h.OperationsHash,
 		Fitness:        h.Fitness,
 		Context:        h.Context,
-		ProtocolData:   tezos.HexBytes(h.ProtocolData()),
+		ProtocolData:   mavryk.HexBytes(h.ProtocolData()),
 	}
 }
 
@@ -135,12 +135,12 @@ func (l BlockHeaderLogEntry) Round() int {
 	return int(binary.BigEndian.Uint32(l.ProtocolData[32:]))
 }
 
-func (l BlockHeaderLogEntry) PayloadHash() (h tezos.PayloadHash) {
+func (l BlockHeaderLogEntry) PayloadHash() (h mavryk.PayloadHash) {
 	copy(h[:], l.ProtocolData[:])
 	return
 }
 
-func (l BlockHeaderLogEntry) Pow() (h tezos.HexBytes) {
+func (l BlockHeaderLogEntry) Pow() (h mavryk.HexBytes) {
 	h.UnmarshalBinary(l.ProtocolData[36:44])
 	return
 }

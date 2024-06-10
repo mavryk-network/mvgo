@@ -24,7 +24,7 @@
     "type_hex": "08610362036e00000007256c6564676572",
     "value_hex": "0a000000160000a69e033403f025e067a8d34a4a6b4928e8785589",
     "key_hex": "0003",
-    "want_value": "tz1aq29s7i9haNFbPXJy7hTGNXHwZmqXKwoZ",
+    "want_value": "mv1PCVTTS5T49e2pXqspMX9HXY9v8AKbvcNU",
     "want_key": "3"
   },
   {
@@ -52,7 +52,7 @@
     "type_hex": "08610362036e00000007256c6564676572",
     "value_hex": "0a000000160001b75afab1cdcba0ada54f613dcb1b1318be429587",
     "key_hex": "0001",
-    "want_value": "tz2R2jJnuHgtUG78Z2MK54uaygUbhwQVbhhN",
+    "want_value": "mv2cjobVWwhRWQhnqRwaeD5jQUy5XGXXonNk",
     "want_key": "1"
   },
   {
@@ -80,7 +80,7 @@
     "type_hex": "08610362036e00000007256c6564676572",
     "value_hex": "0a0000001600014bb4baa2a725e451c6f1d8e54dbd32c3ab3c1d69",
     "key_hex": "0000",
-    "want_value": "tz2FDXqzpqqWVVWxWj2MxbkJkbcBaZUnhrUT",
+    "want_value": "mv2Svc8hSVr3Xe7co8cdXjvTBQ6fPthQvqT5",
     "want_key": "0"
   },
   {
@@ -108,7 +108,7 @@
     "type_hex": "08610362036e00000007256c6564676572",
     "value_hex": "0a0000001600008ae66645514891d1828508bafd41e28c29f44982",
     "key_hex": "0002",
-    "want_value": "tz1YJTx2f2y1LqYRF5r75Z2tRvfYDLggdQfK",
+    "want_value": "mv1LfwFcyQGMv7KePQQxKNiuawXWmjA6UvBk",
     "want_key": "2"
   }
 ]

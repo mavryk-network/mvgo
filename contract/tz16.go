@@ -16,9 +16,9 @@ import (
 	"strconv"
 	"strings"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/rpc"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
+	"github.com/mavryk-network/mvgo/rpc"
 )
 
 // Represents Tzip16 contract metadata
@@ -172,8 +172,8 @@ func (v *Tz16StorageView) Run(ctx context.Context, contract *Contract, args mich
 		},
 		Input:   micheline.NewPair(args, *contract.store),
 		Storage: micheline.NewCode(micheline.D_NONE),
-		Amount:  tezos.N(0),
-		Balance: tezos.N(0),
+		Amount:  mavryk.N(0),
+		Balance: mavryk.N(0),
 	}
 	var resp rpc.RunCodeResponse
 	if err := contract.rpc.RunCode(ctx, rpc.Head, req, &resp); err != nil {
@@ -191,7 +191,7 @@ func (c *Contract) ResolveTz16Uri(ctx context.Context, uri string, result interf
 	}
 
 	switch uri[:protoIdx] {
-	case "tezos-storage":
+	case "mavryk-storage":
 		return c.resolveStorageUri(ctx, uri, result, checksum)
 	case "http", "https":
 		return c.resolveHttpUri(ctx, uri, result, checksum)
@@ -217,13 +217,13 @@ func (c *Contract) ResolveTz16Uri(ctx context.Context, uri string, result interf
 }
 
 func (c *Contract) resolveStorageUri(ctx context.Context, uri string, result interface{}, checksum []byte) error {
-	if !strings.HasPrefix(uri, "tezos-storage:") {
+	if !strings.HasPrefix(uri, "mavryk-storage:") {
 		return fmt.Errorf("invalid tzip16 storage uri prefix: %q", uri)
 	}
 
-	// prefix is either `tezos-storage:` or `tezos-storage://`
-	uri = strings.TrimPrefix(uri, "tezos-storage://")
-	uri = strings.TrimPrefix(uri, "tezos-storage:")
+	// prefix is either `mavryk-storage:` or `mavryk-storage://`
+	uri = strings.TrimPrefix(uri, "mavryk-storage://")
+	uri = strings.TrimPrefix(uri, "mavryk-storage:")
 	parts := strings.SplitN(uri, "/", 2)
 
 	// resolve bigmap and key to read
@@ -244,7 +244,7 @@ func (c *Contract) resolveStorageUri(ctx context.Context, uri string, result int
 		key = parts[0]
 	} else {
 		// other contract
-		addr, err := tezos.ParseAddress(parts[0])
+		addr, err := mavryk.ParseAddress(parts[0])
 		if err != nil {
 			return fmt.Errorf("malformed tzip16 uri %q: %v", uri, err)
 		}

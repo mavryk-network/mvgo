@@ -1,7 +1,7 @@
 // Copyright (c) 2020-2022 Blockwatch Data Inc.
 // Author: alex@blockwatch.cc
 
-package tezos
+package mavryk
 
 import (
 	"errors"
@@ -9,7 +9,7 @@ import (
 	"io"
 	"strings"
 
-	"blockwatch.cc/tzgo/base58"
+	"github.com/mavryk-network/mvgo/base58"
 )
 
 var (
@@ -26,12 +26,12 @@ var (
 	// InvalidAddress is an empty invalid address
 	InvalidAddress = NewAddress(AddressTypeInvalid, nil)
 
-	// ZeroAddress is a tz1 address with all bytes zero
+	// ZeroAddress is a mv1 address with all bytes zero
 	ZeroAddress  = NewAddress(AddressTypeEd25519, make([]byte, HashTypePkhEd25519.Len))
 	ZeroContract = NewAddress(AddressTypeContract, make([]byte, HashTypePkhNocurve.Len))
 
 	// Burn Address
-	BurnAddress = MustParseAddress("tz1burnburnburnburnburnburnburjAYjjX")
+	BurnAddress = MustParseAddress("mv2burnburnburnburnburnburnbur7hzNeg")
 )
 
 const MAX_ADDRESS_LEN = 37 // tx rollup address
@@ -143,12 +143,12 @@ func (t AddressType) MarshalText() ([]byte, error) {
 
 func HasAddressPrefix(s string) bool {
 	for _, typ := range addressTypes[1:] {
-		// ED25519_PUBLIC_KEY_HASH_PREFIX,   // tz1
-		// SECP256K1_PUBLIC_KEY_HASH_PREFIX, // tz2
-		// P256_PUBLIC_KEY_HASH_PREFIX,      // tz3
+		// ED25519_PUBLIC_KEY_HASH_PREFIX,   // mv1
+		// SECP256K1_PUBLIC_KEY_HASH_PREFIX, // mv2
+		// P256_PUBLIC_KEY_HASH_PREFIX,      // mv3
 		// NOCURVE_PUBLIC_KEY_HASH_PREFIX,   // KT1
-		// BLINDED_PUBLIC_KEY_HASH_PREFIX,   // btz1
-		// BLS12_381_PUBLIC_KEY_HASH_PREFIX, // tz4
+		// BLINDED_PUBLIC_KEY_HASH_PREFIX,   // bmv1
+		// BLS12_381_PUBLIC_KEY_HASH_PREFIX, // mv4
 		// TX_ROLLUP_ADDRESS_PREFIX,         // txr1
 		// SMART_ROLLUP_ADDRESS_PREFIX,      // sr1
 		if strings.HasPrefix(s, typ.HashType.B58Prefix) {
@@ -263,7 +263,7 @@ func (a Address) Encode() []byte {
 }
 
 // Bytes22 returns the 22 byte tagged and padded binary encoding for contracts
-// and EOAs (tz1/2/3). In contrast to Bytes which outputs the 21 byte address for EOAs
+// and EOAs (mv1/2/3). In contrast to Bytes which outputs the 21 byte address for EOAs
 // here we add a leading 0-byte.
 // func (a Address) Bytes22() []byte {
 func (a Address) EncodePadded() []byte {
@@ -287,13 +287,13 @@ func (a Address) EncodePadded() []byte {
 	return buf[:]
 }
 
-// MarshalBinary outputs the 21 byte TzGo version of an address containing
+// MarshalBinary outputs the 21 byte MvGo version of an address containing
 // a one byte type tag and the 20 byte address hash.
 func (a Address) MarshalBinary() ([]byte, error) {
 	return a[:], nil
 }
 
-// UnmarshalBinary reads the 21 byte TzGo version of an address containing
+// UnmarshalBinary reads the 21 byte MvGo version of an address containing
 // a one byte type tag and the 20 byte address hash.
 func (a *Address) UnmarshalBinary(b []byte) error {
 	if len(b) != 21 {

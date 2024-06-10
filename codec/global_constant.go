@@ -8,8 +8,8 @@ import (
 	"encoding/binary"
 	"strconv"
 
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
 )
 
 // RegisterGlobalConstant represents "register_global_constant" operation
@@ -18,8 +18,8 @@ type RegisterGlobalConstant struct {
 	Value micheline.Prim `json:"value"`
 }
 
-func (o RegisterGlobalConstant) Kind() tezos.OpType {
-	return tezos.OpTypeRegisterConstant
+func (o RegisterGlobalConstant) Kind() mavryk.OpType {
+	return mavryk.OpTypeRegisterConstant
 }
 
 func (o RegisterGlobalConstant) MarshalJSON() ([]byte, error) {
@@ -36,7 +36,7 @@ func (o RegisterGlobalConstant) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (o RegisterGlobalConstant) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params) error {
+func (o RegisterGlobalConstant) EncodeBuffer(buf *bytes.Buffer, p *mavryk.Params) error {
 	buf.WriteByte(o.Kind().TagVersion(p.OperationTagsVersion))
 	o.Manager.EncodeBuffer(buf, p)
 	b2 := bytes.NewBuffer(nil)
@@ -46,7 +46,7 @@ func (o RegisterGlobalConstant) EncodeBuffer(buf *bytes.Buffer, p *tezos.Params)
 	return nil
 }
 
-func (o *RegisterGlobalConstant) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params) (err error) {
+func (o *RegisterGlobalConstant) DecodeBuffer(buf *bytes.Buffer, p *mavryk.Params) (err error) {
 	if err = ensureTagAndSize(buf, o.Kind(), p.OperationTagsVersion); err != nil {
 		return
 	}
@@ -62,10 +62,10 @@ func (o *RegisterGlobalConstant) DecodeBuffer(buf *bytes.Buffer, p *tezos.Params
 
 func (o RegisterGlobalConstant) MarshalBinary() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
-	err := o.EncodeBuffer(buf, tezos.DefaultParams)
+	err := o.EncodeBuffer(buf, mavryk.DefaultParams)
 	return buf.Bytes(), err
 }
 
 func (o *RegisterGlobalConstant) UnmarshalBinary(data []byte) error {
-	return o.DecodeBuffer(bytes.NewBuffer(data), tezos.DefaultParams)
+	return o.DecodeBuffer(bytes.NewBuffer(data), mavryk.DefaultParams)
 }

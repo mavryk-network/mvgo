@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 )
 
 type LazyKind string
@@ -224,9 +224,9 @@ type LazyBigmapEvent struct {
 	Diff     struct {
 		Action  DiffAction `json:"action"`
 		Updates []struct {
-			KeyHash tezos.ExprHash `json:"key_hash"` // update/remove
-			Key     Prim           `json:"key"`      // update/remove
-			Value   Prim           `json:"value"`    // update
+			KeyHash mavryk.ExprHash `json:"key_hash"` // update/remove
+			Key     Prim            `json:"key"`      // update/remove
+			Value   Prim            `json:"value"`    // update
 		} `json:"updates"` // update
 		KeyType   Prim  `json:"key_type"`      // alloc
 		ValueType Prim  `json:"value_type"`    // alloc

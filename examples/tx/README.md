@@ -1,10 +1,10 @@
 ## Build and sign Tezos operations
 
-Use TzGo to produce any type of Tezos operation. One by one, this example shows all the basic steps to make, encode, simulate, sign, broadacst and wait for operation to be confirmed .
+Use MvGo to produce any type of Tezos operation. One by one, this example shows all the basic steps to make, encode, simulate, sign, broadacst and wait for operation to be confirmed .
 
 ### Usage
 
-Operation content is expected as JSON string. Make sure you use proper shell quotation like `'{"source":"tz1...","fee":"1000",..}'`
+Operation content is expected as JSON string. Make sure you use proper shell quotation like `'{"source":"mv1...","fee":"1000",..}'`
 
 ```sh
 Usage: tx [args] <cmd> [sub-args]
@@ -50,13 +50,13 @@ We use a `reveal` operation as simple example, but others work with the same sch
 
 ```sh
 # encode to binary (also adds a recent block hash for TTL control)
-go run ./examples/tx -v encode reveal '{"source":"tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S", "public_key":"edpkuQqN9HB3jY1FvDzt15WQDVSHR4vQGd1wv6iqJ73wkrKecRtnXh","fee": "1000", "counter": "2886593", "gas_limit": "1000", "storage_limit": "0"}'
+go run ./examples/tx -v encode reveal '{"source":"mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt", "public_key":"edpkuQqN9HB3jY1FvDzt15WQDVSHR4vQGd1wv6iqJ73wkrKecRtnXh","fee": "1000", "counter": "2886593", "gas_limit": "1000", "storage_limit": "0"}'
 
 # decode converts a binary encoded transaction back to Go
 go run ./examples/tx -v decode "09af86395fee09cfbede6b11339cd53216aeee93c38b9bf5cee4c791b814df8c6b005c7886828ec2a24f1814484de7dd53e559831c3fe807c197b001e8070100654b5b22880736d33865b4f30367e90feb81b17cc0ceb7ac951a0066142d5847"
 
 # validate, compares locally created result with a version created by a Tezos node
-go run ./examples/tx -v validate reveal '{"source":"tz1U4yF2Bkd7hV2JHW2styAWPif12TUCyS2S", "public_key":"edpkuQqN9HB3jY1FvDzt15WQDVSHR4vQGd1wv6iqJ73wkrKecRtnXh","fee": "1000", "counter": "2886593", "gas_limit": "1000", "storage_limit": "0"}'
+go run ./examples/tx -v validate reveal '{"source":"mv1GSSYcW7vUGkoXRpbj8nrXYjWyar1pyDpt", "public_key":"edpkuQqN9HB3jY1FvDzt15WQDVSHR4vQGd1wv6iqJ73wkrKecRtnXh","fee": "1000", "counter": "2886593", "gas_limit": "1000", "storage_limit": "0"}'
 
 # simulate, dry-runs a transaction to measure its effects on gas and storage consumption
 # you may use this to adjust gas/storage limit so that the operation will not fail.

@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"golang.org/x/crypto/blake2b"
 )
 
@@ -25,9 +25,9 @@ type Key struct {
 	StringKey    string
 	BytesKey     []byte
 	BoolKey      bool
-	AddrKey      tezos.Address
-	KeyKey       tezos.Key
-	SignatureKey tezos.Signature
+	AddrKey      mavryk.Address
+	KeyKey       mavryk.Key
+	SignatureKey mavryk.Signature
 	TimeKey      time.Time
 	PrimKey      Prim
 }
@@ -37,7 +37,7 @@ func NewKey(typ Type, key Prim) (Key, error) {
 		Type: typ,
 	}
 	switch typ.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		k.IntKey = key.Int
 	case T_STRING:
 		if isASCII(key.String) {
@@ -80,13 +80,13 @@ func NewKey(typ Type, key Prim) (Key, error) {
 	case T_KEY_HASH, T_ADDRESS:
 		// in some cases (originated contract storage) addresses are strings
 		if len(key.Bytes) == 0 && len(key.String) > 0 {
-			a, err := tezos.ParseAddress(strings.Split(key.String, "%")[0])
+			a, err := mavryk.ParseAddress(strings.Split(key.String, "%")[0])
 			if err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for string type address: %w", err)
 			}
 			k.AddrKey = a
 		} else {
-			a := tezos.Address{}
+			a := mavryk.Address{}
 			if err := a.Decode(key.Bytes); err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for type address: %w", err)
 			}
@@ -94,13 +94,13 @@ func NewKey(typ Type, key Prim) (Key, error) {
 		}
 	case T_KEY:
 		if len(key.Bytes) == 0 && len(key.String) > 0 {
-			kk, err := tezos.ParseKey(key.String)
+			kk, err := mavryk.ParseKey(key.String)
 			if err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for string type key: %w", err)
 			}
 			k.KeyKey = kk
 		} else {
-			kk := tezos.Key{}
+			kk := mavryk.Key{}
 			if err := kk.UnmarshalBinary(key.Bytes); err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for type key: %w", err)
 			}
@@ -108,13 +108,13 @@ func NewKey(typ Type, key Prim) (Key, error) {
 		}
 	case T_SIGNATURE:
 		if len(key.Bytes) == 0 && len(key.String) > 0 {
-			sk, err := tezos.ParseSignature(key.String)
+			sk, err := mavryk.ParseSignature(key.String)
 			if err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for string type signature: %w", err)
 			}
 			k.SignatureKey = sk
 		} else {
-			sk := tezos.Signature{}
+			sk := mavryk.Signature{}
 			if err := sk.UnmarshalBinary(key.Bytes); err != nil {
 				return Key{}, fmt.Errorf("micheline: invalid big_map key for type signature: %w", err)
 			}
@@ -145,7 +145,7 @@ func NewKeyPtr(typ Type, key Prim) (*Key, error) {
 
 func (k Key) IsPacked() bool {
 	return k.Type.OpCode == T_BYTES && (isPackedBytes(k.BytesKey) ||
-		tezos.IsAddressBytes(k.BytesKey) ||
+		mavryk.IsAddressBytes(k.BytesKey) ||
 		isASCIIBytes(k.BytesKey))
 }
 
@@ -179,7 +179,7 @@ func ParseKeyType(typ string) (OpCode, error) {
 		return t, fmt.Errorf("micheline: invalid big_map key type '%s'", typ)
 	}
 	switch t {
-	case T_INT, T_NAT, T_MUTEZ, T_STRING, T_BYTES, T_BOOL,
+	case T_INT, T_NAT, T_MUMAV, T_STRING, T_BYTES, T_BOOL,
 		T_KEY_HASH, T_TIMESTAMP, T_ADDRESS, T_PAIR, T_KEY, T_SIGNATURE,
 		T_OPTION, T_OR, T_CHAIN_ID, T_UNIT:
 		return t, nil
@@ -198,7 +198,7 @@ func ParseKey(typ OpCode, val string) (Key, error) {
 	}
 	var err error
 	switch key.Type.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		key.Type.Type = PrimInt
 		key.IntKey = big.NewInt(0)
 		err = key.IntKey.UnmarshalText([]byte(val))
@@ -223,13 +223,13 @@ func ParseKey(typ OpCode, val string) (Key, error) {
 		}
 	case T_KEY_HASH, T_ADDRESS:
 		key.Type.Type = PrimBytes
-		key.AddrKey, err = tezos.ParseAddress(val)
+		key.AddrKey, err = mavryk.ParseAddress(val)
 	case T_KEY:
 		key.Type.Type = PrimBytes
-		key.KeyKey, err = tezos.ParseKey(val)
+		key.KeyKey, err = mavryk.ParseKey(val)
 	case T_SIGNATURE:
 		key.Type.Type = PrimBytes
-		key.SignatureKey, err = tezos.ParseSignature(val)
+		key.SignatureKey, err = mavryk.ParseSignature(val)
 	case T_PAIR:
 		// parse comma-separated list into a right-hand pair tree
 		prims := []Prim{}
@@ -270,14 +270,14 @@ func InferKeyType(val string) OpCode {
 	if val == D_UNIT.String() {
 		return T_UNIT
 	}
-	if _, err := tezos.ParseAddress(val); err == nil {
+	if _, err := mavryk.ParseAddress(val); err == nil {
 		// Note: can also be KEY_HASH, but used inconsistently
 		return T_ADDRESS
 	}
-	if _, err := tezos.ParseKey(val); err == nil {
+	if _, err := mavryk.ParseKey(val); err == nil {
 		return T_KEY
 	}
-	if _, err := tezos.ParseSignature(val); err == nil {
+	if _, err := mavryk.ParseSignature(val); err == nil {
 		return T_SIGNATURE
 	}
 	if _, err := time.Parse(time.RFC3339, val); err == nil {
@@ -285,7 +285,7 @@ func InferKeyType(val string) OpCode {
 	}
 	i := big.NewInt(0)
 	if err := i.UnmarshalText([]byte(val)); err == nil {
-		// can also be T_MUTEZ, T_NAT
+		// can also be T_MUMAV, T_NAT
 		return T_INT
 	}
 	if _, err := hex.DecodeString(val); err == nil {
@@ -311,7 +311,7 @@ func DecodeKey(typ Type, b []byte) (Key, error) {
 func (k Key) Bytes() []byte {
 	p := Prim{}
 	switch k.Type.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		p.Type = PrimInt
 		p.Int = k.IntKey
 	case T_STRING:
@@ -328,7 +328,7 @@ func (k Key) Bytes() []byte {
 			p.OpCode = D_FALSE
 		}
 	case T_TIMESTAMP:
-		var z tezos.Z
+		var z mavryk.Z
 		z.SetInt64(k.TimeKey.Unix())
 		p.Type = PrimInt
 		p.Int = z.Big()
@@ -360,11 +360,11 @@ func (k Key) MarshalBinary() ([]byte, error) {
 	return k.Bytes(), nil
 }
 
-func (k Key) Hash() tezos.ExprHash {
+func (k Key) Hash() mavryk.ExprHash {
 	return KeyHash(k.Bytes())
 }
 
-func KeyHash(buf []byte) tezos.ExprHash {
+func KeyHash(buf []byte) mavryk.ExprHash {
 	// blake2b with digest size 32 byte
 	h, _ := blake2b.New(32, nil)
 
@@ -373,12 +373,12 @@ func KeyHash(buf []byte) tezos.ExprHash {
 	h.Write(buf)
 
 	// wrap in exprhash
-	return tezos.NewExprHash(h.Sum(nil))
+	return mavryk.NewExprHash(h.Sum(nil))
 }
 
 func (k Key) String() string {
 	switch k.Type.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		return k.IntKey.Text(10)
 	case T_STRING:
 		return k.StringKey
@@ -450,7 +450,7 @@ func (k Key) String() string {
 func (k Key) Prim() Prim {
 	p := Prim{}
 	switch k.Type.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		p.Int = k.IntKey
 		p.Type = PrimInt
 	case T_TIMESTAMP:
@@ -506,7 +506,7 @@ func (k Key) PrimPtr() *Prim {
 
 func (k Key) MarshalJSON() ([]byte, error) {
 	switch k.Type.OpCode {
-	case T_INT, T_NAT, T_MUTEZ:
+	case T_INT, T_NAT, T_MUMAV:
 		return []byte(strconv.Quote(k.IntKey.Text(10))), nil
 	case T_STRING:
 		return []byte(strconv.Quote(k.StringKey)), nil

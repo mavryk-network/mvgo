@@ -13,9 +13,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"blockwatch.cc/tzgo/internal/compose"
-	"blockwatch.cc/tzgo/micheline"
-	"blockwatch.cc/tzgo/tezos"
+	"github.com/mavryk-network/mvgo/internal/compose"
+	"github.com/mavryk-network/mvgo/mavryk"
+	"github.com/mavryk-network/mvgo/micheline"
+
 	"gopkg.in/yaml.v3"
 )
 
@@ -148,7 +149,7 @@ func (t Task) Validate(ctx compose.Context) error {
 		}
 	}
 	if _, ok := ctx.Variables[t.Alias]; !ok && t.Alias != "" {
-		ctx.AddVariable(t.Alias, tezos.ZeroAddress.String())
+		ctx.AddVariable(t.Alias, mavryk.ZeroAddress.String())
 	}
 	if t.Script != nil {
 		if err := t.Script.Validate(ctx); err != nil {
