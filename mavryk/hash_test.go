@@ -128,7 +128,7 @@ func TestHash(t *testing.T) {
 
 func TestInvalidHash(t *testing.T) {
 	// invalid base58 string
-	if _, err := ParseBlockHash("tz1KzpjBnunNJVABHBnzfG4iuLmphitExW2"); err == nil {
+	if _, err := ParseBlockHash("mv1KzpjBnunNJVABHBnzfG4iuLmphitExW2"); err == nil {
 		t.Errorf("Expected error on invalid base58 string")
 	}
 

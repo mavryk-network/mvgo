@@ -14,10 +14,9 @@ import (
 	"net/url"
 	"os"
 
+	"github.com/iancoleman/strcase"
 	"github.com/mavryk-network/mvgo/internal/generate"
 	"github.com/mavryk-network/mvgo/internal/parse"
-
-	"github.com/iancoleman/strcase"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"
 )

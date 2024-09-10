@@ -8,11 +8,7 @@ import (
 	"encoding/binary"
 	"strconv"
 
-<<<<<<< HEAD
 	"github.com/mavryk-network/mvgo/mavryk"
-=======
-	"github.com/trilitech/tzgo/tezos"
->>>>>>> paris
 )
 
 // FailingNoop represents "failing_noop" operations. Used for signing arbitrary messages

@@ -32,7 +32,7 @@ type BalanceUpdate struct {
 
 	// Atlas staking
 	Staker struct {
-		Contract mavryk.Address `json:"contract"` // tz1/2/3 accounts (only stake, unstake)
+		Contract mavryk.Address `json:"contract"` // mv1/2/3 accounts (only stake, unstake)
 		Delegate mavryk.Address `json:"delegate"` // baker
 		Baker    mavryk.Address `json:"baker"`    // baker
 	} `json:"staker"`
