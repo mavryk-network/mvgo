@@ -65,7 +65,6 @@ func (r *TxRollup) Target() mavryk.Address {
 
 type TxRollupBatch struct {
 	Content mavryk.HexBytes `json:"content"`
-	// BurnLimit int64          `json:"burn_limit,string,omitempty"`
 }
 
 type TxRollupCommit struct {

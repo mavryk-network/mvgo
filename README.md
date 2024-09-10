@@ -6,6 +6,7 @@ MvGo's main focus is on **correctness**, **stability**, and **compliance** with 
 
 Current Mavryk protocol support in MvGo
 
+- Boreas v002
 - Atlas v001
 
 ### SDK features
