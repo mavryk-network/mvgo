@@ -258,6 +258,9 @@ type BlockMetadata struct {
 	// v015+
 	ProposerConsensusKey mavryk.Address `json:"proposer_consensus_key"`
 	BakerConsensusKey    mavryk.Address `json:"baker_consensus_key"`
+
+	// v019+
+	DalAttestation mavryk.Z `json:"dal_attestation"`
 }
 
 func (m *BlockMetadata) GetLevel() int64 {

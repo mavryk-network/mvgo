@@ -1,4 +1,4 @@
-// Copyright (c) 2020-2023 Blockwatch Data Inc.
+// Copyright (c) 2020-2024 Blockwatch Data Inc.
 // Author: alex@blockwatch.cc
 
 package mavryk
@@ -13,17 +13,17 @@ var (
 	// either overwrite this default or set custom params per operation using
 	// op.WithParams().
 	DefaultParams = (&Params{
-		MinimalBlockDelay:            15 * time.Second,
+		MinimalBlockDelay:            10 * time.Second,
 		CostPerByte:                  250,
 		OriginationSize:              257,
 		HardGasLimitPerOperation:     1040000,
-		HardGasLimitPerBlock:         2600000,
+		HardGasLimitPerBlock:         1733333,
 		HardStorageLimitPerOperation: 60000,
 		MaxOperationDataLength:       32768,
-		MaxOperationsTTL:             240,
+		MaxOperationsTTL:             360,
 	}).
 		WithChainId(Mainnet).
-		WithDeployment(Deployments[Mainnet].AtProtocol(ProtoV001))
+		WithDeployment(Deployments[Mainnet].AtProtocol(ProtoV002))
 
 	// BasenetParams defines the blockchain configuration for Basenet testnet.
 	// To produce compliant transactions, use these defaults in op.WithParams().
@@ -32,13 +32,13 @@ var (
 		CostPerByte:                  250,
 		OriginationSize:              257,
 		HardGasLimitPerOperation:     1040000,
-		HardGasLimitPerBlock:         2600000,
+		HardGasLimitPerBlock:         1733333,
 		HardStorageLimitPerOperation: 60000,
 		MaxOperationDataLength:       32768,
-		MaxOperationsTTL:             240,
+		MaxOperationsTTL:             360,
 	}).
 		WithChainId(Basenet).
-		WithDeployment(Deployments[Basenet].AtProtocol(ProtoV001))
+		WithDeployment(Deployments[Basenet].AtProtocol(ProtoV002))
 
 	// AtlasnetParams defines the blockchain configuration for Atlas testnet.
 	// To produce compliant transactions, use these defaults in op.WithParams().
@@ -54,6 +54,21 @@ var (
 	}).
 		WithChainId(Atlasnet).
 		WithDeployment(Deployments[Atlasnet].AtProtocol(ProtoV001))
+
+	// BoreasnetParams defines the blockchain configuration for Paris testnet.
+	// To produce compliant transactions, use these defaults in op.WithParams().
+	BoreasnetParams = (&Params{
+		MinimalBlockDelay:            5 * time.Second,
+		CostPerByte:                  250,
+		OriginationSize:              257,
+		HardGasLimitPerOperation:     1040000,
+		HardGasLimitPerBlock:         1733333,
+		HardStorageLimitPerOperation: 60000,
+		MaxOperationDataLength:       32768,
+		MaxOperationsTTL:             360,
+	}).
+		WithChainId(Boreasnet).
+		WithDeployment(Deployments[Boreasnet].AtProtocol(ProtoV002))
 )
 
 // Params contains a subset of protocol configuration settings that are relevant
@@ -75,7 +90,7 @@ type Params struct {
 
 	// limits
 	BlocksPerCycle               int64 `json:"blocks_per_cycle"`
-	PreservedCycles              int64 `json:"preserved_cycles"`
+	ConsensusRightsDelay         int64 `json:"consensus_rights_delay"`
 	BlocksPerSnapshot            int64 `json:"blocks_per_snapshot"`
 	HardGasLimitPerOperation     int64 `json:"hard_gas_limit_per_operation"`
 	HardGasLimitPerBlock         int64 `json:"hard_gas_limit_per_block"`
@@ -84,7 +99,7 @@ type Params struct {
 	MaxOperationsTTL             int64 `json:"max_operations_ttl"`
 
 	// extra features to follow protocol upgrades
-	OperationTagsVersion int   `json:"operation_tags_version,omitempty"` // 1 after v005
+	OperationTagsVersion int   `json:"operation_tags_version,omitempty"` // 1: v5..v11, 2: v12..v18, 3:v19+
 	StartHeight          int64 `json:"start_height"`                     // protocol start (may be != cycle start!!)
 	EndHeight            int64 `json:"end_height"`                       // protocol end (may be != cycle end!!)
 	StartOffset          int64 `json:"start_offset"`                     // correction for cycle start
@@ -113,6 +128,8 @@ func (p *Params) WithChainId(id ChainIdHash) *Params {
 			p.Network = "Basenet"
 		case Atlasnet:
 			p.Network = "Atlasnet"
+		case Boreasnet:
+			p.Network = "Boreasnet"
 		}
 	}
 	return p
@@ -134,6 +151,8 @@ func (p *Params) WithProtocol(h ProtocolHash) *Params {
 		Versions[h] = p.Version
 	}
 	switch {
+	case p.Version > 18:
+		p.OperationTagsVersion = 3
 	case p.Version > 11:
 		p.OperationTagsVersion = 2
 	case p.Version > 4:
@@ -156,7 +175,7 @@ func (p *Params) WithDeployment(d Deployment) *Params {
 		p.StartHeight = d.StartHeight
 		p.EndHeight = d.EndHeight
 		p.StartCycle = d.StartCycle
-		p.PreservedCycles = d.PreservedCycles
+		p.ConsensusRightsDelay = d.ConsensusRightsDelay
 		p.BlocksPerCycle = d.BlocksPerCycle
 		p.BlocksPerSnapshot = d.BlocksPerSnapshot
 	}
@@ -191,7 +210,7 @@ func (p Params) SnapshotBaseCycle(cycle int64) int64 {
 	if p.Version >= 12 {
 		offset = 1
 	}
-	return cycle - (p.PreservedCycles + offset)
+	return cycle - (p.ConsensusRightsDelay + offset)
 }
 
 func (p Params) IsMainnet() bool {
@@ -259,6 +278,11 @@ func (p *Params) IsCycleEnd(height int64) bool {
 }
 
 func (p *Params) IsSnapshotBlock(height int64) bool {
+	// no more snapshots in Paris
+	if p.Version > 18 && p.IsCycleEnd(height) {
+		return true
+	}
+
 	// adjust to target height
 	at := p.AtBlock(height)
 	pos := at.CyclePosition(height) + 1
@@ -276,6 +300,10 @@ func (p *Params) SnapshotBlock(cycle int64, index int) int64 {
 }
 
 func (p *Params) SnapshotIndex(height int64) int {
+	// no more snapshots in Paris
+	if p.Version > 18 {
+		return 15
+	}
 	// FIX granada early start
 	if height == 1589248 && p.IsMainnet() {
 		return 15

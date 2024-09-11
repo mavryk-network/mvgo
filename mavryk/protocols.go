@@ -8,18 +8,22 @@ var (
 	ProtoGenesis   = MustParseProtocolHash("PrihK96nBAFSxVL1GLJTVhu9YnzkMFiBeuJRPA8NwuZVZCE1L6i")
 	ProtoBootstrap = MustParseProtocolHash("Ps9mPmXaRzmzk35gbAYNCAw6UXdE2qoABTHbN2oEEc1qM7CwT9P")
 	ProtoV001      = MustParseProtocolHash("PtAtLasomUEW99aVhVTrqjCHjJSpFUa8uHNEAEamx9v2SNeTaNp")
+	ProtoV002      = MustParseProtocolHash("Pt8h9rz3r9F3Yx3wzJqF42sxsyVoo6kL4FBoJSWRzKmDvjXjHwV")
 
 	// aliases
-	PtAtLas = ProtoV001
+	PtAtLas  = ProtoV001
+	PtBoreas = ProtoV002
 
-	Mainnet  = MustParseChainIdHash("NetXdQprcVkpaWU")
-	Basenet  = MustParseChainIdHash("NetXnHfVqm9iesp")
-	Atlasnet = MustParseChainIdHash("NetXvyTAafh8goH")
+	Mainnet   = MustParseChainIdHash("NetXdQprcVkpaWU")
+	Basenet   = MustParseChainIdHash("NetXnHfVqm9iesp")
+	Atlasnet  = MustParseChainIdHash("NetXvyTAafh8goH")
+	Boreasnet = MustParseChainIdHash("NetXvyTAafh8goH")
 
 	Versions = map[ProtocolHash]int{
 		ProtoGenesis:   0,
 		ProtoBootstrap: 0,
 		ProtoV001:      18,
+		ProtoV002:      19,
 		ProtoAlpha:     19,
 	}
 
@@ -27,31 +31,39 @@ var (
 		Mainnet: {
 			{ProtoGenesis, 0, 0, 0, 0, 5, 4096, 256},   // 0
 			{ProtoBootstrap, 0, 1, 1, 0, 5, 4096, 256}, // 0
-			{PtAtLas, 2, 2, 28082, 0, 5, 4096, 256},    // v18
-			// {PtAtLas, 0, 5070849, -1, 703, 5, 16384, 1024},       // v18
+			// {PtAtLas, 2, 2, 28082, 0, 5, 4096, 256},    // v18
+			{PtAtLas, 0, 5070849, 5726208, 703, 5, 16384, 1024}, // v18
+			{PtBoreas, 0, 5726209, -1, 743, 2, 24576, 24576},    // v19
 		},
 		Basenet: {
-			{ProtoGenesis, 0, 0, 0, 0, 3, 4096, 256},   // 0
-			{ProtoBootstrap, 0, 1, 1, 0, 3, 4096, 256}, // 0
-			// {Proxford, 0, 2957313, -1, 625, 3, 8192, 512},     // v18
+			{ProtoGenesis, 0, 0, 0, 0, 3, 4096, 256},          // 0
+			{ProtoBootstrap, 0, 1, 1, 0, 3, 4096, 256},        // 0
+			{PtAtLas, 0, 5316609, 6422528, 913, 3, 8192, 512}, // v18
+			{PtBoreas, 0, 6422529, -1, 1048, 2, 12288, 12288}, // v19
 		},
 		Atlasnet: {
 			{ProtoGenesis, 0, 0, 0, 0, 3, 4096, 256},   // 0
 			{ProtoBootstrap, 0, 1, 1, 0, 3, 8192, 512}, // 0
 			{PtAtLas, 0, 16385, -1, 2, 3, 8192, 512},   // v18
 		},
+		Boreasnet: {
+			{ProtoGenesis, 0, 0, 0, 0, 3, 8192, 512},    // 0
+			{ProtoBootstrap, 0, 1, 1, 0, 3, 8192, 512},  // 0
+			{PtAtLas, 2, 2, 8192, 0, 3, 8192, 512},      // v18
+			{PtBoreas, 0, 8193, -1, 1, 2, 12288, 12288}, // v19
+		},
 	}
 )
 
 type Deployment struct {
-	Protocol          ProtocolHash
-	StartOffset       int64
-	StartHeight       int64
-	EndHeight         int64
-	StartCycle        int64
-	PreservedCycles   int64
-	BlocksPerCycle    int64
-	BlocksPerSnapshot int64
+	Protocol             ProtocolHash
+	StartOffset          int64
+	StartHeight          int64
+	EndHeight            int64
+	StartCycle           int64
+	ConsensusRightsDelay int64
+	BlocksPerCycle       int64
+	BlocksPerSnapshot    int64
 }
 
 type ProtocolHistory []Deployment

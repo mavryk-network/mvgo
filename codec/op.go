@@ -571,19 +571,19 @@ func DecodeOp(data []byte) (*Op, error) {
 			} else {
 				op = new(TenderbakeEndorsement)
 			}
-		case mavryk.OpTypePreendorsement:
+		case mavryk.OpTypePreattestation:
 			op = new(TenderbakePreendorsement)
 		case mavryk.OpTypeEndorsementWithSlot:
 			op = new(EndorsementWithSlot)
 		case mavryk.OpTypeSeedNonceRevelation:
 			op = new(SeedNonceRevelation)
-		case mavryk.OpTypeDoubleEndorsementEvidence:
+		case mavryk.OpTypeDoubleAttestationEvidence:
 			if o.Params.OperationTagsVersion < 2 {
 				op = new(DoubleEndorsementEvidence)
 			} else {
 				op = new(TenderbakeDoubleEndorsementEvidence)
 			}
-		case mavryk.OpTypeDoublePreendorsementEvidence:
+		case mavryk.OpTypeDoublePreattestationEvidence:
 			op = new(TenderbakeDoublePreendorsementEvidence)
 		case mavryk.OpTypeDoubleBakingEvidence:
 			op = new(DoubleBakingEvidence)
@@ -634,10 +634,8 @@ func DecodeOp(data []byte) (*Op, error) {
 			op = new(SmartRollupExecuteOutboxMessage)
 		case mavryk.OpTypeSmartRollupRecoverBond:
 			op = new(SmartRollupRecoverBond)
-		case mavryk.OpTypeDalAttestation:
-			op = new(DalAttestation)
-		case mavryk.OpTypeDalPublishSlotHeader:
-			op = new(DalPublishSlotHeader)
+		case mavryk.OpTypeDalPublishCommitment:
+			op = new(DalPublishCommitment)
 
 		default:
 			// stop if rest looks like a signature

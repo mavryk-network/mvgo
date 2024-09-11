@@ -271,10 +271,8 @@ func makeOp(c *rpc.Client, t, data string) (codec.Operation, error) {
 		o = new(codec.SmartRollupExecuteOutboxMessage)
 	case mavryk.OpTypeSmartRollupRecoverBond:
 		o = new(codec.SmartRollupRecoverBond)
-	case mavryk.OpTypeDalAttestation:
-		o = new(codec.DalAttestation)
-	case mavryk.OpTypeDalPublishSlotHeader:
-		o = new(codec.DalPublishSlotHeader)
+	case mavryk.OpTypeDalPublishCommitment:
+		o = new(codec.DalPublishCommitment)
 	default:
 		return nil, fmt.Errorf("Unsupported op type %q", t)
 	}

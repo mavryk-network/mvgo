@@ -16,8 +16,10 @@ type (
 )
 
 var (
+	ProtoGenesis   = mavryk.ProtoGenesis
 	ProtoBootstrap = mavryk.ProtoBootstrap
 	PtAtLas        = mavryk.PtAtLas
+	PtBoreas       = mavryk.PtBoreas
 
 	Mainnet     = mavryk.Mainnet
 	NewParams   = mavryk.NewParams
@@ -68,9 +70,10 @@ func TestParamsStatic(t *testing.T) {
 
 func TestDefaultParams(t *testing.T) {
 	for n, p := range map[string]*mavryk.Params{
-		"main":  mavryk.DefaultParams,
-		"base":  mavryk.BasenetParams,
-		"atlas": mavryk.AtlasnetParams,
+		"main":   mavryk.DefaultParams,
+		"base":   mavryk.BasenetParams,
+		"atlas":  mavryk.AtlasnetParams,
+		"boreas": mavryk.BoreasnetParams,
 	} {
 		if p.Network == "" {
 			t.Errorf("%s params: Empty network name", n)
@@ -96,7 +99,7 @@ func TestDefaultParams(t *testing.T) {
 		if p.BlocksPerCycle == 0 {
 			t.Errorf("%s params: zero BlocksPerCycle", n)
 		}
-		if p.PreservedCycles == 0 {
+		if p.ConsensusRightsDelay == 0 {
 			t.Errorf("%s params: zero PreservedCycles", n)
 		}
 		if p.BlocksPerSnapshot == 0 {
@@ -120,7 +123,7 @@ func TestDefaultParams(t *testing.T) {
 		if p.MaxOperationDataLength == 0 {
 			t.Errorf("%s params: zero MaxOperationDataLength", n)
 		}
-		if p.OperationTagsVersion < 0 || p.OperationTagsVersion > 2 {
+		if p.OperationTagsVersion < 0 || p.OperationTagsVersion > 3 {
 			t.Errorf("%s params: unknown OperationTagsVersion %d", n, p.OperationTagsVersion)
 		}
 		if p.StartHeight == 0 {
@@ -209,13 +212,21 @@ func (p paramResult) IsVoteEnd() bool {
 }
 
 var paramResults = map[int64]paramResult{
-	0: {0, -1, 0}, // genesis
-	1: {0, -1, 8}, // bootstrap
-	// 3760129: {623, -1, 8 + 2}, // v017 start
+	0:       {0, -1, 0},            // genesis
+	1:       {0, -1, 8},            // bootstrap
+	5070849: {703, -1, 8 + 2},      // v018 start
+	5726208: {742, 15, 16 + 4 + 1}, // --> end
+	5726209: {743, 15, 8 + 2},      // v019 start
 }
 
 var paramBlocks = []BlockMetadata{
 	{
+		// genesis
+		Protocol:         ProtoGenesis,
+		NextProtocol:     ProtoBootstrap,
+		LevelInfo:        &LevelInfo{},
+		VotingPeriodInfo: &VotingPeriodInfo{},
+	}, {
 		// bootstrap
 		Protocol:     ProtoBootstrap,
 		NextProtocol: PtAtLas,
@@ -223,5 +234,47 @@ var paramBlocks = []BlockMetadata{
 			Level: 1,
 		},
 		VotingPeriodInfo: &VotingPeriodInfo{},
+	}, {
+		// v18 start
+		Protocol:     PtAtLas,
+		NextProtocol: PtAtLas,
+		LevelInfo: &LevelInfo{
+			Level:              5070849,
+			Cycle:              703,
+			CyclePosition:      0,
+			ExpectedCommitment: false,
+		},
+		VotingPeriodInfo: &VotingPeriodInfo{
+			Position:  0,
+			Remaining: 81912,
+		},
+	}, {
+		// v18 end
+		Protocol:     PtAtLas,
+		NextProtocol: PtBoreas,
+		LevelInfo: &LevelInfo{
+			Level:              5726208,
+			Cycle:              742,
+			CyclePosition:      16383,
+			ExpectedCommitment: true,
+		},
+		VotingPeriodInfo: &VotingPeriodInfo{
+			Position:  81912,
+			Remaining: 0,
+		},
+	}, {
+		// v19 start
+		Protocol:     PtBoreas,
+		NextProtocol: PtBoreas,
+		LevelInfo: &LevelInfo{
+			Level:              5726209,
+			Cycle:              743,
+			CyclePosition:      0,
+			ExpectedCommitment: false,
+		},
+		VotingPeriodInfo: &VotingPeriodInfo{
+			Position:  0,
+			Remaining: 81912,
+		},
 	},
 }

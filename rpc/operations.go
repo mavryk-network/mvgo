@@ -120,6 +120,9 @@ type OperationResult struct {
 
 	// v016 smart rollup
 	SmartRollupResult
+
+	// v019 DAL
+	DalResult
 }
 
 // Always use this helper to retrieve Ticket updates. This is because due to
@@ -306,7 +309,9 @@ func (e *OperationList) UnmarshalJSON(data []byte) error {
 		case mavryk.OpTypeDoubleBakingEvidence:
 			op = &DoubleBaking{}
 		case mavryk.OpTypeDoubleEndorsementEvidence,
-			mavryk.OpTypeDoublePreendorsementEvidence:
+			mavryk.OpTypeDoublePreendorsementEvidence,
+			mavryk.OpTypeDoubleAttestationEvidence,
+			mavryk.OpTypeDoublePreattestationEvidence:
 			op = &DoubleEndorsement{}
 		case mavryk.OpTypeSeedNonceRevelation:
 			op = &SeedNonce{}
@@ -316,7 +321,10 @@ func (e *OperationList) UnmarshalJSON(data []byte) error {
 		// consensus operations
 		case mavryk.OpTypeEndorsement,
 			mavryk.OpTypeEndorsementWithSlot,
-			mavryk.OpTypePreendorsement:
+			mavryk.OpTypePreendorsement,
+			mavryk.OpTypeAttestation,
+			mavryk.OpTypeAttestationWithDal,
+			mavryk.OpTypePreattestation:
 			op = &Endorsement{}
 
 		// amendment operations
@@ -374,10 +382,8 @@ func (e *OperationList) UnmarshalJSON(data []byte) error {
 			op = &SmartRollupExecuteOutboxMessage{}
 		case mavryk.OpTypeSmartRollupRecoverBond:
 			op = &SmartRollupRecoverBond{}
-		case mavryk.OpTypeDalAttestation:
-			op = &DalAttestation{}
-		case mavryk.OpTypeDalPublishSlotHeader:
-			op = &DalPublishSlotHeader{}
+		case mavryk.OpTypeDalPublishCommitment:
+			op = &DalPublishCommitment{}
 
 		default:
 			return fmt.Errorf("rpc: unsupported op %q", string(data[start:end]))

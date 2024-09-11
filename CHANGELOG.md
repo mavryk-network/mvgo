@@ -1,5 +1,28 @@
 # Changelog
 
+## v1.19.2
+* Update Parisnet hash
+* Update protocol history of ghostnet
+
+## v1.19.1
+* Update Paris protocol to [ParisB2](https://research-development.nomadic-labs.com/parisB2-announcement.html)
+
+## v1.19.0
+
+* BREAKING CHANGE: The cannonical import part has been changed from `blockwatch.cc` to `github.com/trilitech`
+* Paris protocol support
+* tezos: replaced `PreservedCycles` with `ConsensusRightsDelay` in params
+* tezos: added attestation-style versions of op types
+* tezos: default to attestation-style versions, using new op tags v3
+* tezos: add new PVM version tags
+* micheline: added D_TICKET opcode
+* rpc: decode endorsement-style and attestation-style ops into Endorsement
+* rpc: fetch attestation rights for proto v19+
+* rpc: add DalPublishCommitment op
+* rpc: add DalAttestation field to block metadata
+* rpc: add DalResult to operation metadata
+* rpc: extend Delegate struct with new v19 fields
+
 ## v1.18.4
 
 * 2dc9fa0 | rpc: add missing balance update fields
