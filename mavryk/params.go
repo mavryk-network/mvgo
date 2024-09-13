@@ -47,10 +47,10 @@ var (
 		CostPerByte:                  250,
 		OriginationSize:              257,
 		HardGasLimitPerOperation:     1040000,
-		HardGasLimitPerBlock:         2600000,
+		HardGasLimitPerBlock:         1733333,
 		HardStorageLimitPerOperation: 60000,
 		MaxOperationDataLength:       32768,
-		MaxOperationsTTL:             240,
+		MaxOperationsTTL:             360,
 	}).
 		WithChainId(Atlasnet).
 		WithDeployment(Deployments[Atlasnet].AtProtocol(ProtoV001))
@@ -138,7 +138,9 @@ func (p *Params) WithChainId(id ChainIdHash) *Params {
 func (p *Params) WithProtocol(h ProtocolHash) *Params {
 	var ok bool
 	p.Protocol = h
+	versionsMtx.RLock()
 	p.Version, ok = Versions[h]
+	versionsMtx.RUnlock()
 	if !ok {
 		var max int
 		for _, v := range Versions {
@@ -148,6 +150,8 @@ func (p *Params) WithProtocol(h ProtocolHash) *Params {
 			max = v
 		}
 		p.Version = max + 1
+		versionsMtx.Lock()
+		defer versionsMtx.Unlock()
 		Versions[h] = p.Version
 	}
 	switch {
@@ -248,7 +252,8 @@ func (p *Params) CycleFromHeight(height int64) int64 {
 func (p *Params) CycleStartHeight(c int64) int64 {
 	// adjust to target cycle
 	at := p.AtCycle(c)
-	return at.StartHeight - at.StartOffset + (c-at.StartCycle)*at.BlocksPerCycle
+	res := at.StartHeight - at.StartOffset + (c-at.StartCycle)*at.BlocksPerCycle
+	return res
 }
 
 func (p *Params) CycleEndHeight(c int64) int64 {
@@ -296,7 +301,11 @@ func (p *Params) SnapshotBlock(cycle int64, index int) int64 {
 	if base < 0 {
 		return 0
 	}
-	return at.CycleStartHeight(base) + int64(index+1)*at.BlocksPerSnapshot - 1
+	offset := int64(index+1) * at.BlocksPerSnapshot
+	if offset > at.BlocksPerCycle {
+		offset = at.BlocksPerCycle
+	}
+	return at.CycleStartHeight(base) + offset - 1
 }
 
 func (p *Params) SnapshotIndex(height int64) int {

@@ -19,7 +19,7 @@ type PrimMarshaler interface {
 //
 // If true, timestamps ,addresses, keys and signatures will be
 // marshaled in their optimized format.
-// See https://tezos.gitlab.io/active/michelson.html#differences-with-the-formal-notation.
+// See https://protocol.mavryk.org/active/michelson.html#differences-with-the-formal-notation.
 func MarshalPrim(v any, optimized bool) (micheline.Prim, error) {
 	// Handle types that we can process with a type switch
 	switch t := v.(type) {

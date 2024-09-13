@@ -12,9 +12,9 @@ import (
 
 	"github.com/mavryk-network/mvgo/contract"
 	"github.com/mavryk-network/mvgo/contract/bind"
+	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/mavryk-network/mvgo/micheline"
 	"github.com/mavryk-network/mvgo/rpc"
-	"github.com/mavryk-network/mvgo/mavryk"
 	"github.com/pkg/errors"
 )
 

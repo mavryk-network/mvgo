@@ -3,6 +3,8 @@
 
 package mavryk
 
+import "sync"
+
 var (
 	ProtoAlpha     = MustParseProtocolHash("ProtoALphaALphaALphaALphaALphaALphaALphaALphaDdp3zK")
 	ProtoGenesis   = MustParseProtocolHash("PrihK96nBAFSxVL1GLJTVhu9YnzkMFiBeuJRPA8NwuZVZCE1L6i")
@@ -19,7 +21,8 @@ var (
 	Atlasnet  = MustParseChainIdHash("NetXvyTAafh8goH")
 	Boreasnet = MustParseChainIdHash("NetXvyTAafh8goH")
 
-	Versions = map[ProtocolHash]int{
+	versionsMtx = sync.RWMutex{}
+	Versions    = map[ProtocolHash]int{
 		ProtoGenesis:   0,
 		ProtoBootstrap: 0,
 		ProtoV001:      18,
