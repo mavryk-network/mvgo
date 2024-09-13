@@ -2,7 +2,7 @@
 // Author: alex@blockwatch.cc
 
 // Michelson type spec
-// see http://tezos.gitlab.io/whitedoc/michelson.html#full-grammar
+// see http://protocol.mavryk.org/whitedoc/michelson.html#full-grammar
 //
 // PACK prefixes with 0x05!
 // So that when contracts checking signatures (multisigs etc) do the current
@@ -1494,6 +1494,9 @@ func (p *Prim) DecodeBuffer(buf *bytes.Buffer) error {
 			p.Args = append(p.Args, prim)
 		}
 		// annotation array byte size
+		if buf.Len() < 4 {
+			return io.ErrShortBuffer
+		}
 		size = int(binary.BigEndian.Uint32(buf.Next(4)))
 		if buf.Len() < size {
 			return io.ErrShortBuffer

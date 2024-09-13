@@ -32,9 +32,11 @@ type BalanceUpdate struct {
 
 	// Atlas staking
 	Staker struct {
-		Contract mavryk.Address `json:"contract"` // mv1/2/3 accounts (only stake, unstake)
-		Delegate mavryk.Address `json:"delegate"` // baker
-		Baker    mavryk.Address `json:"baker"`    // baker
+		Contract      mavryk.Address `json:"contract"`        // mv1/2/3 accounts (only stake, unstake)
+		Delegate      mavryk.Address `json:"delegate"`        // baker
+		Baker         mavryk.Address `json:"baker"`           // baker
+		BakerOwnStake mavryk.Address `json:"baker_own_stake"` // baker: replaced baker in v19
+		BakerEdge     mavryk.Address `json:"baker_edge"`      // baker: new in v19
 	} `json:"staker"`
 	DelayedOp mavryk.OpHash `json:"delayed_operation_hash"`
 }
@@ -81,6 +83,10 @@ func (b BalanceUpdate) Address() mavryk.Address {
 		return b.Staker.Delegate
 	case b.Staker.Baker.IsValid():
 		return b.Staker.Baker
+	case b.Staker.BakerOwnStake.IsValid():
+		return b.Staker.BakerOwnStake
+	case b.Staker.BakerEdge.IsValid():
+		return b.Staker.BakerEdge
 	}
 	return mavryk.Address{}
 }

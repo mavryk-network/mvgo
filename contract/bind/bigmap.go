@@ -7,7 +7,6 @@ import (
 
 	"github.com/mavryk-network/mvgo/micheline"
 	"github.com/mavryk-network/mvgo/rpc"
-
 	"github.com/pkg/errors"
 )
 

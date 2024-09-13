@@ -399,7 +399,7 @@ func (e *OperationList) UnmarshalJSON(data []byte) error {
 }
 
 // GetBlockOperationHash returns a single operation hashes included in block
-// https://tezos.gitlab.io/active/rpc.html#get-block-id-operation-hashes-list-offset-operation-offset
+// https://protocol.mavryk.org/active/rpc.html#get-block-id-operation-hashes-list-offset-operation-offset
 func (c *Client) GetBlockOperationHash(ctx context.Context, id BlockID, l, n int) (mavryk.OpHash, error) {
 	var hash mavryk.OpHash
 	u := fmt.Sprintf("chains/main/blocks/%s/operation_hashes/%d/%d", id, l, n)
@@ -408,7 +408,7 @@ func (c *Client) GetBlockOperationHash(ctx context.Context, id BlockID, l, n int
 }
 
 // GetBlockOperationHashes returns a list of list of operation hashes included in block
-// https://tezos.gitlab.io/active/rpc.html#get-block-id-operation-hashes
+// https://protocol.mavryk.org/active/rpc.html#get-block-id-operation-hashes
 func (c *Client) GetBlockOperationHashes(ctx context.Context, id BlockID) ([][]mavryk.OpHash, error) {
 	hashes := make([][]mavryk.OpHash, 0)
 	u := fmt.Sprintf("chains/main/blocks/%s/operation_hashes", id)
@@ -420,7 +420,7 @@ func (c *Client) GetBlockOperationHashes(ctx context.Context, id BlockID) ([][]m
 
 // GetBlockOperationListHashes returns a list of operation hashes included in block
 // at a specified list position (i.e. validation pass) [0..3]
-// https://tezos.gitlab.io/active/rpc.html#get-block-id-operation-hashes-list-offset
+// https://protocol.mavryk.org/active/rpc.html#get-block-id-operation-hashes-list-offset
 func (c *Client) GetBlockOperationListHashes(ctx context.Context, id BlockID, l int) ([]mavryk.OpHash, error) {
 	hashes := make([]mavryk.OpHash, 0)
 	u := fmt.Sprintf("chains/main/blocks/%s/operation_hashes/%d", id, l)
@@ -432,7 +432,7 @@ func (c *Client) GetBlockOperationListHashes(ctx context.Context, id BlockID, l 
 
 // GetBlockOperation returns information about a single validated Tezos operation group
 // (i.e. a single operation or a batch of operations) at list l and position n
-// https://tezos.gitlab.io/active/rpc.html#get-block-id-operations-list-offset-operation-offset
+// https://protocol.mavryk.org/active/rpc.html#get-block-id-operations-list-offset-operation-offset
 func (c *Client) GetBlockOperation(ctx context.Context, id BlockID, l, n int) (*Operation, error) {
 	var op Operation
 	u := fmt.Sprintf("chains/main/blocks/%s/operations/%d/%d", id, l, n)
@@ -447,7 +447,7 @@ func (c *Client) GetBlockOperation(ctx context.Context, id BlockID, l, n int) (*
 
 // GetBlockOperationList returns information about all validated Tezos operation group
 // inside operation list l (i.e. validation pass) [0..3].
-// https://tezos.gitlab.io/active/rpc.html#get-block-id-operations-list-offset
+// https://protocol.mavryk.org/active/rpc.html#get-block-id-operations-list-offset
 func (c *Client) GetBlockOperationList(ctx context.Context, id BlockID, l int) ([]Operation, error) {
 	ops := make([]Operation, 0)
 	u := fmt.Sprintf("chains/main/blocks/%s/operations/%d", id, l)
@@ -462,7 +462,7 @@ func (c *Client) GetBlockOperationList(ctx context.Context, id BlockID, l int) (
 
 // GetBlockOperations returns information about all validated Tezos operation groups
 // from all operation lists in block.
-// https://tezos.gitlab.io/active/rpc.html#get-block-id-operations
+// https://protocol.mavryk.org/active/rpc.html#get-block-id-operations
 func (c *Client) GetBlockOperations(ctx context.Context, id BlockID) ([][]Operation, error) {
 	ops := make([][]Operation, 0)
 	u := fmt.Sprintf("chains/main/blocks/%s/operations", id)

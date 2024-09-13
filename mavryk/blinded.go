@@ -8,7 +8,6 @@ import (
 	"fmt"
 
 	"github.com/mavryk-network/mvgo/base58"
-
 	"golang.org/x/crypto/blake2b"
 )
 

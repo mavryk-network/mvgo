@@ -4,9 +4,8 @@
 package main
 
 import (
-	"github.com/mavryk-network/mvgo/rpc"
-
 	logpkg "github.com/echa/log"
+	"github.com/mavryk-network/mvgo/rpc"
 )
 
 var (

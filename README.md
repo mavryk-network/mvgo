@@ -49,7 +49,7 @@ import (
 
 ### Micheline Support
 
-Tezos uses [Micheline](https://tezos.gitlab.io/shell/micheline.html) for encoding smart contract data and code. The positive is that Micheline is strongly typed, the downside is that it's complex and has a few ambiguities that make it hard to use. MvGo contains a library that lets you decode, analyze and construct compliant Micheline data structures from Go.
+Tezos uses [Micheline](https://protocol.mavryk.org/shell/micheline.html) for encoding smart contract data and code. The positive is that Micheline is strongly typed, the downside is that it's complex and has a few ambiguities that make it hard to use. MvGo contains a library that lets you decode, analyze and construct compliant Micheline data structures from Go.
 
 Micheline uses basic **primitives** for encoding types and values. These primitives can be expressed in JSON and binary format and MvGo can translate between them efficiently. Micheline also supports type **annotations** which are used by high-level languages to express complex data types like records and their field names.
 
@@ -256,7 +256,8 @@ err := val.Unmarshal(&transfer)
 
 ```go
 import (
-	"github.com/mavryk-network/mvgo/micheline"
+	"context"
+
 	"github.com/mavryk-network/mvgo/rpc"
 	"github.com/mavryk-network/mvgo/mavryk"
 )
@@ -265,17 +266,22 @@ import (
 addr := mavryk.MustParseAddress("KT1Hkg5qeNhfwpKW4fXvq7HGZB9z2EnmCCA9")
 
 // init RPC client
-c, _ := rpc.NewClient("https://rpc.tzstats.com", nil)
+c, _ := rpc.NewClient("https://rpc.tzpro.io", nil)
+ctx := context.TODO()
 
 // fetch the contract's script and most recent storage
 script, _ := c.GetContractScript(ctx, addr)
 
-// bigmap pointers as []int64
-ids := script.BigmapsById()
-
 // bigmap pointers as named map[string]int64 (names from type annotations)
-named := script.BigmapsByName()
+// Note that if a bigmap is anonymous, e.g. in a list, a temporary name will
+// be returned here
+named := script.Bigmaps()
 
+// bigmap pointers as []int64
+ids := []int64{}
+for _, v := range named {
+	ids = append(ids, v)
+}
 ```
 
 #### Fetch and decode bigmap values

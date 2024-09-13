@@ -41,7 +41,7 @@ type Constants struct {
 }
 
 // GetConstants returns chain configuration constants at block id
-// https://tezos.gitlab.io/tezos/api/rpc.html#get-block-id-context-constants
+// https://protocol.mavryk.org/tezos/api/rpc.html#get-block-id-context-constants
 func (c *Client) GetConstants(ctx context.Context, id BlockID) (con Constants, err error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/constants", id)
 	err = c.Get(ctx, u, &con)
@@ -50,7 +50,7 @@ func (c *Client) GetConstants(ctx context.Context, id BlockID) (con Constants, e
 
 // GetCustomConstants returns chain configuration constants at block id
 // marshaled into a user-defined structure.
-// https://tezos.gitlab.io/tezos/api/rpc.html#get-block-id-context-constants
+// https://protocol.mavryk.org/tezos/api/rpc.html#get-block-id-context-constants
 func (c *Client) GetCustomConstants(ctx context.Context, id BlockID, resp any) error {
 	u := fmt.Sprintf("chains/main/blocks/%s/context/constants", id)
 	return c.Get(ctx, u, resp)

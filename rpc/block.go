@@ -274,7 +274,7 @@ func (m *BlockMetadata) GetLevel() int64 {
 }
 
 // GetBlock returns information about a Tezos block
-// https://tezos.gitlab.io/mainnet/api/rpc.html#get-block-id
+// https://protocol.mavryk.org/mainnet/api/rpc.html#get-block-id
 func (c *Client) GetBlock(ctx context.Context, id BlockID) (*Block, error) {
 	var block Block
 	u := fmt.Sprintf("chains/main/blocks/%s", id)
@@ -288,14 +288,14 @@ func (c *Client) GetBlock(ctx context.Context, id BlockID) (*Block, error) {
 }
 
 // GetBlockHeight returns information about a Tezos block
-// https://tezos.gitlab.io/mainnet/api/rpc.html#get-block-id
+// https://protocol.mavryk.org/mainnet/api/rpc.html#get-block-id
 func (c *Client) GetBlockHeight(ctx context.Context, height int64) (*Block, error) {
 	return c.GetBlock(ctx, BlockLevel(height))
 }
 
 // GetTips returns hashes of the current chain tip blocks, first in the array is the
 // current main chain.
-// https://tezos.gitlab.io/mainnet/api/rpc.html#chains-chain-id-blocks
+// https://protocol.mavryk.org/mainnet/api/rpc.html#chains-chain-id-blocks
 func (c *Client) GetTips(ctx context.Context, depth int, head mavryk.BlockHash) ([][]mavryk.BlockHash, error) {
 	if depth == 0 {
 		depth = 1
@@ -314,19 +314,19 @@ func (c *Client) GetTips(ctx context.Context, depth int, head mavryk.BlockHash) 
 }
 
 // GetHeadBlock returns the chain's head block.
-// https://tezos.gitlab.io/mainnet/api/rpc.html#chains-chain-id-blocks
+// https://protocol.mavryk.org/mainnet/api/rpc.html#chains-chain-id-blocks
 func (c *Client) GetHeadBlock(ctx context.Context) (*Block, error) {
 	return c.GetBlock(ctx, Head)
 }
 
 // GetGenesisBlock returns main chain genesis block.
-// https://tezos.gitlab.io/mainnet/api/rpc.html#chains-chain-id-blocks
+// https://protocol.mavryk.org/mainnet/api/rpc.html#chains-chain-id-blocks
 func (c *Client) GetGenesisBlock(ctx context.Context) (*Block, error) {
 	return c.GetBlock(ctx, Genesis)
 }
 
 // GetTipHeader returns the head block's header.
-// https://tezos.gitlab.io/mainnet/api/rpc.html#chains-chain-id-blocks
+// https://protocol.mavryk.org/mainnet/api/rpc.html#chains-chain-id-blocks
 func (c *Client) GetTipHeader(ctx context.Context) (*BlockHeader, error) {
 	var head BlockHeader
 	u := "chains/main/blocks/head/header"
@@ -337,7 +337,7 @@ func (c *Client) GetTipHeader(ctx context.Context) (*BlockHeader, error) {
 }
 
 // GetBlockHeader returns a block header.
-// https://tezos.gitlab.io/mainnet/api/rpc.html#chains-chain-id-blocks
+// https://protocol.mavryk.org/mainnet/api/rpc.html#chains-chain-id-blocks
 func (c *Client) GetBlockHeader(ctx context.Context, id BlockID) (*BlockHeader, error) {
 	var head BlockHeader
 	u := fmt.Sprintf("chains/main/blocks/%s/header", id)
@@ -348,7 +348,7 @@ func (c *Client) GetBlockHeader(ctx context.Context, id BlockID) (*BlockHeader, 
 }
 
 // GetBlockMetadata returns a block metadata.
-// https://tezos.gitlab.io/mainnet/api/rpc.html#chains-chain-id-blocks
+// https://protocol.mavryk.org/mainnet/api/rpc.html#chains-chain-id-blocks
 func (c *Client) GetBlockMetadata(ctx context.Context, id BlockID) (*BlockMetadata, error) {
 	var meta BlockMetadata
 	u := fmt.Sprintf("chains/main/blocks/%s/metadata", id)
@@ -362,7 +362,7 @@ func (c *Client) GetBlockMetadata(ctx context.Context, id BlockID) (*BlockMetada
 }
 
 // GetBlockHash returns the main chain's block header.
-// https://tezos.gitlab.io/mainnet/api/rpc.html#chains-chain-id-blocks
+// https://protocol.mavryk.org/mainnet/api/rpc.html#chains-chain-id-blocks
 func (c *Client) GetBlockHash(ctx context.Context, id BlockID) (hash mavryk.BlockHash, err error) {
 	u := fmt.Sprintf("chains/main/blocks/%s/hash", id)
 	err = c.Get(ctx, u, &hash)
@@ -370,7 +370,7 @@ func (c *Client) GetBlockHash(ctx context.Context, id BlockID) (hash mavryk.Bloc
 }
 
 // GetBlockPredHashes returns count parent blocks before block with given hash.
-// https://tezos.gitlab.io/mainnet/api/rpc.html#get-chains-chain-id-blocks
+// https://protocol.mavryk.org/mainnet/api/rpc.html#get-chains-chain-id-blocks
 func (c *Client) GetBlockPredHashes(ctx context.Context, hash mavryk.BlockHash, count int) ([]mavryk.BlockHash, error) {
 	if count <= 0 {
 		count = 1
@@ -384,7 +384,7 @@ func (c *Client) GetBlockPredHashes(ctx context.Context, hash mavryk.BlockHash, 
 }
 
 // GetInvalidBlocks lists blocks that have been declared invalid along with the errors that led to them being declared invalid.
-// https://tezos.gitlab.io/mainnet/api/rpc.html#get-chains-chain-id-invalid-blocks
+// https://protocol.mavryk.org/mainnet/api/rpc.html#get-chains-chain-id-invalid-blocks
 func (c *Client) GetInvalidBlocks(ctx context.Context) ([]*InvalidBlock, error) {
 	var invalidBlocks []*InvalidBlock
 	if err := c.Get(ctx, "chains/main/invalid_blocks", &invalidBlocks); err != nil {
@@ -394,7 +394,7 @@ func (c *Client) GetInvalidBlocks(ctx context.Context) ([]*InvalidBlock, error) 
 }
 
 // GetInvalidBlock returns a single invalid block with the errors that led to it being declared invalid.
-// https://tezos.gitlab.io/mainnet/api/rpc.html#get-chains-chain-id-invalid-blocks-block-hash
+// https://protocol.mavryk.org/mainnet/api/rpc.html#get-chains-chain-id-invalid-blocks-block-hash
 func (c *Client) GetInvalidBlock(ctx context.Context, blockID mavryk.BlockHash) (*InvalidBlock, error) {
 	var invalidBlock InvalidBlock
 	u := fmt.Sprintf("chains/main/invalid_blocks/%s", blockID)
